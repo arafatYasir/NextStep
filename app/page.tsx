@@ -1,19 +1,28 @@
-import Button from "@/components/Button";
+import Header from "@/components/Header";
+import InputCard from "@/components/InputCard";
 
 export default function Home() {
   return (
-    <main className="container mx-auto py-12 min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl 2xl:text-5xl font-bold text-center">Keyword Insight Engine</h1>
+    <>
+      <Header />
 
-      <p className="max-w-[800px] text-base 2xl:text-lg text-center text-slate-500 mt-2">
-        <q>Instantly extract and analyze the most critical keywords from any job description. Know exactly what skills to highlight on your resume before you apply.</q>
+      <main className="container mx-auto px-6 pt-32 pb-12 min-h-screen flex flex-col items-center">
+        {/* ---- Hero Section ---- */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4 font-heading">
+            Keyword Insight Engine
+          </h1>
 
-        <em title="Keyword Insight Engine" aria-label="Keyword Insight Engine">- KIE</em>
-      </p>
+          <p className="max-w-2xl text-lg text-slate-600 mx-auto">
+            Instantly extract and analyze the most critical keywords from any job description.
+            Know exactly what skills to highlight on your resume before you apply.
+          </p>
+        </div>
 
-      <div className="flex items-center justify-center mt-6">
-        <Button text="Analyze Job Description" />
-      </div>
-    </main>
+        {/* ---- Main Input Card ---- */}
+        <InputCard />
+      </main>
+    </>
   );
 }
+
