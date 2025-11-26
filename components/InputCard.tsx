@@ -37,7 +37,6 @@ const InputCard = () => {
             {/* ---- Job Category Selector ---- */}
             <div className="mb-6">
                 <label
-                    htmlFor="job-category-selector"
                     className="block text-base font-semibold text-slate-900 mb-2">
                     Job Category
                 </label>
