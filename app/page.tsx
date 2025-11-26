@@ -1,11 +1,8 @@
-import Header from "@/components/Header";
 import InputCard from "@/components/InputCard";
 
 export default function Home() {
   return (
     <>
-      <Header />
-
       <main className="container mx-auto px-6 pt-32 pb-12 min-h-screen flex flex-col items-center">
         {/* ---- Hero Section ---- */}
         <div className="text-center mb-12">

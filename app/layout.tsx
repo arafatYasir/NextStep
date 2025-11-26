@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${plusJakarta.variable} antialiased bg-slate-50 text-slate-900`}
       >
+        <Header />
         {children}
       </body>
     </html>
