@@ -16,6 +16,14 @@ const InputCard = () => {
     const categoryDropdownRef = useRef<HTMLDivElement>(null);
     const roleDropdownRef = useRef<HTMLDivElement>(null);
 
+    // useEffect to change the selected role
+    useEffect(() => {
+        if(jobCategory) {
+            setSelectedRole("");
+        }
+    }, [jobCategory]);
+
+    // useEffect to handle outside clicks
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(e.target as Node)) {
@@ -73,7 +81,7 @@ const InputCard = () => {
                                         setJobCategory(category);
                                         setCategoryDropdownOpen(false);
                                     }}
-                                    className="px-4 py-3 hover:bg-slate-50 cursor-pointer text-slate-600 hover:text-indigo-600 transition-colors border-b border-slate-100 hover:border-slate-200 last:border-0"
+                                    className={`px-4 py-3 ${category === jobCategory ? "bg-indigo-600 text-slate-50" : "text-slate-600 hover:bg-slate-50 hover:text-indigo-600 hover:border-slate-200 border-b border-slate-100"} cursor-pointer transition-colors last:border-0`}
                                 >
                                     {category}
                                 </div>
@@ -117,7 +125,7 @@ const InputCard = () => {
                                         setSelectedRole(role);
                                         setRoleDropdownOpen(false);
                                     }}
-                                    className="px-4 py-3 hover:bg-slate-50 cursor-pointer text-slate-600 hover:text-indigo-600 transition-colors border-b border-slate-100 hover:border-slate-200 last:border-0"
+                                    className={`px-4 py-3 ${role === selectedRole ? "bg-indigo-600 text-slate-50" : "text-slate-600 hover:bg-slate-50 hover:text-indigo-600 hover:border-slate-200 border-b border-slate-100"} cursor-pointer transition-colors last:border-0`}
                                 >
                                     {role}
                                 </div>
