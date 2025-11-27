@@ -60,7 +60,7 @@ const InputCard = () => {
                 >
                     <div
                         onClick={() => setCategoryDropdownOpen(prev => !prev)}
-                        className={`w-full bg-slate-50 border ${categoryDropdownOpen ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-slate-200'} rounded-xl px-4 py-3 text-slate-900 cursor-pointer flex items-center justify-between transition-all hover:border-indigo-300`}
+                        className={`w-full bg-slate-50 border ${categoryDropdownOpen ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-slate-200'} ${!categoryDropdownOpen ? "hover:border-indigo-300" : ""} rounded-xl px-4 py-3 text-slate-900 cursor-pointer flex items-center justify-between transition-all`}
                     >
                         <span className={!jobCategory ? "text-slate-400" : "font-medium"}>
                             {jobCategory || "Select a job category..."}
@@ -104,7 +104,7 @@ const InputCard = () => {
                 >
                     <div
                         onClick={jobCategory ? () => setRoleDropdownOpen(prev => !prev) : undefined}
-                        className={`w-full bg-slate-50 border ${roleDropdownOpen ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-slate-200'} ${jobCategory ? "cursor-pointer hover:border-indigo-300" : "cursor-not-allowed"} rounded-xl px-4 py-3 text-slate-900 flex items-center justify-between transition-all`}
+                        className={`w-full bg-slate-50 border ${roleDropdownOpen ? "border-indigo-500 ring-2 ring-indigo-500/20" : "border-slate-200"} ${jobCategory ? "cursor-pointer" : "cursor-not-allowed"} ${jobCategory && !roleDropdownOpen ? "hover:border-indigo-300" : ""} rounded-xl px-4 py-3 text-slate-900 flex items-center justify-between transition-all`}
                     >
                         <span className={!selectedRole ? "text-slate-400" : "font-medium"}>
                             {selectedRole || "Select a job role..."}
@@ -148,7 +148,7 @@ const InputCard = () => {
                     value={jobDescription}
                     onChange={(e) => setJobDescription(e.target.value)}
                     placeholder="Paste the job description here..."
-                    className="w-full h-64 bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none outline-none"
+                    className="w-full h-64 bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-900 placeholder:text-slate-400 hover:border-indigo-300 focus:ring-2 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all resize-none outline-none"
                 />
                 <p className="text-sm text-slate-500">
                     {jobDescription.length} characters
