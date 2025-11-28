@@ -18,6 +18,7 @@ const DashboardMenus = () => {
         localStorage.removeItem("admin");
         router.push("/admin");
     };
+
     return (
         <nav className="flex-1 p-4 space-y-2">
             {menuItems.map((item: menuItem) => {

@@ -83,22 +83,6 @@ const DashboardPage = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Welcome Card */}
-                <div className="bg-linear-to-br from-[rgb(var(--bg-primary))] to-[rgb(var(--text-accent))] rounded-2xl p-8 text-white shadow-2xl">
-                    <h2 className="text-3xl font-bold mb-2 font-(--font-heading)">Welcome to Admin Dashboard! 👋</h2>
-                    <p className="text-white/80 mb-6">
-                        Manage your job roles, view analytics, and configure settings all in one place.
-                    </p>
-                    <div className="flex space-x-4">
-                        <button className="px-6 py-3 bg-white text-[rgb(var(--bg-primary))] rounded-xl font-semibold hover:shadow-xl transition-all duration-200 hover:scale-105">
-                            Get Started
-                        </button>
-                        <button className="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-all duration-200">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
             </div>
         </>
     );

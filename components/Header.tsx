@@ -31,10 +31,10 @@ const Header = () => {
                         </Link>
 
                         <Link
-                            href="/admin"
+                            href="/admin/dashboard"
                             className="text-base text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--text-primary))] transition-colors"
                         >
-                            Admin
+                            Dashboard
                         </Link>
 
                         {/* ---- Theme Toggle Button ---- */}
