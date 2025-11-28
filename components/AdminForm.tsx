@@ -30,7 +30,7 @@ const AdminForm = () => {
         }
 
         localStorage.setItem("admin", "true");
-        router.push("/dashboard");
+        router.push("/admin/dashboard");
     }
 
     return (
