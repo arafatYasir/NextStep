@@ -30,8 +30,6 @@ const ThemeToggleBtn = () => {
 
     }, [theme, isMounted]);
 
-    
-
     return (
         <button
             className="relative w-12 h-6 bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-full p-1 hover:border-[rgb(var(--border-hover))] focus:outline-none focus:ring-2 focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] cursor-pointer group"

@@ -86,3 +86,22 @@
   --alpha-shadow-sm: 0.1;
   --alpha-shadow-primary: 0.3;
 }
+
+/* ---- Custom Scrollbar ---- */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: rgb(var(--text-primary));
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--text-primary));
+}

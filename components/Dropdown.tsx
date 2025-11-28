@@ -39,7 +39,7 @@ const Dropdown = ({ label, ref, options, isOpen, setIsOpen, value, setValue, any
                 </div>
 
                 {isOpen && (
-                    <div className="absolute z-20 w-full mt-2 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] rounded-xl shadow-xl max-h-60 overflow-y-auto">
+                    <div className="absolute z-20 w-full mt-2 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] rounded-xl shadow-xl max-h-60 overflow-y-auto scrollbar-custom">
                         {options.map((option) => (
                             <div
                                 key={option}

@@ -29,6 +29,8 @@ const Header = () => {
                             <GitHubIcon />
                             <span>GitHub</span>
                         </Link>
+                        
+                        {/* ---- Theme Toggle Button ---- */}
                         <ThemeToggleBtn />
                     </div>
                 </nav>
