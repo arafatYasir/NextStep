@@ -57,6 +57,7 @@ const InputCard = () => {
                 setIsOpen={setCategoryDropdownOpen}
                 value={jobCategory}
                 setValue={setJobCategory}
+                anyDependency={false}
             />
 
             {/* ---- Role Selector ---- */}
@@ -68,6 +69,8 @@ const InputCard = () => {
                 setIsOpen={setRoleDropdownOpen}
                 value={selectedRole}
                 setValue={setSelectedRole}
+                anyDependency={true}
+                dependency={jobCategory}
             />
 
             {/* ---- Job Description Input ---- */}
@@ -83,7 +86,7 @@ const InputCard = () => {
                     value={jobDescription}
                     onChange={(e) => setJobDescription(e.target.value)}
                     placeholder="Paste the job description here..."
-                    className="w-full h-64 bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-xl p-4 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] transition-all resize-none outline-none"
+                    className="w-full h-64 bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-xl p-4 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] resize-none outline-none"
                 />
                 <p className="text-sm text-[rgb(var(--text-tertiary))]">
                     {jobDescription.length} characters

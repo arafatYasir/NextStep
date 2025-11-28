@@ -1,6 +1,7 @@
 import GitHubIcon from "@/icons/GithubIcon";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggleBtn from "./ThemeToggleBtn";
 
 const Header = () => {
     return (
@@ -28,6 +29,7 @@ const Header = () => {
                             <GitHubIcon />
                             <span>GitHub</span>
                         </Link>
+                        <ThemeToggleBtn />
                     </div>
                 </nav>
             </div>

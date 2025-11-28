@@ -9,7 +9,7 @@ interface props {
 const Button = ({ text, paddingX = "16px", paddingY = "12px", disabled, onClick }: props) => {
     return (
         <button
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:hover:bg-indigo-600"
+            className="w-full bg-[rgb(var(--bg-primary))] hover:bg-[rgb(var(--bg-primary-hover))] text-[rgb(var(--text-on-primary))] font-semibold rounded-lg shadow-lg shadow-[rgba(var(--shadow-primary),var(--alpha-shadow-primary))] active:scale-[0.98] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:hover:bg-[rgb(var(--bg-primary))] transition-all"
             style={{
                 padding: `${paddingY} ${paddingX}`
             }}

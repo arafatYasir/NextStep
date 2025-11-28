@@ -28,6 +28,20 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${plusJakarta.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))]`}
       >
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem("theme");
+                  if (theme === "dark") {
+                    document.body.classList.add("dark");
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <Header />
         {children}
       </body>
