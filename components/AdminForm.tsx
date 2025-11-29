@@ -10,20 +10,43 @@ const AdminForm = () => {
     const [password, setPassword] = useState("");
     const [emailFocused, setEmailFocused] = useState(false);
     const [passwordFocused, setPasswordFocused] = useState(false);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         e.preventDefault();
 
-        if (!emailRegex.test(email)) {
-            alert("Email is not valid!");
-            return;
-        }
-        
+        try {
+            if (!emailRegex.test(email)) {
+                alert("Email is not valid!");
+                return;
+            }
 
-        localStorage.setItem("admin", "true");
-        router.push("/admin/dashboard");
+            const res = await fetch("/api/auth", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({email, password})
+            })
+
+            const data = await res.json();
+
+            if(res.status === 200) {
+                localStorage.setItem("admin", "true");
+                router.push("/admin/dashboard");
+                alert(data.message);
+            }
+            else {
+                alert(data.error || "Login failed");
+            }
+        } catch (e) {
+            console.log("Error while login: ", e);
+        } finally {
+            setLoading(false);
+        } 
     }
 
     return (
@@ -52,6 +75,7 @@ const AdminForm = () => {
                             ? 'border-[rgb(var(--border-focus))] ring-2 ring-[rgba(var(--ring-focus),var(--alpha-ring))]'
                             : 'border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))]'
                             } rounded-xl pl-12 pr-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] focus:outline-none transition-all duration-200`}
+                        required
                     />
                 </div>
             </div>
@@ -80,6 +104,7 @@ const AdminForm = () => {
                             ? 'border-[rgb(var(--border-focus))] ring-2 ring-[rgba(var(--ring-focus),var(--alpha-ring))]'
                             : 'border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))]'
                             } rounded-xl pl-12 pr-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] focus:outline-none transition-all duration-200`}
+                        required
                     />
                 </div>
             </div>
@@ -89,7 +114,7 @@ const AdminForm = () => {
                 type="submit"
                 className="w-full bg-linear-to-r from-[rgb(var(--bg-primary))] to-[rgb(var(--text-accent))] hover:from-[rgb(var(--bg-primary-hover))] hover:to-[rgb(var(--bg-primary))] text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-[rgba(var(--shadow-primary),var(--alpha-shadow-primary))] hover:shadow-xl hover:shadow-[rgba(var(--shadow-primary),0.4)] transition-all duration-200 transform cursor-pointer active:scale-[0.98]"
             >
-                Sign In
+                {loading ? "Loading..." : "Sign In"}
             </button>
         </form>
     )
