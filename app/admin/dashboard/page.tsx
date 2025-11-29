@@ -21,7 +21,7 @@ const DashboardPage = () => {
     if (loading) {
         return <div>Loading...</div>;
     }
-        
+    
     return (
         <>
             {/* ---- Top Bar ---- */}
