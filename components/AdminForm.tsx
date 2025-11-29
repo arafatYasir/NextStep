@@ -20,14 +20,7 @@ const AdminForm = () => {
             alert("Email is not valid!");
             return;
         }
-
-        const adminEmail = process.env.NEXT_PUBLIC_EMAIL;
-        const adminPassword = process.env.NEXT_PUBLIC_PASSWORD;
-
-        if (email !== adminEmail || password !== adminPassword) {
-            alert("Invalid email or password!");
-            return;
-        }
+        
 
         localStorage.setItem("admin", "true");
         router.push("/admin/dashboard");
