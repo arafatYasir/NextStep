@@ -9,12 +9,27 @@ const InputCard = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    // Extra hooks
-    const roleDropdownRef = useRef<HTMLDivElement>(null);
+    const handleAnalyze = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch("/api/ai", {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({ jobRole, jobDescription })
+            });
 
-    const handleAnalyze = () => {
-        // TODO: Connect to API
+            const data = await res.json();
+            console.log(data);
+        }
+        catch (e: any) {
+            console.log("API Error: ", e);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const isDisabled = !jobRole.trim() || !jobDescription.trim();
@@ -63,8 +78,8 @@ const InputCard = () => {
 
             {/* Action Button */}
             <Button
-                text="Analyze Keywords"
-                disabled={isDisabled}
+                text={loading ? "Analyzing..." : "Analyze Keywords"}
+                disabled={isDisabled || loading}
                 paddingY="8px"
                 onClick={handleAnalyze}
             />
