@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Button from "./Button";
+import JobDescAnalysisModal from "./JobDescAnalysisModal";
 
 const InputCard = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState({});
 
     const handleAnalyze = async () => {
         try {
@@ -15,13 +17,13 @@ const InputCard = () => {
             const res = await fetch("/api/ai", {
                 method: "POST",
                 headers: {
-                    "Content-Type" : "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ jobRole, jobDescription })
             });
 
             const data = await res.json();
-            console.log(data);
+            setResult(data);
         }
         catch (e: any) {
             console.log("API Error: ", e);
@@ -81,6 +83,14 @@ const InputCard = () => {
                 paddingY="8px"
                 onClick={handleAnalyze}
             />
+
+            {/* ---- Showing modal to show the result ---- */}
+            {Object.keys(result).length > 0 && (
+                <JobDescAnalysisModal
+                    analysis={result as any}
+                    onClose={() => setResult({})}
+                />
+            )}
         </div>
     );
 };
