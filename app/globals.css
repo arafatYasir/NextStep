@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable dark mode with class strategy */
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;

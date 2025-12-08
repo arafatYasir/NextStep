@@ -29,7 +29,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
     }, []);
 
     return (
-        <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
+        <div className="fixed inset-0 z-1 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
             {/* ---- Header ---- */}
             <div className="flex-none px-6 py-4 border-b border-[rgb(var(--border-light))] bg-[rgb(var(--bg-surface))] z-10 shadow-sm flex items-center justify-between">
                 <div>
@@ -61,6 +61,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Hard Skills"
                                 description="Core technical competencies required."
                                 icon={<Zap size={20} className="text-blue-500" />}
+                                copyContent={analysis.skills?.map(s => s.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
                                     {analysis.skills?.length > 0 ? analysis.skills.map((skill, idx) => (
@@ -74,6 +75,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Tools & Technologies"
                                 description="Software, platforms, and frameworks."
                                 icon={<Wrench size={20} className="text-indigo-500" />}
+                                copyContent={analysis.tools?.map(t => t.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
                                     {analysis.tools?.length > 0 ? analysis.tools.map((tool, idx) => (
@@ -87,6 +89,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Key Phrases & Terminology"
                                 description="Important technical concepts and industry terms."
                                 icon={<BookOpen size={20} className="text-teal-500" />}
+                                copyContent={analysis.phrases?.map(p => p.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
                                     {analysis.phrases?.length > 0 ? analysis.phrases.map((phrase, idx) => (
@@ -103,6 +106,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Soft Skills"
                                 description="Interpersonal and behavioral traits."
                                 icon={<MessageSquare size={20} className="text-emerald-500" />}
+                                copyContent={analysis.softSkills?.map(s => s.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-2.5">
                                     {analysis.softSkills?.length > 0 ? analysis.softSkills.map((skill, idx) => (
@@ -116,6 +120,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Action Verbs"
                                 description="Impact words for your resume."
                                 icon={<Target size={20} className="text-rose-500" />}
+                                copyContent={analysis.actionVerbs?.map(v => v.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-2">
                                     {analysis.actionVerbs?.length > 0 ? analysis.actionVerbs.map((verb, idx) => (

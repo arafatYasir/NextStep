@@ -18,13 +18,13 @@ const ThemeToggleBtn = () => {
     useEffect(() => {
         if(!isMounted) return;
 
-        const body = document.querySelector("body");
+        const html = document.querySelector("html");
 
         if(theme === "dark") {
-            body?.classList.add("dark");
+            html?.classList.add("dark");
             localStorage.setItem("theme", "dark");
         } else {
-            body?.classList.remove("dark");
+            html?.classList.remove("dark");
             localStorage.setItem("theme", "light");
         }
 
