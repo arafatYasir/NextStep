@@ -3,13 +3,99 @@
 import { useState } from "react";
 import Button from "./Button";
 import JobDescAnalysisModal from "./analysis/JobDescAnalysisModal";
+const jobInsights = {
+  actionVerbs: [
+    { name: "building", count: 2 },
+    { name: "hiring", count: 1 },
+    { name: "develop", count: 1 },
+    { name: "convert", count: 2 },
+    { name: "understand", count: 2 },
+    { name: "optimize", count: 1 },
+    { name: "build", count: 1 },
+    { name: "contribute", count: 1 },
+    { name: "use", count: 2 },
+    { name: "collaborate", count: 1 },
+    { name: "debug", count: 1 },
+    { name: "write", count: 1 },
+    { name: "perform", count: 1 },
+    { name: "stay updated", count: 1 }
+  ],
+
+  educationalRequirements: [
+    "Graduate from a reputed university in CSE or Software Engineering (final-year project experience acceptable).",
+    "Bachelor in Engineering (BEngg) in Computer Science & Engineering"
+  ],
+
+  phrases: [
+    { name: "scalable, high-performance", count: 1 },
+    { name: "software development", count: 1 },
+    { name: "modern, user-focused interfaces", count: 1 },
+    { name: "responsive, interactive front-end applications", count: 1 },
+    { name: "front end solution", count: 1 },
+    { name: "end-to-end front-end flow", count: 1 },
+    { name: "component and interface integration", count: 1 },
+    { name: "UI/UX designs", count: 1 },
+    { name: "client requirements", count: 2 },
+    { name: "fully functional systems", count: 1 },
+    { name: "applications for performance, SEO, and scalability", count: 1 },
+    { name: "Next.js SSR/ISR", count: 1 },
+    { name: "reusable components", count: 1 },
+    { name: "proper frontend architecture", count: 1 },
+    { name: "frontend–backend integrations", count: 1 },
+    { name: "front-end workflow", count: 1 },
+    { name: "interaction patterns", count: 1 },
+    { name: "proper interface integration", count: 1 },
+    { name: "HTML5, CSS3, responsive design", count: 1 },
+    { name: "component layout", count: 1 },
+    { name: "database operations", count: 1 },
+    { name: "version control", count: 2 },
+    { name: "Blockchain exposure", count: 1 },
+    { name: "final-year project experience", count: 1 },
+    { name: "Software Company", count: 1 },
+    { name: "UI/UX Design", count: 1 }
+  ],
+
+  salary: "Tk. 20000 - 25000 (Monthly)",
+
+  seniorityLevels: ["Junior"],
+
+  skills: [
+    { name: "React.js", count: 2 },
+    { name: "Next.js", count: 4 },
+    { name: "JavaScript", count: 2 },
+    { name: "JavaScript ES6+", count: 2 },
+    { name: "Node.js", count: 2 },
+    { name: "HTML5", count: 2 },
+    { name: "CSS3", count: 2 },
+    { name: "Python", count: 1 }
+  ],
+
+  softSkills: [
+    { name: "passionate", count: 1 },
+    { name: "user-focused", count: 1 },
+    { name: "problem-solving", count: 1 },
+    { name: "positive attitude", count: 1 },
+    { name: "willingness to learn", count: 1 },
+    { name: "benevolent behaviour", count: 1 },
+    { name: "good team collaboration", count: 1 }
+  ],
+
+  tools: [
+    { name: "Git", count: 3 },
+    { name: "REST APIs", count: 2 },
+    { name: "MySQL", count: 1 },
+    { name: "PostgreSQL", count: 1 },
+    { name: "MongoDB", count: 1 }
+  ]
+};
+
 
 const InputCard = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState({});
+    const [result, setResult] = useState(jobInsights);
 
     const handleAnalyze = async () => {
         try {
@@ -88,7 +174,7 @@ const InputCard = () => {
             {(Object.keys(result).length > 0 || loading) && (
                 <JobDescAnalysisModal
                     analysis={result as any}
-                    onClose={() => setResult({})}
+                    onClose={() => setResult({} as any)}
                 />
             )}
         </div>

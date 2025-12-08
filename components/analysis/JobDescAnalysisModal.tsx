@@ -29,7 +29,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
     }, []);
 
     return (
-        <div className="fixed inset-0 z-1 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
+        <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
             {/* ---- Header ---- */}
             <div className="flex-none px-6 py-4 border-b border-[rgb(var(--border-light))] bg-[rgb(var(--bg-surface))] z-10 shadow-sm flex items-center justify-between">
                 <div>

@@ -14,6 +14,19 @@ interface props {
 const Section = ({ title, description, icon, children, copyContent }: props) => {
     const [copied, setCopied] = useState(false);
 
+    const handleCopy = async () => {
+        try {
+            if (!copyContent) return;
+            
+            await navigator.clipboard.writeText(copyContent);
+            setCopied(true);
+
+            setTimeout(() => setCopied(false), 2000);
+        } catch (e) {
+            console.log("Error while copying text: ", e);
+        }
+    }
+
     return (
         <div className="bg-[rgb(var(--bg-surface))] rounded-2xl p-6 shadow-sm border border-[rgb(var(--border-light))] w-full">
             <div className="flex items-start justify-between mb-6 gap-4">
@@ -29,7 +42,7 @@ const Section = ({ title, description, icon, children, copyContent }: props) => 
 
                 {copyContent && (
                     <button
-                        // onClick={handleCopy}
+                        onClick={handleCopy}
                         title="Copy to clipboard"
                         className="p-2 rounded-lg text-[rgb(var(--text-tertiary))] hover:text-[rgb(var(--text-primary))] hover:bg-[rgb(var(--bg-hover))] transition-all active:scale-95 border border-transparent hover:border-[rgb(var(--border-light))]"
                     >
@@ -41,6 +54,7 @@ const Section = ({ title, description, icon, children, copyContent }: props) => 
                     </button>
                 )}
             </div>
+            {/* ---- Rendering Content ---- */}
             {children}
         </div>
     );

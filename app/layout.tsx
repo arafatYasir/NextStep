@@ -24,10 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${plusJakarta.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))]`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -35,13 +33,20 @@ export default function RootLayout({
                 try {
                   const theme = localStorage.getItem("theme");
                   if (theme === "dark") {
-                    document.body.classList.add("dark");
+                    document.documentElement.classList.add("dark");
+                  }
+                  else {
+                    document.documentElement.classList.remove("dark");
                   }
                 } catch (e) {}
               })();
             `,
           }}
         />
+      </head>
+      <body
+        className={`${inter.variable} ${plusJakarta.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))]`}
+      >
         <Header />
         {children}
       </body>
