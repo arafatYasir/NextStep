@@ -31,40 +31,40 @@ export async function POST(req: NextRequest) {
         PRIORITY SECTIONS (highest weight):
         Responsibilities, Additional Requirements, Skills, Preferred Skills, Experience, Experience Requirements, Education Requirements, Salary.
 
-        GLOBAL COUNTING RULE (VERY IMPORTANT):
+        1. GLOBAL COUNTING RULE (VERY IMPORTANT):
         EVERY keyword MUST be counted wherever it appears: As a standalone word, Inside any phrase. This applies to: Hard Skills, Soft Skills, Tools. Example: If “PSD to HTML” appears twice → PSD = 2, If “Figma to HTML” + later “Figma” → Figma = 2. ONLY Education and Salary are EXCLUDED from frequency counting.
 
-        NO DUPLICATE MERGING RULE:
+        2. NO DUPLICATE MERGING RULE (VERY IMPORTANT):
         DO NOT merge similar keywords. Treat these as separate: React ≠ React.js ≠ ReactJS, jQuery ≠ JQuery, Next.js ≠ NextJS, Count each exactly as written.
 
-        HARD SKILLS:
+        3. HARD SKILLS (VERY IMPORTANT):
         Programming languages, frameworks, libraries. Examples: HTML, CSS, JavaScript, React, Next.js. Count every occurrence using the GLOBAL COUNTING RULE.
 
-        TOOLS (STRICT SOFTWARE ONLY):
-        Design tools, platforms, services, databases, deployment tools. Examples: PSD, Figma, XD, Git, GitHub, Postman, MongoDB, Firebase, Supabase, Vercel, Docker, etc. NO languages or frameworks allowed here. Count every occurrence using the GLOBAL COUNTING RULE.
+        4. TOOLS (STRICTLY SOFTWARE ONLY) (VERY IMPORTANT):
+        Design tools, platforms, services, databases, deployment tools. Examples: PSD, Figma, XD, Git, GitHub, Postman, MongoDB, Firebase, Supabase, Vercel, Docker, etc. NO languages or frameworks allowed here like "React" or "Next.js" type things which appears on hard skills. Count every occurrence using the GLOBAL COUNTING RULE.
 
-        SOFT SKILLS:
+        5. SOFT SKILLS (VERY IMPORTANT):
         Human traits only (communication, teamwork, patience, adaptability, self-motivation, problem-solving). No verbs allowed. Count every occurrence using the GLOBAL COUNTING RULE.
 
-        PHRASES:
+        6. PHRASES (VERY IMPORTANT):
         Multi-word technical concepts only. Examples: “Responsive Design”, “Cross-Browser Compatibility”, “PSD to HTML”, “Figma to HTML”, “REST API”. Extract only meaningful technical phrases. Count it.
 
-        ACTION VERBS:
+        7. ACTION VERBS (VERY IMPORTANT):
         Must be true verbs only (develop, collaborate, improve, troubleshoot, solve, manage). No nouns or adjectives. Count it.
 
-        SENIORITY:
-        Infer from text only: Internship → “Intern / Entry-level”, 0–2 years → Junior, 3–5 → Mid, 5+ → Senior.
+        8. SENIORITY:
+        Infer from text only: Internship → “Intern / Entry-level”, 0–2 years → Junior, 3–5 → Mid, 5+ → Senior. Also mention in brackets the experience mentioned in job description if found. Like -> Junior (at least 2 years).
 
-        EDUCATION:
+        9. EDUCATION:
         Copy exactly as written from the job description. NO counting.
 
-        SALARY:
+        10. SALARY:
         Copy exactly as written if found. If missing → "Not specified". NO counting.
 
-        OUTPUT RULES:
+        OUTPUT RULES (VERY IMPORTANT):
         Return ONLY the JSON-like format below. NO explanations. NO backticks. NO extra text.
 
-        FORMAT:
+        FORMAT (VERY IMPORTANT):
         {
             "skills": [ {"name": "", "count": 0} ],
             "softSkills": [ {"name": "", "count": 0} ],

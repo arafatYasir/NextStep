@@ -59,7 +59,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                             {/* Hard Skills */}
                             <Section
                                 title="Hard Skills"
-                                description="Core technical competencies required."
+                                description="Core technical competencies required like languages, frameworks, libraries."
                                 icon={<Zap size={20} className="text-blue-500" />}
                                 copyContent={analysis.skills?.map(s => s.name).join(", ")}
                             >
@@ -73,7 +73,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                             {/* Tools & Technologies */}
                             <Section
                                 title="Tools & Technologies"
-                                description="Software, platforms, and frameworks."
+                                description="Software, platforms, and services."
                                 icon={<Wrench size={20} className="text-indigo-500" />}
                                 copyContent={analysis.tools?.map(t => t.name).join(", ")}
                             >
