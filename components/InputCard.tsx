@@ -93,7 +93,7 @@ const InputCard = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [result, setResult] = useState({});
 
     const handleAnalyze = async () => {
