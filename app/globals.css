@@ -107,3 +107,13 @@
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   background: rgb(var(--text-primary));
 }
+
+/* ---- Shimmer Loading Animation ---- */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}

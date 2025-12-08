@@ -89,12 +89,11 @@ const jobInsights = {
   ]
 };
 
-
 const InputCard = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [result, setResult] = useState({});
 
     const handleAnalyze = async () => {
@@ -175,6 +174,7 @@ const InputCard = () => {
                 <JobDescAnalysisModal
                     analysis={result as any}
                     onClose={() => setResult({} as any)}
+                    isLoading={loading}
                 />
             )}
         </div>

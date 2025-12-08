@@ -4,8 +4,9 @@ import { X, Briefcase, GraduationCap, DollarSign, Wrench, MessageSquare, Zap, Ta
 import { useEffect } from "react";
 import EmptyState from "./EmptyState";
 import Section from "./Section";
-import Badge from "./Badge";
+import Badge from "./badges/Badge";
 import InfoCard from "./InfoCard";
+import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
 
 interface Analysis {
     skills: { name: string, count: number }[],
@@ -18,7 +19,7 @@ interface Analysis {
     salary: string
 }
 
-const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClose: () => void }) => {
+const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: Analysis, onClose: () => void, isLoading: boolean }) => {
     // Prevent background scrolling when modal is open
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -27,6 +28,10 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
             document.body.style.overflow = 'unset';
         };
     }, []);
+
+    console.log(analysis?.skills?.length === 0 && isLoading);
+    console.log(analysis?.skills?.length);
+    console.log(isLoading)
 
     return (
         <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
@@ -61,12 +66,18 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Hard Skills"
                                 description="Core technical competencies required like languages, frameworks, libraries."
                                 icon={<Zap size={20} className="text-blue-500" />}
-                                copyContent={analysis.skills?.map(s => s.name).join(", ")}
+                                copyContent={analysis?.skills?.map(s => s.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
-                                    {analysis.skills?.length > 0 ? analysis.skills.map((skill, idx) => (
-                                        <Badge key={idx} name={skill.name} count={skill.count} variant="blue" />
-                                    )) : <EmptyState />}
+                                    {
+                                        (!analysis?.skills?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={8} />
+                                        ) : (analysis?.skills?.length > 0 && !isLoading) ? (
+                                            analysis?.skills?.map((skill, idx) => (
+                                                <Badge key={idx} name={skill.name} count={skill.count} variant="blue" />
+                                            ))
+                                        ) : <EmptyState />
+                                    }
                                 </div>
                             </Section>
 
@@ -75,12 +86,18 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Tools & Technologies"
                                 description="Software, platforms, and services."
                                 icon={<Wrench size={20} className="text-indigo-500" />}
-                                copyContent={analysis.tools?.map(t => t.name).join(", ")}
+                                copyContent={analysis?.tools?.map(t => t.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
-                                    {analysis.tools?.length > 0 ? analysis.tools.map((tool, idx) => (
-                                        <Badge key={idx} name={tool.name} count={tool.count} variant="indigo" />
-                                    )) : <EmptyState />}
+                                    {
+                                        (!analysis?.tools?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={8} />
+                                        ) : (analysis?.tools?.length > 0 && !isLoading) ? (
+                                            analysis?.tools?.map((tool, idx) => (
+                                                <Badge key={idx} name={tool.name} count={tool.count} variant="indigo" />
+                                            ))
+                                        ) : <EmptyState />
+                                    }
                                 </div>
                             </Section>
 
@@ -89,12 +106,18 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Key Phrases & Terminology"
                                 description="Important technical concepts and industry terms."
                                 icon={<BookOpen size={20} className="text-teal-500" />}
-                                copyContent={analysis.phrases?.map(p => p.name).join(", ")}
+                                copyContent={analysis?.phrases?.map(p => p.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
-                                    {analysis.phrases?.length > 0 ? analysis.phrases.map((phrase, idx) => (
-                                        <Badge key={idx} name={phrase.name} count={phrase.count} variant="teal" />
-                                    )) : <EmptyState />}
+                                    {
+                                        (!analysis?.phrases?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={8} />
+                                        ) : (analysis?.phrases?.length > 0 && !isLoading) ? (
+                                            analysis?.phrases?.map((phrase, idx) => (
+                                                <Badge key={idx} name={phrase.name} count={phrase.count} variant="teal" />
+                                            ))
+                                        ) : <EmptyState />
+                                    }
                                 </div>
                             </Section>
                         </div>
@@ -106,12 +129,18 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Soft Skills"
                                 description="Interpersonal and behavioral traits."
                                 icon={<MessageSquare size={20} className="text-emerald-500" />}
-                                copyContent={analysis.softSkills?.map(s => s.name).join(", ")}
+                                copyContent={analysis?.softSkills?.map(s => s.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-2.5">
-                                    {analysis.softSkills?.length > 0 ? analysis.softSkills.map((skill, idx) => (
-                                        <Badge key={idx} name={skill.name} count={skill.count} variant="emerald" />
-                                    )) : <EmptyState />}
+                                    {
+                                        (!analysis?.softSkills?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={6} />
+                                        ) : (analysis?.softSkills?.length > 0 && !isLoading) ? (
+                                            analysis?.softSkills?.map((skill, idx) => (
+                                                <Badge key={idx} name={skill.name} count={skill.count} variant="emerald" />
+                                            ))
+                                        ) : <EmptyState />
+                                    }
                                 </div>
                             </Section>
 
@@ -120,12 +149,18 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 title="Action Verbs"
                                 description="Impact words for your resume."
                                 icon={<Target size={20} className="text-rose-500" />}
-                                copyContent={analysis.actionVerbs?.map(v => v.name).join(", ")}
+                                copyContent={analysis?.actionVerbs?.map(v => v.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-2">
-                                    {analysis.actionVerbs?.length > 0 ? analysis.actionVerbs.map((verb, idx) => (
-                                        <Badge key={idx} name={verb.name} count={verb.count} variant="rose" />
-                                    )) : <EmptyState />}
+                                    {
+                                        (!analysis?.actionVerbs?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={6} />
+                                        ) : (analysis?.actionVerbs?.length > 0 && !isLoading) ? (
+                                            analysis?.actionVerbs?.map((verb, idx) => (
+                                                <Badge key={idx} name={verb.name} count={verb.count} variant="rose" />
+                                            ))
+                                        ) : <EmptyState />
+                                    }
                                 </div>
                             </Section>
 
@@ -134,12 +169,12 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                 <InfoCard
                                     title="Education & Qualifications"
                                     icon={<GraduationCap size={20} className="text-blue-500" />}
-                                    items={analysis.educationalRequirements}
+                                    items={analysis?.educationalRequirements}
                                 />
                                 <InfoCard
                                     title="Experience & Seniority"
                                     icon={<Briefcase size={20} className="text-orange-500" />}
-                                    items={analysis.seniorityLevels}
+                                    items={analysis?.seniorityLevels}
                                 />
                             </div>
 
@@ -154,7 +189,7 @@ const JobDescAnalysisModal = ({ analysis, onClose }: { analysis: Analysis, onClo
                                         <span className="text-sm font-semibold uppercase tracking-wider">Target Compensation</span>
                                     </div>
                                     <p className="text-2xl font-bold tracking-tight">
-                                        {analysis.salary && analysis.salary !== "Not specified" ? analysis.salary : "Not disclosed"}
+                                        {analysis?.salary && analysis?.salary !== "Not specified" ? analysis?.salary : "Not disclosed"}
                                     </p>
                                 </div>
                             </div>
