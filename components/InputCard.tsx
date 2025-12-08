@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Button from "./Button";
-import JobDescAnalysisModal from "./JobDescAnalysisModal";
+import JobDescAnalysisModal from "./analysis/JobDescAnalysisModal";
 
 const InputCard = () => {
     // States
@@ -85,7 +85,7 @@ const InputCard = () => {
             />
 
             {/* ---- Showing modal to show the result ---- */}
-            {Object.keys(result).length > 0 && (
+            {(Object.keys(result).length > 0 || loading) && (
                 <JobDescAnalysisModal
                     analysis={result as any}
                     onClose={() => setResult({})}

@@ -20,60 +20,61 @@ export async function POST(req: NextRequest) {
     try {
         const { jobRole, jobDescription } = await req.json();
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
         const prompt = `
-        You are an expert ATS (Applicant Tracking System) Optimization Specialist and Resume Strategist.
-        Your goal is to analyze a job description and extract critical keywords that will help a candidate beat the ATS and rank higher.
+        You are an ATS Keyword Intelligence Engine. Analyze the given Job Role and Job Description and extract ATS-critical data.
 
-        **INPUT:**
-        - Job Role: "${jobRole}"
-        - Job Description: "${jobDescription}"
+        Job Role: "${jobRole}"
+        Job Description: "${jobDescription}"
+        
+        PRIORITY SECTIONS (highest weight):
+        Responsibilities, Additional Requirements, Skills, Preferred Skills, Experience, Experience Requirements, Education Requirements, Salary.
 
-        **TASK:**
-        Analyze the provided job description and extract the following data points. Return the result in a STRICT JSON format.
+        GLOBAL COUNTING RULE (VERY IMPORTANT):
+        EVERY keyword MUST be counted wherever it appears: As a standalone word, Inside any phrase. This applies to: Hard Skills, Soft Skills, Tools. Example: If “PSD to HTML” appears twice → PSD = 2, If “Figma to HTML” + later “Figma” → Figma = 2. ONLY Education and Salary are EXCLUDED from frequency counting.
 
-        **EXTRACTION RULES:**
+        NO DUPLICATE MERGING RULE:
+        DO NOT merge similar keywords. Treat these as separate: React ≠ React.js ≠ ReactJS, jQuery ≠ JQuery, Next.js ≠ NextJS, Count each exactly as written.
 
-        1.  **Skills (Hard Skills):** Technical skills, core competencies, and domain-specific knowledge required for the role.
-            *   *Example:* Python, Financial Analysis, SEO, Machine Learning.
-            *   *Requirement:* Calculate the frequency of each skill in the text.
+        HARD SKILLS:
+        Programming languages, frameworks, libraries. Examples: HTML, CSS, JavaScript, React, Next.js. Count every occurrence using the GLOBAL COUNTING RULE.
 
-        2.  **Soft Skills:** Interpersonal skills, character traits, and working styles.
-            *   *Example:* Communication, Leadership, Adaptability, Problem-solving.
-            *   *Requirement:* Calculate the frequency of each soft skill.
+        TOOLS (STRICT SOFTWARE ONLY):
+        Design tools, platforms, services, databases, deployment tools. Examples: PSD, Figma, XD, Git, GitHub, Postman, MongoDB, Firebase, Supabase, Vercel, Docker, etc. NO languages or frameworks allowed here. Count every occurrence using the GLOBAL COUNTING RULE.
 
-        3.  **Tools & Technologies:** Specific software, hardware, platforms, or frameworks mentioned.
-            *   *Example:* Jira, AWS, Excel, Salesforce, Docker.
-            *   *Requirement:* Calculate the frequency of each tool.
+        SOFT SKILLS:
+        Human traits only (communication, teamwork, patience, adaptability, self-motivation, problem-solving). No verbs allowed. Count every occurrence using the GLOBAL COUNTING RULE.
 
-        4.  **Phrases (Key Concepts):** Multi-word technical concepts, methodologies, or industry-standard terms that are crucial for the role.
-            *   *Context:* These are not just single words but specific concepts like "Agile methodologies", "Kanban", "Scrum", "Git/Github workflows", "Server-side Rendering (SSR)", "reusable components", "CI/CD pipelines", "RESTful API design".
-            *   *Requirement:* Extract the most relevant phrases.
+        PHRASES:
+        Multi-word technical concepts only. Examples: “Responsive Design”, “Cross-Browser Compatibility”, “PSD to HTML”, “Figma to HTML”, “REST API”. Extract only meaningful technical phrases. Count it.
 
-        5.  **Action Verbs:** Strong verbs used in the job description that describe responsibilities.
-            *   *Example:* Led, Developed, Managed, Optimized, Created.
+        ACTION VERBS:
+        Must be true verbs only (develop, collaborate, improve, troubleshoot, solve, manage). No nouns or adjectives. Count it.
 
-        6.  **Seniority Levels:** Any mention of experience level or seniority.
-            *   *Example:* Senior, Junior, Lead, 5+ years experience, Entry-level.
+        SENIORITY:
+        Infer from text only: Internship → “Intern / Entry-level”, 0–2 years → Junior, 3–5 → Mid, 5+ → Senior.
 
-        7.  **Educational Requirements:** Degrees, certifications, or fields of study mentioned.
-            *   *Example:* Bachelor's in Computer Science, MBA, PMP Certification.
+        EDUCATION:
+        Copy exactly as written from the job description. NO counting.
 
-        8.  **Salary:** Any salary range or compensation details mentioned. If none, return "Not specified".
+        SALARY:
+        Copy exactly as written if found. If missing → "Not specified". NO counting.
 
-        **OUTPUT FORMAT (JSON LIKE FORMAT BUT NOT REAL JSON, IT SHOULD BE TEXT NOT JSON BUT LOOKS LIKE JSON LIKE FORMAT AND THERE WILL BE NOTHING EXCEPT JSON LIKE FORMAT, NO EXPLANATIONS NO EXTRA LINES ANYTHING ELSE):**
+        OUTPUT RULES:
+        Return ONLY the JSON-like format below. NO explanations. NO backticks. NO extra text.
+
+        FORMAT:
         {
-          "skills": [ {"name": "Skill Name", "count": 3}, ... ],
-          "softSkills": [ {"name": "Soft Skill Name", "count": 2}, ... ],
-          "tools": [ {"name": "Tool Name", "count": 5}, ... ],
-          "phrases": ["Phrase 1", "Phrase 2", ...],
-          "actionVerbs": ["Verb 1", "Verb 2", ...],
-          "seniorityLevels": ["Level 1", ...],
-          "educationalRequirements": ["Req 1", ...],
-          "salary": "Salary details or 'Not specified'"
+            "skills": [ {"name": "", "count": 0} ],
+            "softSkills": [ {"name": "", "count": 0} ],
+            "tools": [ {"name": "", "count": 0} ],
+            "phrases": [ {"name": "", "count": 0} ],
+            "actionVerbs": [ {"name": "", "count": 0} ],
+            "seniorityLevels": [ "" ],
+            "educationalRequirements": [ "" ],
+            "salary": "USD 10000-20000"
         }
-        **FINALLY DON'T PUT ANYTHING LIKE THIS: any backtick or "backtick backtick backtick text" PLEASE DON'T DO THAT JUST THE JSON LIKE FORMAT
         `;
 
         const result = await model.generateContent(prompt);

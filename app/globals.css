@@ -95,7 +95,6 @@
 
 .scrollbar-custom::-webkit-scrollbar-track {
   background: transparent;
-  margin: 10px 0;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
