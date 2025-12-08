@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
         const prompt = `
-        You are an ATS Keyword Intelligence Engine. Analyze the given Job Role and Job Description and extract ATS-critical data.
+        You are an ATS Keyword Intelligence Engine. Analyze the given Job Role and Job Description and extract ATS-critical data. You have 20+ years of experience in ATS Keyword Intelligence. Make sure each section keywords remain unique. One section keywords should not be repeated in other sections.
 
         Job Role: "${jobRole}"
         Job Description: "${jobDescription}"

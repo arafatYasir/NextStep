@@ -13,7 +13,7 @@ const InfoCard = ({ title, icon, items }: props) => (
         <ul className="space-y-2.5">
             {items?.length > 0 ? items.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-sm text-[rgb(var(--text-primary))] font-medium leading-relaxed">
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[rgb(var(--text-tertiary))]" />
+                    <span className="mt-1.5 w-2 h-2 rounded-full bg-[rgb(var(--text-tertiary))] shrink-0" />
                     <span>{item}</span>
                 </li>
             )) : (
