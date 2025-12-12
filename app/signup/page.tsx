@@ -62,7 +62,7 @@ const SignUpPage = () => {
                 email,
                 password,
                 options: {
-                    emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm?next=/`
+                    emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm`
                 }
             });
 

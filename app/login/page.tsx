@@ -67,7 +67,7 @@ const LoginPage = () => {
                 toast.success("Login successful");
                 setEmail("");
                 setPassword("");
-                router.push("/");
+                router.replace("/");
             }
             else if(error) {
                 toast.error("Login failed");
