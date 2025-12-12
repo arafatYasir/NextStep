@@ -134,7 +134,7 @@ const InputCard = () => {
                     value={jobRole}
                     onChange={(e) => setJobRole(e.target.value.slice(0, 30))}
                     placeholder="Write the job role"
-                    className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] outline-none"
+                    className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))] outline-none"
                 />
                 <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
                     {jobRole.length}/30 characters
@@ -154,7 +154,7 @@ const InputCard = () => {
                     value={jobDescription}
                     onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))}
                     placeholder="Paste the job description here..."
-                    className="w-full h-64 bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] resize-none outline-none"
+                    className="w-full h-64 bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))] resize-none outline-none"
                 />
                 <p className="text-sm text-[rgb(var(--text-tertiary))]">
                     {jobDescription.length}/3000 characters

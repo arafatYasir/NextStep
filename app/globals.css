@@ -11,83 +11,87 @@
 /* ---- Theme Variables: Light Mode ---- */
 :root {
   /* ---- Background Colors ---- */
-  --bg-body: 248 250 252;
-  --bg-surface: 255 255 255;
-  --bg-surface-alpha: 255 255 255;
-  --bg-input: 248 250 252;
-  --bg-primary: 79 70 229;
-  --bg-primary-hover: 67 56 202;
-  --bg-hover: 248 250 252;
+  --bg-body: 248, 250, 252;
+  --bg-surface: 255, 255, 255;
+  --bg-surface-alpha: 255, 255, 255;
+  --bg-input: 248, 250, 252;
+  --bg-primary: 79, 70, 229;
+  --bg-primary-hover: 67, 56, 202;
+  --bg-hover: 248, 250, 252;
 
   /* ---- Text Colors ---- */
-  --text-primary: 15 23 42;
-  --text-secondary: 71 85 105;
-  --text-tertiary: 100 116 139;
-  --text-muted: 148 163 184;
-  --text-inverse: 248 250 252;
-  --text-on-primary: 255 255 255;
-  --text-accent: 79 70 229;
+  --text-primary: 15, 23, 42;
+  --text-secondary: 71, 85, 105;
+  --text-tertiary: 100, 116, 139;
+  --text-muted: 148, 163, 184;
+  --text-inverse: 248, 250, 252;
+  --text-on-primary: 255, 255, 255;
+  --text-accent: 79, 70, 229;
 
   /* ---- Border Colors ---- */
-  --border-light: 241 245 249;
-  --border-default: 226 232 240;
-  --border-hover: 165 180 252;
-  --border-focus: 99 102 241;
+  --border-light: 241, 245, 249;
+  --border-default: 226, 232, 240;
+  --border-hover: 99, 102, 241;
+  --border-focus: 99, 102, 241;
 
   /* ---- Ring/Outline Colors ---- */
-  --ring-focus: 99 102 241;
+  --ring-focus: 99, 102, 241;
 
   /* ---- Shadow Colors ---- */
-  --shadow-sm: 0 0 0;
-  --shadow-md: 0 0 0;
-  --shadow-primary: 99 102 241;
+  --shadow-sm: 0, 0, 0;
+  --shadow-md: 0, 0, 0;
+  --shadow-primary: 99, 102, 241;
 
   /* ---- Opacity Values ---- */
-  --alpha-backdrop: 0.2;
-  --alpha-ring: 0.2;
+  --alpha-backdrop: 0.3;
+  --alpha-ring: 0.3;
   --alpha-shadow-sm: 0.04;
-  --alpha-shadow-primary: 0.2;
+  --alpha-shadow-primary: 0.3;
 }
 
 /* ---- Theme Variables: Dark Mode ---- */
 .dark {
   /* ---- Background Colors ---- */
-  --bg-body: 15 23 42;
-  --bg-surface: 30 41 59;
-  --bg-surface-alpha: 30 41 59;
-  --bg-input: 51 65 85;
-  --bg-primary: 99 102 241;
-  --bg-primary-hover: 129 140 248;
-  --bg-hover: 51 65 85;
+  --bg-body: 15, 23, 42;
+  --bg-surface: 30, 41, 59;
+  --bg-surface-alpha: 30, 41, 59;
+  --bg-input: 51, 65, 85;
+  --bg-primary: 99, 102, 241;
+  --bg-primary-hover: 129, 140, 248;
+  --bg-hover: 51, 65, 85;
 
   /* ---- Text Colors ---- */
-  --text-primary: 248 250 252;
-  --text-secondary: 148 163 184;
-  --text-tertiary: 148 163 184;
-  --text-muted: 100 116 139;
-  --text-inverse: 15 23 42;
-  --text-on-primary: 255 255 255;
-  --text-accent: 129 140 248;
+  --text-primary: 248, 250, 252;
+  --text-secondary: 148, 163, 184;
+  --text-tertiary: 148, 163, 184;
+  --text-muted: 100, 116, 139;
+  --text-inverse: 15, 23, 42;
+  --text-on-primary: 255, 255, 255;
+  --text-accent: 129, 140, 248;
 
   /* ---- Border Colors ---- */
-  --border-light: 51 65 85;
-  --border-default: 71 85 105;
-  --border-hover: 129 140 248;
-  --border-focus: 129 140 248;
+  --border-light: 51, 65, 85;
+  --border-default: 71, 85, 105;
+  --border-hover: 129, 140, 248;
+  --border-focus: 129, 140, 248;
 
   /* ---- Ring/Outline Colors ---- */
-  --ring-focus: 129 140 248;
+  --ring-focus: 129, 140, 248;
 
   /* ---- Shadow Colors ---- */
-  --shadow-sm: 0 0 0;
-  --shadow-md: 0 0 0;
-  --shadow-primary: 129 140 248;
+  --shadow-sm: 0, 0, 0;
+  --shadow-md: 0, 0, 0;
+  --shadow-primary: 129, 140, 248;
 
   /* ---- Opacity Values ---- */
   --alpha-backdrop: 0.3;
   --alpha-ring: 0.3;
   --alpha-shadow-sm: 0.1;
   --alpha-shadow-primary: 0.3;
+}
+
+body {
+  line-height: 1;
 }
 
 /* ---- Custom Scrollbar ---- */
