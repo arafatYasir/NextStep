@@ -4,6 +4,8 @@ import { useState } from "react";
 import Button from "@/components/Button";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import toast from "react-hot-toast";
 
 interface ErrorState {
     email?: string;
@@ -51,8 +53,28 @@ const SignUpPage = () => {
 
         try {
             setLoading(true);
-        } catch (e) {
 
+            // Create the supabae client
+            const supabase = createClient();
+
+            // Sign up the user
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm?next=/`
+                }
+            });
+
+            if(data?.user) {
+                toast.success("Check your email for the confirmation link!");
+                setEmail("");
+                setPassword("");
+            }
+
+        } catch (e: any) {
+            toast.error("Something went wrong. Please try again.");
+            console.error(e.message);
         } finally {
             setLoading(false);
         }
@@ -60,14 +82,14 @@ const SignUpPage = () => {
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] p-6">
-            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-[rgb(var(--border-light))] p-8">
+            <div className="w-full max-w-[500px] bg-[rgb(var(--bg-surface))] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-[rgb(var(--border-light))] p-8">
                 {/* Title */}
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-bold text-[rgb(var(--text-primary))] mb-2">
-                        Create a new account
+                        Join the Keyword Insight Engine
                     </h1>
                     <p className="text-[rgb(var(--text-secondary))]">
-                        It's simple and easy.
+                        Fast, simple, and secure. Build your account effortlessly.
                     </p>
                 </div>
 
@@ -132,6 +154,7 @@ const SignUpPage = () => {
                     <Button
                         text={loading ? "Signing up..." : "Sign up"}
                         paddingY="12px"
+                        disabled={loading}
                     />
                 </form>
 
