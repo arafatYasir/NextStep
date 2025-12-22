@@ -7,12 +7,12 @@ import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { LogOut, LayoutDashboard, User as UserIcon } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
 const AuthenticationMenus = () => {
@@ -65,19 +65,20 @@ const AuthenticationMenus = () => {
                     </Link>
 
                     {/* User Avatar Placeholder */}
-                    <div className="w-9 h-9 rounded-full bg-[rgb(var(--bg-primary))] flex items-center justify-center text-[rgb(var(--text-on-primary))] ring-2 ring-[rgb(var(--bg-surface))] shadow-md">
-                        <UserIcon className="w-5 h-5" />
-                    </div>
-
                     <DropdownMenu>
-                        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-                        <DropdownMenuContent>
+                        <DropdownMenuTrigger>
+                            <div className="w-9 h-9 rounded-full bg-[rgb(var(--bg-primary))] flex items-center justify-center text-[rgb(var(--text-on-primary))] cursor-pointer">
+                                <UserIcon className="w-5 h-5" />
+                            </div>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent side="bottom">
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Profile</DropdownMenuItem>
                             <DropdownMenuItem>Billing</DropdownMenuItem>
                             <DropdownMenuItem>Team</DropdownMenuItem>
-                            <DropdownMenuItem>Subscription</DropdownMenuItem>
+                            <DropdownMenuItem variant="destructive" onClick={handleSignOut}>Log Out</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </>
