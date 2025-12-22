@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface ErrorState {
     email?: string;
@@ -65,7 +67,7 @@ const SignUpPage = () => {
                 }
             });
 
-            if(data?.user) {
+            if (data?.user) {
                 toast.success("Check your email for the confirmation link!");
                 setEmail("");
                 setPassword("");
@@ -102,15 +104,16 @@ const SignUpPage = () => {
                         >
                             Email Address
                         </label>
-                        <input
+
+                        <Input
                             id="email"
                             type="email"
+                            placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
-                            className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] outline-none transition-all"
                             required
                         />
+
                         {/* Error message */}
                         {error?.email && (
                             <p className="text-red-500 text-[15px] mt-2">{error?.email}</p>
@@ -127,19 +130,19 @@ const SignUpPage = () => {
                         </label>
 
                         <div className="relative">
-                            <input
+                            <Input
                                 id="password"
                                 type={showPassword ? "text" : "password"}
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
-                                className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] outline-none transition-all"
+                                className="pr-10"
                                 required
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-2 top-1/2 transform -translate-y-1/2 border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-surface))] rounded-lg p-1.5 cursor-pointer transition-all"
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                             >
                                 {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                             </button>
@@ -152,10 +155,12 @@ const SignUpPage = () => {
 
                     {/* ---- Sign Up Button ---- */}
                     <Button
-                        text={loading ? "Signing up..." : "Sign up"}
-                        paddingY="12px"
+                        type="submit"
                         disabled={loading}
-                    />
+                        className="w-full"
+                    >
+                        {loading ? "Signing up..." : "Sign up"}
+                    </Button>
                 </form>
 
                 {/* ---- Links ---- */}
