@@ -14,6 +14,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import ThemeToggleBtn from "./ThemeToggleBtn";
 
 const AuthenticationMenus = () => {
     const supabase = createClient();
@@ -76,8 +77,7 @@ const AuthenticationMenus = () => {
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Profile</DropdownMenuItem>
-                            <DropdownMenuItem>Billing</DropdownMenuItem>
-                            <DropdownMenuItem>Team</DropdownMenuItem>
+                            <DropdownMenuItem><ThemeToggleBtn /></DropdownMenuItem>
                             <DropdownMenuItem variant="destructive" onClick={handleSignOut}>Log Out</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

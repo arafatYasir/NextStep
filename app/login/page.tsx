@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Button from "@/components/Button";
+import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
 
 interface ErrorState {
     email?: string;
@@ -103,13 +104,12 @@ const LoginPage = () => {
                         >
                             Email Address
                         </label>
-                        <input
+                        <Input
                             id="email"
                             type="email"
+                            placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
-                            className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] outline-none transition-all"
                             required
                         />
                         {/* Error message */}
@@ -126,13 +126,12 @@ const LoginPage = () => {
                         >
                             Password
                         </label>
-                        <input
+                        <Input
                             id="password"
                             type="password"
+                            placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter your password"
-                            className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:ring-2 focus:border-[rgb(var(--border-focus))] focus:ring-[rgba(var(--ring-focus),var(--alpha-ring))] outline-none transition-all"
                             required
                         />
                         {/* Error message */}
@@ -142,10 +141,7 @@ const LoginPage = () => {
                     </div>
 
                     {/* Login Button */}
-                    <Button
-                        text={loading ? "Logging in..." : "Login"}
-                        paddingY="12px"
-                    />
+                    <Button type="submit" className="w-full" disabled={loading}>{loading ? "Logging in..." : "Login"}</Button>
                 </form>
 
                 {/* Footer Links */}

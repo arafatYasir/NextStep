@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Button from "./Button";
 import JobDescAnalysisModal from "./analysis/JobDescAnalysisModal";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 const jobInsights = {
   actionVerbs: [
     { name: "building", count: 2 },
@@ -129,13 +130,14 @@ const InputCard = () => {
                 >
                     Job Role
                 </label>
-                <input
-                    id="job-role"
-                    value={jobRole}
-                    onChange={(e) => setJobRole(e.target.value.slice(0, 50))}
-                    placeholder="Write the job role"
-                    className="w-full bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))] outline-none"
+                <Input 
+                    id="job-role" 
+                    value={jobRole} 
+                    onChange={(e) => setJobRole(e.target.value.slice(0, 50))} 
+                    placeholder="Write the job role" 
+                    className="hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))]"
                 />
+
                 <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
                     {jobRole.length}/50 characters
                 </p>
@@ -149,25 +151,28 @@ const InputCard = () => {
                 >
                     Job Description
                 </label>
-                <textarea
-                    id="job-description"
-                    value={jobDescription}
-                    onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))}
-                    placeholder="Paste the job description here..."
-                    className="w-full h-64 bg-[rgb(var(--bg-input))] border border-[rgb(var(--border-default))] rounded-lg px-4 py-3 text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-muted))] hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))] resize-none outline-none"
+
+                <Input 
+                    id="job-description" 
+                    value={jobDescription} 
+                    onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))} 
+                    placeholder="Paste the job description here..." 
+                    className="hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))]"
                 />
-                <p className="text-sm text-[rgb(var(--text-tertiary))]">
+
+                <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
                     {jobDescription.length}/3000 characters
                 </p>
             </div>
 
             {/* Action Button */}
-            <Button
-                text={loading ? "Analyzing..." : "Analyze Keywords"}
+            <Button 
                 disabled={isDisabled || loading}
-                paddingY="8px"
                 onClick={handleAnalyze}
-            />
+                className="w-full"
+            >
+                {loading ? "Analyzing..." : "Analyze Keywords"}
+            </Button>
 
             {/* ---- Showing modal to show the result ---- */}
             {(Object.keys(result).length > 0 || loading) && (
