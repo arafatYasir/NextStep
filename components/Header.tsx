@@ -1,4 +1,5 @@
 import GitHubIcon from "@/icons/GithubIcon";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import AuthenticationMenus from "./AuthenticationMenus";
@@ -28,34 +29,44 @@ const Header = async () => {
                         </Link>
 
                         {/* ---- Nav Menu Options ---- */}
-                        <ul className="flex items-center gap-x-8">
-                            {
-                                navOptions.map(option => (
-                                    <li 
-                                        key={option.id}
-                                        className="font-medium cursor-pointer hover:text-[rgb(var(--bg-primary))] transition-all"
-                                    >
-                                        {option.type !== "Submenu" ? (
-                                            <Link href={option.url}>{option.name}</Link>
-                                        ) : (
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger className="cursor-pointer">
+                        <ul className="flex items-center gap-x-2">
+                            {navOptions.map((option) => (
+                                <li key={option.id} className="flex items-center">
+                                    {option.type !== "Submenu" ? (
+                                        <Link
+                                            href={option.url}
+                                            className="px-3 py-1.5 text-sm font-medium text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--bg-primary-hover))] hover:bg-[rgb(var(--bg-hover))] rounded-md transition-all duration-200 ease-in-out"
+                                        >
+                                            {option.name}
+                                        </Link>
+                                    ) : (
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--bg-primary-hover))] hover:bg-[rgb(var(--bg-hover))] rounded-md transition-all duration-200 ease-in-out cursor-pointer group data-[state=open]:bg-[rgb(var(--bg-hover))] data-[state=open]:text-[rgb(var(--bg-primary-hover))]">
+                                                <span>
                                                     {option.name}
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent>
-                                                    {
-                                                        option.childrens.map(child => (
-                                                            <DropdownMenuItem key={child.id}>
-                                                                <Link href={child.url}>{child.name}</Link>
-                                                            </DropdownMenuItem>
-                                                        ))
-                                                    }
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        )}
-                                    </li>
-                                ))
-                            }
+                                                </span>
+                                                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180 opacity-70 group-hover:opacity-100" />
+                                            </DropdownMenuTrigger>
+
+                                            <DropdownMenuContent
+                                                align="start"
+                                                className="min-w-[200px] p-2 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200"
+                                            >
+                                                {option.childrens.map((child) => (
+                                                    <DropdownMenuItem key={child.id} asChild>
+                                                        <Link
+                                                            href={child.url}
+                                                            className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--text-primary))] transition-colors"
+                                                        >
+                                                            {child.name}
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    )}
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
