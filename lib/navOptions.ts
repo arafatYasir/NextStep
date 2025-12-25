@@ -20,7 +20,7 @@ export const navOptions: (NavLink | NavSubmenu)[] = [
         childrens: [
             {
                 id: 1,
-                name: "Job Analyzer",
+                name: "Job Description Analyzer",
                 url: "/tools/job-analyzer"
             },
             {

@@ -9,10 +9,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -23,7 +19,7 @@ const Header = async () => {
                 <nav className="flex items-center justify-between">
                     <div className="flex items-center gap-x-8">
                         {/* ---- Logo ---- */}
-                        <Link href="/" className="flex items-center gap-2">
+                        <Link href="/" className="flex items-center gap-x-2">
                             <Image src="/images/logo.svg" alt="Logo" width={24} height={24} />
                             <span className="text-[22px] font-bold text-[rgb(var(--text-primary))] font-logo">KIE</span>
                         </Link>
