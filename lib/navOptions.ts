@@ -30,6 +30,11 @@ export const navOptions: (NavLink | NavSubmenu)[] = [
             },
             {
                 id: 3,
+                name: "AI Resume Builder",
+                url: "/tools/resume-builder"
+            },
+            {
+                id: 4,
                 name: "Keyword Research",
                 url: "/tools/keyword-research"
             }
