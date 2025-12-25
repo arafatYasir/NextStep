@@ -52,9 +52,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${plusJakarta.variable} ${delius.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))]`}
+        className={`${inter.variable} ${plusJakarta.variable} ${delius.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))] scrollbar-custom`}
       >
         <Header />
+
+        {/* ---- Main Content ---- */}
         {children}
         
         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
