@@ -21,8 +21,8 @@ const delius = Delius({
 });
 
 export const metadata: Metadata = {
-  title: "KIE — AI Job Description Analyzer",
-  description: "Keyword Insight Engine helps job seekers analyze job descriptions using AI. Extract skills, keywords, requirements, and insights to tailor resumes 25% faster.",
+  title: "Keyword Insight Engine (KIE) — AI Career & Job Application Intelligence",
+  description: "Keyword Insight Engine is an AI-powered career platform that analyzes job descriptions, evaluates resumes, uncovers critical keywords, and helps you apply smarter and get hired faster.",
 };
 
 export default function RootLayout({
