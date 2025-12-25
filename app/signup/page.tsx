@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { redirect } from "next/navigation";
 import GoogleIcon from "@/icons/GoogleIcon";
+import GitHubIcon from "@/icons/GitHubIcon";
 
 interface ErrorState {
     email?: string;
@@ -86,7 +87,7 @@ const SignUpPage = () => {
         }
     };
 
-    const handleGoogleSignIn = async () => {
+    const handleGoogleSignUp = async () => {
         try {
             setLoading(true);
 
@@ -96,6 +97,32 @@ const SignUpPage = () => {
             // Sign up the user
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "google",
+                options: {
+                    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+                },
+            });
+
+            if (data.url) {
+                window.location.href = data.url;
+            }
+        } catch (e: any) {
+            toast.error("Something went wrong. Please try again.");
+            console.error(e.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleGitHubSignUp = async () => {
+        try {
+            setLoading(true);
+
+            // Create the supabase client
+            const supabase = createClient();
+
+            // Sign up the user
+            const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: "github",
                 options: {
                     redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
                 },
@@ -210,11 +237,22 @@ const SignUpPage = () => {
                 <Button
                     variant="outline"
                     className="w-full border-[rgb(var(--border-default))] hover:bg-[rgb(var(--bg-hover))] transition-all flex items-center justify-center gap-3"
-                    onClick={handleGoogleSignIn}
+                    onClick={handleGoogleSignUp}
                     disabled={loading}
                 >
                     <GoogleIcon />
                     Continue with Google
+                </Button>
+
+                {/* ---- GitHub Sign Up Button ---- */}
+                <Button
+                    variant="outline"
+                    className="w-full border-[rgb(var(--border-default))] hover:bg-[rgb(var(--bg-hover))] transition-all flex items-center justify-center gap-3 mt-4"
+                    onClick={handleGitHubSignUp}
+                    disabled={loading}
+                >
+                    <GitHubIcon />
+                    Continue with GitHub
                 </Button>
 
                 {/* ---- Footer Links ---- */}

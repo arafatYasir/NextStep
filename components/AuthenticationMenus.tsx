@@ -20,12 +20,15 @@ import { Button } from "./ui/button";
 import { toast } from "sonner";
 
 const AuthenticationMenus = () => {
-    const supabase = createClient();
-    const router = useRouter();
+    // States
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState<string>("");
     const [isMounted, setIsMounted] = useState<boolean>(false);
+
+    // Extra hooks
+    const supabase = createClient();
+    const router = useRouter();
 
     // useEffect to get the stored theme
     useEffect(() => {
@@ -60,11 +63,10 @@ const AuthenticationMenus = () => {
 
         getUser();
 
-        // Listen for auth changes (login, logout, etc.)
+        // Listen for auth state changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
 
-            // Optional: refresh router to update server components if needed
             if (_event === 'SIGNED_OUT') {
                 router.refresh();
             }
@@ -83,8 +85,6 @@ const AuthenticationMenus = () => {
 
     // Don't render anything while checking auth status to avoid flickering
     if (loading) return null;
-
-    console.log(user);
 
     return (
         <div className="flex items-center gap-4">
