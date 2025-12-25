@@ -1,20 +1,18 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
     return (
         <section className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-24 pb-16 md:pt-32 md:pb-24">
             {/* ---- Background ---- */}
-            <div className="absolute inset-0 -z-10 h-full w-full bg-[rgb(var(--bg-primary))]/15"></div>
+            <div className="absolute inset-0 -z-10 h-full w-full bg-linear-to-br from-[rgb(var(--bg-primary))]/2 to-[rgb(var(--bg-primary))]/20"></div>
 
             <div className="container px-4 mx-auto relative z-10">
                 <div className="flex flex-col items-center text-center max-w-5xl mx-auto space-y-10">
 
-                    {/* 2. Micro Positioning Line (Pill) */}
+                    {/* ---- Micro Positioning Line ---- */}
                     <div className="inline-flex items-center space-x-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-md shadow-sm">
-                        <Sparkles className="h-3.5 w-3.5 fill-current" />
+                        <span>✨</span>
                         <span>The AI Career Co-Pilot for the Top 1%</span>
                     </div>
 
@@ -38,7 +36,6 @@ export function Hero() {
                             See How It Works
                         </Button>
                     </div>
-
                 </div>
             </div>
         </section>
