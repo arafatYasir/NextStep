@@ -102,7 +102,7 @@ const SignUpPage = () => {
             });
 
             if (data.url) {
-                redirect(data.url);
+                window.location.href = data.url;
             }
         } catch (e: any) {
             toast.error("Something went wrong. Please try again.");

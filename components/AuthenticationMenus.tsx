@@ -62,6 +62,7 @@ const AuthenticationMenus = () => {
         // Listen for auth changes (login, logout, etc.)
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
+
             // Optional: refresh router to update server components if needed
             if (_event === 'SIGNED_OUT') {
                 router.refresh();
@@ -82,6 +83,8 @@ const AuthenticationMenus = () => {
     // Don't render anything while checking auth status to avoid flickering
     if (loading) return null;
 
+    console.log(user);
+
     return (
         <div className="flex items-center gap-4">
             {user ? (
@@ -97,9 +100,17 @@ const AuthenticationMenus = () => {
                     {/* User Avatar Placeholder */}
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            <div className="w-9 h-9 rounded-full bg-[rgb(var(--bg-primary))] flex items-center justify-center text-[rgb(var(--text-on-primary))] cursor-pointer">
-                                <UserIcon className="w-5 h-5" />
-                            </div>
+                            {
+                                user.user_metadata.avatar_url ? (
+                                    <div className="w-9 h-9 rounded-full overflow-hidden cursor-pointer">
+                                        <img className="w-full h-full object-cover" src={user.user_metadata.avatar_url} alt={`${user.user_metadata.full_name}'s Image`} />
+                                    </div>
+                                ) : (
+                                    <div className="w-9 h-9 rounded-full bg-[rgb(var(--bg-primary))] flex items-center justify-center text-[rgb(var(--text-on-primary))] cursor-pointer">
+                                        <UserIcon className="w-5 h-5" />
+                                    </div>
+                                )
+                            }
                         </DropdownMenuTrigger>
 
                         <DropdownMenuContent side="bottom">
