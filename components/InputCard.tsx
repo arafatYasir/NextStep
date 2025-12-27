@@ -158,7 +158,7 @@ const InputCard = () => {
                     value={jobDescription} 
                     onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))} 
                     placeholder="Paste the full job description from the posting, including responsibilities and requirements" 
-                    className="h-40 resize-none hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))]"
+                    className="h-40 resize-none hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))] scrollbar-custom"
                 />
 
                 <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
@@ -170,9 +170,9 @@ const InputCard = () => {
             <Button 
                 disabled={isDisabled || loading}
                 onClick={handleAnalyze}
-                className="w-full"
+                className="w-full bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80 text-white hover:-translate-y-0.5 transition-all duration-300"
             >
-                {loading ? "Analyzing..." : "Analyze Job Description"}
+                Analyze Job Description
             </Button>
 
             {/* ---- Showing modal to show the result ---- */}

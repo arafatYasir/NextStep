@@ -32,22 +32,25 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: Anal
     return (
         <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
             {/* ---- Header ---- */}
-            <div className="flex-none px-6 py-4 border-b border-[rgb(var(--border-light))] bg-[rgb(var(--bg-surface))] z-10 shadow-sm flex items-center justify-between">
-                <div>
-                    <h2 className="text-2xl font-bold text-[rgb(var(--text-primary))] font-heading tracking-tight">
-                        Analysis Results
-                    </h2>
-                    <p className="text-[rgb(var(--text-secondary))]">
-                        Comprehensive breakdown of ATS keywords and requirements
-                    </p>
+            <div className="flex-none py-4 border-b border-[rgb(var(--border-default))] bg-[rgb(var(--bg-surface))] z-10 shadow-sm">
+                <div className="container mx-auto flex items-center justify-between">
+                    <div>
+                        <h2 className="text-2xl font-bold text-[rgb(var(--text-primary))] font-heading tracking-tight">
+                            Job Description Insights
+                        </h2>
+                        <p className="text-[rgb(var(--text-secondary))] mt-1.5">
+                            A clear breakdown of the skills, experience, and expectations the employer is looking for.
+                        </p>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        disabled={isLoading}
+                        className="p-2 rounded-full bg-[rgb(var(--bg-input))] hover:bg-[rgb(var(--bg-hover))] text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--text-primary))] transition-all border border-[rgb(var(--border-default))] shadow-sm cursor-pointer active:scale-95 disabled:shadow-none disabled:cursor-not-allowed disabled:opacity-80 disabled:hover:bg-[rgb(var(--bg-input))] disabled:hover:text-[rgb(var(--text-secondary))] disabled:active:scale-100"
+                        aria-label="Close Analysis"
+                    >
+                        <X size={24} />
+                    </button>
                 </div>
-                <button
-                    onClick={onClose}
-                    className="p-2 rounded-full bg-[rgb(var(--bg-input))] hover:bg-[rgb(var(--bg-hover))] text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--text-primary))] transition-all hover:rotate-90 shadow-sm border border-[rgb(var(--border-light))] cursor-pointer active:scale-95"
-                    aria-label="Close Analysis"
-                >
-                    <X size={24} />
-                </button>
             </div>
 
             {/* ---- Scrollable Content ---- */}
