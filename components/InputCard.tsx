@@ -132,11 +132,10 @@ const InputCard = () => {
                     Targeted Job Title
                 </label>
                 <Input 
-                    id="job-role" 
-                    value={jobRole} 
-                    onChange={(e) => setJobRole(e.target.value.slice(0, 50))} 
-                    placeholder="Enter the job title as it appears in the job posting" 
-                    className="hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))]"
+                    id="job-role"
+                    value={jobRole}
+                    onChange={(e) => setJobRole(e.target.value.slice(0, 50))}
+                    placeholder="Enter the job title as it appears in the job posting"
                 />
 
                 <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
@@ -154,11 +153,11 @@ const InputCard = () => {
                 </label>
 
                 <Textarea 
-                    id="job-description" 
-                    value={jobDescription} 
-                    onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))} 
-                    placeholder="Paste the full job description from the posting, including responsibilities and requirements" 
-                    className="h-40 resize-none hover:border-[rgb(var(--border-hover))] focus:border-[rgb(var(--border-focus))] scrollbar-custom"
+                    id="job-description"
+                    value={jobDescription}
+                    onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))}
+                    placeholder="Paste the full job description from the posting, including responsibilities and requirements"
+                    className="h-40 resize-none scrollbar-custom"
                 />
 
                 <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
