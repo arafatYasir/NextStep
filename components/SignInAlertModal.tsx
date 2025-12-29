@@ -29,8 +29,8 @@ const SignInAlertModal = ({ heading, onClose, ref }: Props) => {
                     Sign in to generate detailed insights and keep your analysis accessible anytime.
                 </p>
 
-                <Link className="block w-full" href="/login">
-                    <Button className="w-full cursor-pointer bg-linear-to-r bg-[rgb(var(--bg-surface))] from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80 text-white shadow-lg shadow-indigo-500/20 text-base font-semibold hover:-translate-y-0.5 transition-all duration-300">
+                <Link className="block w-full" href="/sign-in">
+                    <Button className="w-full cursor-pointer bg-linear-to-r bg-[rgb(var(--bg-surface))] from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80 text-white text-base font-semibold hover:-translate-y-0.5 transition-all duration-300">
                         Sign In
                     </Button>
                 </Link>

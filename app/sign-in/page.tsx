@@ -99,8 +99,6 @@ const SignInPage = () => {
 
             const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
 
-            console.log(siteUrl);
-
             // Sign in the user
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "google",

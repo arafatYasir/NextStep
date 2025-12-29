@@ -21,8 +21,8 @@ const delius = Delius({
 });
 
 export const metadata: Metadata = {
-  title: "Keyword Insight Engine (KIE) — AI Career & Job Application Intelligence",
-  description: "Keyword Insight Engine is an AI-powered career platform that analyzes job descriptions, evaluates resumes, uncovers critical keywords, and helps you apply smarter and get hired faster.",
+  title: "NextStep — AI Career & Job Application Intelligence",
+  description: "NextStep is an AI-powered career platform that analyzes job descriptions, evaluates resumes, uncovers critical keywords, and helps you apply smarter and get hired faster.",
 };
 
 export default function RootLayout({
