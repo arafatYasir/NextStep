@@ -14,7 +14,7 @@ import GitHubIcon from "@/icons/GitHubIcon";
 
 const Header = async () => {
     return (
-        <header className="fixed top-0 w-full z-50 bg-[rgb(var(--bg-surface-alpha))] backdrop-blur-sm border-b border-[rgb(var(--border-default))]">
+        <header className="fixed top-0 w-full z-50 bg-[rgb(var(--bg-surface-alpha))] border-b border-[rgb(var(--border-default))]">
             <div className="container mx-auto px-6 py-3">
                 <nav className="flex items-center justify-between">
                     <div className="flex items-center gap-x-8">
