@@ -221,7 +221,7 @@ const InputCard = () => {
                 <Button
                     disabled={isDisabled || loading}
                     onClick={handleAnalyze}
-                    className="w-full bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80 text-white hover:-translate-y-0.5 transition-all duration-300"
+                    className="w-full bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80 text-white hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                 >
                     Analyze Job Description
                 </Button>
