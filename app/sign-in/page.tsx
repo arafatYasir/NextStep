@@ -132,16 +132,23 @@ const SignInPage = () => {
             // Create the supabase client
             const supabase = createClient();
 
+            const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
+
             // Sign up the user
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "github",
                 options: {
-                    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+                    redirectTo: `${siteUrl}/auth/callback`,
                 },
             });
 
             if (data.url) {
                 window.location.href = data.url;
+            }
+
+            if(error) {
+                toast.error("Login failed");
+                console.error(error);
             }
         } catch (e: any) {
             toast.error("Something went wrong. Please try again.");

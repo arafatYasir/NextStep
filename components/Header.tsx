@@ -21,7 +21,7 @@ const Header = async () => {
                         {/* ---- Logo ---- */}
                         <Link href="/" className="flex items-center gap-x-2">
                             <div className="w-[140px] h-[30px] overflow-hidden">
-                                <Image src="/images/logo.png" alt="Logo" width={140} height={30} className="w-full h-full object-cover" />
+                                <Image src="/images/logo.png" alt="Logo" width={140} height={30} className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
                             </div>
                         </Link>
 
