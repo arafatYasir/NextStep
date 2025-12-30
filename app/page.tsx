@@ -1,4 +1,4 @@
-import { Hero } from "@/components/Hero";
+import { Hero } from "@/components/hero/Hero";
 import HowItWorks from "@/components/how-it-works/HowItWorks";
 
 const Home = () => {
