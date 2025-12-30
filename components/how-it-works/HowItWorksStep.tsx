@@ -16,11 +16,14 @@ const HowItWorksStep = ({ step }: { step: Props }) => {
 
     return (
         <div className={cn(
-            "flex flex-col gap-12 lg:items-center",
+            "flex flex-col gap-10 lg:items-center justify-center border border-[rgb(var(--border-default))] py-4 rounded-xl",
             isEven ? "lg:flex-row-reverse" : "lg:flex-row"
         )}>
             {/* ---- Description Part ---- */}
-            <div className="flex-1 space-y-6">
+            <div className={cn(
+                "w-1/2 space-y-6",
+                isEven ? "text-right" : "text-left"
+            )}>
                 {/* ---- Step Indicator ---- */}
                 <div className="inline-flex items-center space-x-2 rounded-full border border-primary/20 bg-primary/5 px-2 py-1 text-sm font-medium text-primary backdrop-blur-md shadow-sm">
                     <span>• Step {id}</span>
@@ -37,20 +40,14 @@ const HowItWorksStep = ({ step }: { step: Props }) => {
             </div>
 
             {/* ---- Image Part ---- */}
-            <div className="flex-1 w-full relative group">
-                {/* ---- Background Glow Effect ---- */}
-                <div className="absolute -inset-4 bg-linear-to-r from-[rgb(var(--bg-primary))]/20 to-[rgb(var(--bg-primary))]/5 blur-2xl rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                {/* ---- Image ---- */}
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
-                    <Image
-                        src={image}
-                        width={800}
-                        height={600}
-                        alt={`How It works step ${id}`}
-                        className="w-full h-auto object-cover"
-                    />
-                </div>
+            <div className="w-[35%] relative overflow-hidden rounded-xl bg-white/5 shadow-2xl">
+                <Image
+                    src={image}
+                    width={442}
+                    height={442}
+                    alt={`How It works step ${id}`}
+                    className="w-full h-auto object-cover"
+                />
             </div>
         </div>
     )
