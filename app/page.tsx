@@ -1,5 +1,6 @@
 import { Hero } from "@/components/hero/Hero";
 import HowItWorks from "@/components/how-it-works/HowItWorks";
+import InsightSection from "@/components/insights/InsightSection";
 
 const Home = () => {
   return (
@@ -9,6 +10,9 @@ const Home = () => {
 
       {/* ---- How It Works Section ---- */}
       <HowItWorks />
+
+      {/* ---- Insights Section ---- */}
+      <InsightSection />
     </main>
   )
 }
