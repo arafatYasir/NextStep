@@ -1,4 +1,5 @@
 import { Bot, FileWarning, HelpCircle, Clock } from 'lucide-react';
+import InsightCard from './InsightCard';
 
 const insights = [
     {
@@ -44,24 +45,8 @@ const InsightSection = () => {
                 gap: "20px"
             }}>
                 {insights.map((item, index) => (
-                    <div key={index} className="group relative flex flex-col gap-4 p-6 rounded-2xl bg-secondary/20 border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-primary))]/10 transition-all duration-300 hover:-translate-y-1">
-                        <div className="w-12 h-12 rounded-xl bg-[rgb(var(--bg-primary))] text-white flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-250">
-                            <item.icon className="w-6 h-6" />
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-[rgb(var(--bg-primary))]">
-                            {item.title}
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed text-sm group-hover:text-foreground">
-                            {item.description}
-                        </p>
-                    </div>
+                    <InsightCard key={index} item={item} />
                 ))}
-            </div>
-
-            <div className="text-center pt-8 border-t border-border/40 max-w-2xl mx-auto">
-                <p className="text-lg font-medium text-foreground/80">
-                    This is the gap NextStep was built to close.
-                </p>
             </div>
         </section>
     );
