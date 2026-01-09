@@ -9,8 +9,8 @@ const insights = [
     },
     {
         icon: FileWarning,
-        title: "One Resume Cannot Win Every Job",
-        description: "Using the same resume for multiple roles feels efficient, but ATS scores are job-specific. If your resume isn't aligned with that exact description, it gets filtered instantly."
+        title: "One Resume Will Never Win Every Job",
+        description: "Using the same resume for multiple roles feels efficient. In reality, ATS scoring is job-specific. If your resume isn't aligned with that exact description, it gets filtered out instantly."
     },
     {
         icon: HelpCircle,
@@ -20,7 +20,7 @@ const insights = [
     {
         icon: Clock,
         title: "Manual Tailoring Is a Time Trap",
-        description: "Extracting keywords, rewriting bullets, adjusting phrasing — 30 to 60 minutes per application. That's time you could spend applying smarter and faster."
+        description: "Extracting keywords, rewriting bullets, adjusting phrasing — 30 to 60 minutes per application. Time that could be spent applying to more roles, with far better precision."
     }
 ];
 
@@ -30,12 +30,12 @@ const InsightSection = () => {
             <div className="text-center space-y-5 max-w-5xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.2]">
                     It's Not That You're Underqualified. <br className="hidden md:block" />
-                    <span className="bg-clip-text text-transparent bg-linear-to-r from-[rgb(var(--bg-primary))]/80 to-[rgb(var(--bg-primary-hover))]">It's That You're Playing The Game Blind.</span>
+                    <span className="bg-clip-text text-transparent bg-linear-to-r from-[rgb(var(--bg-primary))]/80 to-[rgb(var(--bg-primary-hover))]">You're Playing The Hiring Game Blind.</span>
                 </h2>
                 <p className="text-lg md:text-xl text-muted-foreground text-center leading-relaxed">
-                    Most developers resumes fail even before a human ever sees them.
+                    Most developer resumes fail even before a human ever sees them.
                     <br className="hidden md:block" />
-                    Not because of skills or experience — but because they don't match how hiring systems actually work.
+                    Not because of skills or experience — but because they don't align with how hiring systems actually work.
                 </p>
             </div>
 
