@@ -16,8 +16,8 @@ export function Hero() {
                     </TextBadge>
 
                     {/* ---- Main Heading ---- */}
-                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.1]">
-                        Everything for <span className="bg-linear-to-r text-transparent bg-clip-text from-[rgb(var(--bg-primary))]/80 to-[rgb(var(--bg-primary-hover))]">Applying Smarter</span> to be <span className="bg-linear-to-r text-transparent bg-clip-text from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80">Hired Quicker</span>
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.2]">
+                        Everything for <span className="bg-linear-to-r text-transparent bg-clip-text from-[rgb(var(--bg-primary))]/80 to-[rgb(var(--bg-primary-hover))]">Applying Smarter</span> to be <span className="bg-linear-to-r text-transparent bg-clip-text from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/80">Hired Faster</span>
                     </h1>
 
                     {/* ---- Sub-heading ---- */}
