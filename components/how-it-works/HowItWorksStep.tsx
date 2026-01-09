@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import TextBadge from "../TextBadge";
 
 interface Props {
     id: number;
@@ -17,7 +16,7 @@ const HowItWorksStep = ({ step }: { step: Props }) => {
 
     return (
         <div className={cn(
-            `flex flex-col gap-10 lg:items-center justify-center border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-primary))]/10 transition-all duration-250 py-4 rounded-xl relative group`,
+            `flex flex-col gap-10 lg:items-center justify-center border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-primary))]/5 transition-all duration-250 py-4 rounded-xl relative group`,
             isEven ? "lg:flex-row-reverse" : "lg:flex-row",
 
         )}>

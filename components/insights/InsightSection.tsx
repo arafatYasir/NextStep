@@ -20,7 +20,7 @@ const insights = [
     {
         icon: Clock,
         title: "Manual Tailoring Is a Time Trap",
-        description: "Extracting keywords, rewriting bullets, adjusting phrasing — 30 to 60 minutes per application. Time that could be spent applying to more roles, with far better precision."
+        description: "Extracting keywords, rewriting bullets, adjusting phrasing — 30 to 60 minutes per application. Time that could be spent applying to more jobs, with far better precision."
     }
 ];
 
