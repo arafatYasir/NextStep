@@ -1,18 +1,18 @@
+import { cn } from "@/lib/utils";
+
 const Offer = ({ offer }: { offer: OfferItem }) => {
+    const { id, title, description } = offer;
     return (
-        <div className="flex items-center gap-x-5">
+        <div className="flex items-baseline gap-x-5">
             {/* ---- Left Side Dot ---- */}
-            <div className="shrink-0 w-5 h-5 rounded-full bg-[rgb(var(--bg-primary))]"></div>
+            <div id={`offer-dot-${id}`} className={cn("shrink-0 w-5 h-5 rounded-full bg-[rgb(var(--bg-primary))]", {
+                "relative before:absolute before:bottom-full before:left-1/2 before:-translate-x-1/2 before:w-[5px] before:h-[140px] before:bg-[rgb(var(--bg-primary-hover))] before:z-[-1]": id > 1
+            })}></div>
 
             {/* ---- Right Side Content ---- */}
-            <div className="flex items-center shrink-0 gap-x-5">
-                {/* ---- Icon ---- */}
-                <div className="w-8 h-8 rounded-lg bg-[rgb(var(--bg-primary))]"></div>
-
-                <div>
-                    <h3 className="text-2xl font-bold">{offer.title}</h3>
-                    <p className="text-secondary">{offer.description}</p>
-                </div>
+            <div>
+                <h3 className="text-2xl font-heading font-bold text-foreground">{title}</h3>
+                <p className="text-muted-foreground font-sans leading-normal mt-1 ">{description}</p>
             </div>
         </div>
     )

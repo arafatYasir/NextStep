@@ -5,6 +5,7 @@ interface InsightItem {
 }
 
 interface OfferItem {
+    id:  number;
     title: string;
     description: string;
 }
