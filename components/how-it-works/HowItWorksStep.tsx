@@ -20,7 +20,7 @@ const HowItWorksStep = ({ step }: { step: Props }) => {
             isEven ? "lg:flex-row-reverse" : "lg:flex-row",
 
         )}>
-            <div className="absolute bottom-[calc(100%+60px)] left-1/2 -translate-x-1/2 translate-y-1/2 w-7 h-7 flex items-center justify-center text-background font-bold bg-[rgb(var(--bg-primary-hover))] z-20 rounded-full">
+            <div className="absolute bottom-[calc(100%+60px)] left-1/2 -translate-x-1/2 translate-y-1/2 w-7 h-7 flex items-center justify-center text-background font-bold bg-[rgb(var(--bg-primary-hover))] z-20 rounded-full font-sans">
                 {id}
             </div>
             
@@ -32,12 +32,12 @@ const HowItWorksStep = ({ step }: { step: Props }) => {
                 "w-1/2 space-y-6",
                 isEven ? "text-right" : "text-left"
             )}>
-                <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground group-hover:text-[rgb(var(--bg-primary-hover))] transition-all duration-250">
+                <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground group-hover:text-[rgb(var(--bg-primary-hover))] transition-all duration-250 font-heading">
                     {title}
                 </h3>
 
                 {/* ---- Main Description ---- */}
-                <div className="text-lg text-muted-foreground leading-relaxed [&_a]:text-[rgb(var(--bg-primary))] [&_a]:font-medium [&_a]:hover:underline [&_a]:hover:text-[rgb(var(--bg-primary-hover))] group-hover:text-foreground transition-all duration-250">
+                <div className="text-lg text-muted-foreground leading-relaxed [&_a]:text-[rgb(var(--bg-primary))] [&_a]:font-medium [&_a]:hover:underline [&_a]:hover:text-[rgb(var(--bg-primary-hover))] group-hover:text-foreground transition-all duration-250 font-sans">
                     {description}
                 </div>
             </div>

@@ -4,10 +4,10 @@ const InsightCard = ({ item }: { item: InsightItem }) => {
             <div className="w-12 h-12 rounded-xl bg-[rgb(var(--bg-primary))] text-white flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-250">
                 <item.icon className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-foreground group-hover:text-[rgb(var(--bg-primary))]">
+            <h3 className="text-xl font-heading font-bold text-foreground group-hover:text-[rgb(var(--bg-primary))]">
                 {item.title}
             </h3>
-            <p className="text-muted-foreground leading-relaxed text-sm group-hover:text-foreground">
+            <p className="text-muted-foreground font-sans leading-relaxed text-sm group-hover:text-foreground">
                 {item.description}
             </p>
         </div>

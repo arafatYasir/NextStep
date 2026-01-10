@@ -34,7 +34,7 @@ const InsightSection = () => {
                         It's Not That You're Underqualified. <br className="hidden md:block" />
                         <span className="bg-clip-text text-transparent bg-linear-to-r from-[rgb(var(--bg-primary))]/80 to-[rgb(var(--bg-primary-hover))]">You're Playing The Hiring Game Blind.</span>
                     </h2>
-                    <p className="text-lg md:text-xl text-muted-foreground text-center leading-relaxed">
+                    <p className="text-lg font-sans text-muted-foreground text-center leading-relaxed">
                         Most developer resumes fail even before a human ever sees them.
                         <br className="hidden md:block" />
                         Not because of skills or experience — but because they don't align with how hiring systems actually work.

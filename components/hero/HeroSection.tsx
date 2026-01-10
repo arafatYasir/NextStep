@@ -22,7 +22,7 @@ const HeroSection = () => {
                     </h1>
 
                     {/* ---- Sub-heading ---- */}
-                    <p className="text-lg sm:text-lg font-sans text-muted-foreground max-w-2xl text-balance leading-relaxed">
+                    <p className="text-lg font-sans text-muted-foreground max-w-2xl text-balance leading-relaxed">
                         Analyze job descriptions, evaluate your resume, and build tailored resumes — all powered by AI to help you stand out in a competitive hiring market.
                     </p>
 
