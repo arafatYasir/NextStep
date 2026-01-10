@@ -39,7 +39,7 @@ const TestimonialCard = () => {
                 {/* ---- Info ---- */}
                 <div className="flex flex-col">
                     <h4 className="font-heading text-lg font-bold tracking-tight text-foreground">Zaved Karim</h4>
-                    <p className="text-sm font-sans text-muted-foreground font-medium group-hover:text-primary/80 transition-colors">Sr. Software Engineer @Google</p>
+                    <p className="text-sm font-sans text-muted-foreground font-medium group-hover:text-primary/80 transition-colors duration-250">Sr. Software Engineer @Google</p>
                 </div>
             </div>
         </div>
