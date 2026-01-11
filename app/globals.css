@@ -184,6 +184,7 @@ body {
   0% {
     transform: translateX(-150%);
   }
+
   100% {
     transform: translateX(300%);
   }
@@ -234,6 +235,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -241,11 +243,22 @@ body {
 
 
 /* ---- Testimonials Carousel ---- */
-.slick-slider, .slick-initialized {
-  background: var(--color-background);
+.slick-slider,
+.slick-initialized {
+  background: var(--bg-body);
 }
 
 .slick-list {
-  overflow: visible !important;
-  overflow-x: hidden !important;
+  padding: 12px 0 !important;
+}
+
+.slick-track {
+  /* overflow-x: hidden !important; */
+}
+
+.slick-slide,
+.slick-active,
+.slick-current {
+  /* overflow: visible !important; */
+  /* max-width: 420px !important; */
 }

@@ -9,6 +9,7 @@ import TestimonialCard from "./TestimonialCard";
 const TestimonialsCarousel = () => {
     const settings = {
         dots: true,
+        focusOnSelect: true,
         infinite: true,
         speed: 500,
         slidesToShow: 3,
