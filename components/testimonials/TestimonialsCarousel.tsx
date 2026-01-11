@@ -8,13 +8,18 @@ import TestimonialCard from "./TestimonialCard";
 
 const TestimonialsCarousel = () => {
     const settings = {
+        initialSlide: 0,
         dots: true,
         focusOnSelect: true,
         infinite: true,
-        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        pauseOnHover: true,
+        speed: 1000,
         slidesToShow: 3,
         slidesToScroll: 1,
         arrows: false,
+        cssEase: "linear",
     };
 
     return (

@@ -252,13 +252,14 @@ body {
   padding: 12px 0 !important;
 }
 
-.slick-track {
-  /* overflow-x: hidden !important; */
+.slick-dots {
+  bottom: -50px !important;
 }
 
-.slick-slide,
-.slick-active,
-.slick-current {
-  /* overflow: visible !important; */
-  /* max-width: 420px !important; */
+.slick-dots li button:before {
+  font-size: 12px !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: rgb(var(--bg-primary-hover)) !important;
 }
