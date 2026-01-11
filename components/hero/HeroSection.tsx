@@ -1,10 +1,14 @@
 import Container from "../Container";
+import Section from "../Section";
 import TextBadge from "../TextBadge";
 import HeroButtons from "./HeroButtons"
 
 const HeroSection = () => {
     return (
-        <section className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-24 pb-16 md:pt-32 md:pb-24">
+        <Section 
+            resetStyles={true} 
+            className="relative overflow-hidden min-h-screen flex flex-col justify-center pt-24 pb-16 md:pt-32 md:pb-24"
+        >
             {/* ---- Background ---- */}
             <div className="absolute inset-0 -z-10 h-full w-full bg-linear-to-br from-[rgb(var(--bg-primary))]/2 to-[rgb(var(--bg-primary))]/20"></div>
 
@@ -30,7 +34,7 @@ const HeroSection = () => {
                     <HeroButtons />
                 </div>
             </Container>
-        </section>
+        </Section>
     );
 }
 

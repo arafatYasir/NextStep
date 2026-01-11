@@ -1,11 +1,12 @@
 import InsightCard from './InsightCard';
 import Container from '../Container';
 import { insights } from '@/lib/insights';
+import Section from '../Section';
 
 const InsightSection = () => {
     return (
         <Container>
-            <section className="py-20 space-y-20">
+            <Section>
                 <div className="text-center space-y-5 max-w-5xl mx-auto">
                     <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.2] font-heading">
                         It's Not That You're Underqualified. <br className="hidden md:block" />
@@ -28,7 +29,7 @@ const InsightSection = () => {
                         <InsightCard key={index} item={item} />
                     ))}
                 </div>
-            </section>
+            </Section>
         </Container>
     );
 };

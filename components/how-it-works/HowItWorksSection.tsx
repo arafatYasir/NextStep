@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HowItWorksStep from "./HowItWorksStep"
 import Container from "../Container";
+import Section from "../Section";
 
 export const howItWorksSteps = [
     {
@@ -28,7 +29,7 @@ export const howItWorksSteps = [
 const HowItWorksSection = () => {
     return (
         <Container>
-            <section id="how-it-works" className="py-20 space-y-20">
+            <Section sectionId="how-it-works">
                 <h2 className="text-4xl md:text-5xl font-bold font-heading text-center tracking-tight text-foreground">
                     How It Works
                 </h2>
@@ -41,7 +42,7 @@ const HowItWorksSection = () => {
                         ))
                     }
                 </div>
-            </section>
+            </Section>
         </Container>
     )
 }

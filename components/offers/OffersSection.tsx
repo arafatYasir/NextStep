@@ -2,11 +2,12 @@ import Image from "next/image";
 import Container from "../Container"
 import Offer from "./Offer";
 import { offers } from "@/lib/offers";
+import Section from "../Section";
 
 const OffersSection = () => {
     return (
         <Container>
-            <section className="py-20 space-y-20">
+            <Section className="py-20 space-y-20">
                 <h2 className="text-center max-w-5xl mx-auto text-4xl md:text-5xl font-heading font-bold tracking-tight text-foreground leading-[1.2]">
                     What You Get From NextStep
                 </h2>
@@ -30,7 +31,7 @@ const OffersSection = () => {
                         ></Image>
                     </div>
                 </div>
-            </section>
+            </Section>
         </Container>
     )
 }

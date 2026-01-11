@@ -1,11 +1,12 @@
 import { pricingPlans } from "@/lib/pricing"
 import Container from "../Container"
 import PricingCard from "./PricingCard"
+import Section from "../Section"
 
 const PricingSection = () => {
     return (
         <Container>
-            <section className="py-20 space-y-20">
+            <Section>
                 <h2 className="text-center max-w-5xl mx-auto text-4xl md:text-5xl font-heading font-bold tracking-tight text-foreground leading-[1.2]">
                     Simple, Fair Pricing for Your Job Search
                 </h2>
@@ -15,7 +16,7 @@ const PricingSection = () => {
                         <PricingCard key={plan.plan} plan={plan} />
                     ))}
                 </div>
-            </section>
+            </Section>
         </Container>
     )
 }
