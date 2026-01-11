@@ -238,3 +238,14 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* ---- Testimonials Carousel ---- */
+.slick-slider, .slick-initialized {
+  background: var(--color-background);
+}
+
+.slick-list {
+  overflow: visible !important;
+  overflow-x: hidden !important;
+}
