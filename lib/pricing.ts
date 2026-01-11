@@ -27,7 +27,8 @@ export const pricingPlans = [
             "AI-powered resume and phrasing suggestions"
         ],
         notAllowed: [],
-        cta: "Start Applying Smarter"
+        cta: "Start Applying Smarter",
+        tag: "Most Popular"
     },
     {
         plan: "Premium — Get Hired Faster",

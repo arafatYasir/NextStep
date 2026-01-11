@@ -13,7 +13,7 @@ const TestimonialsCarousel = () => {
         focusOnSelect: true,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 5000,
         pauseOnHover: true,
         speed: 1000,
         slidesToShow: 3,

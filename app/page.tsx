@@ -3,7 +3,7 @@ import HowItWorksSection from "@/components/how-it-works/HowItWorksSection"
 import InsightSection from "@/components/insights/InsightSection"
 import OffersSection from "@/components/offers/OffersSection"
 import TestimonialsSection from "@/components/testimonials/TestimonialsSection"
-
+import PricingSection from "@/components/pricing/PricingSection"
 
 const Home = () => {
   return (
@@ -22,6 +22,9 @@ const Home = () => {
 
       {/* ---- Testimonials Section ---- */}
       <TestimonialsSection />
+
+      {/* ---- Pricing Section ---- */}
+      <PricingSection />
     </main>
   )
 }
