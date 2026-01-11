@@ -16,7 +16,7 @@ const HowItWorksStep = ({ step }: { step: Props }) => {
 
     return (
         <div className={cn(
-            `flex flex-col gap-10 lg:items-center justify-center border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-primary))]/5 transition-all duration-250 py-4 rounded-xl relative group`,
+            `flex flex-col gap-10 lg:items-center justify-center border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] bg-card hover:bg-[rgb(var(--bg-primary))]/5 transition-all duration-250 py-4 rounded-xl relative group`,
             isEven ? "lg:flex-row-reverse" : "lg:flex-row",
 
         )}>
