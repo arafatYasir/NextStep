@@ -37,7 +37,7 @@ export const pricingPlans = [
         allowed: [
             "Analyze unlimited job descriptions (no characters limit)",
             "Analyze unlimited resumes",
-            "View ATS score for a resume",
+            "View ATS score for unlimited resumes",
             "Build unlimited resumes based on job descriptions",
             "Generate unlimited cover letters",
             "AI-powered resume and phrasing suggestions"
