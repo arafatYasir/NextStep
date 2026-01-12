@@ -40,9 +40,9 @@ const FaqItem = ({ item }: { item: { question: string; answer: string } }) => {
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
             )}>
                 <div className="overflow-hidden">
-                    <div className="px-6 pb-6 text-base md:text-lg text-justify text-muted-foreground font-sans leading-relaxed">
+                    <p className="px-6 pb-6 text-base md:text-lg text-justify text-muted-foreground font-sans leading-relaxed">
                         {item.answer}
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>
