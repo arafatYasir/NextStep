@@ -48,15 +48,25 @@ const Header = async () => {
 
                                             <DropdownMenuContent
                                                 align="start"
-                                                className="mt-2.5 min-w-[200px] p-2 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200"
+                                                className="mt-2.5 min-w-[320px] p-2 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200"
                                             >
                                                 {option.childrens.map((child) => (
-                                                    <DropdownMenuItem key={child.id} asChild>
+                                                    <DropdownMenuItem key={child.id} asChild className="p-0 border-none outline-none focus:bg-transparent">
                                                         <Link
                                                             href={child.url}
-                                                            className="flex items-center w-full px-3 py-2 text-sm font-medium font-sans text-foreground hover:text-[rgb(var(--text-primary))] transition-colors duration-200"
+                                                            className="flex items-start gap-4 w-full px-3 py-3 text-sm font-sans text-foreground hover:bg-[rgb(var(--bg-primary-muted))] rounded-lg transition-colors duration-200"
                                                         >
-                                                            {child.name}
+                                                            {child.icon && (
+                                                                <div className="shrink-0 mt-0.5 text-foreground/70">
+                                                                    <child.icon size={20} />
+                                                                </div>
+                                                            )}
+                                                            <div className="flex flex-col gap-1">
+                                                                <span className="font-bold leading-none">{child.name}</span>
+                                                                <span className="text-xs font-normal text-muted-foreground leading-snug">
+                                                                    {child.description}
+                                                                </span>
+                                                            </div>
                                                         </Link>
                                                     </DropdownMenuItem>
                                                 ))}
