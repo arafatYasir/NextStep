@@ -9,7 +9,7 @@ import Submenu from "./Submenu";
 
 const MainNavbar = () => {
     return (
-        <nav className="flex items-center justify-between py-3">
+        <nav className="hidden lg:flex items-center justify-between py-3">
             <div className="flex items-center gap-x-8">
                 {/* ---- Logo ---- */}
                 <Link href="/">
