@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header/Header";
+import ResponsiveHeader from "@/components/header/ResponsiveHeader";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/footer/Footer";
 
@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${inter.variable} ${plusJakarta.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))] scrollbar-custom`}
       >
         {/* ---- Header ---- */}
-        <Header />
+        <ResponsiveHeader />
 
         {/* ---- Main Content ---- */}
         {children}
