@@ -28,7 +28,7 @@ const Header = async () => {
                                     {option.type !== "Submenu" ? (
                                         <Link
                                             href={option.url}
-                                            className="px-3 py-1.5 text-base font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-200 ease-in-out"
+                                            className="px-3 py-1.5 text-base font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250 ease-in-out"
                                         >
                                             {option.name}
                                         </Link>
@@ -42,8 +42,8 @@ const Header = async () => {
 
                     {/* ---- Buttons ---- */}
                     <div className="flex items-center gap-4">
-                        <Link href="https://github.com/arafatYasir/Keyword-Insight-Engine" target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline">
+                        <Link href="https://github.com/arafatYasir/NextStep" target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" className="font-sans bg-transparent border-transparent shadow-none hover:bg-[rgb(var(--bg-hover))] hover:border-[rgb(var(--bg-hover))] cursor-pointer transition-colors duration-250 ease-in-out">
                                 <GitHubIcon width={16} height={16} />
                                 GitHub
                             </Button>

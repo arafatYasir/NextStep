@@ -25,20 +25,20 @@ const Submenu = ({ option }: { option: NavSubmenu }) => {
                     <DropdownMenuItem key={child.id} asChild className="outline-none">
                         <Link
                             href={child.url}
-                            className="flex items-start gap-4 w-full px-3 py-3 text-sm font-sans text-foreground rounded-lg transition-colors duration-250 group"
+                            className="flex items-start gap-4 w-full px-3 py-3 text-sm font-sans text-foreground rounded-lg transition-colors duration-250 ease-in-out group"
                         >
                             {child.icon && (
                                 <div className="shrink-0">
                                     <child.icon
                                         size={24}
-                                        className="group-hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
+                                        className="group-hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250 ease-in-out"
                                     />
                                 </div>
                             )}
                             <div className="flex flex-col gap-1">
                                 <span className="font-bold leading-none">{child.name}</span>
 
-                                <span className="text-xs text-muted-foreground leading-snug group-hover:text-foreground transition-colors duration-250">
+                                <span className="text-xs text-muted-foreground leading-snug group-hover:text-foreground transition-colors duration-250 ease-in-out">
                                     {child.description}
                                 </span>
                             </div>

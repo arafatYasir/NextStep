@@ -23,35 +23,10 @@ const AuthenticationMenus = () => {
     // States
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
-    const [theme, setTheme] = useState<string>("");
-    const [isMounted, setIsMounted] = useState<boolean>(false);
 
     // Extra hooks
     const supabase = createClient();
     const router = useRouter();
-
-    // useEffect to get the stored theme
-    useEffect(() => {
-        const storedTheme = localStorage.getItem("theme") || "light";
-        setTheme(storedTheme);
-        setIsMounted(true);
-    }, [])
-
-    // useEffect to set the theme
-    useEffect(() => {
-        if (!isMounted) return;
-
-        const html = document.querySelector("html");
-
-        if (theme === "dark") {
-            html?.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        } else {
-            html?.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
-
-    }, [theme, isMounted]);
 
     // Checking auth state
     useEffect(() => {
@@ -116,28 +91,13 @@ const AuthenticationMenus = () => {
                             </div>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent side="bottom">
+                        <DropdownMenuContent side="bottom" className="font-sans duration-200">
                             <DropdownMenuLabel>
                                 User: {user.user_metadata.full_name}
                             </DropdownMenuLabel>
 
                             <DropdownMenuSeparator />
-
-                            {/* ---- Theme Dropdown ---- */}
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <DropdownMenuItem>Theme: {theme.charAt(0).toUpperCase() + theme.slice(1)}</DropdownMenuItem>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                                        <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-                                        <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
-                                    </DropdownMenuRadioGroup>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem variant="destructive" onClick={handleSignOut}><LogOut /> Log Out</DropdownMenuItem>
+                            <DropdownMenuItem variant="destructive" onClick={handleSignOut}><LogOut size={16} /> Log Out</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </>
