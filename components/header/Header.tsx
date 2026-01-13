@@ -43,7 +43,7 @@ const Header = async () => {
                     {/* ---- Buttons ---- */}
                     <div className="flex items-center gap-4">
                         <Link href="https://github.com/arafatYasir/NextStep" target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline" className="font-sans bg-transparent border-transparent shadow-none hover:bg-[rgb(var(--bg-hover))] hover:border-[rgb(var(--bg-hover))] cursor-pointer transition-colors duration-250 ease-in-out">
+                            <Button variant="ghost">
                                 <GitHubIcon width={16} height={16} />
                                 GitHub
                             </Button>
