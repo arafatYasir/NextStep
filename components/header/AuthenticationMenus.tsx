@@ -99,7 +99,7 @@ const AuthenticationMenus = () => {
                             </div>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent side="bottom" className="font-sans bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200">
+                        <DropdownMenuContent side="bottom" className="font-sans mt-2.5 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200">
                             <DropdownMenuLabel>
                                 User: {user.user_metadata.full_name}
                             </DropdownMenuLabel>

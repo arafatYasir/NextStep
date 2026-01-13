@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/75 text-white transition-colors duration-250 ease-in-out hover:bg-[rgb(var(--bg-primary-hover))]",
+        default: "bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/75 text-white transition-colors duration-250 ease-in-out hover:bg-[rgb(var(--bg-primary-hover))] active:bg-[rgb(var(--bg-primary-hover))]",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -17,7 +17,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
-          "hover:bg-[rgb(var(--bg-hover))]",
+          "hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] transition-colors duration-250 ease-in-out",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
