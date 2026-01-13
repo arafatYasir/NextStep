@@ -1,4 +1,4 @@
-import { FileSearch, ScanText, FilePlus, PenLine, LucideProps } from "lucide-react";
+import { FileSearch, ScanText, FilePlusCorner, PenLine, LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 interface NavLink {
@@ -42,7 +42,7 @@ export const navOptions: (NavLink | NavSubmenu)[] = [
                 name: "AI Resume Builder",
                 description: "Generate an ATS-optimized resume tailored to your target role.",
                 url: "/tools/resume-builder",
-                icon: FilePlus
+                icon: FilePlusCorner
             },
             {
                 id: 4,

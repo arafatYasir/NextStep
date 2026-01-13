@@ -51,19 +51,23 @@ const Header = async () => {
                                                 className="mt-2.5 min-w-[320px] p-2 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200"
                                             >
                                                 {option.childrens.map((child) => (
-                                                    <DropdownMenuItem key={child.id} asChild className="p-0 border-none outline-none focus:bg-transparent">
+                                                    <DropdownMenuItem key={child.id} asChild className="outline-none">
                                                         <Link
                                                             href={child.url}
-                                                            className="flex items-start gap-4 w-full px-3 py-3 text-sm font-sans text-foreground hover:bg-[rgb(var(--bg-primary-muted))] rounded-lg transition-colors duration-200"
+                                                            className="flex items-start gap-4 w-full px-3 py-3 text-sm font-sans text-foreground rounded-lg transition-colors duration-250 group"
                                                         >
                                                             {child.icon && (
-                                                                <div className="shrink-0 mt-0.5 text-foreground/70">
-                                                                    <child.icon size={20} />
+                                                                <div className="shrink-0">
+                                                                    <child.icon 
+                                                                        size={24} 
+                                                                        className="group-hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250" 
+                                                                    />
                                                                 </div>
                                                             )}
                                                             <div className="flex flex-col gap-1">
                                                                 <span className="font-bold leading-none">{child.name}</span>
-                                                                <span className="text-xs font-normal text-muted-foreground leading-snug">
+
+                                                                <span className="text-xs text-muted-foreground leading-snug group-hover:text-foreground transition-colors duration-250">
                                                                     {child.description}
                                                                 </span>
                                                             </div>
