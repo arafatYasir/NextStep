@@ -73,7 +73,7 @@ const NavbarMenu = () => {
                 <div className="border-b border-[rgb(var(--border-default))] shadow-sm">
                     <Container>
                         <div className="flex items-baseline justify-between py-3">
-                            <Link href="/">
+                            <Link onClick={() => setShowMenu(false)} href="/">
                                 <div className="w-[120px] h-[29px] sm:w-[140px] sm:h-[35px] overflow-hidden">
                                     <Image src="/images/logo.svg" alt="Logo" width={488} height={123} className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
                                 </div>
@@ -89,23 +89,27 @@ const NavbarMenu = () => {
                     {/* ---- Nav Menu Options ---- */}
                     <ul className="flex flex-col gap-y-2 mt-5">
                         {navOptions.map(option => (
-                            <li key={option.id} className="flex items-center font-sans">
+                            <li
+                                key={option.id}
+                                className="flex items-center font-sans border-b border-[rgb(var(--border-default))] transition-colors duration-250 ease-in-out"
+                            >
                                 {option.type !== "Submenu" ? (
                                     <Link
+                                        onClick={() => setShowMenu(false)}
                                         href={option.url}
-                                        className="w-full py-1.5 text-base font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250 ease-in-out"
+                                        className="w-full p-1.5 text-base sm:text-lg font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] active:text-[rgb(var(--bg-primary-hover))] hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] transition-colors duration-250 ease-in-out"
                                     >
                                         {option.name}
                                     </Link>
                                 ) : (
-                                    <NavDropdownMenu option={option} />
+                                    <NavDropdownMenu setShowMenu={setShowMenu} option={option} />
                                 )}
                             </li>
                         ))}
                     </ul>
 
                     {/* ---- Buttons ---- */}
-                    <div className="sm:hidden mt-[14px]">
+                    <div className="sm:hidden mt-5">
                         {(user && !loading) ? (
                             <Link href="/dashboard" className="inline-block w-full">
                                 <Button className="w-full">
