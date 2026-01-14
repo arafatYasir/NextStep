@@ -10,7 +10,7 @@ import Link from "next/link";
 const Submenu = ({ option }: { option: NavSubmenu }) => {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-base font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-200 ease-in-out cursor-pointer group data-[state=open]:text-[rgb(var(--bg-primary-hover))] outline-none">
+            <DropdownMenuTrigger className="flex items-center gap-1 py-1.5 text-base font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] transition-colors duration-200 ease-in-out cursor-pointer group data-[state=open]:text-[rgb(var(--bg-primary-hover))] outline-none">
                 <span>
                     {option.name}
                 </span>
