@@ -112,14 +112,14 @@ const NavbarMenu = () => {
                         {/* ---- Buttons ---- */}
                         <div className="sm:hidden mt-5">
                             {(user && !loading) ? (
-                                <Link href="/dashboard" className="inline-block w-full">
+                                <Link onClick={() => setShowMenu(false)} href="/dashboard" className="inline-block w-full">
                                     <Button className="w-full">
                                         <LayoutDashboard size={16} />
                                         Dashboard
                                     </Button>
                                 </Link>
                             ) : (!user && !loading) ? (
-                                <Link href="/sign-in" className="inline-block w-full">
+                                <Link onClick={() => setShowMenu(false)} href="/sign-in" className="inline-block w-full">
                                     <Button className="w-full">Sign In</Button>
                                 </Link>
                             ) : (
