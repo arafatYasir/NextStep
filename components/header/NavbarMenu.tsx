@@ -67,10 +67,10 @@ const NavbarMenu = () => {
             </Button>
 
             {/* ---- Main Menu ---- */}
-            <div className={cn("fixed inset-0 z-60 w-full min-h-screen bg-[rgb(var(--bg-surface))] translate-x-full transition-transform duration-500 ease-in-out overflow-y-auto", {
+            <div className={cn("fixed inset-0 z-60 w-full h-screen bg-[rgb(var(--bg-surface))] translate-x-full transition-transform duration-500 ease-in-out flex flex-col", {
                 "translate-x-0": showMenu
             })}>
-                <div className="border-b border-[rgb(var(--border-default))] shadow-sm">
+                <div className="flex-none border-b border-[rgb(var(--border-default))] shadow-sm">
                     <Container>
                         <div className="flex items-baseline justify-between py-3">
                             <Link onClick={() => setShowMenu(false)} href="/">
@@ -85,47 +85,49 @@ const NavbarMenu = () => {
                     </Container>
                 </div>
 
-                <Container>
-                    {/* ---- Nav Menu Options ---- */}
-                    <ul className="flex flex-col gap-y-2 mt-5">
-                        {navOptions.map(option => (
-                            <li
-                                key={option.id}
-                                className="flex items-center font-sans border-b border-[rgb(var(--border-default))] transition-colors duration-250 ease-in-out"
-                            >
-                                {option.type !== "Submenu" ? (
-                                    <Link
-                                        onClick={() => setShowMenu(false)}
-                                        href={option.url}
-                                        className="w-full p-1.5 text-base sm:text-lg font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] active:text-[rgb(var(--bg-primary-hover))] hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] transition-colors duration-250 ease-in-out"
-                                    >
-                                        {option.name}
-                                    </Link>
-                                ) : (
-                                    <NavDropdownMenu setShowMenu={setShowMenu} option={option} />
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                <div className="flex-1 overflow-y-auto pb-10">
+                    <Container>
+                        {/* ---- Nav Menu Options ---- */}
+                        <ul className="flex flex-col gap-y-2 mt-5">
+                            {navOptions.map(option => (
+                                <li
+                                    key={option.id}
+                                    className="flex items-center font-sans border-b border-[rgb(var(--border-default))] transition-colors duration-250 ease-in-out"
+                                >
+                                    {option.type !== "Submenu" ? (
+                                        <Link
+                                            onClick={() => setShowMenu(false)}
+                                            href={option.url}
+                                            className="w-full p-1.5 text-base sm:text-lg font-medium text-foreground hover:text-[rgb(var(--bg-primary-hover))] active:text-[rgb(var(--bg-primary-hover))] hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] transition-colors duration-250 ease-in-out"
+                                        >
+                                            {option.name}
+                                        </Link>
+                                    ) : (
+                                        <NavDropdownMenu setShowMenu={setShowMenu} option={option} />
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
 
-                    {/* ---- Buttons ---- */}
-                    <div className="sm:hidden mt-5">
-                        {(user && !loading) ? (
-                            <Link href="/dashboard" className="inline-block w-full">
-                                <Button className="w-full">
-                                    <LayoutDashboard size={16} />
-                                    Dashboard
-                                </Button>
-                            </Link>
-                        ) : (!user && !loading) ? (
-                            <Link href="/sign-in" className="inline-block w-full">
-                                <Button className="w-full">Sign In</Button>
-                            </Link>
-                        ) : (
-                            <Skeleton className="w-full h-[40px]" />
-                        )}
-                    </div>
-                </Container>
+                        {/* ---- Buttons ---- */}
+                        <div className="sm:hidden mt-5">
+                            {(user && !loading) ? (
+                                <Link href="/dashboard" className="inline-block w-full">
+                                    <Button className="w-full">
+                                        <LayoutDashboard size={16} />
+                                        Dashboard
+                                    </Button>
+                                </Link>
+                            ) : (!user && !loading) ? (
+                                <Link href="/sign-in" className="inline-block w-full">
+                                    <Button className="w-full">Sign In</Button>
+                                </Link>
+                            ) : (
+                                <Skeleton className="w-full h-[40px]" />
+                            )}
+                        </div>
+                    </Container>
+                </div>
             </div>
         </div>
     )
