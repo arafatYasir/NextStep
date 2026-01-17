@@ -31,7 +31,7 @@ const HeroSection = () => {
 
                     {/* ---- Sub-heading ---- */}
                     <p className="text-lg font-sans text-foreground/80 max-w-2xl text-balance leading-relaxed">
-                        Analyze job descriptions, evaluate your resume, and build tailored resumes — all powered by AI to help you stand out in a competitive hiring market.
+                        Analyze job descriptions, evaluate your resume, and build tailored resumes — all powered by AI to help you stand out in a competitive job market.
                     </p>
 
                     {/* ---- CTA Buttons ---- */}

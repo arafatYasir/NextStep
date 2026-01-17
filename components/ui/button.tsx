@@ -17,7 +17,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
-          "hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] transition-colors duration-250 ease-in-out",
+          "border border-foreground hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] transition-colors duration-250 ease-in-out",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

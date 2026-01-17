@@ -14,7 +14,7 @@ const HeroButtons = () => {
     const handleLandDreamJob = async () => {
         // Checking if the user is logged in
         const supabase = createClient();
-        const { data: { user }, error } = await supabase.auth.getUser();
+        const { data: { user } } = await supabase.auth.getUser();
 
         // If user is not logged in redirect to sign-in page
         if (!user) {
@@ -39,7 +39,7 @@ const HeroButtons = () => {
 
 
                 <Link href="#how-it-works">
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto text-base h-14 px-10 rounded-full bg-background/50 border-input hover:bg-background/80 hover:text-foreground backdrop-blur-sm transition-all duration-300 cursor-pointer">
+                    <Button variant="ghost" size="lg" className="w-full sm:w-auto text-base h-14 px-10 rounded-full text-foreground">
                         See How It Works
                     </Button>
                 </Link>
