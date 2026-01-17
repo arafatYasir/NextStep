@@ -19,6 +19,7 @@ import {
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
+import Image from "next/image";
 
 const AuthenticationMenus = () => {
     // States
@@ -86,11 +87,11 @@ const AuthenticationMenus = () => {
                         <DropdownMenuTrigger className="outline-none">
                             {
                                 user.user_metadata.avatar_url ? (
-                                    <div className="w-9 h-9 rounded-full overflow-hidden cursor-pointer">
-                                        <img className="w-full h-full object-cover" src={user.user_metadata.avatar_url} alt={`${user.user_metadata.full_name}'s Image`} />
+                                    <div className="w-10 h-10 bg-red-600 rounded-full overflow-hidden cursor-pointer">
+                                        <Image className="w-full h-full object-cover border-2 border-white rounded-full" src={user.user_metadata.avatar_url} alt={`${user.user_metadata.full_name}'s Image`} width={40} height={40} />
                                     </div>
                                 ) : (
-                                    <div className="w-9 h-9 rounded-full bg-[rgb(var(--bg-primary))] flex items-center justify-center text-[rgb(var(--text-on-primary))] cursor-pointer">
+                                    <div className="w-10 h-10 rounded-full bg-[rgb(var(--bg-primary))] flex items-center justify-center text-[rgb(var(--text-on-primary))] cursor-pointer">
                                         <UserIcon className="w-5 h-5" />
                                     </div>
                                 )
