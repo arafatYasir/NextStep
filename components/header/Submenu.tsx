@@ -38,7 +38,7 @@ const Submenu = ({ option }: { option: NavSubmenu }) => {
                             <div className="flex flex-col gap-1">
                                 <span className="font-bold leading-none">{child.name}</span>
 
-                                <span className="text-xs text-muted-foreground leading-snug group-hover:text-foreground transition-colors duration-250 ease-in-out">
+                                <span className="text-xs text-foreground/80 leading-snug">
                                     {child.description}
                                 </span>
                             </div>
