@@ -39,7 +39,7 @@ const HeroButtons = () => {
 
 
                 <Link href="#how-it-works">
-                    <Button variant="ghost" size="lg" className="text-base h-12 sm:h-14 sm:px-10 rounded-full text-foreground shadow-lg">
+                    <Button variant="secondary" size="lg" className="text-base h-12 sm:h-14 sm:px-10 rounded-full text-foreground shadow-lg">
                         See How It Works
                     </Button>
                 </Link>

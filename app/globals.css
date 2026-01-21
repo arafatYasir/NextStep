@@ -8,6 +8,7 @@
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  --breakpoint-xs: 480px;
 }
 
 /* ---- Theme Variables: Light Mode ---- */
