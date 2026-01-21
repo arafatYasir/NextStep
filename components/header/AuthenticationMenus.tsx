@@ -65,7 +65,7 @@ const AuthenticationMenus = () => {
         return (
             <div className="flex items-center gap-4">
                 <Skeleton className="hidden sm:block w-[121px] h-9" />
-                <Skeleton className="w-10 h-10 rounded-full" />
+                <Skeleton className="w-[38px] h-[38px] rounded-full" />
             </div>
         )
     }
@@ -85,14 +85,14 @@ const AuthenticationMenus = () => {
                     {/* User Avatar Placeholder */}
                     <DropdownMenu>
                         <DropdownMenuTrigger className="outline-none">
-                            <div className="relative p-0.5 rounded-full bg-primary/50">
+                            <div className="relative p-px rounded-full bg-foreground">
                                 <div className="w-9 h-9 border-2 border-background rounded-full overflow-hidden cursor-pointer">
                                     <Image 
                                         className="w-full h-full object-cover" 
                                         src={user.user_metadata.avatar_url || "/images/avatar.png"} 
                                         alt={`${user.user_metadata.full_name}'s Image`} 
-                                        width={36} 
-                                        height={36} 
+                                        width={38} 
+                                        height={38} 
                                     />
                                 </div>
                             </div>

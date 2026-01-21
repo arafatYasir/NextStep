@@ -30,7 +30,7 @@ const HeroSection = () => {
                     </h1>
 
                     {/* ---- Sub-heading ---- */}
-                    <p className="text-sm sm:text-base md:text-lg font-sans text-foreground/80 max-w-2xl  leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg font-sans text-foreground/80 max-w-2xl leading-relaxed sm:text-balance">
                         Analyze job descriptions, evaluate your resume, and build tailored resumes — all powered by AI to help you stand out in a competitive job market.
                     </p>
 
