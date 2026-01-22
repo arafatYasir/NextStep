@@ -22,14 +22,13 @@ const FaqItem = ({ item }: { item: { question: string; answer: string } }) => {
                 aria-expanded={isOpen}
             >
                 <h3 className={cn(
-                    "text-lg md:text-xl font-heading font-bold tracking-tight transition-colors duration-250",
-                    isOpen ? "text-primary" : "text-foreground group-hover:text-primary/90"
+                    "text-lg md:text-xl font-heading font-bold tracking-tight transition-colors duration-250 text-foreground",
                 )}>
                     {item.question}
                 </h3>
                 <div className={cn(
                     "p-2 rounded-full bg-secondary transition-all duration-250",
-                    isOpen ? "rotate-180 bg-primary/10 text-foreground" : "text-muted-foreground group-hover:text-primary group-hover:bg-primary/5"
+                    isOpen ? "rotate-180 bg-primary/10 text-foreground" : "text-muted-foreground"
                 )}>
                     <ChevronDown size={20} className="transition-transform duration-250" />
                 </div>
@@ -40,7 +39,7 @@ const FaqItem = ({ item }: { item: { question: string; answer: string } }) => {
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
             )}>
                 <div className="overflow-hidden">
-                    <p className="px-6 pb-6 text-base md:text-lg text-justify text-muted-foreground font-sans leading-relaxed">
+                    <p className="px-6 pb-6 text-base md:text-lg text-justify text-foreground/80 font-sans leading-relaxed">
                         {item.answer}
                     </p>
                 </div>
