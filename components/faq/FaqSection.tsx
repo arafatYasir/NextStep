@@ -7,7 +7,9 @@ const FaqSection = () => {
     return (
         <Container>
             <Section>
-                <h2 className="text-center max-w-5xl mx-auto text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.2] font-heading">Everything You're Wondering About</h2>
+                <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-center tracking-tight text-foreground leading-[1.2]">
+                    Everything You're Wondering About
+                </h2>
 
                 {/* ---- Faq Items ---- */}
                 <div className="flex gap-x-5">
