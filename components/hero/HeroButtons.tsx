@@ -31,7 +31,7 @@ const HeroButtons = () => {
             <div className="flex justify-center items-center whitespace-nowrap flex-wrap gap-4 w-full sm:w-auto mt-8 font-sans">
                 <Button
                     size="lg"
-                    className="text-base h-12 sm:h-14 sm:px-10 rounded-full hover:-translate-y-0.5 group shadow-lg cursor-pointer"
+                    className="text-base h-12 sm:px-10 hover:-translate-y-0.5 group shadow-lg cursor-pointer"
                     onClick={handleLandDreamJob}>
                     Land Your Dream Job
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:animate-bounce" />
@@ -39,7 +39,7 @@ const HeroButtons = () => {
 
 
                 <Link href="#how-it-works">
-                    <Button variant="secondary" size="lg" className="text-base h-12 sm:h-14 sm:px-10 rounded-full text-foreground shadow-lg">
+                    <Button variant="secondary" size="lg" className="text-base h-12 sm:px-10 text-foreground shadow-lg">
                         See How It Works
                     </Button>
                 </Link>

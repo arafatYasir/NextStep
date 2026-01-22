@@ -7,10 +7,10 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
 
     return (
         <div className={cn(
-            "group relative flex flex-col gap-6 p-8 rounded-2xl border transition-all duration-250 hover:-translate-y-1 shadow-xl bg-card",
+            "group relative flex flex-col gap-6 p-6 rounded-xl border transition-all duration-250 shadow-xl bg-card",
             isPopular
-                ? "border-[rgb(var(--border-hover))] ring-1 ring-[rgb(var(--border-hover))]/20 shadow-primary/10"
-                : "border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-primary))]/10"
+                ? "border-[rgb(var(--border-hover))]"
+                : "border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))]"
         )}>
             {/* ---- Popular Tag ---- */}
             {isPopular && (
@@ -24,7 +24,7 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
                 <h3 className="font-heading text-[22px] font-bold tracking-tight text-foreground">
                     {plan.plan}
                 </h3>
-                <p className="font-sans text-muted-foreground leading-relaxed">
+                <p className="font-sans text-foreground/80 leading-relaxed">
                     {plan.description}
                 </p>
             </div>
@@ -38,8 +38,8 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
             {/* ---- CTA Button ---- */}
             <Button
                 variant={isPopular ? "default" : "outline"}
-                className={cn("w-full py-6 text-base font-bold font-sans shadow-md hover:shadow-lg transition-all duration-250 cursor-pointer", {
-                    "bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/75 text-white hover:-translate-y-0.5": isPopular
+                className={cn("w-full font-sans shadow-md hover:shadow-lg transition-all duration-250 cursor-pointer", {
+                    "hover:-translate-y-0.5": isPopular
                 })}
             >
                 {plan.cta || "Get Started"}
