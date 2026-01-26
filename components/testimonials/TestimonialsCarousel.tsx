@@ -20,11 +20,25 @@ const TestimonialsCarousel = () => {
         slidesToScroll: 1,
         arrows: false,
         cssEase: "linear",
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
     };
 
     return (
         <div>
-            <Slider {...settings} >
+            <Slider {...settings}>
                 {testimonials.map((testimonial) => (
                     <TestimonialCard key={testimonial.id} testimonial={testimonial} />
                 ))}
