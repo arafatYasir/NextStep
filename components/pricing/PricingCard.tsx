@@ -14,7 +14,7 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
         )}>
             {/* ---- Popular Tag ---- */}
             {isPopular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold tracking-wider uppercase shadow-lg">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-foreground text-background text-xs font-bold tracking-wider uppercase shadow-lg">
                     {plan.tag}
                 </div>
             )}
@@ -37,8 +37,8 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
 
             {/* ---- CTA Button ---- */}
             <Button
-                variant={isPopular ? "default" : "outline"}
-                className={cn("w-full font-sans shadow-md hover:shadow-lg transition-all duration-250 cursor-pointer", {
+                variant={isPopular ? "default" : "secondary"}
+                className={cn("w-full font-sans shadow-md hover:shadow-lg active:shadow-lg duration-250", {
                     "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
                 })}
             >
