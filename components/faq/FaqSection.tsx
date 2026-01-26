@@ -12,13 +12,13 @@ const FaqSection = () => {
                 </h2>
 
                 {/* ---- Faq Items ---- */}
-                <div className="flex gap-x-5">
-                    <div className="space-y-5">
+                <div className="flex flex-col lg:flex-row gap-5 xs:gap-6 max-w-[720px] mx-auto lg:max-w-full lg:mx-0">
+                    <div className="space-y-5 xs:space-y-6">
                         {faqItems.slice(0, faqItems.length / 2).map(item => (
                             <FaqItem key={item.id} item={item} />
                         ))}
                     </div>
-                    <div className="space-y-5">
+                    <div className="space-y-5 xs:space-y-6">
                         {faqItems.slice(faqItems.length / 2).map(item => (
                             <FaqItem key={item.id} item={item} />
                         ))}
