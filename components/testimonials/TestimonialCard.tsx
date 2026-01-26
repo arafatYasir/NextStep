@@ -5,7 +5,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: TestimonialItem }) => {
     const { rating, quote, name, title, image } = testimonial;
     
     return (
-        <div className="group relative max-w-[420px] mx-auto flex flex-col gap-5 sm:gap-6 p-6 rounded-2xl border border-[rgb(var(--border-default))] bg-card transition-all duration-250 shadow-xl hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))]">
+        <div className="group relative max-w-[420px] mx-auto flex flex-col gap-5 xs:gap-6 p-5 xs:p-6 rounded-2xl border border-[rgb(var(--border-default))] bg-card transition-all duration-250 shadow-xl hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))]">
             {/* ---- Quote Icon ---- */}
             <div className="absolute top-5 right-5 text-muted-foreground/20">
                 <Quote className="w-7 h-7 sm:w-9 sm:h-9" fill="currentColor" />

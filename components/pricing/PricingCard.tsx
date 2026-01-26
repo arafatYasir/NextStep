@@ -7,7 +7,7 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
 
     return (
         <div className={cn(
-            "group relative flex flex-col gap-6 p-6 rounded-xl border transition-all duration-250 shadow-xl bg-card",
+            "group relative flex flex-col gap-5 xs:gap-6 p-5 xs:p-6 rounded-xl border transition-all duration-250 shadow-xl bg-card",
             isPopular
                 ? "border-[rgb(var(--border-hover))]"
                 : "border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))]"
@@ -21,17 +21,17 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
 
             {/* ---- Plan Header ---- */}
             <div className="space-y-2">
-                <h3 className="font-heading text-[22px] font-bold tracking-tight text-foreground">
+                <h3 className="font-heading text-xl xs:text-[22px] font-bold tracking-tight text-foreground">
                     {plan.plan}
                 </h3>
-                <p className="font-sans text-foreground/80 leading-relaxed">
+                <p className="font-sans text-sm xs:text-base text-foreground/80 leading-relaxed">
                     {plan.description}
                 </p>
             </div>
 
             {/* ---- Pricing ---- */}
             <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight text-foreground">{plan.price}</span>
+                <span className="text-3xl xs:text-4xl font-bold tracking-tight text-foreground">{plan.price}</span>
                 <span className="text-muted-foreground font-medium">/month</span>
             </div>
 
@@ -39,14 +39,14 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
             <Button
                 variant={isPopular ? "default" : "outline"}
                 className={cn("w-full font-sans shadow-md hover:shadow-lg transition-all duration-250 cursor-pointer", {
-                    "hover:-translate-y-0.5": isPopular
+                    "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
                 })}
             >
                 {plan.cta || "Get Started"}
             </Button>
 
             {/* ---- Divider ---- */}
-            <div className="h-px w-full bg-[rgb(var(--border-default))] group-hover:bg-primary/20 transition-colors" />
+            <div className="h-px w-full bg-[rgb(var(--border-default))]" />
 
             {/* ---- Features ---- */}
             <div className="flex-1 space-y-4">
@@ -55,9 +55,9 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
                     {plan.allowed.map((feature, i) => (
                         <li key={i} className="flex items-center gap-3 group/item">
                             <div className="rounded-full p-1 bg-[rgb(var(--text-accent))]/10 text-[rgb(var(--text-accent))]">
-                                <Check size={14} strokeWidth={3} />
+                                <Check className="w-3 h-3 xs:w-[14px] xs:h-[14px]" strokeWidth={3} />
                             </div>
-                            <span className="text-sm font-sans text-foreground/90 leading-tight">
+                            <span className="text-xs xs:text-sm font-sans text-foreground/90 leading-tight">
                                 {feature}
                             </span>
                         </li>
@@ -68,7 +68,7 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
                             <div className="rounded-full p-1 bg-[rgb(var(--text-accent))]/10 text-[rgb(var(--text-accent))]">
                                 <X size={14} strokeWidth={3} />
                             </div>
-                            <span className="text-sm font-sans text-muted-foreground leading-tight line-through decoration-[rgb(var(--text-accent))]">
+                            <span className="text-xs xs:text-sm font-sans text-muted-foreground leading-tight line-through decoration-[rgb(var(--text-accent))]">
                                 {feature}
                             </span>
                         </li>
