@@ -6,7 +6,7 @@ import Section from "../Section"
 const PricingSection = () => {
     return (
         <Container>
-            <Section>
+            <Section sectionId="pricing">
                 <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-center tracking-tight text-foreground leading-[1.2]">
                     Simple, Fair Pricing for Your Job Search
                 </h2>
