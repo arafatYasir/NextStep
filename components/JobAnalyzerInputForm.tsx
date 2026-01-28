@@ -173,12 +173,12 @@ const JobAnalyzerInputForm = () => {
     return (
         <>
             {/* ---- Input Card ---- */}
-            <div className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-8">
+            <div className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Role Selector ---- */}
                 <div className="mb-6">
                     <label
                         htmlFor="job-role"
-                        className="block font-semibold text-foreground mb-2 font-heading"
+                        className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading"
                     >
                         Targeted Job Title
                     </label>
@@ -189,7 +189,7 @@ const JobAnalyzerInputForm = () => {
                         placeholder="Enter the job title as it appears in the job posting"
                     />
 
-                    <p className="text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobRole.length}/50 characters
                     </p>
                 </div>
@@ -198,7 +198,7 @@ const JobAnalyzerInputForm = () => {
                 <div className="mb-6">
                     <label
                         htmlFor="job-description"
-                        className="block font-semibold font-heading text-[rgb(var(--text-primary))] mb-2"
+                        className="block font-semibold font-heading text-[rgb(var(--text-primary))] text-sm sm:text-base mb-2"
                     >
                         Job Description
                     </label>
@@ -211,7 +211,7 @@ const JobAnalyzerInputForm = () => {
                         className="h-40 resize-none scrollbar-custom"
                     />
 
-                    <p className="text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobDescription.length}/3000 characters
                     </p>
                 </div>
