@@ -94,7 +94,7 @@ const jobInsights = {
     ]
 };
 
-const InputCard = () => {
+const JobAnalyzerInputForm = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
@@ -247,4 +247,4 @@ const InputCard = () => {
     );
 };
 
-export default InputCard;
+export default JobAnalyzerInputForm;
