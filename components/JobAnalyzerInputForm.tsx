@@ -99,7 +99,7 @@ const JobAnalyzerInputForm = () => {
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState(jobInsights);
+    const [result, setResult] = useState({});
     const [showSignInModal, setShowSignInModal] = useState(false);
 
     // Extra hooks
@@ -173,12 +173,12 @@ const JobAnalyzerInputForm = () => {
     return (
         <>
             {/* ---- Input Card ---- */}
-            <div className="w-full max-w-3xl mx-auto bg-[rgb(var(--bg-surface))] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)] border border-[rgb(var(--border-light))] p-8">
+            <div className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-8">
                 {/* ---- Role Selector ---- */}
                 <div className="mb-6">
                     <label
                         htmlFor="job-role"
-                        className="block font-semibold text-[rgb(var(--text-primary))] mb-2"
+                        className="block font-semibold text-foreground mb-2 font-heading"
                     >
                         Targeted Job Title
                     </label>
@@ -189,7 +189,7 @@ const JobAnalyzerInputForm = () => {
                         placeholder="Enter the job title as it appears in the job posting"
                     />
 
-                    <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
+                    <p className="text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobRole.length}/50 characters
                     </p>
                 </div>
@@ -198,7 +198,7 @@ const JobAnalyzerInputForm = () => {
                 <div className="mb-6">
                     <label
                         htmlFor="job-description"
-                        className="block font-semibold text-[rgb(var(--text-primary))] mb-2"
+                        className="block font-semibold font-heading text-[rgb(var(--text-primary))] mb-2"
                     >
                         Job Description
                     </label>
@@ -211,7 +211,7 @@ const JobAnalyzerInputForm = () => {
                         className="h-40 resize-none scrollbar-custom"
                     />
 
-                    <p className="text-sm text-[rgb(var(--text-tertiary))] mt-1.5">
+                    <p className="text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobDescription.length}/3000 characters
                     </p>
                 </div>
@@ -220,7 +220,7 @@ const JobAnalyzerInputForm = () => {
                 <Button
                     disabled={isDisabled || loading}
                     onClick={handleAnalyze}
-                    className="w-full bg-[rgb(var(--bg-surface))] bg-linear-to-r from-[rgb(var(--bg-primary-hover))] to-[rgb(var(--bg-primary))]/75 text-white hover:-translate-y-0.5 transition-all duration-250 cursor-pointer"
+                    className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                 >
                     Analyze Job Description
                 </Button>
