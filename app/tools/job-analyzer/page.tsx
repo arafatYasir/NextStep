@@ -3,7 +3,7 @@ import LongDownArrowIcon from "@/icons/LongDownArrowIcon";
 
 export default function JobDescriptionAnalyzer() {
   return (
-    <div className="bg-linear-to-br from-[rgb(var(--bg-primary))]/2 to-[rgb(var(--bg-primary))]/20">
+    <div className="bg-linear-to-br from-[rgb(var(--bg-primary))]/2 to-[rgb(var(--bg-primary-hover))]/40">
       <main className="container mx-auto px-6 pt-32 pb-12 min-h-screen flex flex-col items-center gap-y-6">
         {/* ---- Hero Section ---- */}
         <div className="text-center">

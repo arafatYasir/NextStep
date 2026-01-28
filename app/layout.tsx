@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import Footer from "@/components/footer/Footer";
+import ConditionalFooter from "@/components/footer/ConditionalFooter";
 import Header from "@/components/header/Header";
 
 const inter = Inter({
@@ -37,7 +37,7 @@ export default function RootLayout({
         {children}
 
         {/* ---- Footer ---- */}
-        <Footer />
+        <ConditionalFooter />
 
         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       </body>
