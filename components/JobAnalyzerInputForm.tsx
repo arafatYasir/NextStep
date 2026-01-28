@@ -99,7 +99,7 @@ const JobAnalyzerInputForm = () => {
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState({});
+    const [result, setResult] = useState(jobInsights);
     const [showSignInModal, setShowSignInModal] = useState(false);
 
     // Extra hooks

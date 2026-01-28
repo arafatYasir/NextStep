@@ -50,3 +50,14 @@ interface FaqItem {
     question: string;
     answer: string;
 }
+
+interface JobAnalysis {
+    skills: { name: string, count: number }[],
+    softSkills: { name: string, count: number }[],
+    tools: { name: string, count: number }[],
+    phrases: { name: string, count: number }[],
+    actionVerbs: { name: string, count: number }[],
+    seniorityLevels: string[],
+    educationalRequirements: string[],
+    salary: string
+}

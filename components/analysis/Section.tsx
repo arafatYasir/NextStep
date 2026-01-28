@@ -29,15 +29,15 @@ const Section = ({ title, description, icon, children, copyContent, isLoading }:
     }
 
     return (
-        <div className="bg-[rgb(var(--bg-surface))] rounded-2xl p-6 shadow-sm border border-[rgb(var(--border-light))] w-full">
+        <div className="bg-card rounded-2xl p-6 shadow-sm border border-[rgb(var(--border-light))] w-full">
             <div className="flex items-start justify-between mb-6 gap-4">
                 <div className="flex items-start gap-3">
                     <div className="p-2.5 rounded-xl bg-[rgb(var(--bg-input))] shadow-sm border border-[rgb(var(--border-light))] shrink-0">
                         {icon}
                     </div>
                     <div>
-                        <h3 className="font-bold text-lg text-[rgb(var(--text-primary))] leading-tight">{title}</h3>
-                        {description && <p className="text-sm text-[rgb(var(--text-secondary))] font-medium mt-1">{description}</p>}
+                        <h3 className="font-bold font-heading text-lg text-[rgb(var(--text-primary))] leading-tight">{title}</h3>
+                        {description && <p className="text-sm font-sans text-[rgb(var(--text-secondary))] font-medium mt-1">{description}</p>}
                     </div>
                 </div>
 

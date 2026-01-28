@@ -16,12 +16,12 @@ const Badge = ({ name, count, variant }: props) => {
 
     return (
         <div className={`group flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-lg border transition-all duration-200
-            ${styles[variant]} cursor-default
+            ${styles[variant]} cursor-default font-sans
         `}>
             <span className="font-semibold text-sm tracking-wide">{name}</span>
             {count > 0 && (
                 <span className={`
-                    flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold rounded-md bg-white/80 text-current shadow-sm
+                    flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold rounded-md bg-white/80 text-current shadow-sm font-sans
                 `}>
                     {count}
                 </span>

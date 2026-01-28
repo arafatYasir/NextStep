@@ -8,18 +8,7 @@ import Badge from "./badges/Badge";
 import InfoCard from "./infoCard/InfoCard";
 import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
 
-interface Analysis {
-    skills: { name: string, count: number }[],
-    softSkills: { name: string, count: number }[],
-    tools: { name: string, count: number }[],
-    phrases: { name: string, count: number }[],
-    actionVerbs: { name: string, count: number }[],
-    seniorityLevels: string[],
-    educationalRequirements: string[],
-    salary: string
-}
-
-const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: Analysis, onClose: () => void, isLoading: boolean }) => {
+const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobAnalysis, onClose: () => void, isLoading: boolean }) => {
     // Preventing background scrolling when modal is open
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -30,9 +19,9 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: Anal
     }, []);
 
     return (
-        <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))] duration-300">
+        <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))]">
             {/* ---- Header ---- */}
-            <div className="flex-none py-4 border-b border-[rgb(var(--border-default))] bg-[rgb(var(--bg-surface))] z-10 shadow-sm">
+            <div className="flex-none py-4 border-b border-[rgb(var(--border-default))] bg-card z-10 shadow-sm">
                 <div className="container mx-auto flex items-center justify-between">
                     <div>
                         <h2 className="text-2xl font-bold text-[rgb(var(--text-primary))] font-heading tracking-tight">
