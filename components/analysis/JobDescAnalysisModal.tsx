@@ -175,16 +175,16 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                             </div>
 
                             {/* Salary */}
-                            <div className="group relative overflow-hidden p-5 rounded-2xl bg-linear-to-br from-[rgb(var(--bg-primary))] to-[rgb(var(--bg-primary-hover))] text-white shadow-xl shadow-indigo-500/10">
-                                <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <div className="relative overflow-hidden p-6 rounded-xl bg-linear-to-br from-[rgb(var(--bg-primary))] to-[rgb(var(--bg-primary-hover))] text-background">
+                                <div className="absolute top-0 right-0 p-4 opacity-20">
                                     <DollarSign size={60} className="transform rotate-12 -mr-6 -mt-6" />
                                 </div>
                                 <div className="relative z-10">
-                                    <div className="flex items-center gap-2 mb-2 opacity-90">
+                                    <div className="flex items-center gap-2 mb-2">
                                         <DollarSign size={20} />
-                                        <span className="text-sm font-semibold uppercase tracking-wider">Target Compensation</span>
+                                        <span className="text-sm font-semibold uppercase tracking-wider font-heading">Target Compensation</span>
                                     </div>
-                                    <p className="text-2xl font-bold tracking-tight">
+                                    <p className="text-2xl font-bold tracking-tight font-sans">
                                         {analysis?.salary && analysis?.salary !== "Not specified" ? analysis?.salary : "Not disclosed"}
                                     </p>
                                 </div>
