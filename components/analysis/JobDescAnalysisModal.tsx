@@ -3,14 +3,14 @@
 import { X, Briefcase, GraduationCap, DollarSign, Wrench, MessageSquare, Zap, Target, BookOpen } from "lucide-react";
 import { useEffect } from "react";
 import EmptyState from "./EmptyState";
-import Section from "./Section";
+import JobDescAnalysisSection from "./JobDescAnalysisSection";
 import Badge from "./badges/Badge";
 import InfoCard from "./infoCard/InfoCard";
 import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
 import { Button } from "../ui/button";
 
 const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobAnalysis, onClose: () => void, isLoading: boolean }) => {
-    
+
     // Preventing background scrolling when modal is open
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -37,7 +37,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                         onClick={onClose}
                         disabled={isLoading}
                         variant="secondary"
-                        className="border border-[rgb(var(--border-default))]"
+                        className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground"
                         aria-label="Close Analysis"
                     >
                         <X size={24} />
@@ -53,7 +53,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                         {/* LEFT COLUMN (Technical & Hard Requirements) */}
                         <div className="xl:col-span-7 space-y-8">
                             {/* Hard Skills */}
-                            <Section
+                            <JobDescAnalysisSection
                                 title="Hard Skills"
                                 description="Core technical competencies required like languages, frameworks, libraries."
                                 icon={<Zap size={20} className="text-blue-500" />}
@@ -70,10 +70,10 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                         ) : <EmptyState text="Not found" />
                                     }
                                 </div>
-                            </Section>
+                            </JobDescAnalysisSection>
 
                             {/* Tools & Technologies */}
-                            <Section
+                            <JobDescAnalysisSection
                                 title="Tools & Technologies"
                                 description="Software, platforms, and services."
                                 icon={<Wrench size={20} className="text-indigo-500" />}
@@ -90,10 +90,10 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                         ) : <EmptyState text="Not found" />
                                     }
                                 </div>
-                            </Section>
+                            </JobDescAnalysisSection>
 
                             {/* Key Phrases */}
-                            <Section
+                            <JobDescAnalysisSection
                                 title="Key Phrases & Terminology"
                                 description="Important technical concepts and industry terms."
                                 icon={<BookOpen size={20} className="text-teal-500" />}
@@ -110,13 +110,13 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                         ) : <EmptyState text="Not found" />
                                     }
                                 </div>
-                            </Section>
+                            </JobDescAnalysisSection>
                         </div>
 
                         {/* RIGHT COLUMN (Soft Skills, Context, Requirements) */}
                         <div className="xl:col-span-5 space-y-8">
                             {/* Soft Skills */}
-                            <Section
+                            <JobDescAnalysisSection
                                 title="Soft Skills"
                                 description="Interpersonal and behavioral traits."
                                 icon={<MessageSquare size={20} className="text-emerald-500" />}
@@ -133,10 +133,10 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                         ) : <EmptyState text="Not found" />
                                     }
                                 </div>
-                            </Section>
+                            </JobDescAnalysisSection>
 
                             {/* Action Verbs */}
-                            <Section
+                            <JobDescAnalysisSection
                                 title="Action Verbs"
                                 description="Impact words for your resume."
                                 icon={<Target size={20} className="text-rose-500" />}
@@ -153,7 +153,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                         ) : <EmptyState text="Not found" />
                                     }
                                 </div>
-                            </Section>
+                            </JobDescAnalysisSection>
 
                             {/* Requirements Cards */}
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
