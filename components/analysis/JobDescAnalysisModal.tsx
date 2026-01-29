@@ -5,9 +5,10 @@ import { useEffect } from "react";
 import EmptyState from "./EmptyState";
 import JobDescAnalysisSection from "./JobDescAnalysisSection";
 import Badge from "./badges/Badge";
-import InfoCard from "./job info card/InfoCard";
+import JobInfoCard from "./job info card/JobInfoCard";
 import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
 import { Button } from "../ui/button";
+import Container from "../Container";
 
 const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobAnalysis, onClose: () => void, isLoading: boolean }) => {
 
@@ -24,30 +25,32 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
         <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))]">
             {/* ---- Header ---- */}
             <div className="flex-none py-4 border-b border-[rgb(var(--border-default))] bg-card z-10 shadow-sm">
-                <div className="container mx-auto flex items-center justify-between">
-                    <div>
-                        <h2 className="text-2xl font-bold text-foreground font-heading tracking-tight">
-                            Job Description Insights
-                        </h2>
-                        <p className="text-foreground/80 mt-1.5 font-sans">
-                            A clear breakdown of the skills, experience, and expectations the employer is looking for.
-                        </p>
+                <Container>
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-2xl font-bold text-foreground font-heading tracking-tight">
+                                Job Description Insights
+                            </h2>
+                            <p className="text-foreground/80 mt-1.5 font-sans">
+                                A clear breakdown of the skills, experience, and expectations the employer is looking for.
+                            </p>
+                        </div>
+                        <Button
+                            onClick={onClose}
+                            disabled={isLoading}
+                            variant="secondary"
+                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground"
+                            aria-label="Close Analysis"
+                        >
+                            <X size={24} />
+                        </Button>
                     </div>
-                    <Button
-                        onClick={onClose}
-                        disabled={isLoading}
-                        variant="secondary"
-                        className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground"
-                        aria-label="Close Analysis"
-                    >
-                        <X size={24} />
-                    </Button>
-                </div>
+                </Container>
             </div>
 
             {/* ---- Scrollable Content ---- */}
-            <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth">
-                <div className="max-w-7xl mx-auto p-6 lg:p-10 space-y-10">
+            <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth pt-10">
+                <Container>
                     {/* Top Stats / Summary Grid */}
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
                         {/* LEFT COLUMN (Technical & Hard Requirements) */}
@@ -157,13 +160,13 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
 
                             {/* Requirements Cards */}
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
-                                <InfoCard
+                                <JobInfoCard
                                     title="Education & Qualifications"
                                     icon={<GraduationCap size={20} className="text-blue-500" />}
                                     items={analysis?.educationalRequirements}
                                     isLoading={isLoading}
                                 />
-                                <InfoCard
+                                <JobInfoCard
                                     title="Experience & Seniority"
                                     icon={<Briefcase size={20} className="text-orange-500" />}
                                     items={analysis?.seniorityLevels}
@@ -188,7 +191,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                             </div>
                         </div>
                     </div>
-                </div>
+                </Container>
             </div>
         </div>
     )

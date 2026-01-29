@@ -9,20 +9,20 @@ interface props {
     isLoading: boolean
 }
 
-const InfoCard = ({ title, icon, items, isLoading }: props) => (
-    <div className="p-5 rounded-2xl bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-light))] shadow-sm hover:shadow-md transition-shadow">
-        <div className="flex items-center gap-2 mb-4 text-[rgb(var(--text-secondary))]">
+const JobInfoCard = ({ title, icon, items, isLoading }: props) => (
+    <div className="p-6 rounded-xl bg-card border border-[rgb(var(--border-default))] font-sans">
+        <div className="flex items-center gap-2 mb-4">
             {icon}
-            <span className="text-xs font-bold uppercase tracking-wider">{title}</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-foreground">{title}</span>
         </div>
-        <ul className="space-y-2.5">
+        <ul className="space-y-2">
             {
                 (!items?.length && isLoading) ? (
                     <InfoLoadingSkeleton count={2} />
                 ) : (items?.length > 0 && !isLoading) ? (
                     items?.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-[rgb(var(--text-primary))] font-medium leading-relaxed">
-                            <span className="mt-1.5 w-2 h-2 rounded-full bg-[rgb(var(--text-tertiary))] shrink-0" />
+                        <li key={idx} className="flex items-start gap-2 text-sm text-foreground font-medium leading-relaxed">
+                            <span className="mt-1.5 w-2 h-2 rounded-full bg-foreground/80 shrink-0" />
                             <span>{item}</span>
                         </li>
                     ))
@@ -32,4 +32,4 @@ const InfoCard = ({ title, icon, items, isLoading }: props) => (
     </div>
 );
 
-export default InfoCard;
+export default JobInfoCard;
