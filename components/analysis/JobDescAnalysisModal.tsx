@@ -39,7 +39,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                             onClick={onClose}
                             disabled={isLoading}
                             variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground"
+                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-2"
                             aria-label="Close Analysis"
                         >
                             <X size={24} />
