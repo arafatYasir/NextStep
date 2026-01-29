@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import EmptyState from "./EmptyState";
 import JobDescAnalysisSection from "./JobDescAnalysisSection";
 import Badge from "./badges/Badge";
-import InfoCard from "./infoCard/InfoCard";
+import InfoCard from "./job info card/InfoCard";
 import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
 import { Button } from "../ui/button";
 
@@ -49,9 +49,9 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
             <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth">
                 <div className="max-w-7xl mx-auto p-6 lg:p-10 space-y-10">
                     {/* Top Stats / Summary Grid */}
-                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
                         {/* LEFT COLUMN (Technical & Hard Requirements) */}
-                        <div className="xl:col-span-7 space-y-8">
+                        <div className="xl:col-span-7 space-y-6">
                             {/* Hard Skills */}
                             <JobDescAnalysisSection
                                 title="Hard Skills"
@@ -114,7 +114,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                         </div>
 
                         {/* RIGHT COLUMN (Soft Skills, Context, Requirements) */}
-                        <div className="xl:col-span-5 space-y-8">
+                        <div className="xl:col-span-5 space-y-6">
                             {/* Soft Skills */}
                             <JobDescAnalysisSection
                                 title="Soft Skills"
