@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import JobDescAnalysisModal from "./analysis/JobDescAnalysisModal";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -119,20 +119,6 @@ const JobAnalyzerInputForm = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     }, []);
-
-    // Toggling scrollbar on modal open and close
-    useEffect(() => {
-        const body = document.querySelector("body");
-
-        if(body) {
-            if(showSignInModal) {
-                body.style.overflow = "hidden";
-            } else {
-                body.style.overflow = "auto";
-            }
-        }
-
-    }, [showSignInModal]);
 
     // Functions
     const handleAnalyze = async () => {

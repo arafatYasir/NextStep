@@ -7,8 +7,10 @@ import Section from "./Section";
 import Badge from "./badges/Badge";
 import InfoCard from "./infoCard/InfoCard";
 import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
+import { Button } from "../ui/button";
 
 const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobAnalysis, onClose: () => void, isLoading: boolean }) => {
+    
     // Preventing background scrolling when modal is open
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -24,21 +26,22 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
             <div className="flex-none py-4 border-b border-[rgb(var(--border-default))] bg-card z-10 shadow-sm">
                 <div className="container mx-auto flex items-center justify-between">
                     <div>
-                        <h2 className="text-2xl font-bold text-[rgb(var(--text-primary))] font-heading tracking-tight">
+                        <h2 className="text-2xl font-bold text-foreground font-heading tracking-tight">
                             Job Description Insights
                         </h2>
-                        <p className="text-[rgb(var(--text-secondary))] mt-1.5">
+                        <p className="text-foreground/80 mt-1.5 font-sans">
                             A clear breakdown of the skills, experience, and expectations the employer is looking for.
                         </p>
                     </div>
-                    <button
+                    <Button
                         onClick={onClose}
                         disabled={isLoading}
-                        className="p-2 rounded-full bg-[rgb(var(--bg-input))] hover:bg-[rgb(var(--bg-hover))] text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--text-primary))] transition-all border border-[rgb(var(--border-default))] shadow-sm cursor-pointer active:scale-95 disabled:shadow-none disabled:cursor-not-allowed disabled:opacity-80 disabled:hover:bg-[rgb(var(--bg-input))] disabled:hover:text-[rgb(var(--text-secondary))] disabled:active:scale-100"
+                        variant="secondary"
+                        className="border border-[rgb(var(--border-default))]"
                         aria-label="Close Analysis"
                     >
                         <X size={24} />
-                    </button>
+                    </Button>
                 </div>
             </div>
 
