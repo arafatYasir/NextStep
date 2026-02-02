@@ -7,6 +7,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
+import { toast } from "sonner";
 
 const jobInsights = {
     actionVerbs: [
@@ -135,7 +136,6 @@ const JobAnalyzerInputForm = () => {
             }
 
             // If user is logged in proceed to analyze
-
             // Set loading to true
             setLoading(true);
 
@@ -148,9 +148,25 @@ const JobAnalyzerInputForm = () => {
                 body: JSON.stringify({ jobRole, jobDescription, userId: user.id })
             });
 
-            const data = await res.json();
-            console.log(data);
-            // setResult(data);
+            const jobId = await res.json();
+            
+
+            // Poll for the result every 2 seconds
+            let interval = setInterval(async () => {
+                const res = await fetch(`/api/job-results/${jobId}`);
+                const data = await res.json();
+
+                if(data.status === "completed") {
+                    setResult(data.result);
+                    clearInterval(interval);
+                }
+                else if(data.status === "failed") {
+                    setResult({});
+                    clearInterval(interval);
+                    
+                    toast.error("Failed to analyze job. Please try again.");
+                }
+            }, 2000);
         }
         catch (e: any) {
             console.error("API Error: ", e);
