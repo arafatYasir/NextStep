@@ -1,4 +1,5 @@
 import { connectToDatabase } from "@/src/database/mongodb";
+import JobAnalysis from "@/src/models/jobAnalysis.model";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,7 +20,12 @@ function cleanAIResponse(text: string): string {
 
 export async function POST(req: NextRequest) {
     try {
-        const { jobRole, jobDescription } = await req.json();
+        const { jobRole, jobDescription, userId } = await req.json();
+
+        // Create a job record in database
+        const newJobAnalysis = await JobAnalysis.create({
+            
+        });
         await connectToDatabase();
 
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
