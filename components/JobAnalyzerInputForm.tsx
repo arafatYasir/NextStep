@@ -109,7 +109,7 @@ const JobAnalyzerInputForm = () => {
     // Handling outside clicks
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if(modalRef.current && !modalRef.current.contains(e.target as Node)) {
+            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
                 setShowSignInModal(false);
             }
         }
@@ -148,29 +148,41 @@ const JobAnalyzerInputForm = () => {
                 body: JSON.stringify({ jobRole, jobDescription, userId: user.id })
             });
 
-            const jobId = await res.json();
-            
+            // Get the queued job id
+            const data = await res.json();
+            const { jobId } = data;
+
+            // If job id is not found return
+            if (!jobId) {
+                toast.error("Failed to initialize job.");
+                setLoading(false);
+                return;
+            }
 
             // Poll for the result every 2 seconds
             let interval = setInterval(async () => {
-                const res = await fetch(`/api/job-results/${jobId}`);
-                const data = await res.json();
+                try {
+                    const res = await fetch(`/api/job-results/${jobId}`);
+                    const pollData = await res.json();
 
-                if(data.status === "completed") {
-                    setResult(data.result);
-                    clearInterval(interval);
-                }
-                else if(data.status === "failed") {
-                    setResult({});
-                    clearInterval(interval);
-                    
-                    toast.error("Failed to analyze job. Please try again.");
+                    if (pollData.status === "completed") {
+                        setResult(pollData.result);
+                        clearInterval(interval);
+                        setLoading(false);
+                    }
+                    else if (pollData.status === "failed") {
+                        setResult({});
+                        clearInterval(interval);
+                        setLoading(false);
+                        toast.error("Failed to analyze job. Please try again.");
+                    }
+                } catch (err) {
+                    console.error("Polling error:", err);
                 }
             }, 2000);
         }
         catch (e: any) {
             console.error("API Error: ", e);
-        } finally {
             setLoading(false);
         }
     };
