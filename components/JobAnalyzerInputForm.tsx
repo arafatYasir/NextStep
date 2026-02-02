@@ -135,7 +135,11 @@ const JobAnalyzerInputForm = () => {
             }
 
             // If user is logged in proceed to analyze
+
+            // Set loading to true
             setLoading(true);
+
+            // Enqueue a new job record
             const res = await fetch("/api/analyze-job", {
                 method: "POST",
                 headers: {
@@ -145,7 +149,8 @@ const JobAnalyzerInputForm = () => {
             });
 
             const data = await res.json();
-            setResult(data);
+            console.log(data);
+            // setResult(data);
         }
         catch (e: any) {
             console.error("API Error: ", e);
