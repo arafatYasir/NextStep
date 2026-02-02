@@ -141,7 +141,7 @@ const JobAnalyzerInputForm = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ jobRole, jobDescription })
+                body: JSON.stringify({ jobRole, jobDescription, userId: user.id })
             });
 
             const data = await res.json();

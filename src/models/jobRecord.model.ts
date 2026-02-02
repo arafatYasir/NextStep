@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const jobResultSchema = new mongoose.Schema({
+const jobRecordSchema = new mongoose.Schema({
     jobRole: {
         type: String,
         required: true,
@@ -16,8 +16,12 @@ const jobResultSchema = new mongoose.Schema({
         enum: ["queued", "completed", "failed"],
         default: "queued"
     },
+    result: {
+        type: Object,
+        default: null
+    }
 }, { timestamps: true });
 
-const JobResult = mongoose.model("JobResult", jobResultSchema);
+const JobRecord = mongoose.model("JobRecord", jobRecordSchema);
 
-export default JobResult;
+export default JobRecord;
