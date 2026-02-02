@@ -1,3 +1,4 @@
+import { connectToDatabase } from "@/src/database/mongodb";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,6 +20,7 @@ function cleanAIResponse(text: string): string {
 export async function POST(req: NextRequest) {
     try {
         const { jobRole, jobDescription } = await req.json();
+        await connectToDatabase();
 
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
@@ -84,7 +86,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(parsedJSONData);
     } catch (e: any) {
         console.log("API Error: ", e);
-
         return NextResponse.json({ error: "Failed to get response" }, { status: 500 });
     }
 }

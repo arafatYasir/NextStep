@@ -136,7 +136,7 @@ const JobAnalyzerInputForm = () => {
 
             // If user is logged in proceed to analyze
             setLoading(true);
-            const res = await fetch("/api/ai", {
+            const res = await fetch("/api/analyze-job", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
