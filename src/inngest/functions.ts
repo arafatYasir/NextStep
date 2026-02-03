@@ -3,6 +3,7 @@ import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/helpers";
 import JobRecord from "../models/jobRecord.model";
+import { connectToDatabase } from "../database/mongodb";
 
 // Analyze Job Description
 export const analyzeJobDescription = inngest.createFunction(
@@ -21,6 +22,11 @@ export const analyzeJobDescription = inngest.createFunction(
         const { jobId, jobRole, jobDescription } = event.data;
 
         try {
+            // Connect to database
+            await step.run("connect-database", async () => {
+                await connectToDatabase();
+            });
+
             // Create AI instance
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
 
@@ -43,7 +49,7 @@ export const analyzeJobDescription = inngest.createFunction(
             });
 
             // Update job record
-            await step.run("update-job-recod", async () => {
+            await step.run("update-job-record", async () => {
                 await JobRecord.findByIdAndUpdate(jobId, {
                     status: "completed",
                     result: parsedJSONData
@@ -52,7 +58,7 @@ export const analyzeJobDescription = inngest.createFunction(
         } catch (e: any) {
             console.error("Failed to analyze job (Inngest Function)", e);
 
-            await step.run("update-job-recod", async () => {
+            await step.run("update-job-record", async () => {
                 await JobRecord.findByIdAndUpdate(jobId, {
                     status: "failed"
                 });
