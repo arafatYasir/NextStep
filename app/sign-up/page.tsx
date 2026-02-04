@@ -134,7 +134,7 @@ const SignUpPage = () => {
                 window.location.href = data.url;
             }
 
-            if(error) {
+            if (error) {
                 toast.error("Something went wrong. Please try again.");
                 console.error(error);
             }
@@ -147,25 +147,25 @@ const SignUpPage = () => {
     }
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] p-6">
-            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-[rgb(var(--border-light))] p-8">
+        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))]">
+            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-8">
                 {/* ---- Title ---- */}
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-[rgb(var(--text-primary))] mb-2">
+                    <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
                         Join with us!
                     </h1>
-                    <p className="text-[rgb(var(--text-secondary))]">
+                    <p className="font-sans text-foreground/80">
                         Build your account effortlessly.
                     </p>
                 </div>
 
                 {/* ---- Sign Up form ---- */}
-                <form onSubmit={handleSignUp}>
-                    {/* ---- Email Input ---- */}
-                    <div className="mb-6">
+                <form onSubmit={handleSignUp} className="space-y-6">
+                    {/* ---- Email ---- */}
+                    <div>
                         <label
                             htmlFor="email"
-                            className="block font-semibold text-[rgb(var(--text-primary))] mb-2"
+                            className="block font-semibold font-heading text-foreground mb-2"
                         >
                             Email Address
                         </label>
@@ -185,11 +185,11 @@ const SignUpPage = () => {
                         )}
                     </div>
 
-                    {/* ---- Password Input ---- */}
-                    <div className="mb-8">
+                    {/* ---- Password ---- */}
+                    <div>
                         <label
                             htmlFor="password"
-                            className="block font-semibold text-[rgb(var(--text-primary))] mb-2"
+                            className="block font-semibold font-heading text-foreground mb-2"
                         >
                             Password
                         </label>
@@ -209,7 +209,7 @@ const SignUpPage = () => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                             >
-                                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                                {showPassword ? <Eye size={20} className="text-foreground/60" /> : <EyeOff size={20} className="text-foreground/60" />}
                             </button>
                         </div>
                         {/* Error message */}
@@ -218,7 +218,7 @@ const SignUpPage = () => {
                         )}
                     </div>
 
-                    {/* ---- Sign Up Button ---- */}
+                    {/* Sign Up Button */}
                     <Button
                         type="submit"
                         disabled={loading}
@@ -229,41 +229,51 @@ const SignUpPage = () => {
                 </form>
 
                 {/* ---- Divider ---- */}
-                <div className="relative my-4">
+                <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center">
                         <span className="w-full border-t border-[rgb(var(--border-default))]"></span>
                     </div>
-                    <div className="relative flex justify-center text-sm uppercase font-semibold">
-                        <span className="bg-[rgb(var(--bg-surface))] px-4 text-[rgb(var(--text-secondary))]">
+                    <div className="relative flex justify-center text-sm uppercase font-semibold font-sans">
+                        <span className="bg-[rgb(var(--bg-surface))] px-4 text-foreground/80">
                             Or continue with
                         </span>
                     </div>
                 </div>
 
-                {/* ---- Google Sign Up Button ---- */}
-                <Button
-                    variant="outline"
-                    className="w-full border-[rgb(var(--border-default))] hover:bg-[rgb(var(--bg-hover))] transition-all flex items-center justify-center gap-3"
-                    onClick={handleGoogleSignUp}
-                    disabled={loading}
-                >
-                    <GoogleIcon />
-                    Continue with Google
-                </Button>
+                <div className="space-y-4">
+                    {/* ---- Google Sign Up Button ---- */}
+                    <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={handleGoogleSignUp}
+                        disabled={loading}
+                    >
+                        {
+                            loading ?
+                                <span className="flex items-center gap-x-2"><Spinner />Continue with Google</span>
+                                :
+                                <span className="flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>
+                        }
+                    </Button>
 
-                {/* ---- GitHub Sign Up Button ---- */}
-                <Button
-                    variant="outline"
-                    className="w-full border-[rgb(var(--border-default))] hover:bg-[rgb(var(--bg-hover))] transition-all flex items-center justify-center gap-3 mt-4"
-                    onClick={handleGitHubSignUp}
-                    disabled={loading}
-                >
-                    <GitHubIcon />
-                    Continue with GitHub
-                </Button>
+                    {/* ---- GitHub Sign Up Button ---- */}
+                    <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={handleGitHubSignUp}
+                        disabled={loading}
+                    >
+                        {
+                            loading ?
+                                <span className="flex items-center gap-x-2"><Spinner />Continue with GitHub</span>
+                                :
+                                <span className="flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>
+                        }
+                    </Button>
+                </div>
 
                 {/* ---- Footer Links ---- */}
-                <p className="text-center text-[rgb(var(--text-secondary))] mt-6">
+                <p className="text-center font-sans text-foreground/80 mt-6">
                     Already have an account?{" "}
                     <Link href="/sign-in" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline transition-colors">
                         Sign In
