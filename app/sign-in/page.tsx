@@ -244,7 +244,12 @@ const SignInPage = () => {
                         onClick={handleGoogleSignIn}
                         disabled={loading}
                     >
-                        {loading ? <span className="flex items-center gap-x-2"><Spinner />Continue with Google</span> : <span className="flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>}
+                        {
+                            loading ?
+                                <span className="flex items-center gap-x-2"><Spinner />Continue with Google</span>
+                                :
+                                <span className="flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>
+                        }
                     </Button>
 
                     {/* ---- GitHub Login Button ---- */}
@@ -254,7 +259,12 @@ const SignInPage = () => {
                         onClick={handleGitHubSignIn}
                         disabled={loading}
                     >
-                        {loading ? <span className="flex items-center gap-x-2"><Spinner />Continue with GitHub</span> : <span className="flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>}
+                        {
+                            loading ?
+                                <span className="flex items-center gap-x-2"><Spinner />Continue with GitHub</span>
+                                :
+                                <span className="flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>
+                        }
                     </Button>
                 </div>
 
