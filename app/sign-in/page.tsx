@@ -186,28 +186,26 @@ const SignInPage = () => {
         }
     }
 
-    console.log("re-rendering for loading");
-
     return (
-        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))]">
-            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-8">
+        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-[60px]">
+            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Title ---- */}
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
+                    <h1 className="text-lg xs:text-xl sm:text-2xl font-heading font-bold text-foreground mb-2">
                         Welcome Back
                     </h1>
-                    <p className="font-sans text-foreground/80">
+                    <p className="text-sm xs:text-base font-sans text-foreground/80">
                         Sign in to your account
                     </p>
                 </div>
 
                 {/* ---- Sign in form ---- */}
-                <form onSubmit={handleSignIn} className="space-y-6">
+                <form onSubmit={handleSignIn} className="space-y-4 xs:space-y-6">
                     {/* ---- Email ---- */}
                     <div>
                         <label
                             htmlFor="email"
-                            className="block font-semibold font-heading text-foreground mb-2"
+                            className="block text-sm xs:text-base font-semibold font-heading text-foreground mb-2"
                         >
                             Email Address
                         </label>
@@ -229,7 +227,7 @@ const SignInPage = () => {
                     <div>
                         <label
                             htmlFor="password"
-                            className="block font-semibold font-heading text-foreground mb-2"
+                            className="block text-sm xs:text-base font-semibold font-heading text-foreground mb-2"
                         >
                             Password
                         </label>
@@ -258,11 +256,11 @@ const SignInPage = () => {
                 </form>
 
                 {/* ---- Divider ---- */}
-                <div className="relative my-6">
+                <div className="relative my-4 xs:my-6">
                     <div className="absolute inset-0 flex items-center">
                         <span className="w-full border-t border-[rgb(var(--border-default))]"></span>
                     </div>
-                    <div className="relative flex justify-center text-sm uppercase font-semibold font-sans">
+                    <div className="relative flex justify-center text-xs xs:text-sm uppercase font-semibold font-sans">
                         <span className="bg-[rgb(var(--bg-surface))] px-4 text-foreground/80">
                             Or continue with
                         </span>
@@ -302,9 +300,9 @@ const SignInPage = () => {
                 </div>
 
                 {/* ---- Footer Links ---- */}
-                <p className="text-center font-sans text-foreground/80 mt-6">
+                <p className="text-center text-sm xs:text-base font-sans text-foreground/80 mt-6">
                     Don't have an account?{" "}
-                    <Link href="/sign-up" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline transition-colors">
+                    <Link href="/sign-up" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline active:underline transition-colors">
                         Sign Up
                     </Link>
                 </p>

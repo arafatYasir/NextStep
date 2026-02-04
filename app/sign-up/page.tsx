@@ -147,7 +147,7 @@ const SignUpPage = () => {
     }
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))]">
+        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-[60px]">
             <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-8">
                 {/* ---- Title ---- */}
                 <div className="text-center mb-8">
@@ -275,7 +275,7 @@ const SignUpPage = () => {
                 {/* ---- Footer Links ---- */}
                 <p className="text-center font-sans text-foreground/80 mt-6">
                     Already have an account?{" "}
-                    <Link href="/sign-in" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline transition-colors">
+                    <Link href="/sign-in" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline active:underline transition-colors">
                         Sign In
                     </Link>
                 </p>
