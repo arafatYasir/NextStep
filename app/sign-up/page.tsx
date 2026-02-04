@@ -16,11 +16,16 @@ interface ErrorState {
     password?: string;
 }
 
+interface LoadingState {
+    isLoading: boolean;
+    loadingFor: "email" | "google" | "github" | "none";
+}
+
 const SignUpPage = () => {
     // States
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<LoadingState>({ isLoading: false, loadingFor: "none" });
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState<ErrorState>({});
 
@@ -59,7 +64,10 @@ const SignUpPage = () => {
         }
 
         try {
-            setLoading(true);
+            setLoading({
+                isLoading: true,
+                loadingFor: "email"
+            });
 
             // Create the supabae client
             const supabase = createClient();
@@ -83,13 +91,19 @@ const SignUpPage = () => {
             toast.error("Something went wrong. Please try again.");
             console.error(e.message);
         } finally {
-            setLoading(false);
+            setLoading({
+                isLoading: false,
+                loadingFor: "none"
+            });
         }
     };
 
     const handleGoogleSignUp = async () => {
         try {
-            setLoading(true);
+            setLoading({
+                isLoading: true,
+                loadingFor: "google"
+            });
 
             // Create the supabase client
             const supabase = createClient();
@@ -102,20 +116,36 @@ const SignUpPage = () => {
                 },
             });
 
+            if (error) {
+                toast.error("Login failed");
+                console.error(error);
+            }
+
             if (data.url) {
                 window.location.href = data.url;
+            }
+            else {
+                setLoading({
+                    isLoading: false,
+                    loadingFor: "none"
+                });
             }
         } catch (e: any) {
             toast.error("Something went wrong. Please try again.");
             console.error(e.message);
-        } finally {
-            setLoading(false);
+            setLoading({
+                isLoading: false,
+                loadingFor: "none"
+            });
         }
     }
 
     const handleGitHubSignUp = async () => {
         try {
-            setLoading(true);
+            setLoading({
+                isLoading: true,
+                loadingFor: "github"
+            });
 
             const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
 
@@ -130,42 +160,50 @@ const SignUpPage = () => {
                 },
             });
 
+            if (error) {
+                toast.error("Login failed");
+                console.error(error);
+            }
+
             if (data.url) {
                 window.location.href = data.url;
             }
-
-            if (error) {
-                toast.error("Something went wrong. Please try again.");
-                console.error(error);
+            else {
+                setLoading({
+                    isLoading: false,
+                    loadingFor: "none"
+                });
             }
         } catch (e: any) {
             toast.error("Something went wrong. Please try again.");
             console.error(e.message);
-        } finally {
-            setLoading(false);
+            setLoading({
+                isLoading: false,
+                loadingFor: "none"
+            });
         }
     }
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-[60px]">
-            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-8">
+            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Title ---- */}
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
+                    <h1 className="text-lg xs:text-xl sm:text-2xl font-heading font-bold text-foreground mb-2">
                         Join with us!
                     </h1>
-                    <p className="font-sans text-foreground/80">
+                    <p className="text-sm xs:text-base font-sans text-foreground/80">
                         Build your account effortlessly.
                     </p>
                 </div>
 
                 {/* ---- Sign Up form ---- */}
-                <form onSubmit={handleSignUp} className="space-y-6">
+                <form onSubmit={handleSignUp} className="space-y-4 xs:space-y-6">
                     {/* ---- Email ---- */}
                     <div>
                         <label
                             htmlFor="email"
-                            className="block font-semibold font-heading text-foreground mb-2"
+                            className="block text-sm xs:text-base font-semibold font-heading text-foreground mb-2"
                         >
                             Email Address
                         </label>
@@ -189,7 +227,7 @@ const SignUpPage = () => {
                     <div>
                         <label
                             htmlFor="password"
-                            className="block font-semibold font-heading text-foreground mb-2"
+                            className="block text-sm xs:text-base font-semibold font-heading text-foreground mb-2"
                         >
                             Password
                         </label>
@@ -221,19 +259,19 @@ const SignUpPage = () => {
                     {/* Sign Up Button */}
                     <Button
                         type="submit"
-                        disabled={loading}
+                        disabled={loading.isLoading && loading.loadingFor === "email"}
                         className="w-full"
                     >
-                        {loading ? <span className="flex items-center gap-x-2"><Spinner />Signing up...</span> : "Sign Up"}
+                        {loading.isLoading && loading.loadingFor === "email" ? <span className="flex items-center gap-x-2"><Spinner />Signing up...</span> : "Sign Up"}
                     </Button>
                 </form>
 
                 {/* ---- Divider ---- */}
-                <div className="relative my-6">
+                <div className="relative my-4 xs:my-6">
                     <div className="absolute inset-0 flex items-center">
                         <span className="w-full border-t border-[rgb(var(--border-default))]"></span>
                     </div>
-                    <div className="relative flex justify-center text-sm uppercase font-semibold font-sans">
+                    <div className="relative flex justify-center text-xs xs:text-sm uppercase font-semibold font-sans">
                         <span className="bg-[rgb(var(--bg-surface))] px-4 text-foreground/80">
                             Or continue with
                         </span>
@@ -246,10 +284,10 @@ const SignUpPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGoogleSignUp}
-                        disabled={loading}
+                        disabled={loading.isLoading && loading.loadingFor === "google"}
                     >
                         {
-                            loading ?
+                            loading.isLoading && loading.loadingFor === "google" ?
                                 <span className="flex items-center gap-x-2"><Spinner />Continue with Google</span>
                                 :
                                 <span className="flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>
@@ -261,10 +299,10 @@ const SignUpPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGitHubSignUp}
-                        disabled={loading}
+                        disabled={loading.isLoading && loading.loadingFor === "github"}
                     >
                         {
-                            loading ?
+                            loading.isLoading && loading.loadingFor === "github" ?
                                 <span className="flex items-center gap-x-2"><Spinner />Continue with GitHub</span>
                                 :
                                 <span className="flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>
@@ -273,7 +311,7 @@ const SignUpPage = () => {
                 </div>
 
                 {/* ---- Footer Links ---- */}
-                <p className="text-center font-sans text-foreground/80 mt-6">
+                <p className="text-center text-sm xs:text-base font-sans text-foreground/80 mt-6">
                     Already have an account?{" "}
                     <Link href="/sign-in" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline active:underline transition-colors">
                         Sign In
