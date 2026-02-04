@@ -39,6 +39,7 @@ const ContactPage = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setFormData((prev) => ({ ...prev, [id]: value }));
+
         // Clear error when user types
         if (errors[id as keyof ErrorState]) {
             setErrors((prev) => ({ ...prev, [id]: undefined }));
@@ -47,30 +48,39 @@ const ContactPage = () => {
 
     const validateForm = () => {
         const tempErrors: ErrorState = {};
-        if (!formData.name.trim()) tempErrors.name = "Name is required";
+
+        if (!formData.name.trim()) {
+            tempErrors.name = "Name is required";
+        }
+
         if (!formData.email.trim()) {
             tempErrors.email = "Email is required";
-        } else if (!emailRegex.test(formData.email)) {
+        }
+        else if (!emailRegex.test(formData.email)) {
             tempErrors.email = "Invalid email format";
         }
+
         if (!formData.message.trim()) tempErrors.message = "Message is required";
 
         setErrors(tempErrors);
+
         return Object.keys(tempErrors).length === 0;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
+        // Prevent default behavior
         e.preventDefault();
 
+        // Check form validation
         if (!validateForm()) return;
 
         try {
             setLoading(true);
 
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            // Send message via web3forms using server action
+            
 
-            toast.success("Message sent successfully! We'll get back to you soon.");
+            // Clear form data
             setFormData({
                 name: "",
                 email: "",
