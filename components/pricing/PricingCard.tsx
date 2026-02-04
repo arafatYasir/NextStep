@@ -37,8 +37,8 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
 
             {/* ---- CTA Button ---- */}
             <Button
-                variant={isPopular ? "default" : "secondary"}
-                className={cn("w-full font-sans shadow-md hover:shadow-lg active:shadow-lg duration-250", {
+                variant={isPopular ? "default" : "outline"}
+                className={cn("w-full font-sans shadow-md duration-250", {
                     "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
                 })}
             >

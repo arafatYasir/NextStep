@@ -157,7 +157,7 @@ const SignInPage = () => {
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))]">
-            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-[rgb(var(--border-light))] p-8">
+            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-8">
                 {/* ---- Title ---- */}
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
