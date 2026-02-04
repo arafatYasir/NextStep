@@ -77,18 +77,39 @@ const ContactPage = () => {
         try {
             setLoading(true);
 
-            // Send message via web3forms using server action
-            
-
-            // Clear form data
-            setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                message: "",
+            // Send message via web3forms
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: process.env.NEXT_PUBLIC_WEB3FORM_ACCESS_KEY,
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: formData.message,
+                }),
             });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Clear form data
+                setFormData({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    message: "",
+                });
+
+                toast.success("Message sent successfully!");
+            } else {
+                toast.error(result.message || "Failed to send message.");
+            }
         } catch (error) {
-            toast.error("Failed to send message. Please try again later.");
+            toast.error("An error occurred while sending the message.");
             console.error(error);
         } finally {
             setLoading(false);
@@ -121,6 +142,7 @@ const ContactPage = () => {
                             </label>
                             <Input
                                 id="name"
+                                name="name"
                                 type="text"
                                 placeholder="John Doe"
                                 value={formData.name}
@@ -141,6 +163,7 @@ const ContactPage = () => {
                             </label>
                             <Input
                                 id="email"
+                                name="email"
                                 type="email"
                                 placeholder="john@example.com"
                                 value={formData.email}
@@ -162,6 +185,7 @@ const ContactPage = () => {
                         </label>
                         <Input
                             id="phone"
+                            name="phone"
                             type="tel"
                             placeholder="+1 (555) 000-0000"
                             value={formData.phone}
@@ -179,6 +203,7 @@ const ContactPage = () => {
                         </label>
                         <Textarea
                             id="message"
+                            name="message"
                             placeholder="How can we help you?"
                             value={formData.message}
                             onChange={handleChange}
@@ -192,7 +217,7 @@ const ContactPage = () => {
                     {/* ---- Submit Button ---- */}
                     <Button
                         type="submit"
-                        className="w-full "
+                        className="w-full"
                         disabled={loading}
                     >
                         {loading ? (
