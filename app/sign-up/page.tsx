@@ -185,8 +185,8 @@ const SignUpPage = () => {
     }
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-[60px]">
-            <div className="w-full max-w-md bg-[rgb(var(--bg-surface))] rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-[60px] px-4 xs:px-6">
+            <div className="w-full max-w-md bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Title ---- */}
                 <div className="text-center mb-8">
                     <h1 className="text-lg xs:text-xl sm:text-2xl font-heading font-bold text-foreground mb-2">
@@ -272,7 +272,7 @@ const SignUpPage = () => {
                         <span className="w-full border-t border-[rgb(var(--border-default))]"></span>
                     </div>
                     <div className="relative flex justify-center text-xs xs:text-sm uppercase font-semibold font-sans">
-                        <span className="bg-[rgb(var(--bg-surface))] px-4 text-foreground/80">
+                        <span className="bg-card px-4 text-foreground/80">
                             Or continue with
                         </span>
                     </div>
