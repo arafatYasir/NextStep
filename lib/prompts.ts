@@ -1,5 +1,4 @@
 export const JOB_ANALYSIS_PROMPT = `You are an ATS Keyword Intelligence Engine. Analyze the given Job Role and Job Description and extract ATS-critical data. You have 20+ years of experience in ATS Keyword Intelligence. Make sure each section keywords remain unique. One section keywords should not be repeated in other sections.
-
         Job Role: "{jobRole}"
         Job Description: "{jobDescription}"
         
@@ -28,7 +27,7 @@ export const JOB_ANALYSIS_PROMPT = `You are an ATS Keyword Intelligence Engine. 
         Must be true verbs only (develop, collaborate, improve, troubleshoot, solve, manage). No nouns or adjectives. Count it.
 
         8. SENIORITY:
-        Infer from text only: Internship → “Intern / Entry-level”, 0–2 years → Junior, 3–5 → Mid, 5+ → Senior. Also mention in brackets the experience mentioned in job description if found. Like -> Junior (at least 2 years).
+        Infer from text only: Internship → “Intern / Entry-level”, 0-2 years → Junior, 3-5 → Mid, 5+ → Senior. Also mention in brackets the experience mentioned in job description if found. Like -> Junior (at least 2 years).
 
         9. EDUCATION:
         Copy exactly as written from the job description. NO counting.
