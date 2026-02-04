@@ -17,11 +17,16 @@ interface ErrorState {
     password?: string;
 }
 
+interface LoadingState {
+    isLoading: boolean;
+    loadingFor: "email" | "google" | "github" | "none";
+}
+
 const SignInPage = () => {
     // States
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<LoadingState>({ isLoading: false, loadingFor: "none" });
     const [error, setError] = useState<ErrorState>({});
     const router = useRouter();
 
@@ -60,7 +65,10 @@ const SignInPage = () => {
         }
 
         try {
-            setLoading(true);
+            setLoading({
+                isLoading: true,
+                loadingFor: "email"
+            })
 
             // Create the supabase client
             const supabase = createClient();
@@ -85,13 +93,19 @@ const SignInPage = () => {
             toast.error("Login failed");
             console.error(e.message);
         } finally {
-            setLoading(false);
+            setLoading({
+                isLoading: false,
+                loadingFor: "none"
+            });
         }
     };
 
     const handleGoogleSignIn = async () => {
         try {
-            setLoading(true);
+            setLoading({
+                isLoading: true,
+                loadingFor: "google"
+            });
 
             // Create the supabase client
             const supabase = createClient();
@@ -118,20 +132,26 @@ const SignInPage = () => {
             toast.error("Something went wrong. Please try again.");
             console.error(e.message);
         } finally {
-            setLoading(false);
+            setLoading({
+                isLoading: false,
+                loadingFor: "none"
+            });
         }
     }
 
     const handleGitHubSignIn = async () => {
         try {
-            setLoading(true);
+            setLoading({
+                isLoading: true,
+                loadingFor: "github"
+            });
 
             // Create the supabase client
             const supabase = createClient();
 
             const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
 
-            // Sign up the user
+            // Sign in the user
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "github",
                 options: {
@@ -139,21 +159,34 @@ const SignInPage = () => {
                 },
             });
 
-            if (data.url) {
-                window.location.href = data.url;
-            }
-
             if (error) {
                 toast.error("Login failed");
                 console.error(error);
             }
+
+            // If url found then redirect to there
+            if (data.url) {
+                window.location.href = data.url;
+            }
+            // If url not found then stop loading
+            else {
+                setLoading({
+                    isLoading: false,
+                    loadingFor: "none"
+                });
+            }
         } catch (e: any) {
             toast.error("Something went wrong. Please try again.");
             console.error(e.message);
-        } finally {
-            setLoading(false);
+
+            setLoading({
+                isLoading: false,
+                loadingFor: "none"
+            });
         }
     }
+
+    console.log("re-rendering for loading");
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))]">
@@ -218,9 +251,9 @@ const SignInPage = () => {
                     <Button
                         type="submit"
                         className="w-full"
-                        disabled={loading}
+                        disabled={loading.isLoading && loading.loadingFor === "email"}
                     >
-                        {loading ? <span className="flex items-center gap-x-2"><Spinner />Signing in...</span> : "Sign In"}
+                        {loading.isLoading && loading.loadingFor === "email" ? <span className="flex items-center gap-x-2"><Spinner />Signing in...</span> : "Sign In"}
                     </Button>
                 </form>
 
@@ -242,10 +275,10 @@ const SignInPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGoogleSignIn}
-                        disabled={loading}
+                        disabled={loading.isLoading && loading.loadingFor === "google"}
                     >
                         {
-                            loading ?
+                            loading.isLoading && loading.loadingFor === "google" ?
                                 <span className="flex items-center gap-x-2"><Spinner />Continue with Google</span>
                                 :
                                 <span className="flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>
@@ -257,10 +290,10 @@ const SignInPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGitHubSignIn}
-                        disabled={loading}
+                        disabled={loading.isLoading && loading.loadingFor === "github"}
                     >
                         {
-                            loading ?
+                            loading.isLoading && loading.loadingFor === "github" ?
                                 <span className="flex items-center gap-x-2"><Spinner />Continue with GitHub</span>
                                 :
                                 <span className="flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>
