@@ -65,7 +65,7 @@ const AuthenticationMenus = () => {
         return (
             <div className="flex items-center gap-4">
                 <Skeleton className="hidden sm:block w-[121px] h-9" />
-                <Skeleton className="w-[38px] h-[38px] rounded-full" />
+                <Skeleton className="w-[36px] h-[36px] rounded-full" />
             </div>
         )
     }

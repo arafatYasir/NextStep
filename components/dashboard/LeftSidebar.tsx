@@ -13,10 +13,8 @@ import {
     ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
-/**
- * Sidebar Panel definition
- */
 interface NavItem {
     label: string;
     href: string;
@@ -32,29 +30,22 @@ const navItems: NavItem[] = [
     { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
-/**
- * LeftSidebar component for the AI SaaS Dashboard.
- * Designed with a high-signal, professional aesthetic focused on clarity and trust.
- */
 const LeftSidebar = () => {
     const pathname = usePathname();
 
     return (
-        <aside className="fixed left-0 top-0 hidden h-screen w-64 flex-col border-r border-[rgb(var(--border-light))] bg-[rgb(var(--bg-surface))] lg:flex pt-[60px]">
+        <aside className="fixed left-0 top-0 hidden h-screen w-full max-w-80 flex-col border-r border-[rgb(var(--border-default))] bg-card lg:flex">
             {/* ---- Logo Section ---- */}
-            <div className="flex h-16 items-center px-6 border-b border-[rgb(var(--border-light))]">
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="size-8 rounded-lg bg-[rgb(var(--bg-primary))] flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-                        <Zap className="size-5 text-white fill-current" />
+            <div className="flex h-16 items-center px-6 border-b border-[rgb(var(--border-default))]">
+                <Link href="/">
+                    <div className="w-[140px] h-[35px] overflow-hidden">
+                        <Image src="/images/logo.svg" alt="Logo" width={488} height={123} className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
                     </div>
-                    <span className="text-xl font-heading font-bold text-[rgb(var(--text-primary))] tracking-tight">
-                        NextStep
-                    </span>
                 </Link>
             </div>
 
             {/* ---- Navigation Items ---- */}
-            <nav className="flex-1 space-y-1.5 p-4 overflow-y-auto scrollbar-custom">
+            <nav className="flex-1 space-y-1.5 p-6 overflow-y-auto scrollbar-custom">
                 {navItems.map((item) => {
                     const isActive = pathname === item.href;
                     const Icon = item.icon;

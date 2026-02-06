@@ -1,4 +1,4 @@
-import LeftSidebar from "@/components/sidebar/LeftSidebar"
+import LeftSidebar from "@/components/dashboard/LeftSidebar"
 
 const DashboardPage = () => {
     return (

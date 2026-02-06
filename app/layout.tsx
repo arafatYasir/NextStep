@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import ConditionalFooter from "@/components/footer/ConditionalFooter";
 import Header from "@/components/header/Header";
+import ConditionalHeader from "@/components/header/ConditionalHeader";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -31,7 +32,7 @@ export default function RootLayout({
         className={`${inter.variable} ${plusJakarta.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))] scrollbar-custom`}
       >
         {/* ---- Header ---- */}
-        <Header />
+        <ConditionalHeader />
 
         {/* ---- Main Content ---- */}
         {children}
