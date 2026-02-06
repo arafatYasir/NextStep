@@ -3,7 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import ConditionalFooter from "@/components/footer/ConditionalFooter";
-import ConditionalHeader from "@/components/header/ConditionalHeader";
+import Header from "@/components/header/Header";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${inter.variable} ${plusJakarta.variable} antialiased bg-[rgb(var(--bg-body))] text-[rgb(var(--text-primary))] scrollbar-custom`}
       >
         {/* ---- Header ---- */}
-        <ConditionalHeader />
+        <Header />
 
         {/* ---- Main Content ---- */}
         {children}

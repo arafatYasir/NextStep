@@ -85,16 +85,14 @@ const AuthenticationMenus = () => {
                     {/* User Avatar Placeholder */}
                     <DropdownMenu>
                         <DropdownMenuTrigger className="outline-none">
-                            <div className="relative p-px rounded-full bg-foreground">
-                                <div className="w-9 h-9 border-2 border-background rounded-full overflow-hidden cursor-pointer">
-                                    <Image 
-                                        className="w-full h-full object-cover" 
-                                        src={user.user_metadata.avatar_url || "/images/avatar.png"} 
-                                        alt={`${user.user_metadata.full_name}'s Image`} 
-                                        width={38} 
-                                        height={38} 
-                                    />
-                                </div>
+                            <div className="w-9 h-9 rounded-full overflow-hidden cursor-pointer">
+                                <Image
+                                    className="w-full h-full object-cover"
+                                    src={user.user_metadata.avatar_url || "/images/avatar.png"}
+                                    alt={`${user.user_metadata.full_name}'s Image`}
+                                    width={36}
+                                    height={36}
+                                />
                             </div>
                         </DropdownMenuTrigger>
 
