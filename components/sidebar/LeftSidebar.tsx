@@ -1,0 +1,118 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+    LayoutDashboard,
+    Briefcase,
+    FileText,
+    Zap,
+    History,
+    Settings,
+    ChevronRight
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * Sidebar Panel definition
+ */
+interface NavItem {
+    label: string;
+    href: string;
+    icon: React.ElementType;
+}
+
+const navItems: NavItem[] = [
+    { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Job Analyses", href: "/dashboard/job-analyses", icon: Briefcase },
+    { label: "Resume Analyses", href: "/dashboard/resume-analyses", icon: FileText },
+    { label: "Usage & Limits", href: "/dashboard/usage", icon: Zap },
+    { label: "History", href: "/dashboard/history", icon: History },
+    { label: "Settings", href: "/dashboard/settings", icon: Settings },
+];
+
+/**
+ * LeftSidebar component for the AI SaaS Dashboard.
+ * Designed with a high-signal, professional aesthetic focused on clarity and trust.
+ */
+const LeftSidebar = () => {
+    const pathname = usePathname();
+
+    return (
+        <aside className="fixed left-0 top-0 hidden h-screen w-64 flex-col border-r border-[rgb(var(--border-light))] bg-[rgb(var(--bg-surface))] lg:flex pt-[60px]">
+            {/* ---- Logo Section ---- */}
+            <div className="flex h-16 items-center px-6 border-b border-[rgb(var(--border-light))]">
+                <Link href="/" className="flex items-center gap-2 group">
+                    <div className="size-8 rounded-lg bg-[rgb(var(--bg-primary))] flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                        <Zap className="size-5 text-white fill-current" />
+                    </div>
+                    <span className="text-xl font-heading font-bold text-[rgb(var(--text-primary))] tracking-tight">
+                        NextStep
+                    </span>
+                </Link>
+            </div>
+
+            {/* ---- Navigation Items ---- */}
+            <nav className="flex-1 space-y-1.5 p-4 overflow-y-auto scrollbar-custom">
+                {navItems.map((item) => {
+                    const isActive = pathname === item.href;
+                    const Icon = item.icon;
+
+                    return (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={cn(
+                                "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-200 ease-in-out",
+                                isActive
+                                    ? "bg-[rgb(var(--bg-primary))]/5 text-[rgb(var(--bg-primary))]"
+                                    : "text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-body))] hover:text-[rgb(var(--text-primary))]"
+                            )}
+                        >
+                            {/* Active Indicator Bar */}
+                            {isActive && (
+                                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-full bg-[rgb(var(--bg-primary))]" />
+                            )}
+
+                            <Icon className={cn(
+                                "size-[18px] transition-colors",
+                                isActive ? "text-[rgb(var(--bg-primary))]" : "text-[rgb(var(--text-tertiary))] group-hover:text-[rgb(var(--text-secondary))]"
+                            )} />
+
+                            <span className={cn(
+                                "text-sm font-sans font-medium leading-none",
+                                isActive ? "text-[rgb(var(--bg-primary))]" : ""
+                            )}>
+                                {item.label}
+                            </span>
+
+                            {isActive && (
+                                <ChevronRight className="ml-auto size-3.5 opacity-40" />
+                            )}
+                        </Link>
+                    );
+                })}
+            </nav>
+
+            {/* ---- Footer / Account Section (Optional Preview) ---- */}
+            <div className="border-t border-[rgb(var(--border-light))] p-4 bg-[rgb(var(--bg-body))]/30">
+                <div className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-[rgb(var(--bg-body))] cursor-pointer">
+                    <div className="size-9 rounded-full bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs ring-2 ring-white shadow-sm">
+                        AY
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                        <span className="truncate text-sm font-heading font-semibold text-[rgb(var(--text-primary))]">
+                            Arafat Yasir
+                        </span>
+                        <span className="truncate text-xs font-sans text-[rgb(var(--text-tertiary))]">
+                            Pro Plan
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    );
+};
+
+export default LeftSidebar;
