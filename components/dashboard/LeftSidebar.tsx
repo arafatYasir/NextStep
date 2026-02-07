@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { createClient } from "@/lib/supabase/client";
 
 interface NavItem {
     label: string;
@@ -34,7 +35,7 @@ const LeftSidebar = () => {
     const pathname = usePathname();
 
     return (
-        <aside className="fixed left-0 top-0 hidden h-screen w-full max-w-80 flex-col border-r border-[rgb(var(--border-default))] bg-card lg:flex">
+        <aside className="min-h-screen min-h-svh w-full max-w-80 flex-col border-r border-[rgb(var(--border-default))] bg-card lg:flex">
             {/* ---- Logo ---- */}
             <div className="flex h-16 items-center px-6 border-b border-[rgb(var(--border-default))] shadow-xs">
                 <Link href="/">
@@ -85,17 +86,17 @@ const LeftSidebar = () => {
 
             {/* ---- Footer / Account ---- */}
             <div className="border-t border-[rgb(var(--border-default))] p-2">
-                <div className="flex items-center gap-3 p-4 rounded-lg transition-colors hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover)] cursor-pointer">
+                <div className="flex items-center gap-3 p-4 rounded-lg transition-colors hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] cursor-pointer">
                     <div className="size-9 rounded-full bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs ring-2 ring-white shadow-sm">
-                        AY
+                        YA
                     </div>
                     <div className="flex flex-col min-w-0">
                         <span className="truncate text-sm font-heading font-semibold text-[rgb(var(--text-primary))]">
-                            Arafat Yasir
+                            Yasir Arafat
                         </span>
                         <span className="truncate text-xs font-sans text-[rgb(var(--text-tertiary))]">
                             Pro Plan
-                        </span>
+                        </span> 
                     </div>
                 </div>
             </div>

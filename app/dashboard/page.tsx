@@ -1,11 +1,7 @@
-import LeftSidebar from "@/components/dashboard/LeftSidebar"
-
-const DashboardPage = () => {
-    return (
-        <main>
-            <LeftSidebar />
-        </main>
-    )
+const DashboardOverview = () => {
+  return (
+    <div>DashboardOverview</div>
+  )
 }
 
-export default DashboardPage
+export default DashboardOverview
