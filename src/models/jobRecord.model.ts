@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { jobAnalysisSchema } from "./jobAnalysis.model";
 
 const jobRecordSchema = new mongoose.Schema({
     jobRole: {
@@ -17,7 +18,7 @@ const jobRecordSchema = new mongoose.Schema({
         default: "queued"
     },
     result: {
-        type: Object,
+        type: jobAnalysisSchema,
         default: null
     }
 }, { timestamps: true });

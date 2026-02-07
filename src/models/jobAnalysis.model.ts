@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 
-const jobAnalysisSchema = new mongoose.Schema({  
+export const jobAnalysisSchema = new mongoose.Schema({  
     skills: [
         {
             name: {
                 type: String,
-                required: true,
                 trim: true
             },
             count: {
                 type: Number,
-                required: true
             }
         },
     ],
@@ -18,12 +16,10 @@ const jobAnalysisSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
                 trim: true
             },
             count: {
                 type: Number,
-                required: true
             }
         }
     ],
@@ -31,12 +27,10 @@ const jobAnalysisSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
                 trim: true
             },
             count: {
                 type: Number,
-                required: true
             }
         }
     ],
@@ -44,12 +38,10 @@ const jobAnalysisSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
                 trim: true
             },
             count: {
                 type: Number,
-                required: true
             }
         }
     ],
@@ -57,12 +49,10 @@ const jobAnalysisSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
                 trim: true
             },
             count: {
                 type: Number,
-                required: true
             }
         }
     ],
@@ -70,7 +60,6 @@ const jobAnalysisSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
                 trim: true
             }
         }
@@ -79,14 +68,12 @@ const jobAnalysisSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
                 trim: true,
             }
         }
     ],
     salary: {
         type: String,
-        required: true,
         trim: true,
     }
 });
