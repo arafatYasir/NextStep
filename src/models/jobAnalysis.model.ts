@@ -78,6 +78,6 @@ export const jobAnalysisSchema = new mongoose.Schema({
     }
 });
 
-const JobAnalysis = mongoose.model("JobAnalysis", jobAnalysisSchema);
+const JobAnalysis = mongoose.models.JobAnalysis || mongoose.model("JobAnalysis", jobAnalysisSchema);
 
 export default JobAnalysis;

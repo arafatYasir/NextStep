@@ -1,0 +1,83 @@
+"use client";
+
+import { Briefcase, Clock, ExternalLink, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+interface JobCardProps {
+    jobRole: string;
+    status: string;
+    createdAt: string | Date;
+}
+
+const JobCard = ({ jobRole, status, createdAt }: JobCardProps) => {
+    // Format date efficiently
+    const date = new Date(createdAt);
+    const formattedTime = date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+
+    return (
+        <div className="group flex items-center gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-300 hover:border-[rgb(var(--border-hover))] hover:shadow-md hover:shadow-[rgb(var(--bg-primary))]/5">
+            {/* Job Icon Wrapper */}
+            <div className="flex size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105">
+                <Briefcase className="size-5" />
+            </div>
+
+            {/* Job Content */}
+            <div className="flex flex-1 flex-col min-w-0 pr-2">
+                <h3 className="truncate text-base font-heading font-semibold text-[rgb(var(--text-primary))] leading-tight">
+                    {jobRole}
+                </h3>
+                <div className="flex items-center gap-4 mt-1.5">
+                    {/* Status Label */}
+                    <div className="flex items-center gap-1.5">
+                        <div className={cn(
+                            "size-1.5 rounded-full",
+                            status === "completed" ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" :
+                                status === "failed" ? "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" :
+                                    "bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+                        )} />
+                        <span className={cn(
+                            "text-xs font-sans font-medium capitalize",
+                            status === "completed" ? "text-emerald-700" :
+                                status === "failed" ? "text-red-600" : "text-amber-700"
+                        )}>
+                            {status}
+                        </span>
+                    </div>
+
+                    {/* Time Metadata */}
+                    <div className="flex items-center gap-1.5 text-xs text-[rgb(var(--text-tertiary))] font-sans">
+                        <Clock className="size-3.5" />
+                        <span>{formattedTime}</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <Button
+                    variant="outline"
+                    size="icon-sm"
+                    title="Open Analysis"
+                    className="size-9 rounded-lg border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:text-[rgb(var(--bg-primary))] transition-colors"
+                >
+                    <ExternalLink className="size-4" />
+                </Button>
+                <Button
+                    variant="outline"
+                    size="icon-sm"
+                    title="Delete Record"
+                    className="size-9 rounded-lg border-[rgb(var(--border-default))] text-red-500/70 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
+                >
+                    <Trash2 className="size-4" />
+                </Button>
+            </div>
+        </div>
+    );
+};
+
+export default JobCard;
