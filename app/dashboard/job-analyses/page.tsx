@@ -22,10 +22,8 @@ const JobAnalyses = async () => {
                 </p>
             </div>
 
-            {/* ---- Jobs ---- */}
-            <Suspense fallback={<JobCardsSkeleton />}>
-                <JobsRecordsList userId={userId} />
-            </Suspense>
+            {/* ---- Job Records ---- */}
+            <JobsRecordsList userId={userId} />
         </section>
     )
 }
