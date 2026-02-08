@@ -48,7 +48,7 @@ const JobAnalyses = async () => {
             </div>
 
             {/* ---- Jobs ---- */}
-            {jobRecords.length < 0 ? (
+            {jobRecords.length > 0 ? (
                 <div className="flex flex-col gap-4">
                     {jobRecords.map((record: JobRecordType) => (
                         <JobCard

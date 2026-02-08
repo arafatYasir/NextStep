@@ -2,7 +2,7 @@ import Container from "../Container";
 import MainNavbar from "./MainNavbar";
 import MobileNavbar from "./MobileNavbar";
 
-const Header = async () => {
+const Header = () => {
     return (
         <header className="fixed top-0 w-full z-50 bg-[rgb(var(--bg-surface-alpha))] border-b border-[rgb(var(--border-default))] backdrop-blur-xs">
             <Container>
