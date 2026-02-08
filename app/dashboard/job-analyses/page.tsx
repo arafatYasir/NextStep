@@ -1,6 +1,9 @@
-const JobAnalyses = () => {
+const JobAnalyses = async () => {
+
     return (
-        <div>JobAnalyses</div>
+        <section>
+            <h1 className="text-3xl font-bold font-heading">Job Analyses</h1>
+        </section>
     )
 }
 
