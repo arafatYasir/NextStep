@@ -74,21 +74,20 @@ const JobCard = ({ jobRole, status, createdAt }: JobCardProps) => {
                 </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {/* ---- Action Buttons ---- */}
+            <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
                 <Button
                     variant="outline"
-                    size="icon-sm"
-                    title="Open Analysis"
-                    className="size-9 rounded-lg border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:text-[rgb(var(--bg-primary))] transition-colors"
+                    title="Open Job Analysis"
+                    className="size-9 border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] text-foreground transition-colors"
                 >
                     <ExternalLink className="size-4" />
                 </Button>
+
                 <Button
                     variant="outline"
-                    size="icon-sm"
                     title="Delete Record"
-                    className="size-9 rounded-lg border-[rgb(var(--border-default))] text-red-500/70 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
+                    className="size-9 border-[rgb(var(--border-default))] text-red-500 hover:text-red-500 active:text-red-500 hover:border-red-500 active:border-red-500 transition-colors"
                 >
                     <Trash2 className="size-4" />
                 </Button>
