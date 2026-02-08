@@ -4,6 +4,7 @@ import { SingleJobCardSkeleton } from "./JobCardsSkeleton";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import { Briefcase } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
 async function getJobData(id: string) {
     await connectToDatabase();
@@ -11,7 +12,12 @@ async function getJobData(id: string) {
     return JSON.parse(JSON.stringify(record));
 }
 
-const JobsRecordsList = async ({ userId }: { userId: string | undefined }) => {
+const JobsRecordsList = async () => {
+    // Getting user id
+    const supabase = createClient();
+    const { data: { user } } = await (await supabase).auth.getUser();
+    const userId = user?.id;
+
     if (!userId) return null;
 
     // Fetching ONLY the IDs first
