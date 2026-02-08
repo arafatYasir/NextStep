@@ -5,7 +5,7 @@ import { Briefcase, Clock, ExternalLink, Trash2, CalendarDays } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import JobDescAnalysisModal from "../analysis/JobDescAnalysisModal";
+import JobDescAnalysisModal from "../../analysis/JobDescAnalysisModal";
 
 interface JobCardProps {
     id: string;
@@ -106,7 +106,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
 
             {/* ---- Job Analysis Modal ---- */}
             {open && (
-                <JobDescAnalysisModal 
+                <JobDescAnalysisModal
                     isLoading={false}
                     analysis={analysis}
                     onClose={() => setOpen(false)}
