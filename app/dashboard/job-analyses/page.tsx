@@ -4,23 +4,12 @@ import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import { Briefcase } from "lucide-react";
 
-interface JobResultType {
-    skills: Object;
-    softSkills: Object
-    tools: Object;
-    phrases: Object;
-    actionVerbs: Object;
-    seniorityLevels: Object;
-    educationalRequirements: Object;
-    salary: string;
-}
-
 interface JobRecordType {
     _id: string;
     jobRole: string;
     userId: string;
     status: string;
-    result: JobResultType;
+    result: JobAnalysis;
     createdAt: string | Date;
 }
 
@@ -53,8 +42,10 @@ const JobAnalyses = async () => {
                     {jobRecords.map((record: JobRecordType) => (
                         <JobCard
                             key={record._id}
+                            id={record._id}
                             jobRole={record.jobRole}
                             status={record.status}
+                            analysis={record.result}
                             createdAt={record.createdAt}
                         />
                     ))}
