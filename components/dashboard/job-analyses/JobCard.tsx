@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import JobDescAnalysisModal from "../../analysis/JobDescAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface JobCardProps {
     id: string;
@@ -24,6 +25,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const router = useRouter();
 
     // Format time & date efficiently
     const date = new Date(createdAt);
@@ -71,13 +73,14 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
 
             if(data.status === "OK") {
                 toast.success(data.message);
+                router.refresh();
             }
             else {
                 toast.error(data.message);
             }
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
             toast.error("Failed to delete job record.");
         }
     }
