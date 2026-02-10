@@ -10,7 +10,7 @@ interface Props {
 
 const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
     return (
-        <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50">
+        <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50 animate-in fade-in duration-250">
             <div ref={ref} className="relative w-full max-w-lg flex flex-col justify-center items-center bg-card rounded-xl shadow-xl border border-[rgb(var(--border-light))] p-6 xs:p-8 md:p-10">
                 {/* ---- Close Button ---- */}
                 <button

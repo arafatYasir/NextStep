@@ -4,7 +4,7 @@ import { Briefcase, Clock, ExternalLink, Trash2, CalendarDays } from "lucide-rea
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import JobDescAnalysisModal from "../../analysis/JobDescAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
 
@@ -36,6 +36,28 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
         month: '2-digit',
         year: 'numeric'
     });
+
+    // Handle outside clicks when modal is open
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if(modalRef.current && !modalRef.current.contains(e.target as Node)) {
+                setShowDeletePopup(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        if(showDeletePopup) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.body.style.overflow = "auto";
+        }
+    }, [showDeletePopup]);
 
     return (
         <>
