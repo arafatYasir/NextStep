@@ -1,14 +1,36 @@
+"use client";
+
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Spinner } from "./ui/spinner";
 
 interface Props {
     ref: React.RefObject<HTMLDivElement | null>;
     onClose: () => void;
     title: string;
-    action: () => void;
+    action: (params: string | number) => void;
+    data: string | number;
 }
 
-const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
+const ConfirmationModal = ({ ref, onClose, title, action, data }: Props) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleAction = async () => {
+        try {
+            setLoading(true);
+            await action(data);
+            onClose();
+        }
+        catch (e) {
+            console.log(e);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50 animate-in fade-in duration-250">
             <div ref={ref} className="relative w-full max-w-lg flex flex-col justify-center items-center bg-card rounded-xl shadow-xl border border-[rgb(var(--border-light))] p-6 xs:p-8 md:p-10">
@@ -26,20 +48,30 @@ const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
                 </h3>
 
                 {/* ---- Buttons ---- */}
-                <div className="flex justify-center gap-4 mt-4">
+                <div className="flex justify-center gap-4 mt-4 w-full">
                     <Button
                         onClick={onClose}
                         variant="outline"
-                        className="w-full"
+                        className="flex-1"
                     >
                         Cancel
                     </Button>
 
                     <Button
-                        onClick={action}
-                        className="w-full"
+                        onClick={handleAction}
+                        className="flex-1"
+                        disabled={loading}
                     >
-                        Confirm
+                        {loading ? (
+                            <span className="flex items-center gap-x-2">
+                                <Spinner />
+                                Confirming...
+                            </span>
+                        ) : (
+                            <span>
+                                Confirm
+                            </span>
+                        )}
                     </Button>
                 </div>
             </div>

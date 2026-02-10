@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import JobDescAnalysisModal from "../../analysis/JobDescAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
+import { toast } from "sonner";
 
 interface JobCardProps {
     id: string;
@@ -58,6 +59,28 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
             document.body.style.overflow = "auto";
         }
     }, [showDeletePopup]);
+
+    // Functions
+    const handleDeleteJobRecord = async (id: string | number) => {
+        try {
+            const res = await fetch(`/api/job-records/${id}`, {
+                method: "DELETE"
+            });
+
+            const data = await res.json();
+
+            if(data.status === "OK") {
+                toast.success(data.message);
+            }
+            else {
+                toast.error(data.message);
+            }
+        }
+        catch (e) {
+            console.log(e);
+            toast.error("Failed to delete job record.");
+        }
+    }
 
     return (
         <>
@@ -146,7 +169,8 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
                     title="Delete the Job Record?"
                     ref={modalRef}
                     onClose={() => setShowDeletePopup(false)}
-                    action={() => {}}
+                    action={handleDeleteJobRecord}
+                    data={id}
                 />
             )}
         </>
