@@ -4,8 +4,9 @@ import { Briefcase, Clock, ExternalLink, Trash2, CalendarDays } from "lucide-rea
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import JobDescAnalysisModal from "../../analysis/JobDescAnalysisModal";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 interface JobCardProps {
     id: string;
@@ -18,6 +19,10 @@ interface JobCardProps {
 const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => {
     // States
     const [open, setOpen] = useState(false);
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+
+    // Extra hooks
+    const modalRef = useRef<HTMLDivElement | null>(null);
 
     // Format time & date efficiently
     const date = new Date(createdAt);
@@ -31,7 +36,6 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
         month: '2-digit',
         year: 'numeric'
     });
-
 
     return (
         <>
@@ -98,6 +102,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
                         variant="outline"
                         title="Delete Record"
                         className="size-9 border-[rgb(var(--border-default))] text-red-500 hover:text-red-500 active:text-red-500 hover:border-red-500 active:border-red-500 transition-colors"
+                        onClick={() => setShowDeletePopup(true)}
                     >
                         <Trash2 className="size-4" />
                     </Button>
@@ -110,6 +115,16 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
                     isLoading={false}
                     analysis={analysis}
                     onClose={() => setOpen(false)}
+                />
+            )}
+
+            {/* ---- Delete Popup ---- */}
+            {showDeletePopup && (
+                <ConfirmationModal 
+                    title="Delete the Job Record?"
+                    ref={modalRef}
+                    onClose={() => setShowDeletePopup(false)}
+                    action={() => {}}
                 />
             )}
         </>
