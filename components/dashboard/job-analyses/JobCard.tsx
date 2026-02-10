@@ -168,7 +168,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
 
             {/* ---- Delete Popup ---- */}
             {showDeletePopup && (
-                <ConfirmationModal 
+                <ConfirmationModal
                     title="Delete the Job Record?"
                     ref={modalRef}
                     onClose={() => setShowDeletePopup(false)}

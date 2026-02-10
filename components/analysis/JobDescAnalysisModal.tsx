@@ -163,13 +163,13 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                 <JobInfoCard
                                     title="Education & Qualifications"
                                     icon={<GraduationCap size={20} className="text-blue-500" />}
-                                    items={analysis?.educationalRequirements}
+                                    items={analysis?.educationalRequirements?.map((item: any) => typeof item === 'string' ? item : item?.name)}
                                     isLoading={isLoading}
                                 />
                                 <JobInfoCard
                                     title="Experience & Seniority"
                                     icon={<Briefcase size={20} className="text-orange-500" />}
-                                    items={analysis?.seniorityLevels}
+                                    items={analysis?.seniorityLevels?.map((item: any) => typeof item === 'string' ? item : item?.name)}
                                     isLoading={isLoading}
                                 />
                             </div>
