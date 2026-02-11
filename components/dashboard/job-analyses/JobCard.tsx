@@ -85,6 +85,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
         }
     }
 
+    console.log(analysis);
     return (
         <>
             <div className="group flex-1 flex items-center gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">

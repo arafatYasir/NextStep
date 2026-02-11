@@ -58,18 +58,14 @@ export const jobAnalysisSchema = new mongoose.Schema({
     ],
     seniorityLevels: [
         {
-            name: {
-                type: String,
-                trim: true
-            }
+            type: String,
+            trim: true
         }
     ],
     educationalRequirements: [
         {
-            name: {
-                type: String,
-                trim: true,
-            }
+            type: String,
+            trim: true
         }
     ],
     salary: {
