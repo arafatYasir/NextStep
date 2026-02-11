@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
     try {
         const { jobId } = await params;
 
-        connectToDatabase();
+        await connectToDatabase();
 
         const jobRecord = await JobRecord.findOne({ _id: jobId });
 
@@ -25,7 +25,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ j
     try {
         const { jobId } = await params;
 
-        connectToDatabase();
+        await connectToDatabase();
 
         await JobRecord.findByIdAndDelete(jobId);
 
