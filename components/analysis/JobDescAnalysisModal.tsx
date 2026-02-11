@@ -55,7 +55,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
                         {/* LEFT COLUMN (Technical & Hard Requirements) */}
                         <div className="xl:col-span-7 space-y-6">
-                            {/* Hard Skills */}
+                            {/* ---- Hard Skills ---- */}
                             <JobDescAnalysisSection
                                 title="Hard Skills"
                                 description="Core technical competencies required like languages, frameworks, libraries."
@@ -75,7 +75,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                 </div>
                             </JobDescAnalysisSection>
 
-                            {/* Tools & Technologies */}
+                            {/* ---- Tools & Technologies ---- */}
                             <JobDescAnalysisSection
                                 title="Tools & Technologies"
                                 description="Software, platforms, and services."
@@ -95,7 +95,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                 </div>
                             </JobDescAnalysisSection>
 
-                            {/* Key Phrases */}
+                            {/* ---- Key Phrases ---- */}
                             <JobDescAnalysisSection
                                 title="Key Phrases & Terminology"
                                 description="Important technical concepts and industry terms."
@@ -118,7 +118,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
 
                         {/* RIGHT COLUMN (Soft Skills, Context, Requirements) */}
                         <div className="xl:col-span-5 space-y-6">
-                            {/* Soft Skills */}
+                            {/* ---- Soft Skills ---- */}
                             <JobDescAnalysisSection
                                 title="Soft Skills"
                                 description="Interpersonal and behavioral traits."
@@ -138,7 +138,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                 </div>
                             </JobDescAnalysisSection>
 
-                            {/* Action Verbs */}
+                            {/* ---- Action Verbs ---- */}
                             <JobDescAnalysisSection
                                 title="Action Verbs"
                                 description="Impact words for your resume."
@@ -158,7 +158,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                 </div>
                             </JobDescAnalysisSection>
 
-                            {/* Requirements Cards */}
+                            {/* ---- Requirements Cards ---- */}
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
                                 <JobInfoCard
                                     title="Education & Qualifications"
@@ -174,7 +174,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                                 />
                             </div>
 
-                            {/* Salary */}
+                            {/* ---- Salary ---- */}
                             <div className="relative overflow-hidden p-6 rounded-xl bg-linear-to-br from-[rgb(var(--bg-primary))] to-[rgb(var(--bg-primary-hover))] text-background">
                                 <div className="absolute top-0 right-0 p-4 opacity-20">
                                     <DollarSign size={60} className="transform rotate-12 -mr-6 -mt-6" />

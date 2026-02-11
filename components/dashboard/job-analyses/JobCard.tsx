@@ -65,7 +65,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
     // Functions
     const handleDeleteJobRecord = async (id: string | number) => {
         try {
-            const res = await fetch(`/api/job-records/${id}`, {
+            const res = await fetch(`/api/job-results/${id}`, {
                 method: "DELETE"
             });
 
