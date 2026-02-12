@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ServiceMetricCards from "./ServiceMetricCards";
-import JobAnalysisTab from "./JobAnalysisTab";
+import ServiceMetricCards from "../ServiceMetricCards";
+import JobAnalysisTab from "../JobAnalysisTab";
 import { cn } from "@/lib/utils";
-import { Spinner } from "../ui/spinner";
+import { Spinner } from "../../ui/spinner";
 
 const OverviewContainer = () => {
     const [activeTab, setActiveTab] = useState<"job" | "resume">("job");

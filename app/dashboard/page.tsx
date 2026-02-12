@@ -1,4 +1,4 @@
-import OverviewContainer from "@/components/dashboard/OverviewContainer";
+import OverviewContainer from "@/components/dashboard/overview/OverviewContainer";
 
 const DashboardOverview = () => {
   return (
