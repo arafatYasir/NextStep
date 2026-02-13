@@ -55,13 +55,13 @@ const ServiceMetricCards = ({ stats }: ServiceMetricCardsProps) => {
                 label="Job Analyses"
                 value={stats.jobAnalyses}
                 icon={FileSearch}
-                description="Total job descriptions analyzed"
+                description="Total jobs analyzed"
             />
             <MetricCard
                 label="Resume Analyses"
                 value={stats.resumeAnalyses}
                 icon={ScanText}
-                description="Resumes matched to jobs"
+                description="Total resumes analyzed"
             />
             <MetricCard
                 label="Resumes Built"
