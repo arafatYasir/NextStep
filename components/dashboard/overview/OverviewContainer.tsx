@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ServiceMetricCards from "../ServiceMetricCards";
+import ServiceMetricCards from "./ServiceMetricCards";
 import JobAnalysisTab from "../JobAnalysisTab";
 import { cn } from "@/lib/utils";
 import { Spinner } from "../../ui/spinner";
@@ -42,13 +42,13 @@ const OverviewContainer = () => {
     if (!data) return null;
 
     return (
-        <div className="flex-1 p-8 space-y-10 max-w-7xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="flex-1 p-8 space-y-10 max-w-7xl">
             {/* ---- Header ---- */}
             <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-bold font-heading tracking-tight text-[rgb(var(--text-primary))]">
+                <h1 className="text-3xl font-bold font-heading tracking-tight text-foreground">
                     Dashboard Overview
                 </h1>
-                <p className="text-[rgb(var(--text-secondary))] font-sans text-base">
+                <p className="text-foreground/80 font-sans text-base">
                     Actionable intelligence from your career progression activities.
                 </p>
             </div>

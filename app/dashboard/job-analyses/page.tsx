@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 const JobAnalyses = async () => {
     return (
-        <section className="flex-1 p-8 space-y-8 max-w-5xl animate-in fade-in duration-500">
+        <section className="flex-1 p-8 space-y-8 max-w-5xl">
             {/* ---- Header ---- */}
             <div className="flex flex-col gap-1">
                 <h1 className="text-3xl font-bold font-heading tracking-tight text-foreground">

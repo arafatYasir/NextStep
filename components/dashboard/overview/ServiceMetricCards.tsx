@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Briefcase, FileText, FilePlus, PenTool } from "lucide-react";
+import { FileSearch, ScanText, FilePlusCorner, PenLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MetricCardProps {
@@ -14,22 +14,25 @@ interface MetricCardProps {
 
 const MetricCard = ({ label, value, icon: Icon, description, className }: MetricCardProps) => (
     <div className={cn(
-        "bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] shadow-sm transition-all hover:shadow-md",
+        "bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-all duration-250 shadow-md",
         className
     )}>
-        <div className="flex items-center justify-between mb-4">
+        {/* ---- Label ---- */}
+        <div className="flex items-center gap-x-3 mb-4">
             <div className="p-2 rounded-lg bg-[rgb(var(--bg-primary))]/10">
                 <Icon className="size-5 text-[rgb(var(--bg-primary))]" />
             </div>
-            <span className="text-xs font-medium text-[rgb(var(--text-tertiary))] uppercase tracking-wider">
+            <span className="font-medium text-foreground uppercase tracking-wider">
                 {label}
             </span>
         </div>
+
+        {/* ---- Value and Description ---- */}
         <div className="space-y-1">
-            <h3 className="text-2xl font-bold font-heading text-[rgb(var(--text-primary))]">
+            <h3 className="text-2xl font-bold font-heading text-foreground">
                 {value}
             </h3>
-            <p className="text-sm font-sans text-[rgb(var(--text-secondary))]">
+            <p className="text-sm font-sans text-foreground/80">
                 {description}
             </p>
         </div>
@@ -51,25 +54,25 @@ const ServiceMetricCards = ({ stats }: ServiceMetricCardsProps) => {
             <MetricCard
                 label="Job Analyses"
                 value={stats.jobAnalyses}
-                icon={Briefcase}
+                icon={FileSearch}
                 description="Total job descriptions analyzed"
             />
             <MetricCard
                 label="Resume Analyses"
                 value={stats.resumeAnalyses}
-                icon={FileText}
+                icon={ScanText}
                 description="Resumes matched to jobs"
             />
             <MetricCard
                 label="Resumes Built"
                 value={stats.resumesBuilt}
-                icon={FilePlus}
+                icon={FilePlusCorner}
                 description="Professional resumes created"
             />
             <MetricCard
                 label="Letters Written"
                 value={stats.lettersWritten}
-                icon={PenTool}
+                icon={PenLine}
                 description="AI-generated cover letters"
             />
         </div>
