@@ -10,7 +10,7 @@ interface props {
 }
 
 const JobInfoCard = ({ title, icon, items, isLoading }: props) => (
-    <div className="p-6 rounded-xl bg-card border border-[rgb(var(--border-default))] font-sans">
+    <div className="p-6 rounded-xl bg-card border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250 font-sans">
         <div className="flex items-center gap-2 mb-4">
             {icon}
             <span className="text-xs font-bold uppercase tracking-wider text-foreground">{title}</span>

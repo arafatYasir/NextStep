@@ -26,14 +26,14 @@ const JobDescAnalysisSection = ({ title, description, icon, children, copyConten
             await navigator.clipboard.writeText(copyContent);
             setCopied(true);
 
-            setTimeout(() => setCopied(false), 1000);
+            setTimeout(() => setCopied(false), 1200);
         } catch (e) {
             toast.error("Failed to copy!");
         }
     }
 
     return (
-        <div className="bg-card rounded-xl p-6 border border-[rgb(var(--border-default))] w-full">
+        <div className="bg-card rounded-xl p-6 border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250 w-full">
             <div className="flex items-start justify-between mb-6 gap-4">
                 <div className="flex items-start gap-3">
                     <div className="p-2.5 rounded-xl bg-card shadow-sm border border-[rgb(var(--border-default))] shrink-0">
