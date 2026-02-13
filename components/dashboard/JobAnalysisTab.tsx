@@ -42,7 +42,7 @@ const SkillChart = ({ title, description, data, className }: SkillChartProps) =>
     const maxCount = data.length > 0 ? Math.max(...data.map(d => d.count)) : 0;
 
     return (
-        <div className={cn("bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] shadow-sm flex flex-col h-full", className)}>
+        <div className={cn("bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250 shadow-sm flex flex-col h-full", className)}>
             <div className="mb-6">
                 <h4 className="text-lg font-bold font-heading text-foreground">
                     {title}
