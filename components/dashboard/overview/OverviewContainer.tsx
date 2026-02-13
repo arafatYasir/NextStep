@@ -8,6 +8,7 @@ import { Spinner } from "../../ui/spinner";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import OverviewSkeleton from "./OverviewSkeleton";
 
 const OverviewContainer = ({ userId }: { userId: string }) => {
     // States
@@ -39,26 +40,10 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
         fetchData();
     }, []);
 
-    if (loading) {
-        return (
-            <div className="flex-1 flex items-center justify-center min-h-[400px]">
-                <Spinner className="size-8 text-[rgb(var(--bg-primary))]" />
-            </div>
-        );
-    }
+    if(loading) return <OverviewSkeleton />;
 
     return (
-        <div className="flex-1 p-8 space-y-10 max-w-7xl">
-            {/* ---- Header ---- */}
-            <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-bold font-heading tracking-tight text-foreground">
-                    Dashboard Overview
-                </h1>
-                <p className="text-foreground/80 font-sans text-base">
-                    Actionable intelligence from your career progression activities.
-                </p>
-            </div>
-
+        <div className="flex-1 p-8 space-y-10">
             {/* ---- Metric Cards ---- */}
             <ServiceMetricCards stats={data.stats} />
 
