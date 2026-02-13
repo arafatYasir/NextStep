@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { cn } from "@/lib/utils";
 
 interface HorizontalBarProps {
@@ -36,18 +35,19 @@ interface SkillChartProps {
     title: string;
     description: string;
     data: { name: string; count: number }[];
+    className?: string;
 }
 
-const SkillChart = ({ title, description, data }: SkillChartProps) => {
+const SkillChart = ({ title, description, data, className }: SkillChartProps) => {
     const maxCount = data.length > 0 ? Math.max(...data.map(d => d.count)) : 0;
 
     return (
-        <div className="bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] shadow-sm flex flex-col h-full">
+        <div className={cn("bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] shadow-sm flex flex-col h-full", className)}>
             <div className="mb-6">
-                <h4 className="text-lg font-bold font-heading text-[rgb(var(--text-primary))]">
+                <h4 className="text-lg font-bold font-heading text-foreground">
                     {title}
                 </h4>
-                <p className="text-sm font-sans text-[rgb(var(--text-secondary))]">
+                <p className="text-sm font-sans text-foreground/80">
                     {description}
                 </p>
             </div>
@@ -63,8 +63,8 @@ const SkillChart = ({ title, description, data }: SkillChartProps) => {
                         />
                     ))
                 ) : (
-                    <div className="h-full flex items-center justify-center py-8">
-                        <p className="text-sm text-[rgb(var(--text-muted))] italic">
+                    <div className="h-full py-8">
+                        <p className="text-sm text-[rgb(var(--text-tertiary))] italic font-semibold text-center">
                             No data available yet
                         </p>
                     </div>
@@ -86,7 +86,7 @@ interface JobAnalysisTabProps {
 
 const JobAnalysisTab = ({ data }: JobAnalysisTabProps) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <SkillChart
                 title="Top Hard Skills"
                 description="Most frequent technical requirements found in your analyzed jobs."
@@ -102,58 +102,17 @@ const JobAnalysisTab = ({ data }: JobAnalysisTabProps) => {
                 description="Interpersonal and leadership skills highlighted by recruiters."
                 data={data.softSkills}
             />
-
-            {/* Action Verbs - Simplified List */}
-            <div className="bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] shadow-sm">
-                <div className="mb-6">
-                    <h4 className="text-lg font-bold font-heading text-[rgb(var(--text-primary))]">
-                        Target Action Verbs
-                    </h4>
-                    <p className="text-sm font-sans text-[rgb(var(--text-secondary))]">
-                        Use these verbs to mirror the language in job descriptions.
-                    </p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {data.actionVerbs.length > 0 ? (
-                        data.actionVerbs.map((verb, idx) => (
-                            <span
-                                key={idx}
-                                className="px-3 py-1.5 bg-[rgb(var(--bg-primary))]/5 border border-[rgb(var(--bg-primary))]/20 text-[rgb(var(--bg-primary))] rounded-full text-sm font-medium"
-                            >
-                                {verb.name}
-                            </span>
-                        ))
-                    ) : (
-                        <p className="text-sm text-[rgb(var(--text-muted))] italic">No verbs detected</p>
-                    )}
-                </div>
-            </div>
-
-            {/* Key Phrases - Badge Grid */}
-            <div className="bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] shadow-sm">
-                <div className="mb-6">
-                    <h4 className="text-lg font-bold font-heading text-[rgb(var(--text-primary))]">
-                        Common Key Phrases
-                    </h4>
-                    <p className="text-sm font-sans text-[rgb(var(--text-secondary))]">
-                        Keywords the ATS systems are likely scanning for.
-                    </p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {data.phrases.length > 0 ? (
-                        data.phrases.map((phrase, idx) => (
-                            <span
-                                key={idx}
-                                className="px-3 py-1.5 bg-secondary border border-[rgb(var(--border-default))] text-secondary-foreground rounded-md text-sm font-sans"
-                            >
-                                {phrase.name}
-                            </span>
-                        ))
-                    ) : (
-                        <p className="text-sm text-[rgb(var(--text-muted))] italic">No phrases detected</p>
-                    )}
-                </div>
-            </div>
+            <SkillChart
+                title="Action Verbs"
+                description="Use these verbs to mirror the language in job descriptions."
+                data={data.actionVerbs}
+            />
+            <SkillChart
+                title="Key Phrases"
+                description="Keywords the ATS systems are likely scanning for."
+                data={data.phrases}
+                className="col-span-2"
+            />
         </div>
     );
 };

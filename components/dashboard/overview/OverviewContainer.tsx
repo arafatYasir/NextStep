@@ -62,10 +62,10 @@ const OverviewContainer = () => {
                     <button
                         onClick={() => setActiveTab("job")}
                         className={cn(
-                            "px-6 py-3 text-sm font-semibold transition-all relative",
+                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer",
                             activeTab === "job"
                                 ? "text-[rgb(var(--bg-primary))]"
-                                : "text-[rgb(var(--text-tertiary))] hover:text-[rgb(var(--text-secondary))]"
+                                : "text-foreground/80 hover:text-foreground active:text-foreground"
                         )}
                     >
                         Job Analysis
@@ -76,10 +76,10 @@ const OverviewContainer = () => {
                     <button
                         onClick={() => setActiveTab("resume")}
                         className={cn(
-                            "px-6 py-3 text-sm font-semibold transition-all relative",
+                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer",
                             activeTab === "resume"
                                 ? "text-[rgb(var(--bg-primary))]"
-                                : "text-[rgb(var(--text-tertiary))] hover:text-[rgb(var(--text-secondary))]"
+                                : "text-foreground/80 hover:text-foreground active:text-foreground"
                         )}
                     >
                         Resume Analysis
