@@ -5,29 +5,37 @@ import ServiceMetricCards from "./ServiceMetricCards";
 import JobAnalysisTab from "../JobAnalysisTab";
 import { cn } from "@/lib/utils";
 import { Spinner } from "../../ui/spinner";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-const OverviewContainer = () => {
+const OverviewContainer = ({ userId }: { userId: string }) => {
+    // States
     const [activeTab, setActiveTab] = useState<"job" | "resume">("job");
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<any>(null);
 
-    // Using a hardcoded userId for demonstration as per existing pattern or we'd fetch from session
-    const SAMPLE_USER_ID = "user_2tmqLwBInq7fD6m8V0Z8R1W5x3Y"; // This should ideally come from Supabase auth
+    // Extra hooks
+    const router = useRouter();
+
+    // If no user found then redirect to sign in page
+    if (!userId) router.push("/sign-in");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // In a real scenario, this would be an authenticated request
-                const res = await fetch(`/api/dashboard/overview?userId=${SAMPLE_USER_ID}`);
-                const jsonData = await res.json();
-                setData(jsonData);
-            } catch (err) {
-                console.error("Failed to fetch dashboard data", err);
+                const res = await fetch(`/api/dashboard/overview?userId=${userId}`);
+                const data = await res.json();
+                setData(data);
+            } catch (e) {
+                console.error("Failed to fetch dashboard overview data: ", e);
+                toast.error("Failed to get overview data");
             } finally {
                 setLoading(false);
             }
         };
 
+        // Fetching overview data
         fetchData();
     }, []);
 
@@ -38,8 +46,6 @@ const OverviewContainer = () => {
             </div>
         );
     }
-
-    if (!data) return null;
 
     return (
         <div className="flex-1 p-8 space-y-10 max-w-7xl">

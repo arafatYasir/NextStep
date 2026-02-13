@@ -41,10 +41,10 @@ const MetricCard = ({ label, value, icon: Icon, description, className }: Metric
 
 interface ServiceMetricCardsProps {
     stats: {
-        jobAnalyses: number;
-        resumeAnalyses: number;
-        resumesBuilt: number;
-        lettersWritten: number;
+        jobAnalysesCount: number;
+        resumeAnalysesCount: number;
+        resumesBuiltCount: number;
+        lettersWrittenCount: number;
     };
 }
 
@@ -53,25 +53,25 @@ const ServiceMetricCards = ({ stats }: ServiceMetricCardsProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <MetricCard
                 label="Job Analyses"
-                value={stats.jobAnalyses}
+                value={stats.jobAnalysesCount}
                 icon={FileSearch}
                 description="Total jobs analyzed"
             />
             <MetricCard
                 label="Resume Analyses"
-                value={stats.resumeAnalyses}
+                value={stats.resumeAnalysesCount}
                 icon={ScanText}
                 description="Total resumes analyzed"
             />
             <MetricCard
                 label="Resumes Built"
-                value={stats.resumesBuilt}
+                value={stats.resumesBuiltCount}
                 icon={FilePlusCorner}
                 description="Professional resumes created"
             />
             <MetricCard
                 label="Letters Written"
-                value={stats.lettersWritten}
+                value={stats.lettersWrittenCount}
                 icon={PenLine}
                 description="AI-generated cover letters"
             />

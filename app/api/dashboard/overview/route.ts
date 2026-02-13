@@ -13,13 +13,15 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const jobAnalysesCount = await JobRecord.countDocuments({ userId, status: "completed" });
+        // Fetching job records
+        const jobs = await JobRecord.find({ userId, status: "completed" }).lean();
+
+        const jobAnalysesCount = jobs.length;
         const resumeAnalysesCount = 0;
         const resumesBuiltCount = 0;
         const lettersWrittenCount = 0;
 
-        const jobs = await JobRecord.find({ userId, status: "completed" }).lean();
-
+        // Constructing data for metrics
         const skillsMap: Record<string, number> = {};
         const softSkillsMap: Record<string, number> = {};
         const toolsMap: Record<string, number> = {};
@@ -51,14 +53,14 @@ export async function GET(req: NextRequest) {
             Object.entries(map)
                 .map(([name, count]) => ({ name, count }))
                 .sort((a, b) => b.count - a.count)
-                .slice(0, 8);
+                .slice(0, 10);
 
         return NextResponse.json({
             stats: {
-                jobAnalyses: jobAnalysesCount,
-                resumeAnalyses: resumeAnalysesCount,
-                resumesBuilt: resumesBuiltCount,
-                lettersWritten: lettersWrittenCount,
+                jobAnalysesCount,
+                resumeAnalysesCount,
+                resumesBuiltCount,
+                lettersWrittenCount,
             },
             jobAnalysisData: {
                 hardSkills: formatMap(skillsMap),
