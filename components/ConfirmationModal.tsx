@@ -53,6 +53,7 @@ const ConfirmationModal = ({ ref, onClose, title, action, data }: Props) => {
                         onClick={onClose}
                         variant="outline"
                         className="flex-1"
+                        disabled={loading}
                     >
                         Cancel
                     </Button>

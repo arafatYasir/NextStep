@@ -14,14 +14,14 @@ const HorizontalBar = ({ name, count, maxCount }: HorizontalBarProps) => {
     return (
         <div className="space-y-1.5 w-full">
             <div className="flex justify-between items-end">
-                <span className="text-sm font-medium text-[rgb(var(--text-primary))] truncate pr-4">
+                <span className="text-sm font-medium text-foreground truncate pr-4">
                     {name}
                 </span>
-                <span className="text-xs font-semibold text-[rgb(var(--text-tertiary))] tabular-nums">
-                    {count} {count === 1 ? 'Job' : 'Jobs'}
+                <span className="text-sm font-semibold text-foreground/80 tabular-nums">
+                    {count} {count === 1 ? 'time' : 'times'}
                 </span>
             </div>
-            <div className="h-2 w-full bg-[rgb(var(--border-light))] rounded-full overflow-hidden">
+            <div className="h-2 w-full bg-[rgb(var(--border-default))] rounded-full overflow-hidden">
                 <div
                     className="h-full bg-[rgb(var(--bg-primary))] rounded-full transition-all duration-1000 ease-out"
                     style={{ width: `${percentage}%` }}

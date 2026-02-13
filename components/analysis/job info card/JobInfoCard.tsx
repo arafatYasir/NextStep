@@ -1,4 +1,3 @@
-import BadgesLoadingSkeleton from "../badges/BadgesLoadingSkeleton";
 import EmptyState from "../EmptyState";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
 

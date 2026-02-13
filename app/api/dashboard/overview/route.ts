@@ -33,19 +33,19 @@ export async function GET(req: NextRequest) {
             if (!res) return;
 
             res.skills?.forEach((s: any) => {
-                if (s.name) skillsMap[s.name] = (skillsMap[s.name] || 0) + 1;
+                if (s.name) skillsMap[s.name] = (skillsMap[s.name] || 0) + s.count;
             });
             res.softSkills?.forEach((s: any) => {
-                if (s.name) softSkillsMap[s.name] = (softSkillsMap[s.name] || 0) + 1;
+                if (s.name) softSkillsMap[s.name] = (softSkillsMap[s.name] || 0) + s.count;
             });
             res.tools?.forEach((s: any) => {
-                if (s.name) toolsMap[s.name] = (toolsMap[s.name] || 0) + 1;
+                if (s.name) toolsMap[s.name] = (toolsMap[s.name] || 0) + s.count;
             });
             res.actionVerbs?.forEach((s: any) => {
-                if (s.name) actionVerbsMap[s.name] = (actionVerbsMap[s.name] || 0) + 1;
+                if (s.name) actionVerbsMap[s.name] = (actionVerbsMap[s.name] || 0) + s.count;
             });
             res.phrases?.forEach((s: any) => {
-                if (s.name) phrasesMap[s.name] = (phrasesMap[s.name] || 0) + 1;
+                if (s.name) phrasesMap[s.name] = (phrasesMap[s.name] || 0) + s.count;
             });
         });
 
