@@ -14,7 +14,7 @@ const ResumeAnalysesPage = () => {
                         </h1>
 
                         <p className="text-sm sm:text-base md:text-lg font-sans text-foreground/80 sm:max-w-3xl leading-relaxed sm:text-balance">
-                            Analyze your resume the way hiring systems do — uncover strengths, gaps, keyword alignment, and formatting issues so you can improve it with confidence before applying.
+                            Analyze your resume — uncover strengths, gaps, keyword alignment, and formatting issues so you can improve it with confidence before applying.
                         </p>
                     </div>
 
