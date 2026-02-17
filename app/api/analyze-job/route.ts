@@ -7,6 +7,14 @@ export async function POST(req: NextRequest) {
     try {
         const { jobRole, jobDescription, userId } = await req.json();
 
+        // Full validation
+        if (jobRole.trim() === "") {
+            return NextResponse.json({ status: "ERROR", message: "Job title is required." });
+        }
+        else if (jobDescription.trim() === "") {
+            return NextResponse.json({ status: "ERROR", message: "Job description is required." });
+        }
+
         // Connect to Database
         await connectToDatabase();
 
@@ -31,7 +39,7 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        return NextResponse.json({ jobId: newJobRecord._id.toString() }, { status: 200 });
+        return NextResponse.json({ jobId: newJobRecord._id.toString(), status: "OK" }, { status: 200 });
     } catch (e: any) {
         console.log("API Error: ", e);
         return NextResponse.json({ error: "Failed to get response" }, { status: 500 });
