@@ -64,10 +64,15 @@ const JobAnalyzerInputForm = () => {
 
             // Get the queued job id
             const data = await res.json();
-            const { jobId } = data;
+            const { jobId, status, message } = data;
 
             // If job id is not found return
-            if (!jobId) {
+            if (status === "ERROR") {
+                toast.error(message);
+                setLoading(false);
+                return;
+            }
+            else if (!jobId) {
                 toast.error("Failed to initialize job.");
                 setLoading(false);
                 return;
