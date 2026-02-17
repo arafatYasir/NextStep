@@ -33,7 +33,7 @@ export const analyzeJobDescription = inngest.createFunction(
             // Choose a model
             const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
-            //  Generate AI analysis
+            // Generate AI analysis
             const parsedJSONData = await step.run("generate-ai-analysis", async () => {
                 // Generate dynamic prompt
                 const prompt = JOB_ANALYSIS_PROMPT.replace("{jobRole}", jobRole).replace("{jobDescription}", jobDescription);
@@ -63,6 +63,40 @@ export const analyzeJobDescription = inngest.createFunction(
                     status: "failed"
                 });
             });
+        }
+    }
+);
+
+export const analyzeResume = inngest.createFunction(
+    {
+        id: "analyze/resume",
+        concurrency: {
+            limit: 5
+        },
+        throttle: {
+            limit: 10,
+            period: "1m"
+        }
+    },
+    { event: "analyze/resume" },
+    async ({ event, step }) => {
+        const { resumeId, jobTitle, jobDescription, userId } = event.data;
+
+        try {
+            // Connect to database
+            await step.run("connect-database", async () => {
+                await connectToDatabase();
+            });
+
+            // Create AI instance
+            const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
+
+            // Choose a model
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+
+            
+        } catch (e) {
+
         }
     }
 );

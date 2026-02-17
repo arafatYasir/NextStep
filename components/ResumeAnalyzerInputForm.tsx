@@ -189,7 +189,7 @@ const ResumeAnalyzerInputForm = () => {
                                 <FileText className="size-6" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-semibold text-foreground truncate uppercase">
+                                <p className="font-semibold text-foreground truncate">
                                     {file.name}
                                 </p>
                                 <p className="text-sm font-semibold text-[rgb(var(--text-secondary))] truncate">
