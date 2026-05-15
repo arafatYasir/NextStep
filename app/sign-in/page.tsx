@@ -34,12 +34,7 @@ const SignInPage = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     // Functions
-    const handleSignIn = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        // Reset error state
-        setError({});
-
+    const validateForm = () => {
         // Temp error state
         const tempError: ErrorState = {};
 
@@ -58,11 +53,21 @@ const SignInPage = () => {
             tempError.password = "Password must be at least 8 characters long";
         }
 
-        // If there are any errors, set them and return
-        if (Object.keys(tempError).length > 0) {
-            setError(tempError);
-            return;
-        }
+        // Set new errors
+        setError(tempError);
+
+        return Object.keys(tempError).length === 0;
+    }
+
+    const handleSignIn = async (e: React.FormEvent) => {
+        // Prevent the page reload
+        e.preventDefault();
+
+        // Reset error state
+        setError({});
+
+        // Checking if form is valid
+        if (!validateForm()) return;
 
         try {
             setLoading({
