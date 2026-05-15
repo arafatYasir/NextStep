@@ -1,5 +1,5 @@
 import fs from "fs";
-import PdfParse from "pdf-parse";
+import { PDFParse } from "pdf-parse";
 import mammoth from "mammoth";
 
 export function cleanAIResponse(text: string): string {
@@ -17,12 +17,17 @@ export function cleanAIResponse(text: string): string {
 
 export async function extractTextFromFile(filePath: string, mimeType: string) {
     if(mimeType === "application/pdf") {
-        const buffer = fs.readFileSync(filePath);
-        const data = await PdfParse(buffer);
+        // const buffer = fs.readFileSync(filePath);
+        // const data = await PdfParse(buffer);
 
-        return data.text;
+        // return data.text;
+        const parser = new PDFParse({ url: filePath });
+        const result = await parser.getText();
+
+        return result.text;
     }
     else if(mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+        // const data = await mammoth.extractRawText({ path: filePath });
         const data = await mammoth.extractRawText({ path: filePath });
 
         return data.value;
