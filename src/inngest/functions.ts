@@ -19,13 +19,16 @@ export const analyzeJobDescription = inngest.createFunction(
         triggers: [{ event: "analyze/job-description" }]
     },
     async ({ event, step }) => {
-        const { jobId, jobRole, jobDescription } = event.data;
+        const { jobId, jobRole, jobDescription } = event.data || {};
+
+        if (!jobId || !jobRole || !jobDescription) {
+            console.error("Missing required data in analyze/job-description event");
+            return;
+        }
 
         try {
-            // Connect to database
-            await step.run("connect-database", async () => {
-                await connectToDatabase();
-            });
+            // Connect to database (outside step.run in v4)
+            await connectToDatabase();
 
             // Create AI instance
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
@@ -80,13 +83,16 @@ export const analyzeResume = inngest.createFunction(
         triggers: [{ event: "analyze/resume" }]
     },
     async ({ event, step }) => {
-        const { resumeId, jobTitle, jobDescription, userId } = event.data;
+        const { resumeId, jobTitle, jobDescription, userId } = event.data || {};
+
+        if (!resumeId || !jobTitle || !jobDescription || !userId) {
+            console.error("Missing required data in analyze/resume event");
+            return;
+        }
 
         try {
-            // Connect to database
-            await step.run("connect-database", async () => {
-                await connectToDatabase();
-            });
+            // Connect to database (outside step.run in v4)
+            await connectToDatabase();
 
             // Create AI instance
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);

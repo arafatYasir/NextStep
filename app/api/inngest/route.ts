@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { serve } from "inngest/next";
 import { inngest } from "../../../src/inngest/client";
 import { analyzeJobDescription, analyzeResume } from "@/src/inngest/functions";
