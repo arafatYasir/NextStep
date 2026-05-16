@@ -43,9 +43,9 @@ export const analyzeJobDescription = inngest.createFunction(
 
                 // Clean response and parse to json
                 const response = cleanAIResponse(result.response.text());
-                const parsedJSONData = JSON.parse(response);
+                const jsonData = JSON.parse(response);
 
-                return parsedJSONData;
+                return jsonData;
             });
 
             // Update job record

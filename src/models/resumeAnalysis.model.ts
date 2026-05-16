@@ -28,8 +28,6 @@ const resumeAnalysisModel = new mongoose.Schema({
         required: true,
     },
     result: {
-        default: null,
-
         atsScore: {
             type: Number,
             required: true,

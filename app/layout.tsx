@@ -3,7 +3,6 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import ConditionalFooter from "@/components/footer/ConditionalFooter";
-import Header from "@/components/header/Header";
 import ConditionalHeader from "@/components/header/ConditionalHeader";
 
 const inter = Inter({

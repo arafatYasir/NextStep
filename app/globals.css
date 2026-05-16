@@ -94,10 +94,6 @@ body {
   height: 4px;
 }
 
-.scrollbar-custom::-webkit-scrollbar-track {
-  /* background: transparent; */
-}
-
 .scrollbar-custom::-webkit-scrollbar-thumb {
   background: var(--foreground);
 }

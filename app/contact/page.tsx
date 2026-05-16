@@ -29,7 +29,7 @@ const ContactPage = () => {
         phone: "",
         message: "",
     });
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<ErrorState>({});
 
     // Constants
@@ -42,7 +42,7 @@ const ContactPage = () => {
 
         // Clear error when user types
         if (errors[id as keyof ErrorState]) {
-            setErrors((prev) => ({ ...prev, [id]: undefined }));
+            setErrors((prev) => ({ ...prev, [id]: "" }));
         }
     };
 
