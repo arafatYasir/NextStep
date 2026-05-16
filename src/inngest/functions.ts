@@ -77,6 +77,7 @@ export const analyzeResume = inngest.createFunction(
             limit: 10,
             period: "1m"
         },
+        triggers: [{ event: "analyze/resume" }]
     },
     async ({ event, step }) => {
         const { resumeId, jobTitle, jobDescription, userId } = event.data;
@@ -95,7 +96,7 @@ export const analyzeResume = inngest.createFunction(
 
 
         } catch (e) {
-            
+
         }
     }
 );
