@@ -19,22 +19,19 @@ export const analyzeJobDescription = inngest.createFunction(
         triggers: [{ event: "analyze/job-description" }]
     },
     async ({ event, step }) => {
-        const { jobId, jobRole, jobDescription } = event.data || {};
-
-        if (!jobId || !jobRole || !jobDescription) {
-            console.error("Missing required data in analyze/job-description event");
-            return;
-        }
+        const { jobId, jobRole, jobDescription } = event.data;
 
         try {
-            // Connect to database (outside step.run in v4)
-            await connectToDatabase();
+            // Connect to database
+            await step.run("connect-database", async () => {
+                await connectToDatabase();
+            });
 
             // Create AI instance
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
             // Generate AI analysis
             const parsedJSONData = await step.run("generate-ai-analysis", async () => {
@@ -80,29 +77,25 @@ export const analyzeResume = inngest.createFunction(
             limit: 10,
             period: "1m"
         },
-        triggers: [{ event: "analyze/resume" }]
     },
     async ({ event, step }) => {
-        const { resumeId, jobTitle, jobDescription, userId } = event.data || {};
-
-        if (!resumeId || !jobTitle || !jobDescription || !userId) {
-            console.error("Missing required data in analyze/resume event");
-            return;
-        }
+        const { resumeId, jobTitle, jobDescription, userId } = event.data;
 
         try {
-            // Connect to database (outside step.run in v4)
-            await connectToDatabase();
+            // Connect to database
+            await step.run("connect-database", async () => {
+                await connectToDatabase();
+            });
 
             // Create AI instance
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
         } catch (e) {
-
+            
         }
     }
 );
