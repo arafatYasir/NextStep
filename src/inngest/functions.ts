@@ -15,9 +15,9 @@ export const analyzeJobDescription = inngest.createFunction(
         throttle: {
             limit: 10,
             period: "1m"
-        }
+        },
+        triggers: [{ event: "analyze/job-description" }]
     },
-    { event: "analyze/job-description" },
     async ({ event, step }) => {
         const { jobId, jobRole, jobDescription } = event.data;
 
@@ -76,9 +76,9 @@ export const analyzeResume = inngest.createFunction(
         throttle: {
             limit: 10,
             period: "1m"
-        }
+        },
+        triggers: [{ event: "analyze/resume" }]
     },
-    { event: "analyze/resume" },
     async ({ event, step }) => {
         const { resumeId, jobTitle, jobDescription, userId } = event.data;
 
@@ -94,7 +94,7 @@ export const analyzeResume = inngest.createFunction(
             // Choose a model
             const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
-            
+
         } catch (e) {
 
         }
