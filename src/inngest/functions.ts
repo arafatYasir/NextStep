@@ -47,8 +47,22 @@ export const analyzeJobDescription = inngest.createFunction(
                 return jsonData;
             });
 
+            // Update job record
+            await step.run("update-job-record", async () => {
+                await JobRecord.findByIdAndUpdate(jobId, {
+                    status: "completed",
+                    result: parsedJSONData
+                });
+            })
+
         } catch (e: any) {
             console.error("Failed to analyze job (Inngest Function)", e);
+
+            await step.run("update-job-record", async () => {
+                await JobRecord.findByIdAndUpdate(jobId, {
+                    status: "failed"
+                });
+            });
         }
     }
 );
