@@ -37,8 +37,8 @@ export const analyzeJobDescription = inngest.createFunction(
                 // Generate dynamic prompt
                 const prompt = JOB_ANALYSIS_PROMPT.replace("{jobRole}", jobRole).replace("{jobDescription}", jobDescription);
 
-                // // Generate response
-                // const result = await model.generateContent(prompt);
+                // Generate response
+                const result = await model.generateContent(prompt);
 
                 // // Clean response and parse to json
                 // const response = cleanAIResponse(result.response.text());
