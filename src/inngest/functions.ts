@@ -31,7 +31,7 @@ export const analyzeJobDescription = inngest.createFunction(
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
             // Generate AI analysis
             const parsedJSONData = await step.run("generate-ai-analysis", async () => {
@@ -92,7 +92,7 @@ export const analyzeResume = inngest.createFunction(
             const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
 
         } catch (e) {

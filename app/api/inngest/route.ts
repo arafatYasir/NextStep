@@ -1,7 +1,7 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import { serve } from "inngest/next";
-import { inngest } from "../../../src/inngest/client";
+import { inngest } from "@/src/inngest/client";
 import { analyzeJobDescription, analyzeResume } from "@/src/inngest/functions";
 
 export const { GET, POST, PUT } = serve({
