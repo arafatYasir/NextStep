@@ -31,6 +31,21 @@ export const analyzeJobDescription = inngest.createFunction(
 
             // Choose a model
             const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+
+            const parsedJSONData = await step.run("generate-ai-analysis", async () => {
+                // Generate dynamic prompt
+                const prompt = JOB_ANALYSIS_PROMPT.replace("{jobRole}", jobRole).replace("{jobDescription}", jobDescription);
+
+                // Generate response
+                const result = await model.generateContent(prompt);
+
+                // Clean response and parse to json
+                const response = cleanAIResponse(result.response.text());
+                const jsonData = JSON.parse(response);
+
+                return jsonData;
+            });
+            
         } catch (e: any) {
             console.error("Failed to analyze job (Inngest Function)", e);
         }
