@@ -73,7 +73,3 @@ export const jobAnalysisSchema = new mongoose.Schema({
         trim: true,
     }
 });
-
-const JobAnalysis = mongoose.models.JobAnalysis || mongoose.model("JobAnalysis", jobAnalysisSchema);
-
-export default JobAnalysis;
