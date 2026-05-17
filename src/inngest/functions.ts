@@ -6,7 +6,13 @@ import JobRecord from "../models/jobRecord.model";
 import { connectToDatabase } from "../database/mongodb";
 
 export const analyzeJobDescription = inngest.createFunction(
-    { id: "analyze/job-description", triggers: [{ event: "analyze/job-description" }] },
+    {
+        id: "analyze/job-description",
+        triggers: [{ event: "analyze/job-description" }],
+        concurrency: {
+            limit: 5
+        }
+    },
     async () => {
         return { ok: true }
     }
