@@ -1,4 +1,4 @@
-// import { JOB_ANALYSIS_PROMPT } from "@/lib/prompts";
+import { JOB_ANALYSIS_PROMPT } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/helpers";
@@ -17,11 +17,19 @@ export const analyzeJobDescription = inngest.createFunction(
             period: "1m"
         }
     },
-    async () => {
-        return { ok: true }
+    async ({ event, step }) => {
+        const { jobId, jobRole, jobDescription } = event.data;
+
+        try {
+            // Connect to database
+            await step.run("connect-database", async () => {
+                await connectToDatabase();
+            })
+        } catch (e: any) {
+            console.error("Failed to analyze job (Inngest Function)", e);
+        }
     }
 );
-
 // Analyze Job Description
 // export const analyzeJobDescription = inngest.createFunction(
 //     {
