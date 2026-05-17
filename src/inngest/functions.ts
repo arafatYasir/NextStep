@@ -24,7 +24,13 @@ export const analyzeJobDescription = inngest.createFunction(
             // Connect to database
             await step.run("connect-database", async () => {
                 await connectToDatabase();
-            })
+            });
+
+            // Create AI instance
+            const genAI = new GoogleGenerativeAI(process.env.JOB_ANALYSIS_AI_API_KEY!);
+
+            // Choose a model
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
         } catch (e: any) {
             console.error("Failed to analyze job (Inngest Function)", e);
         }
