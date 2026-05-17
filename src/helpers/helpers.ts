@@ -1,4 +1,3 @@
-import fs from "fs";
 import { PDFParse } from "pdf-parse";
 import mammoth from "mammoth";
 

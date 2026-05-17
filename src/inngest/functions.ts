@@ -40,8 +40,8 @@ export const analyzeJobDescription = inngest.createFunction(
                 // Generate response
                 const result = await model.generateContent(prompt);
 
-                // // Clean response and parse to json
-                // const response = cleanAIResponse(result.response.text());
+                // Clean response and parse to json
+                const response = cleanAIResponse(result.response.text());
                 // const jsonData = JSON.parse(response);
 
                 // return jsonData;
