@@ -1,20 +1,16 @@
 // import { JOB_ANALYSIS_PROMPT } from "@/lib/prompts";
 import { inngest } from "./client";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { cleanAIResponse } from "../helpers/helpers";
+import JobRecord from "../models/jobRecord.model";
+import { connectToDatabase } from "../database/mongodb";
 
 export const analyzeJobDescription = inngest.createFunction(
-    {
-        id: "analyze/job-description",
-        triggers: [{ event: "analyze/job-description" }]
-    },
+    { id: "analyze/job-description", triggers: [{ event: "analyze/job-description" }] },
     async () => {
-        return { ok: true };
+        return { ok: true }
     }
-)
-
-// import { GoogleGenerativeAI } from "@google/generative-ai";
-// import { cleanAIResponse } from "../helpers/helpers";
-// import JobRecord from "../models/jobRecord.model";
-// import { connectToDatabase } from "../database/mongodb";
+);
 
 // Analyze Job Description
 // export const analyzeJobDescription = inngest.createFunction(
@@ -78,6 +74,7 @@ export const analyzeJobDescription = inngest.createFunction(
 //     }
 // );
 
+// // Analyze Resume
 // export const analyzeResume = inngest.createFunction(
 //     {
 //         id: "analyze/resume",
