@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-// import { jobAnalysisSchema } from "./jobAnalysis.model";
 
 const jobRecordSchema = new mongoose.Schema({
     jobRole: {
