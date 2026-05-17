@@ -11,6 +11,10 @@ export const analyzeJobDescription = inngest.createFunction(
         triggers: [{ event: "analyze/job-description" }],
         concurrency: {
             limit: 5
+        },
+        throttle: {
+            limit: 10,
+            period: "1m"
         }
     },
     async () => {
