@@ -1,6 +1,7 @@
 import Container from "@/components/Container";
 import ResumeAnalyzerInputForm from "@/components/ResumeAnalyzerInputForm";
 import Section from "@/components/Section";
+import LongDownArrowIcon from "@/icons/LongDownArrowIcon";
 
 const ResumeAnalysesPage = () => {
     return (
@@ -17,6 +18,12 @@ const ResumeAnalysesPage = () => {
                             Analyze your resume — uncover strengths, gaps, keyword alignment, and formatting issues so you can improve it with confidence before applying.
                         </p>
                     </div>
+
+                    {/* ---- Downward Arrow ---- */}
+                    <div className="text-[rgb(var(--bg-primary-hover))]">
+                        <LongDownArrowIcon width={30} height={60} />
+                    </div>
+
 
                     {/* ---- Form Section ---- */}
                     <ResumeAnalyzerInputForm />
