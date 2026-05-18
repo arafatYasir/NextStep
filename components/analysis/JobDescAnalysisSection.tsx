@@ -48,6 +48,7 @@ const JobDescAnalysisSection = ({ title, description, icon, children, copyConten
 
                 {(!isLoading && copyContent) && (
                     <Button
+                        type="button"
                         onClick={handleCopy}
                         title="Copy to clipboard"
                         variant="secondary"

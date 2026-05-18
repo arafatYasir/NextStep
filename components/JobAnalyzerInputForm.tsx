@@ -94,6 +94,11 @@ const JobAnalyzerInputForm = () => {
                 return;
             }
 
+            // Clear any active polling interval first to prevent leakage
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
+
             // Check for the result every 2 seconds with interval
             pollIntervalRef.current = setInterval(async () => {
                 try {
@@ -102,17 +107,19 @@ const JobAnalyzerInputForm = () => {
 
                     if (jobData.status === "completed") {
                         setResult(jobData.result);
+                        setLoading(false);
+
                         if (pollIntervalRef.current) {
                             clearInterval(pollIntervalRef.current);
                         }
-                        setLoading(false);
                     }
                     else if (jobData.status === "failed") {
                         setResult({});
+                        setLoading(false);
+                        
                         if (pollIntervalRef.current) {
                             clearInterval(pollIntervalRef.current);
                         }
-                        setLoading(false);
                         toast.error("Failed to analyze job. Please try again.");
                     }
                 } catch (err) {
@@ -194,16 +201,16 @@ const JobAnalyzerInputForm = () => {
                         )
                     }
                 </Button>
-
-                {/* ---- Showing modal to show the result ---- */}
-                {(Object.keys(result).length > 0 || loading) && (
-                    <JobDescAnalysisModal
-                        analysis={result as JobAnalysis}
-                        onClose={() => setResult({})}
-                        isLoading={loading}
-                    />
-                )}
             </form>
+
+            {/* ---- Showing modal to show the result ---- */}
+            {(Object.keys(result).length > 0 || loading) && (
+                <JobDescAnalysisModal
+                    analysis={result as JobAnalysis}
+                    onClose={() => setResult({})}
+                    isLoading={loading}
+                />
+            )}
 
             {/* ---- Sign In Modal ---- */}
             {showSignInModal && (

@@ -36,6 +36,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobA
                             </p>
                         </div>
                         <Button
+                            type="button"
                             onClick={onClose}
                             disabled={isLoading}
                             variant="secondary"
