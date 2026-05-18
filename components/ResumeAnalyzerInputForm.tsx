@@ -98,6 +98,8 @@ const ResumeAnalyzerInputForm = () => {
                 body: formData
             });
 
+            return; // I was here
+
             const data = await res.json();
             const { resumeId, status, message } = data;
 

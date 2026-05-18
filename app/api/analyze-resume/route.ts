@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        return NextResponse.json({ status: "OK", resumeId: resumeAnalysis._id.toString(), message: "Analyzing Resume" }, { status: 200 });
+        return NextResponse.json({ status: "OK", resumeId: resumeAnalysis._id.toString() }, { status: 200 });
 
     } catch (e) {
         console.error(e);

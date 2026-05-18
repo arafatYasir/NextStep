@@ -4,6 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/helpers";
 import JobRecord from "../models/jobRecord.model";
 import { connectToDatabase } from "../database/mongodb";
+import resumeAnalysisModel from "../models/resumeAnalysis.model";
 
 // Analyze Job Description
 export const analyzeJobDescription = inngest.createFunction(
@@ -97,8 +98,14 @@ export const analyzeResume = inngest.createFunction(
             const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
 
-        } catch (e) {
-
+        } catch (e: any) {
+            console.error("Failed to analyze resume (Inngest Function)", e);
+            
+            await step.run("update-resume-record", async () => {
+                await resumeAnalysisModel.findByIdAndUpdate(resumeId, {
+                    status: "failed"
+                });
+            });
         }
     }
 );

@@ -75,7 +75,7 @@ const resumeAnalysisModel = new mongoose.Schema({
             },
             atsReadability: {
                 type: String,
-                enum: ["poor", "average", "good"],
+                enum: ["poor", "average", "good", "excellent"],
                 required: true,
             },
             confidenceLevel: {
