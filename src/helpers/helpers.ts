@@ -14,23 +14,23 @@ export function cleanAIResponse(text: string): string {
     return cleaned.trim();
 }
 
-export async function extractTextFromFile(file: File): Promise<string> {
-    const buffer = Buffer.from(await file.arrayBuffer());
+// export async function extractTextFromFile(file: File): Promise<string> {
+//     const buffer = Buffer.from(await file.arrayBuffer());
 
-    // Extracting for PDF
-    if (file.type === "application/pdf") {
-        const parser = new PDFParse({ data: buffer });
-        const result = await parser.getText();
+//     // Extracting for PDF
+//     if (file.type === "application/pdf") {
+//         const parser = new PDFParse({ data: buffer });
+//         const result = await parser.getText();
 
-        return result.text;
-    }
+//         return result.text;
+//     }
 
-    // Extracting for DOCX
-    if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-        const result = await mammoth.extractRawText({ buffer });
+//     // Extracting for DOCX
+//     if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+//         const result = await mammoth.extractRawText({ buffer });
 
-        return result.value;
-    }
+//         return result.value;
+//     }
 
-    throw new Error(`Unsupported file type: ${file.type}`);
-}
+//     throw new Error(`Unsupported file type: ${file.type}`);
+// }
