@@ -4,8 +4,9 @@ import { connectToDatabase } from "@/src/database/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import ResumeAnalysis from "@/src/models/resumeAnalysis.model";
 import { inngest } from "@/src/inngest/client";
+import { extractTextFromFile } from "@/src/helpers/fileExtractor";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ACCEPTED_TYPES = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 
 export async function POST(req: NextRequest) {
@@ -27,10 +28,17 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: "ERROR", message: "Resume is required." });
         }
         if (resume.size > MAX_FILE_SIZE) {
-            return NextResponse.json({ status: "ERROR", message: "File size exceeded 10MB limit." });
+            return NextResponse.json({ status: "ERROR", message: "File size exceeded 5MB limit." });
         }
         if (!ACCEPTED_TYPES.includes(resume.type)) {
             return NextResponse.json({ status: "ERROR", message: "File type is not supported!" });
+        }
+
+        // Extract text from resume
+        const resumeText = await extractTextFromFile(resume);
+
+        if (resumeText.trim() === "" || resumeText.trim().length < 200) {
+            return NextResponse.json({ status: "ERROR", message: "The resume content is empty or insufficient." });
         }
 
         // Connect to DB
@@ -54,10 +62,9 @@ export async function POST(req: NextRequest) {
             name: "analyze/resume",
             data: {
                 resumeId: resumeAnalysis._id.toString(),
+                resumeText,
                 jobTitle,
-                jobDescription,
-                resume,
-                userId
+                jobDescription
             }
         });
 

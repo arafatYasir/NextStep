@@ -52,12 +52,44 @@ interface FaqItem {
 }
 
 interface JobAnalysis {
-    skills: { name: string, count: number }[],
-    softSkills: { name: string, count: number }[],
-    tools: { name: string, count: number }[],
-    phrases: { name: string, count: number }[],
-    actionVerbs: { name: string, count: number }[],
-    seniorityLevels: string[],
-    educationalRequirements: string[],
-    salary: string
+    skills: { name: string, count: number }[];
+    softSkills: { name: string, count: number }[];
+    tools: { name: string, count: number }[];
+    phrases: { name: string, count: number }[];
+    actionVerbs: { name: string, count: number }[];
+    seniorityLevels: string[];
+    educationalRequirements: string[];
+    salary: string;
+}
+
+interface ResumeAnalysis {
+    atsScore: number;
+    scoreBreakdown: {
+        skillsMatch: number,
+        experienceMatch: number,
+        educationMatch: number,
+        keywordMatch: number,
+        formattingScore: number
+    };
+    matchInsights: {
+        strongMatches: string[],
+        partialMatches: string[],
+        missingCriticalSkills: string[],
+        weakActionVerbs: string[]
+    };
+    improvementInsights: {
+        priorityFixes: string[],
+        skillGapsToAddress: string[],
+        resumeSectionAdvice: [
+            {
+                section: string,
+                advice: string
+            }
+        ]
+    };
+    metaAnalysis: {
+        resumeTone: "too passive" | "balanced" | "too generic",
+        atsReadability: "poor" | "average" | "good", "excellent",
+        confidenceLevel: "low" | "medium" | "high"
+    };
 }

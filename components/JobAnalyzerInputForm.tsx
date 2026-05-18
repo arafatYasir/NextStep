@@ -16,7 +16,7 @@ const JobAnalyzerInputForm = () => {
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState({});
+    const [result, setResult] = useState<JobAnalysis | null>(null);
     const [showSignInModal, setShowSignInModal] = useState(false);
 
     // Extra hooks
@@ -105,6 +105,20 @@ const JobAnalyzerInputForm = () => {
                     const res = await fetch(`/api/job-results/${jobId}`);
                     const jobData = await res.json();
 
+                    // If response contains 'error' property
+                    if (jobData?.error) {
+                        console.error(jobData?.error);
+
+                        setResult(null);
+                        setLoading(false);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+
+                        toast.error(jobData?.error);
+                    }
+
                     if (jobData.status === "completed") {
                         setResult(jobData.result);
                         setLoading(false);
@@ -114,16 +128,17 @@ const JobAnalyzerInputForm = () => {
                         }
                     }
                     else if (jobData.status === "failed") {
-                        setResult({});
+                        setResult(null);
                         setLoading(false);
+
+                        toast.error("Failed to analyze job. Please try again.");
                         
                         if (pollIntervalRef.current) {
                             clearInterval(pollIntervalRef.current);
                         }
-                        toast.error("Failed to analyze job. Please try again.");
                     }
-                } catch (err) {
-                    console.error("Polling error:", err);
+                } catch (e) {
+                    console.error("Polling error:", e);
                 }
             }, 2000);
         }
@@ -204,10 +219,10 @@ const JobAnalyzerInputForm = () => {
             </form>
 
             {/* ---- Showing modal to show the result ---- */}
-            {(Object.keys(result).length > 0 || loading) && (
+            {(result !== null || loading) && (
                 <JobDescAnalysisModal
                     analysis={result as JobAnalysis}
-                    onClose={() => setResult({})}
+                    onClose={() => setResult(null)}
                     isLoading={loading}
                 />
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { SubmitEventHandler, useRef, useState } from "react";
+import { SubmitEventHandler, useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -19,10 +19,32 @@ const ResumeAnalyzerInputForm = () => {
     const [isDragging, setIsDragging] = useState(false);
     const [showSignInModal, setShowSignInModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<ResumeAnalysis | null>(null);
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
     const resumeInputRef = useRef<HTMLInputElement | null>(null);
+    const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Handling outside clicks
+    useEffect(() => {
+        const handleOutsideClick = (e: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+                setShowSignInModal(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => document.removeEventListener("mousedown", handleOutsideClick);
+    }, []);
+
+    // Clearing polling interval on component unmount
+    useEffect(() => {
+        if (pollIntervalRef.current) {
+            clearInterval(pollIntervalRef.current);
+        }
+    }, []);
 
     // Handlers
     const handleClickResumeUpload = () => {
@@ -72,7 +94,7 @@ const ResumeAnalyzerInputForm = () => {
     const handleAnalyze: SubmitEventHandler<HTMLFormElement> = async (e) => {
         // Prevent the default behavior
         e.preventDefault();
-        
+
         try {
             // Checking if the user is logged in or not
             const supabase = createClient();
@@ -84,6 +106,9 @@ const ResumeAnalyzerInputForm = () => {
                 setShowSignInModal(true);
                 return;
             }
+
+            // Start the loading
+            setLoading(true);
 
             // Creating a form data
             const formData = new FormData();
@@ -98,22 +123,67 @@ const ResumeAnalyzerInputForm = () => {
                 body: formData
             });
 
-            return; // I was here
-
             const data = await res.json();
             const { resumeId, status, message } = data;
 
-            // If job id is not found return
+            // If any error happens
             if (status === "ERROR") {
                 toast.error(message);
                 setLoading(false);
                 return;
             }
+            // If resume id is not found
             else if (!resumeId) {
                 toast.error("Failed to upload resume. Please try again.");
                 setLoading(false);
                 return;
             }
+
+            // Clear any active polling interval first to prevent leakage
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
+
+            // Check for the result every 2 seconds with interval
+            pollIntervalRef.current = setInterval(async () => {
+                try {
+                    const res = await fetch(`/api/resume-results/${resumeId}`);
+                    const resumeData = await res.json();
+
+                    // If response contains 'error' property
+                    if (resumeData?.error) {
+                        console.error(resumeData?.error);
+
+                        setLoading(false);
+                        toast.error(resumeData?.error);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+
+                    if (resumeData.status === "completed") {
+                        setResult(resumeData.result);
+                        setLoading(false);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+                    else if (resumeData.status === "failed") {
+                        setResult(null);
+                        setLoading(false);
+
+                        toast.error("Failed to analyze resume. Please try again.");
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+                } catch (e) {
+                    console.error("Polling error:", e);
+                }
+            }, 2000);
         } catch (e) {
             console.error(e);
             toast.error("Something went wrong, please try again later.");
@@ -192,7 +262,7 @@ const ResumeAnalyzerInputForm = () => {
                                 Click or drag resume here
                             </h4>
                             <p className="text-sm font-sans text-[rgb(var(--text-secondary))]">
-                                Supports PDF and DOCX (Max 10MB)
+                                Supports PDF and DOCX (Max 5MB)
                             </p>
                         </div>
                     ) : (

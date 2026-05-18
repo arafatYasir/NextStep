@@ -11,14 +11,14 @@ const jobRecordSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    result: {
+        type: mongoose.Schema.Types.Mixed,
+        default: null
+    },
     status: {
         type: String,
         enum: ["queued", "completed", "failed"],
         default: "queued"
-    },
-    result: {
-        type: mongoose.Schema.Types.Mixed,
-        default: null
     }
 }, { timestamps: true });
 

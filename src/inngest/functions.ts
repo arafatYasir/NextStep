@@ -1,4 +1,4 @@
-import { JOB_ANALYSIS_PROMPT } from "@/lib/prompts";
+import { JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/cleanAIResponse";
@@ -43,7 +43,7 @@ export const analyzeJobDescription = inngest.createFunction(
                 const result = await model.generateContent(prompt);
 
                 // Clean response and parse to json
-                const response = cleanAIResponse(result.response.text()); // this line was the main issue
+                const response = cleanAIResponse(result.response.text());
                 const jsonData = JSON.parse(response);
 
                 return jsonData;
@@ -52,8 +52,8 @@ export const analyzeJobDescription = inngest.createFunction(
             // Update job record
             await step.run("update-job-record", async () => {
                 await JobRecord.findByIdAndUpdate(jobId, {
-                    status: "completed",
-                    result: parsedJSONData
+                    result: parsedJSONData,
+                    status: "completed"
                 });
             })
 
@@ -83,7 +83,7 @@ export const analyzeResume = inngest.createFunction(
         triggers: [{ event: "analyze/resume" }]
     },
     async ({ event, step }) => {
-        const { resumeId, jobTitle, jobDescription, userId } = event.data;
+        const { resumeId, resumeText, jobTitle, jobDescription } = event.data;
 
         try {
             // Connect to database
@@ -97,7 +97,28 @@ export const analyzeResume = inngest.createFunction(
             // Choose a model
             const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
+            // Get AI resume analysis
+            const parsedJSONData = await step.run("generate-ai-analysis", async () => {
+                // Generate dynamic prompt
+                const prompt = RESUME_ANALYSIS_PROMPT.replace("{jobTitle}", jobTitle).replace("{jobDescription}", jobDescription).replace("{resumeText}", resumeText);
 
+                // Generate response
+                const result = await model.generateContent(prompt);
+
+                // Clean response and parse to json
+                const response = cleanAIResponse(result.response.text());
+                const jsonData = JSON.parse(response);
+
+                return jsonData;
+            });
+
+            // Update resume record
+            await step.run("update-resume-record", async () => {
+                await resumeAnalysisModel.findByIdAndUpdate(resumeId, {
+                    result: parsedJSONData,
+                    status: "completed"
+                });
+            });
         } catch (e: any) {
             console.error("Failed to analyze resume (Inngest Function)", e);
             
