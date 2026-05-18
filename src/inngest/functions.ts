@@ -1,7 +1,7 @@
 import { JOB_ANALYSIS_PROMPT } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { cleanAIResponse } from "../helpers/helpers";
+import { cleanAIResponse } from "../helpers/cleanAIResponse";
 import JobRecord from "../models/jobRecord.model";
 import { connectToDatabase } from "../database/mongodb";
 import resumeAnalysisModel from "../models/resumeAnalysis.model";
