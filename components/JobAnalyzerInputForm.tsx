@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { SubmitEventHandler, useEffect, useRef, useState } from "react";
 import JobDescAnalysisModal from "./analysis/JobDescAnalysisModal";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -48,7 +48,10 @@ const JobAnalyzerInputForm = () => {
     }, []);
 
     // Functions
-    const handleAnalyze = async () => {
+    const handleAnalyze: SubmitEventHandler<HTMLFormElement> = async (e) => {
+        // Prevent the default behavior
+        e.preventDefault();
+
         try {
             // Checking if the user is logged in or not
             const supabase = createClient();
@@ -128,7 +131,7 @@ const JobAnalyzerInputForm = () => {
     return (
         <>
             {/* ---- Input Card ---- */}
-            <form className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+            <form onSubmit={handleAnalyze} className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Role Selector ---- */}
                 <div className="mb-6">
                     <label
@@ -174,7 +177,7 @@ const JobAnalyzerInputForm = () => {
                 {/* Action Button */}
                 <Button
                     disabled={isDisabled || loading}
-                    onClick={handleAnalyze}
+                    type="submit"
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                 >
                     {

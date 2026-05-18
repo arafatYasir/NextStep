@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { SubmitEventHandler, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -69,7 +69,10 @@ const ResumeAnalyzerInputForm = () => {
         return `${(size / (1024 * 1024)).toFixed(2)} MB`;
     }
 
-    const handleAnalyze = async () => {
+    const handleAnalyze: SubmitEventHandler<HTMLFormElement> = async (e) => {
+        // Prevent the default behavior
+        e.preventDefault();
+        
         try {
             // Checking if the user is logged in or not
             const supabase = createClient();
@@ -119,7 +122,7 @@ const ResumeAnalyzerInputForm = () => {
 
     return (
         <>
-            <form className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+            <form onSubmit={handleAnalyze} className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Job Title Input ---- */}
                 <div className="mb-6">
                     <label htmlFor="job-role" className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading">
@@ -217,7 +220,7 @@ const ResumeAnalyzerInputForm = () => {
                 <Button
                     disabled={isDisabled || loading}
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
-                    onClick={handleAnalyze}
+                    type="submit"
                 >
                     {
                         loading ? (
