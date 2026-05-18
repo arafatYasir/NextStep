@@ -19,6 +19,7 @@ const JobAnalyzerInputForm = () => {
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     // Handling outside clicks
     useEffect(() => {
@@ -32,6 +33,15 @@ const JobAnalyzerInputForm = () => {
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, []);
+
+    // Clearing polling interval on component unmount
+    useEffect(() => {
+        return () => {
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
         }
     }, []);
 
@@ -79,20 +89,24 @@ const JobAnalyzerInputForm = () => {
                 return;
             }
 
-            // Poll for the result every 2 seconds
-            let interval = setInterval(async () => {
+            // Check for the result every 2 seconds with interval
+            pollIntervalRef.current = setInterval(async () => {
                 try {
                     const res = await fetch(`/api/job-results/${jobId}`);
-                    const pollData = await res.json();
+                    const jobData = await res.json();
 
-                    if (pollData.status === "completed") {
-                        setResult(pollData.result);
-                        clearInterval(interval);
+                    if (jobData.status === "completed") {
+                        setResult(jobData.result);
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
                         setLoading(false);
                     }
-                    else if (pollData.status === "failed") {
+                    else if (jobData.status === "failed") {
                         setResult({});
-                        clearInterval(interval);
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
                         setLoading(false);
                         toast.error("Failed to analyze job. Please try again.");
                     }
@@ -167,8 +181,8 @@ const JobAnalyzerInputForm = () => {
                 {/* ---- Showing modal to show the result ---- */}
                 {(Object.keys(result).length > 0 || loading) && (
                     <JobDescAnalysisModal
-                        analysis={result as any}
-                        onClose={() => setResult({} as any)}
+                        analysis={result as JobAnalysis}
+                        onClose={() => setResult({})}
                         isLoading={loading}
                     />
                 )}
