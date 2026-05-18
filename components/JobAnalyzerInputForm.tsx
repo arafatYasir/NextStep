@@ -8,6 +8,8 @@ import { Textarea } from "./ui/textarea";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
 import { toast } from "sonner";
+import { Spinner } from "./ui/spinner";
+import { Sparkles } from "lucide-react";
 
 const JobAnalyzerInputForm = () => {
     // States
@@ -126,7 +128,7 @@ const JobAnalyzerInputForm = () => {
     return (
         <>
             {/* ---- Input Card ---- */}
-            <div className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+            <form className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Role Selector ---- */}
                 <div className="mb-6">
                     <label
@@ -175,7 +177,19 @@ const JobAnalyzerInputForm = () => {
                     onClick={handleAnalyze}
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                 >
-                    Analyze Job Description
+                    {
+                        loading ? (
+                            <span className="flex items-center gap-x-2">
+                                <Spinner />
+                                Analyzing Job Description...
+                            </span>
+                        ) : (
+                            <span className="flex items-center gap-x-2">
+                                Analyze Job Description
+                                <Sparkles className="size-4.5" />
+                            </span>
+                        )
+                    }
                 </Button>
 
                 {/* ---- Showing modal to show the result ---- */}
@@ -186,7 +200,7 @@ const JobAnalyzerInputForm = () => {
                         isLoading={loading}
                     />
                 )}
-            </div>
+            </form>
 
             {/* ---- Sign In Modal ---- */}
             {showSignInModal && (

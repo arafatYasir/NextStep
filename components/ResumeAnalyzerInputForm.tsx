@@ -4,11 +4,12 @@ import { useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { Upload, FileText, X } from "lucide-react";
+import { Upload, FileText, X, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
+import { Spinner } from "./ui/spinner";
 
 const ResumeAnalyzerInputForm = () => {
     // States
@@ -21,8 +22,15 @@ const ResumeAnalyzerInputForm = () => {
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const resumeInputRef = useRef<HTMLInputElement | null>(null);
 
     // Handlers
+    const handleClickResumeUpload = () => {
+        if (resumeInputRef.current) {
+            resumeInputRef.current.click();
+        }
+    }
+
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
         setIsDragging(true);
@@ -61,9 +69,7 @@ const ResumeAnalyzerInputForm = () => {
         return `${(size / (1024 * 1024)).toFixed(2)} MB`;
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const handleAnalyze = async () => {
         try {
             // Checking if the user is logged in or not
             const supabase = createClient();
@@ -113,7 +119,7 @@ const ResumeAnalyzerInputForm = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+            <form className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Job Title Input ---- */}
                 <div className="mb-6">
                     <label htmlFor="job-role" className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading">
@@ -164,15 +170,16 @@ const ResumeAnalyzerInputForm = () => {
                                     ? "border-[rgb(var(--border-hover))] bg-[rgb(var(--bg-primary))]/10"
                                     : "border-[rgb(var(--border-default))] bg-slate-50/50 hover:border-[rgb(var(--border-hover))] hover:bg-[rgb(var(--bg-primary))]/10"
                             )}
-                            onClick={() => document.getElementById("resume-upload")?.click()}
+                            onClick={handleClickResumeUpload}
                         >
                             <input
-                                id="resume-upload"
                                 type="file"
                                 className="hidden"
                                 accept=".pdf,.docx"
                                 onChange={handleFileChange}
+                                ref={resumeInputRef}
                             />
+
                             <div className="size-14 rounded-full bg-card shadow-sm border border-[rgb(var(--border-default))] flex items-center justify-center mb-4 text-[rgb(var(--bg-primary))]">
                                 <Upload className="size-6" />
                             </div>
@@ -208,11 +215,23 @@ const ResumeAnalyzerInputForm = () => {
 
                 {/* Action Button */}
                 <Button
-                    disabled={isDisabled}
-                    type="submit"
+                    disabled={isDisabled || loading}
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
+                    onClick={handleAnalyze}
                 >
-                    Analyze Resume
+                    {
+                        loading ? (
+                            <span className="flex items-center gap-x-2">
+                                <Spinner />
+                                Analyzing Resume...
+                            </span>
+                        ) : (
+                            <span className="flex items-center gap-x-2">
+                                Analyze Resume
+                                <Sparkles className="size-4.5" />
+                            </span>
+                        )
+                    }
                 </Button>
             </form>
 
