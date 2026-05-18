@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
 import { Spinner } from "./ui/spinner";
+import ResumeAnalysisModal from "./analysis/ResumeAnalysisModal";
 
 const ResumeAnalyzerInputForm = () => {
     // States
@@ -309,6 +310,15 @@ const ResumeAnalyzerInputForm = () => {
                     }
                 </Button>
             </form>
+
+            {/* ---- Showing modal to show the result ---- */}
+            {(result !== null || loading) && (
+                <ResumeAnalysisModal
+                    analysis={result}
+                    onClose={() => setResult(null)}
+                    isLoading={loading}
+                />
+            )}
 
             {/* ---- Sign In Modal ---- */}
             {showSignInModal && (

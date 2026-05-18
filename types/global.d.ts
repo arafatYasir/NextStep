@@ -89,7 +89,7 @@ interface ResumeAnalysis {
     };
     metaAnalysis: {
         resumeTone: "too passive" | "balanced" | "too generic",
-        atsReadability: "poor" | "average" | "good", "excellent",
+        atsReadability: "poor" | "average" | "good" | "excellent",
         confidenceLevel: "low" | "medium" | "high"
     };
 }

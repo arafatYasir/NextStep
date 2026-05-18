@@ -30,17 +30,16 @@ const resumeAnalysisModel = new mongoose.Schema({
     result: {
         atsScore: {
             type: Number,
-            required: true,
             min: 0,
             max: 100
         },
 
         scoreBreakdown: {
-            skillsMatch: { type: Number, required: true, min: 0, max: 100 },
-            experienceMatch: { type: Number, required: true, min: 0, max: 100 },
-            educationMatch: { type: Number, required: true, min: 0, max: 100 },
-            keywordMatch: { type: Number, required: true, min: 0, max: 100 },
-            formattingScore: { type: Number, required: true, min: 0, max: 100 },
+            skillsMatch: { type: Number, min: 0, max: 100 },
+            experienceMatch: { type: Number, min: 0, max: 100 },
+            educationMatch: { type: Number, min: 0, max: 100 },
+            keywordMatch: { type: Number, min: 0, max: 100 },
+            formattingScore: { type: Number, min: 0, max: 100 },
         },
 
         matchInsights: {
@@ -56,12 +55,10 @@ const resumeAnalysisModel = new mongoose.Schema({
             resumeSectionAdvice: [
                 {
                     section: {
-                        type: String,
-                        required: true
+                        type: String
                     },
                     advice: {
-                        type: String,
-                        required: true
+                        type: String
                     }
                 }
             ]
@@ -70,18 +67,15 @@ const resumeAnalysisModel = new mongoose.Schema({
         metaAnalysis: {
             resumeTone: {
                 type: String,
-                enum: ["too passive", "balanced", "too generic"],
-                required: true,
+                enum: ["too passive", "balanced", "too generic"]
             },
             atsReadability: {
                 type: String,
-                enum: ["poor", "average", "good", "excellent"],
-                required: true,
+                enum: ["poor", "average", "good", "excellent"]
             },
             confidenceLevel: {
                 type: String,
-                enum: ["low", "medium", "high"],
-                required: true,
+                enum: ["low", "medium", "high"]
             },
         },
     },
