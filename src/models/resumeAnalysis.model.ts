@@ -94,7 +94,6 @@ const resumeAnalysisSchema = new mongoose.Schema(
         result: {
             atsScore: {
                 type: Number,
-                required: true,
                 min: 0,
                 max: 100,
             },
@@ -104,14 +103,12 @@ const resumeAnalysisSchema = new mongoose.Schema(
                     type: Number,
                     min: 0,
                     max: 100,
-                    required: true,
                 },
 
                 experienceMatch: {
                     type: Number,
                     min: 0,
                     max: 100,
-                    required: true,
                 },
 
                 educationMatch: {
@@ -125,14 +122,12 @@ const resumeAnalysisSchema = new mongoose.Schema(
                     type: Number,
                     min: 0,
                     max: 100,
-                    required: true,
                 },
 
                 formattingScore: {
                     type: Number,
                     min: 0,
                     max: 100,
-                    required: true,
                 },
             },
 
@@ -234,7 +229,6 @@ const resumeAnalysisSchema = new mongoose.Schema(
                     type: Number,
                     min: 0,
                     max: 100,
-                    required: true,
                 },
 
                 issues: {
@@ -247,19 +241,16 @@ const resumeAnalysisSchema = new mongoose.Schema(
                 resumeTone: {
                     type: String,
                     enum: ["too passive", "balanced", "too generic"],
-                    required: true,
                 },
 
                 atsReadability: {
                     type: String,
                     enum: ["poor", "average", "good", "excellent"],
-                    required: true,
                 },
 
                 confidenceLevel: {
                     type: String,
                     enum: ["low", "medium", "high"],
-                    required: true,
                 },
             },
         },
@@ -269,11 +260,6 @@ const resumeAnalysisSchema = new mongoose.Schema(
             enum: ["queued", "processing", "completed", "failed"],
             default: "queued",
             index: true,
-        },
-
-        errorMessage: {
-            type: String,
-            default: null,
         },
     },
     {
