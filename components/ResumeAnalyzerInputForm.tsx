@@ -295,19 +295,10 @@ const ResumeAnalyzerInputForm = () => {
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                     type="submit"
                 >
-                    {
-                        loading ? (
-                            <span className="flex items-center gap-x-2">
-                                <Spinner />
-                                Analyzing Resume...
-                            </span>
-                        ) : (
-                            <span className="flex items-center gap-x-2">
-                                Analyze Resume
-                                <Sparkles className="size-4.5" />
-                            </span>
-                        )
-                    }
+                    <span className="flex items-center gap-x-2">
+                        Analyze Resume
+                        <Sparkles className="size-4.5" />
+                    </span>
                 </Button>
             </form>
 

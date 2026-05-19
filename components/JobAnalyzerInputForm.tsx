@@ -132,7 +132,7 @@ const JobAnalyzerInputForm = () => {
                         setLoading(false);
 
                         toast.error("Failed to analyze job. Please try again.");
-                        
+
                         if (pollIntervalRef.current) {
                             clearInterval(pollIntervalRef.current);
                         }
@@ -202,19 +202,10 @@ const JobAnalyzerInputForm = () => {
                     type="submit"
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                 >
-                    {
-                        loading ? (
-                            <span className="flex items-center gap-x-2">
-                                <Spinner />
-                                Analyzing Job Description...
-                            </span>
-                        ) : (
-                            <span className="flex items-center gap-x-2">
-                                Analyze Job Description
-                                <Sparkles className="size-4.5" />
-                            </span>
-                        )
-                    }
+                    <span className="flex items-center gap-x-2">
+                        Analyze Job Description
+                        <Sparkles className="size-4.5" />
+                    </span>
                 </Button>
             </form>
 
