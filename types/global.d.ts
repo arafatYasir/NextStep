@@ -21,13 +21,13 @@ interface InsightItem {
 };
 
 interface OfferItem {
-    id:  number;
+    id: number;
     title: string;
     description: string;
 };
 
 interface TestimonialItem {
-    id:  number;
+    id: number;
     rating: number;
     quote: string;
     name: string;
@@ -64,21 +64,41 @@ interface JobAnalysis {
 
 interface ResumeAnalysis {
     atsScore: number;
+
     scoreBreakdown: {
         skillsMatch: number,
         experienceMatch: number,
-        educationMatch: number,
+        educationMatch: number | null,
         keywordMatch: number,
         formattingScore: number
     };
+
+    keywordAnalysis: {
+        matchedKeywords: string[],
+        missingKeywords: string[],
+        overusedKeywords: string[]
+    };
+
     matchInsights: {
         strongMatches: string[],
-        partialMatches: string[],
+        partialMatches: [
+            {
+                requirement: string,
+                reason: string
+            }
+        ],
         missingCriticalSkills: string[],
         weakActionVerbs: string[]
     };
+
     improvementInsights: {
-        priorityFixes: string[],
+        priorityFixes: [
+            {
+                issue: string,
+                impact: "high" | "medium" | "low",
+                fix: string
+            }
+        ],
         skillGapsToAddress: string[],
         resumeSectionAdvice: [
             {
@@ -87,9 +107,22 @@ interface ResumeAnalysis {
             }
         ]
     };
+    
+    sectionScores: {
+        summary: number,
+        experience: number,
+        projects: number,
+        skills: number,
+        education: number
+    };
+    formattingAnalysis: {
+        score: number,
+        issues: string[]
+    };
+
     metaAnalysis: {
         resumeTone: "too passive" | "balanced" | "too generic",
         atsReadability: "poor" | "average" | "good" | "excellent",
         confidenceLevel: "low" | "medium" | "high"
     };
-}
+};
