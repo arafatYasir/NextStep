@@ -1,7 +1,7 @@
 interface props {
     name: string;
     count: number;
-    variant: "blue" | "indigo" | "emerald" | "rose" | "teal"
+    variant: "blue" | "indigo" | "emerald" | "rose" | "teal" | "yellow"
 }
 
 const Badge = ({ name, count, variant }: props) => {
@@ -12,6 +12,7 @@ const Badge = ({ name, count, variant }: props) => {
         emerald: "bg-emerald-50 text-emerald-700 border-emerald-300 hover:bg-emerald-100 active:bg-emerald-100",
         rose: "bg-rose-50 text-rose-700 border-rose-300 hover:bg-rose-100 active:bg-rose-100",
         teal: "bg-teal-50 text-teal-700 border-teal-300 hover:bg-teal-100 active:bg-teal-100",
+        yellow: "bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100 active:amber-100"
     };
 
     return (

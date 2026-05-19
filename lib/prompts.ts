@@ -111,14 +111,18 @@ JSON SCHEMA:
   },
 
   "matchInsights": {
-    "strongMatches": string[],
+    "strongMatches": [
+      {
+        "requirement": string,
+        "reason": string
+      }
+    ],
     "partialMatches": [
       {
         "requirement": string,
         "reason": string
       }
     ],
-    "missingCriticalSkills": string[],
     "weakActionVerbs": string[]
   },
 
@@ -126,7 +130,7 @@ JSON SCHEMA:
     "priorityFixes": [
       {
         "issue": string,
-        "impact": "high" | "medium" | "low",
+        "impact": "High" | "Medium" | "Low",
         "fix": string
       }
     ],
@@ -150,14 +154,13 @@ JSON SCHEMA:
   },
 
   "formattingAnalysis": {
-    "score": number,
     "issues": string[]
   },
 
   "metaAnalysis": {
-    "resumeTone": "too passive" | "balanced" | "too generic",
-    "atsReadability": "poor" | "average" | "good" | "excellent",
-    "confidenceLevel": "low" | "medium" | "high"
+    "resumeTone": "Too Passive" | "Balanced" | "Too Generic",
+    "atsReadability": "Poor" | "Average" | "Good" | "Excellent",
+    "confidenceLevel": "Low" | "Medium" | "High"
   }
 }
 

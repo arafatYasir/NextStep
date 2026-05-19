@@ -9,8 +9,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
-import { Spinner } from "./ui/spinner";
-import ResumeAnalysisModal from "./analysis/ResumeAnalysisModal";
+import ResumeAnalysisModal from "./analysis/resume/ResumeAnalysisModal";
 
 const ResumeAnalyzerInputForm = () => {
     // States

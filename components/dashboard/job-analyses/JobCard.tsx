@@ -5,7 +5,7 @@ import { Briefcase, Clock, ExternalLink, Trash2, CalendarDays } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import JobDescAnalysisModal from "../../analysis/JobDescAnalysisModal";
+import JobDescAnalysisModal from "../../analysis/job/JobDescAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -43,14 +43,14 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
     // Handle outside clicks when modal is open
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if(modalRef.current && !modalRef.current.contains(e.target as Node)) {
+            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
                 setShowDeletePopup(false);
             }
         }
 
         document.addEventListener("mousedown", handleClickOutside);
 
-        if(showDeletePopup) {
+        if (showDeletePopup) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "auto";
@@ -71,7 +71,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
 
             const data = await res.json();
 
-            if(data.status === "OK") {
+            if (data.status === "OK") {
                 toast.success(data.message);
                 router.refresh();
             }

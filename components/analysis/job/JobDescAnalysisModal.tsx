@@ -2,13 +2,13 @@
 
 import { X, Briefcase, GraduationCap, DollarSign, Wrench, MessageSquare, Zap, Target, BookOpen } from "lucide-react";
 import { useEffect } from "react";
-import EmptyState from "./EmptyState";
+import EmptyState from "../EmptyState";
 import JobDescAnalysisSection from "./JobDescAnalysisSection";
-import Badge from "./badges/Badge";
-import JobInfoCard from "./job info card/JobInfoCard";
-import BadgesLoadingSkeleton from "./badges/BadgesLoadingSkeleton";
-import { Button } from "../ui/button";
-import Container from "../Container";
+import Badge from "../badges/Badge";
+import JobInfoCard from "../job info card/JobInfoCard";
+import BadgesLoadingSkeleton from "../badges/BadgesLoadingSkeleton";
+import { Button } from "../../ui/button";
+import Container from "../../Container";
 
 const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobAnalysis, onClose: () => void, isLoading: boolean }) => {
 

@@ -1,5 +1,20 @@
 import mongoose from "mongoose";
 
+const strongMatchSchema = new mongoose.Schema(
+    {
+        requirement: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        reason: {
+            type: String,
+            required: true,
+            trim: true
+        }
+    }
+)
+
 const partialMatchSchema = new mongoose.Schema(
     {
         requirement: {
@@ -25,7 +40,7 @@ const priorityFixSchema = new mongoose.Schema(
         },
         impact: {
             type: String,
-            enum: ["high", "medium", "low"],
+            enum: ["High", "Medium", "Low"],
             required: true,
         },
         fix: {
@@ -150,17 +165,12 @@ const resumeAnalysisSchema = new mongoose.Schema(
 
             matchInsights: {
                 strongMatches: {
-                    type: [String],
+                    type: [strongMatchSchema],
                     default: [],
                 },
 
                 partialMatches: {
                     type: [partialMatchSchema],
-                    default: [],
-                },
-
-                missingCriticalSkills: {
-                    type: [String],
                     default: [],
                 },
 
@@ -225,12 +235,6 @@ const resumeAnalysisSchema = new mongoose.Schema(
             },
 
             formattingAnalysis: {
-                score: {
-                    type: Number,
-                    min: 0,
-                    max: 100,
-                },
-
                 issues: {
                     type: [String],
                     default: [],
@@ -240,24 +244,24 @@ const resumeAnalysisSchema = new mongoose.Schema(
             metaAnalysis: {
                 resumeTone: {
                     type: String,
-                    enum: ["too passive", "balanced", "too generic"],
+                    enum: ["Too Passive", "Balanced", "Too Generic"],
                 },
 
                 atsReadability: {
                     type: String,
-                    enum: ["poor", "average", "good", "excellent"],
+                    enum: ["Poor", "Average", "Good", "Excellent"],
                 },
 
                 confidenceLevel: {
                     type: String,
-                    enum: ["low", "medium", "high"],
+                    enum: ["Low", "Medium", "High"],
                 },
             },
         },
 
         status: {
             type: String,
-            enum: ["queued", "processing", "completed", "failed"],
+            enum: ["queued", "completed", "failed"],
             default: "queued",
             index: true,
         },

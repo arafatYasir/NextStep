@@ -80,32 +80,28 @@ interface ResumeAnalysis {
     };
 
     matchInsights: {
-        strongMatches: string[],
-        partialMatches: [
-            {
-                requirement: string,
-                reason: string
-            }
-        ],
-        missingCriticalSkills: string[],
+        strongMatches: {
+            requirement: string;
+            reason: string;
+        }[];
+        partialMatches: {
+            requirement: string;
+            reason: string;
+        }[];
         weakActionVerbs: string[]
     };
 
     improvementInsights: {
-        priorityFixes: [
-            {
-                issue: string,
-                impact: "high" | "medium" | "low",
-                fix: string
-            }
-        ],
-        skillGapsToAddress: string[],
-        resumeSectionAdvice: [
-            {
-                section: string,
-                advice: string
-            }
-        ]
+        priorityFixes: {
+            issue: string;
+            impact: "High" | "Medium" | "Low";
+            fix: string;
+        }[];
+        skillGapsToAddress: string[];
+        resumeSectionAdvice: {
+            section: string;
+            advice: string;
+        }[];
     };
     
     sectionScores: {
@@ -116,13 +112,12 @@ interface ResumeAnalysis {
         education: number
     };
     formattingAnalysis: {
-        score: number,
         issues: string[]
     };
 
     metaAnalysis: {
-        resumeTone: "too passive" | "balanced" | "too generic",
-        atsReadability: "poor" | "average" | "good" | "excellent",
-        confidenceLevel: "low" | "medium" | "high"
+        resumeTone: "Too Passive" | "Balanced" | "Too Generic",
+        atsReadability: "Poor" | "Average" | "Good" | "Excellent",
+        confidenceLevel: "Low" | "Medium" | "High"
     };
 };

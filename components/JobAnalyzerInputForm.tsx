@@ -1,7 +1,7 @@
 "use client";
 
 import { SubmitEventHandler, useEffect, useRef, useState } from "react";
-import JobDescAnalysisModal from "./analysis/JobDescAnalysisModal";
+import JobDescAnalysisModal from "./analysis/job/JobDescAnalysisModal";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
