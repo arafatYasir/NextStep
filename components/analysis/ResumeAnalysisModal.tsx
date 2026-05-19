@@ -133,9 +133,26 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <div>
                                     <ProgressBar label="Skills Match" score={analysis?.scoreBreakdown?.skillsMatch || 0} isLoading={isLoading} />
                                     <ProgressBar label="Experience Match" score={analysis?.scoreBreakdown?.experienceMatch || 0} isLoading={isLoading} />
-                                    <ProgressBar label="Education Match" score={analysis?.scoreBreakdown?.educationMatch || 0} isLoading={isLoading} />
+                                    {(isLoading || (analysis?.scoreBreakdown?.educationMatch !== null && analysis?.scoreBreakdown?.educationMatch !== undefined)) && (
+                                        <ProgressBar label="Education Match" score={analysis?.scoreBreakdown?.educationMatch || 0} isLoading={isLoading} />
+                                    )}
                                     <ProgressBar label="Keyword Match" score={analysis?.scoreBreakdown?.keywordMatch || 0} isLoading={isLoading} />
                                     <ProgressBar label="Formatting Score" score={analysis?.scoreBreakdown?.formattingScore || 0} isLoading={isLoading} />
+                                </div>
+                            </div>
+
+                            {/* ---- Section Scores ---- */}
+                            <div className="bg-card rounded-xl p-6 border border-[rgb(var(--border-default))] shadow-sm">
+                                <h3 className="font-bold font-heading text-lg text-foreground leading-tight mb-6 flex items-center gap-2">
+                                    <FileText size={20} className="text-indigo-500" />
+                                    Section Scores
+                                </h3>
+                                <div>
+                                    <ProgressBar label="Summary" score={analysis?.sectionScores?.summary || 0} isLoading={isLoading} />
+                                    <ProgressBar label="Experience" score={analysis?.sectionScores?.experience || 0} isLoading={isLoading} />
+                                    <ProgressBar label="Projects" score={analysis?.sectionScores?.projects || 0} isLoading={isLoading} />
+                                    <ProgressBar label="Skills" score={analysis?.sectionScores?.skills || 0} isLoading={isLoading} />
+                                    <ProgressBar label="Education" score={analysis?.sectionScores?.education || 0} isLoading={isLoading} />
                                 </div>
                             </div>
 
@@ -166,17 +183,25 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 icon={<Search size={20} className="text-blue-500" />}
                                 isLoading={isLoading}
                             >
-                                <div className="flex flex-wrap gap-3">
+                                <ul className="space-y-3">
                                     {
                                         (!analysis?.matchInsights?.partialMatches?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={4} />
+                                            <InfoLoadingSkeleton count={3} />
                                         ) : (analysis?.matchInsights?.partialMatches?.length && analysis.matchInsights.partialMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.partialMatches.map((match, idx) => (
-                                                <Badge key={idx} name={match} count={0} variant="blue" />
+                                                <li key={idx} className="flex flex-col gap-1 bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
+                                                    <span className="text-sm font-bold text-foreground flex items-center gap-2">
+                                                        <Search size={14} className="text-blue-500 shrink-0" />
+                                                        {match.requirement}
+                                                    </span>
+                                                    <span className="text-sm text-foreground/80 font-normal leading-relaxed pl-5">
+                                                        {match.reason}
+                                                    </span>
+                                                </li>
                                             ))
                                         ) : <EmptyState text="No partial matches found" />
                                     }
-                                </div>
+                                </ul>
                             </JobDescAnalysisSection>
                             
                             {/* ---- Match Insights: Missing Critical Skills ---- */}
@@ -199,13 +224,73 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 </div>
                             </JobDescAnalysisSection>
 
+                            {/* ---- Keyword Analysis: Matched Keywords ---- */}
+                            <JobDescAnalysisSection
+                                title="Matched Keywords"
+                                description="Keywords found in both job description and your resume."
+                                icon={<CheckCircle size={20} className="text-emerald-500" />}
+                                isLoading={isLoading}
+                            >
+                                <div className="flex flex-wrap gap-3">
+                                    {
+                                        (!analysis?.keywordAnalysis?.matchedKeywords?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={5} />
+                                        ) : (analysis?.keywordAnalysis?.matchedKeywords?.length && analysis.keywordAnalysis.matchedKeywords.length > 0 && !isLoading) ? (
+                                            analysis.keywordAnalysis.matchedKeywords.map((keyword, idx) => (
+                                                <Badge key={idx} name={keyword} count={0} variant="emerald" />
+                                            ))
+                                        ) : <EmptyState text="No matched keywords" />
+                                    }
+                                </div>
+                            </JobDescAnalysisSection>
+
+                            {/* ---- Keyword Analysis: Missing Keywords ---- */}
+                            <JobDescAnalysisSection
+                                title="Missing Keywords"
+                                description="Keywords from the job description missing in your resume."
+                                icon={<Search size={20} className="text-blue-500" />}
+                                isLoading={isLoading}
+                            >
+                                <div className="flex flex-wrap gap-3">
+                                    {
+                                        (!analysis?.keywordAnalysis?.missingKeywords?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={4} />
+                                        ) : (analysis?.keywordAnalysis?.missingKeywords?.length && analysis.keywordAnalysis.missingKeywords.length > 0 && !isLoading) ? (
+                                            analysis.keywordAnalysis.missingKeywords.map((keyword, idx) => (
+                                                <Badge key={idx} name={keyword} count={0} variant="blue" />
+                                            ))
+                                        ) : <EmptyState text="No missing keywords" />
+                                    }
+                                </div>
+                            </JobDescAnalysisSection>
+
+                            {/* ---- Keyword Analysis: Overused Keywords ---- */}
+                            <JobDescAnalysisSection
+                                title="Overused Keywords"
+                                description="Keywords appearing too frequently that might hurt readability."
+                                icon={<AlertTriangle size={20} className="text-rose-500" />}
+                                isLoading={isLoading}
+                            >
+                                <div className="flex flex-wrap gap-3">
+                                    {
+                                        (!analysis?.keywordAnalysis?.overusedKeywords?.length && isLoading) ? (
+                                            <BadgesLoadingSkeleton count={3} />
+                                        ) : (analysis?.keywordAnalysis?.overusedKeywords?.length && analysis.keywordAnalysis.overusedKeywords.length > 0 && !isLoading) ? (
+                                            analysis.keywordAnalysis.overusedKeywords.map((keyword, idx) => (
+                                                <Badge key={idx} name={keyword} count={0} variant="rose" />
+                                            ))
+                                        ) : <EmptyState text="No overused keywords" />
+                                    }
+                                </div>
+                            </JobDescAnalysisSection>
+
                         </div>
 
                         {/* RIGHT COLUMN (Improvements & Meta) */}
                         <div className="xl:col-span-5 space-y-6">
                             
                             {/* ---- Meta Analysis ---- */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-1 gap-4">
                                 <JobInfoCard
                                     title="ATS Readability"
                                     icon={<FileText size={20} className="text-indigo-500" />}
@@ -216,6 +301,12 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                     title="Resume Tone"
                                     icon={<MessageSquare size={20} className="text-teal-500" />}
                                     items={analysis?.metaAnalysis?.resumeTone ? [analysis.metaAnalysis.resumeTone] : []}
+                                    isLoading={isLoading}
+                                />
+                                <JobInfoCard
+                                    title="Confidence Level"
+                                    icon={<Target size={20} className="text-amber-500" />}
+                                    items={analysis?.metaAnalysis?.confidenceLevel ? [analysis.metaAnalysis.confidenceLevel] : []}
                                     isLoading={isLoading}
                                 />
                             </div>
@@ -235,7 +326,15 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                             analysis.improvementInsights.priorityFixes.map((fix, idx) => (
                                                 <li key={idx} className="flex items-start gap-3 text-sm text-foreground font-medium leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
                                                     <AlertCircle size={16} className="text-amber-500 shrink-0 mt-0.5" />
-                                                    <span>{fix}</span>
+                                                    <div className="flex flex-col gap-1 w-full">
+                                                        <span className="font-bold flex items-center gap-2 text-foreground">
+                                                            {fix.issue}
+                                                            <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold shrink-0 ${fix.impact === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400' : fix.impact === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}`}>
+                                                                {fix.impact}
+                                                            </span>
+                                                        </span>
+                                                        <span className="text-foreground/80 font-normal">{fix.fix}</span>
+                                                    </div>
                                                 </li>
                                             ))
                                         ) : <EmptyState text="No priority fixes needed" />
@@ -261,6 +360,52 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                         ) : <EmptyState text="No weak verbs found" />
                                     }
                                 </div>
+                            </JobDescAnalysisSection>
+
+                            {/* ---- Skill Gaps to Address ---- */}
+                            <JobDescAnalysisSection
+                                title="Skill Gaps to Address"
+                                description="Skills you should consider learning or adding to match the role better."
+                                icon={<Search size={20} className="text-blue-500" />}
+                                isLoading={isLoading}
+                            >
+                                <ul className="space-y-3">
+                                    {
+                                        (!analysis?.improvementInsights?.skillGapsToAddress?.length && isLoading) ? (
+                                            <InfoLoadingSkeleton count={3} />
+                                        ) : (analysis?.improvementInsights?.skillGapsToAddress?.length && analysis.improvementInsights.skillGapsToAddress.length > 0 && !isLoading) ? (
+                                            analysis.improvementInsights.skillGapsToAddress.map((gap, idx) => (
+                                                <li key={idx} className="flex items-start gap-3 text-sm text-foreground font-medium leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
+                                                    <AlertCircle size={16} className="text-blue-500 shrink-0 mt-0.5" />
+                                                    <span>{gap}</span>
+                                                </li>
+                                            ))
+                                        ) : <EmptyState text="No skill gaps found" />
+                                    }
+                                </ul>
+                            </JobDescAnalysisSection>
+
+                            {/* ---- Formatting Issues ---- */}
+                            <JobDescAnalysisSection
+                                title="Formatting Issues"
+                                description="Issues with resume layout, structure, or readability."
+                                icon={<AlertTriangle size={20} className="text-rose-500" />}
+                                isLoading={isLoading}
+                            >
+                                <ul className="space-y-3">
+                                    {
+                                        (!analysis?.formattingAnalysis?.issues?.length && isLoading) ? (
+                                            <InfoLoadingSkeleton count={2} />
+                                        ) : (analysis?.formattingAnalysis?.issues?.length && analysis.formattingAnalysis.issues.length > 0 && !isLoading) ? (
+                                            analysis.formattingAnalysis.issues.map((issue, idx) => (
+                                                <li key={idx} className="flex items-start gap-3 text-sm text-foreground font-medium leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
+                                                    <AlertCircle size={16} className="text-rose-500 shrink-0 mt-0.5" />
+                                                    <span>{issue}</span>
+                                                </li>
+                                            ))
+                                        ) : <EmptyState text="No formatting issues" />
+                                    }
+                                </ul>
                             </JobDescAnalysisSection>
 
                             {/* ---- Section Advice ---- */}
