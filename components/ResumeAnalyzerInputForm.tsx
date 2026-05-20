@@ -219,12 +219,12 @@ const ResumeAnalyzerInputForm = () => {
                     <Textarea
                         id="job-description"
                         value={jobDescription}
-                        onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))}
+                        onChange={(e) => setJobDescription(e.target.value.slice(0, 2000))}
                         placeholder="Paste the full job description to compare against your resume"
                         className="h-40 resize-none scrollbar-custom"
                     />
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobDescription.length}/3000 characters
+                        {jobDescription.length}/2000 characters
                     </p>
                 </div>
 
