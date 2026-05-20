@@ -88,7 +88,6 @@ interface ResumeAnalysis {
             requirement: string;
             reason: string;
         }[];
-        weakActionVerbs: string[]
     };
 
     improvementInsights: {

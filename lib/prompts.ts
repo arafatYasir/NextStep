@@ -97,7 +97,6 @@ JSON SCHEMA:
         "reason": string
       }
     ],
-    "weakActionVerbs": string[]
   },
   "improvementInsights": {
     "priorityFixes": [
@@ -133,7 +132,7 @@ JSON SCHEMA:
 }
 
 VALIDATION RULES:
-Don't recommend improvements already implemented in the resume. Don't repeat the same feedback in multiple sections. weakActionVerbs must only contain verbs explicitly found in the resume. strongMatches must only contain skills/technologies explicitly found in BOTH the resume and job description. partialMatches must only contain partially aligned requirements. If resume text is short, poorly structured, or unreadable: reduce formattingScore, confidenceLevel, atsScore, still return valid JSON.
+Don't recommend improvements already implemented in the resume. Don't repeat the same feedback in multiple sections. strongMatches must only contain skills/technologies explicitly found in BOTH the resume and job description. partialMatches must only contain partially aligned requirements. If resume text is short, poorly structured, or unreadable: reduce formattingScore, confidenceLevel, atsScore, still return valid JSON.
 
 IMPORTANT:
 Every suggestion must be traceable to explicit evidence from either: the job description, the resume text, If evidence does not exist, do not mention it.

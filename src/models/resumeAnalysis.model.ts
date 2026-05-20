@@ -173,11 +173,6 @@ const resumeAnalysisSchema = new mongoose.Schema(
                     type: [partialMatchSchema],
                     default: [],
                 },
-
-                weakActionVerbs: {
-                    type: [String],
-                    default: [],
-                },
             },
 
             improvementInsights: {
