@@ -5,12 +5,8 @@ import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import { Briefcase } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-
-async function getJobData(id: string) {
-    await connectToDatabase();
-    const record = await JobRecord.findById(id);
-    return JSON.parse(JSON.stringify(record));
-}
+import { getJobData } from "@/src/helpers/apiCalls";
+import { toast } from "sonner";
 
 const JobsRecordsList = async () => {
     // Getting user id
@@ -18,9 +14,12 @@ const JobsRecordsList = async () => {
     const { data: { user } } = await (await supabase).auth.getUser();
     const userId = user?.id;
 
-    if (!userId) return null;
+    // If user is not found then return
+    if (!userId) {
+        return null;
+    };
 
-    // Fetching ONLY the IDs first
+    // Fetching ONLY the job IDs first
     await connectToDatabase();
     const jobIds = await JobRecord.find({ userId }, { _id: 1 }).sort({ createdAt: -1 });
 
@@ -30,10 +29,10 @@ const JobsRecordsList = async () => {
                 <div className="size-16 rounded-full bg-[rgb(var(--bg-primary))]/10 flex items-center justify-center text-[rgb(var(--bg-primary))] mb-4">
                     <Briefcase className="size-8" />
                 </div>
-                <h3 className="text-lg font-heading font-semibold text-foreground/80">
+                <h3 className="text-lg font-heading font-semibold text-foreground">
                     No job analyses yet
                 </h3>
-                <p className="text-sm text-[rgb(var(--text-tertiary))] max-w-xs text-center mt-2">
+                <p className="text-sm font-sans text-[rgb(var(--text-tertiary))] max-w-xs text-center mt-2">
                     Start by analyzing your first job description to see it appear here.
                 </p>
             </div>
