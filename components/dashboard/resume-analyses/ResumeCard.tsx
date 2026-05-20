@@ -71,7 +71,7 @@ const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt 
 
     return (
         <>
-            <div className="group flex-1 flex items-center gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
+            <div className="group flex-1 flex items-start gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
                 {/* ---- Resume Icon Wrapper ---- */}
                 <div className="flex size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105">
                     <FileText className="size-5" />
@@ -82,10 +82,10 @@ const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt 
                     <h3 className="truncate text-base font-heading font-semibold text-foreground leading-tight">
                         {resumeFileName}
                     </h3>
-                    <div className="flex items-center gap-1.5 mt-0.5 min-w-0">
-                        <Briefcase className="size-3.5 shrink-0 text-[rgb(var(--text-tertiary))]" />
-                        <p className="truncate text-xs text-[rgb(var(--text-tertiary))] font-sans">
-                            For: {jobTitle}
+                    <div className="flex items-center gap-1.5 mt-2 min-w-0">
+                        <Briefcase className="size-4 shrink-0 text-[rgb(var(--text-tertiary))]" />
+                        <p className="truncate text-sm text-[rgb(var(--text-tertiary))] font-sans">
+                            Job Title: <span className="font-medium">{jobTitle}</span>
                         </p>
                     </div>
                     <div className="flex items-center gap-4 mt-1.5">
@@ -122,48 +122,21 @@ const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt 
                             <Clock className="size-3.5" />
                             <span>{formattedTime}</span>
                         </div>
+
+                        {/* ---- ATS Score ---- */}
+                        {showAtsScore && (
+                            <div className={cn(
+                                "px-1.5 py-1 rounded-full text-xs font-sans font-medium",
+                                atsScore >= 80 ? "bg-emerald-50 border-emerald-300 text-emerald-700" :
+                                    atsScore >= 60 ? "bg-amber-50 border-amber-300 text-amber-700" :
+                                        "bg-rose-50 border-rose-300 text-rose-700"
+                            )}>
+                                <span>ATS Score: </span>
+                                <span>{atsScore}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
-
-                {/* ---- ATS Score ---- */}
-                {showAtsScore && (
-                    <div
-                        className={cn(
-                            "flex flex-col items-center justify-center shrink-0 px-3 py-1.5 rounded-lg border",
-                            atsScore >= 80
-                                ? "bg-emerald-50 border-emerald-200"
-                                : atsScore >= 60
-                                    ? "bg-amber-50 border-amber-200"
-                                    : "bg-red-50 border-red-200"
-                        )}
-                        title="ATS Score"
-                    >
-                        <span
-                            className={cn(
-                                "text-lg font-bold font-heading leading-none",
-                                atsScore >= 80
-                                    ? "text-emerald-700"
-                                    : atsScore >= 60
-                                        ? "text-amber-700"
-                                        : "text-red-600"
-                            )}
-                        >
-                            {atsScore}
-                        </span>
-                        <span
-                            className={cn(
-                                "text-[10px] font-sans font-medium uppercase tracking-wide mt-0.5",
-                                atsScore >= 80
-                                    ? "text-emerald-600"
-                                    : atsScore >= 60
-                                        ? "text-amber-600"
-                                        : "text-red-500"
-                            )}
-                        >
-                            / 100
-                        </span>
-                    </div>
-                )}
 
                 {/* ---- Action Buttons ---- */}
                 <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
