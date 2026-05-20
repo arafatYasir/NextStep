@@ -5,7 +5,6 @@ interface props {
 }
 
 const Badge = ({ name, count, variant }: props) => {
-    // Enhanced styles for better visibility in light mode
     const styles = {
         blue: "bg-blue-50 text-blue-700 border-blue-300 hover:bg-blue-100 active:bg-blue-100",
         indigo: "bg-indigo-50 text-indigo-700 border-indigo-300 hover:bg-indigo-100 active:bg-indigo-100",
