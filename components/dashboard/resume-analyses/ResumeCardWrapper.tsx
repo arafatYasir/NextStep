@@ -12,6 +12,7 @@ const ResumeCardWrapper = ({ resumePromise }: { resumePromise: Promise<any> }) =
         <ResumeCard
             id={data._id}
             resumeFileName={data.resumeFileName}
+            resumeFileType={data.resumeFileType}
             jobTitle={data.jobTitle}
             status={data.status}
             analysis={data.result ?? null}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Briefcase, CalendarDays, Clock, ExternalLink, FileText, Trash2 } from "lucide-react";
+import { Briefcase, CalendarDays, Clock, ExternalLink, FileText, ScanEye, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,13 +11,53 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 interface ResumeCardProps {
     id: string;
     resumeFileName: string;
+    resumeFileType: string;
     jobTitle: string;
     status: string;
     analysis: ResumeAnalysis | null;
     createdAt: string | Date;
 }
 
-const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt }: ResumeCardProps) => {
+const getFileTypeLabel = (mimeType: string) => {
+    if (mimeType === "application/pdf") return "PDF";
+    if (mimeType.includes("wordprocessingml")) return "DOCX";
+    const ext = mimeType.split("/").pop();
+    return ext ? ext.toUpperCase() : "FILE";
+};
+
+const getFileTypeStyles = (label: string) => {
+    if (label === "PDF") {
+        return "bg-red-50 text-red-700 border-red-200/80";
+    }
+    if (label === "DOCX") {
+        return "bg-blue-50 text-blue-700 border-blue-200/80";
+    }
+    return "bg-slate-50 text-slate-600 border-slate-200/80";
+};
+
+const getReadabilityStyles = (readability: ResumeAnalysis["metaAnalysis"]["atsReadability"]) => {
+    switch (readability) {
+        case "Excellent":
+        case "Good":
+            return "bg-emerald-50 border-emerald-200/80 text-emerald-700";
+        case "Average":
+            return "bg-amber-50 border-amber-200/80 text-amber-700";
+        case "Poor":
+            return "bg-rose-50 border-rose-200/80 text-rose-700";
+        default:
+            return "bg-slate-50 border-slate-200/80 text-slate-600";
+    }
+};
+
+const ResumeCard = ({
+    id,
+    resumeFileName,
+    resumeFileType,
+    jobTitle,
+    status,
+    analysis,
+    createdAt,
+}: ResumeCardProps) => {
     // States
     const [open, setOpen] = useState(false);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -25,9 +65,12 @@ const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
 
-    // ATS score (only when analysis completed)
+    // Derived display values
+    const fileTypeLabel = getFileTypeLabel(resumeFileType);
     const atsScore = analysis?.atsScore;
+    const atsReadability = analysis?.metaAnalysis?.atsReadability;
     const showAtsScore = status === "completed" && atsScore != null;
+    const showAtsReadability = status === "completed" && !!atsReadability;
 
     // Format time & date efficiently
     const date = new Date(createdAt);
@@ -79,16 +122,27 @@ const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt 
 
                 {/* ---- Resume Content ---- */}
                 <div className="flex-1 flex flex-col min-w-0 pr-2">
-                    <h3 className="truncate text-base font-heading font-semibold text-foreground leading-tight">
-                        {resumeFileName}
-                    </h3>
+                    <div className="flex items-center gap-2 min-w-0">
+                        <h3 className="truncate flex-1 min-w-0 text-base font-heading font-semibold text-foreground leading-tight">
+                            {resumeFileName}
+                        </h3>
+                        <span
+                            className={cn(
+                                "shrink-0 inline-flex items-center px-2 py-0.5 rounded-md border text-[10px] font-sans font-bold uppercase tracking-wider",
+                                getFileTypeStyles(fileTypeLabel)
+                            )}
+                            title={`File type: ${fileTypeLabel}`}
+                        >
+                            {fileTypeLabel}
+                        </span>
+                    </div>
                     <div className="flex items-center gap-1.5 mt-2 min-w-0">
                         <Briefcase className="size-4 shrink-0 text-[rgb(var(--text-tertiary))]" />
                         <p className="truncate text-sm text-[rgb(var(--text-tertiary))] font-sans">
-                            Job Title: <span className="font-medium">{jobTitle}</span>
+                            Job Title: <span className="font-medium text-foreground/80">{jobTitle}</span>
                         </p>
                     </div>
-                    <div className="flex items-center gap-4 mt-1.5">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-1.5">
                         {/* ---- Status Label ---- */}
                         <div className={cn("flex items-center gap-1.5 px-1.5 py-1 rounded-full",
                             status === "completed" ? "bg-emerald-50" :
@@ -125,21 +179,39 @@ const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt 
 
                         {/* ---- ATS Score ---- */}
                         {showAtsScore && (
-                            <div className={cn(
-                                "px-1.5 py-1 rounded-full text-xs font-sans font-medium",
-                                atsScore >= 80 ? "bg-emerald-50 border-emerald-300 text-emerald-700" :
-                                    atsScore >= 60 ? "bg-amber-50 border-amber-300 text-amber-700" :
-                                        "bg-rose-50 border-rose-300 text-rose-700"
-                            )}>
-                                <span>ATS Score: </span>
-                                <span>{atsScore}</span>
+                            <div
+                                className={cn(
+                                    "flex items-center gap-1 px-1.5 py-1 rounded-full border text-xs font-sans font-medium",
+                                    atsScore >= 80
+                                        ? "bg-emerald-50 border-emerald-200/80 text-emerald-700"
+                                        : atsScore >= 60
+                                            ? "bg-amber-50 border-amber-200/80 text-amber-700"
+                                            : "bg-rose-50 border-rose-200/80 text-rose-700"
+                                )}
+                            >
+                                <span className="opacity-80">ATS Score:</span>
+                                <span className="font-semibold">{atsScore}</span>
+                            </div>
+                        )}
+
+                        {/* ---- ATS Readability ---- */}
+                        {showAtsReadability && atsReadability && (
+                            <div
+                                className={cn(
+                                    "flex items-center gap-1 px-1.5 py-1 rounded-full border text-xs font-sans font-medium",
+                                    getReadabilityStyles(atsReadability)
+                                )}
+                            >
+                                <ScanEye className="size-3 shrink-0 opacity-80" />
+                                <span className="opacity-80">Readability:</span>
+                                <span className="font-semibold">{atsReadability}</span>
                             </div>
                         )}
                     </div>
                 </div>
 
                 {/* ---- Action Buttons ---- */}
-                <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
+                <div className="flex items-center gap-2 shrink-0 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
                     <Button
                         variant="outline"
                         title="Open Resume Analysis"
