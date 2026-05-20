@@ -1,31 +1,33 @@
 "use client";
 
-import { Briefcase, Clock, ExternalLink, Trash2, CalendarDays } from "lucide-react";
+import { Briefcase, CalendarDays, Clock, ExternalLink, FileText, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import JobDescAnalysisModal from "../../analysis/job/JobDescAnalysisModal";
+import ResumeAnalysisModal from "../../analysis/resume/ResumeAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
-interface JobCardProps {
+interface ResumeCardProps {
     id: string;
-    jobRole: string;
+    resumeFileName: string;
+    jobTitle: string;
     status: string;
-    analysis: JobAnalysis;
+    analysis: ResumeAnalysis | null;
     createdAt: string | Date;
 }
 
-const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => {
+const ResumeCard = ({ id, resumeFileName, jobTitle, status, analysis, createdAt }: ResumeCardProps) => {
     // States
     const [open, setOpen] = useState(false);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
-    const router = useRouter();
+
+    // ATS score (only when analysis completed)
+    const atsScore = analysis?.atsScore;
+    const showAtsScore = status === "completed" && atsScore != null;
 
     // Format time & date efficiently
     const date = new Date(createdAt);
@@ -63,41 +65,29 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
     }, [showDeletePopup]);
 
     // Functions
-    const handleDeleteJobRecord = async (id: string | number) => {
-        try {
-            const res = await fetch(`/api/job-results/${id}`, {
-                method: "DELETE"
-            });
-
-            const data = await res.json();
-
-            if (data.status === "OK") {
-                toast.success(data.message);
-                router.refresh();
-            }
-            else {
-                toast.error(data.message);
-            }
-        }
-        catch (e) {
-            console.error(e);
-            toast.error("Failed to delete job record.");
-        }
+    const handleDeleteResumeRecord = async (_id: string | number) => {
+        // Delete API will be wired up later
     }
 
     return (
         <>
             <div className="group flex-1 flex items-center gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
-                {/* ---- Job Icon Wrapper ---- */}
+                {/* ---- Resume Icon Wrapper ---- */}
                 <div className="flex size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105">
-                    <Briefcase className="size-5" />
+                    <FileText className="size-5" />
                 </div>
 
-                {/* ---- Job Content ---- */}
+                {/* ---- Resume Content ---- */}
                 <div className="flex-1 flex flex-col min-w-0 pr-2">
                     <h3 className="truncate text-base font-heading font-semibold text-foreground leading-tight">
-                        {jobRole}
+                        {resumeFileName}
                     </h3>
+                    <div className="flex items-center gap-1.5 mt-0.5 min-w-0">
+                        <Briefcase className="size-3.5 shrink-0 text-[rgb(var(--text-tertiary))]" />
+                        <p className="truncate text-xs text-[rgb(var(--text-tertiary))] font-sans">
+                            For: {jobTitle}
+                        </p>
+                    </div>
                     <div className="flex items-center gap-4 mt-1.5">
                         {/* ---- Status Label ---- */}
                         <div className={cn("flex items-center gap-1.5 px-1.5 py-1 rounded-full",
@@ -135,13 +125,54 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
                     </div>
                 </div>
 
+                {/* ---- ATS Score ---- */}
+                {showAtsScore && (
+                    <div
+                        className={cn(
+                            "flex flex-col items-center justify-center shrink-0 px-3 py-1.5 rounded-lg border",
+                            atsScore >= 80
+                                ? "bg-emerald-50 border-emerald-200"
+                                : atsScore >= 60
+                                    ? "bg-amber-50 border-amber-200"
+                                    : "bg-red-50 border-red-200"
+                        )}
+                        title="ATS Score"
+                    >
+                        <span
+                            className={cn(
+                                "text-lg font-bold font-heading leading-none",
+                                atsScore >= 80
+                                    ? "text-emerald-700"
+                                    : atsScore >= 60
+                                        ? "text-amber-700"
+                                        : "text-red-600"
+                            )}
+                        >
+                            {atsScore}
+                        </span>
+                        <span
+                            className={cn(
+                                "text-[10px] font-sans font-medium uppercase tracking-wide mt-0.5",
+                                atsScore >= 80
+                                    ? "text-emerald-600"
+                                    : atsScore >= 60
+                                        ? "text-amber-600"
+                                        : "text-red-500"
+                            )}
+                        >
+                            / 100
+                        </span>
+                    </div>
+                )}
+
                 {/* ---- Action Buttons ---- */}
                 <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
                     <Button
                         variant="outline"
-                        title="Open Job Analysis"
+                        title="Open Resume Analysis"
                         className="size-9 border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] text-foreground transition-colors"
                         onClick={() => setOpen(true)}
+                        disabled={status !== "completed"}
                     >
                         <ExternalLink className="size-4" />
                     </Button>
@@ -157,9 +188,9 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
                 </div>
             </div>
 
-            {/* ---- Job Analysis Modal ---- */}
+            {/* ---- Resume Analysis Modal ---- */}
             {open && (
-                <JobDescAnalysisModal
+                <ResumeAnalysisModal
                     isLoading={false}
                     analysis={analysis}
                     onClose={() => setOpen(false)}
@@ -169,10 +200,10 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
             {/* ---- Delete Popup ---- */}
             {showDeletePopup && (
                 <ConfirmationModal
-                    title="Delete the Job Record?"
+                    title="Delete the Resume Record?"
                     ref={modalRef}
                     onClose={() => setShowDeletePopup(false)}
-                    action={handleDeleteJobRecord}
+                    action={handleDeleteResumeRecord}
                     data={id}
                 />
             )}
@@ -180,4 +211,4 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
     );
 };
 
-export default JobCard;
+export default ResumeCard;

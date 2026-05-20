@@ -1,3 +1,6 @@
+import ResumeRecordsList from "@/components/dashboard/resume-analyses/ResumeRecordsList"
+import { Suspense } from "react"
+
 const ResumeAnalyses = () => {
     return (
         <section className="flex-1 p-8 space-y-10 max-w-5xl">
@@ -12,7 +15,9 @@ const ResumeAnalyses = () => {
             </div>
 
             {/* ---- Resume Records ---- */}
-            
+            <Suspense fallback="Loading All resumes.....">
+                <ResumeRecordsList />
+            </Suspense>
         </section>
     )
 }
