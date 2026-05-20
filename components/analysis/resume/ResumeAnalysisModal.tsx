@@ -151,7 +151,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <ul className="space-y-3">
                                     {
                                         (!analysis?.matchInsights?.strongMatches?.length && isLoading) ? (
-                                            <InfoLoadingSkeleton count={3} />
+                                            <div className="space-y-3">
+                                                <Skeleton className="w-full h-16" />
+                                                <Skeleton className="w-full h-16" />
+                                            </div>
                                         ) : (analysis?.matchInsights?.strongMatches?.length && analysis.matchInsights.strongMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.strongMatches.map((match, idx) => (
                                                 <li key={idx} className="flex flex-col gap-1 bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
@@ -179,7 +182,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <ul className="space-y-3">
                                     {
                                         (!analysis?.matchInsights?.partialMatches?.length && isLoading) ? (
-                                            <InfoLoadingSkeleton count={3} />
+                                            <div className="space-y-3">
+                                                <Skeleton className="w-full h-16" />
+                                                <Skeleton className="w-full h-16" />
+                                            </div>
                                         ) : (analysis?.matchInsights?.partialMatches?.length && analysis.matchInsights.partialMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.partialMatches.map((match, idx) => (
                                                 <li key={idx} className="flex flex-col gap-1 bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
@@ -293,7 +299,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <ul className="space-y-3">
                                     {
                                         (!analysis?.improvementInsights?.priorityFixes?.length && isLoading) ? (
-                                            <InfoLoadingSkeleton count={3} />
+                                            <div className="space-y-3">
+                                                <Skeleton className="w-full h-16" />
+                                                <Skeleton className="w-full h-16" />
+                                            </div>
                                         ) : (analysis?.improvementInsights?.priorityFixes?.length && analysis.improvementInsights.priorityFixes.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.priorityFixes.map((fix, idx) => (
                                                 <li key={idx} className="flex flex-col gap-1 text-sm text-foreground font-medium leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
@@ -326,7 +335,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <ul className="space-y-3">
                                     {
                                         (!analysis?.formattingAnalysis?.issues?.length && isLoading) ? (
-                                            <InfoLoadingSkeleton count={2} />
+                                            <div className="space-y-3">
+                                                <Skeleton className="w-full h-16" />
+                                                <Skeleton className="w-full h-16" />
+                                            </div>
                                         ) : (analysis?.formattingAnalysis?.issues?.length && analysis.formattingAnalysis.issues.length > 0 && !isLoading) ? (
                                             analysis.formattingAnalysis.issues.map((issue, idx) => (
                                                 <li key={idx} className="flex items-start gap-2 text-sm text-foreground font-bold font-heading leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
@@ -349,7 +361,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <div className="space-y-4">
                                     {
                                         (!analysis?.improvementInsights?.resumeSectionAdvice?.length && isLoading) ? (
-                                            <InfoLoadingSkeleton count={3} />
+                                            <div className="space-y-3">
+                                                <Skeleton className="w-full h-16" />
+                                                <Skeleton className="w-full h-16" />
+                                            </div>
                                         ) : (analysis?.improvementInsights?.resumeSectionAdvice?.length && analysis.improvementInsights.resumeSectionAdvice.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.resumeSectionAdvice.map((adviceItem, idx) => (
                                                 <div key={idx} className="bg-[rgb(var(--bg-body))] p-4 rounded-lg border border-[rgb(var(--border-default))]">
@@ -373,6 +388,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 icon={<FileText size={20} className="text-indigo-500" />}
                                 items={analysis?.metaAnalysis?.atsReadability ? [analysis.metaAnalysis.atsReadability] : []}
                                 isLoading={isLoading}
+                                loadingSkeletons={1}
                             />
 
                             {/* ---- Resume Tone ---- */}
@@ -381,6 +397,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 icon={<MessageSquare size={20} className="text-teal-500" />}
                                 items={analysis?.metaAnalysis?.resumeTone ? [analysis.metaAnalysis.resumeTone] : []}
                                 isLoading={isLoading}
+                                loadingSkeletons={1}
                             />
 
                             {/* ---- Confidence Level ---- */}
@@ -389,6 +406,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 icon={<Target size={20} className="text-amber-500" />}
                                 items={analysis?.metaAnalysis?.confidenceLevel ? [analysis.metaAnalysis.confidenceLevel] : []}
                                 isLoading={isLoading}
+                                loadingSkeletons={1}
                             />
                         </div>
                     </div>

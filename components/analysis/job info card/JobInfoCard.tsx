@@ -5,10 +5,11 @@ interface props {
     title: string;
     icon: React.ReactNode;
     items: string[];
-    isLoading: boolean
+    isLoading: boolean,
+    loadingSkeletons?: number
 }
 
-const JobInfoCard = ({ title, icon, items, isLoading }: props) => (
+const JobInfoCard = ({ title, icon, items, isLoading, loadingSkeletons = 2 }: props) => (
     <div className="p-6 rounded-xl bg-card border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250 font-sans">
         <div className="flex items-center gap-2 mb-4">
             {icon}
@@ -17,7 +18,7 @@ const JobInfoCard = ({ title, icon, items, isLoading }: props) => (
         <ul className="space-y-2">
             {
                 (!items?.length && isLoading) ? (
-                    <InfoLoadingSkeleton count={2} />
+                    <InfoLoadingSkeleton count={loadingSkeletons} />
                 ) : (items?.length > 0 && !isLoading) ? (
                     items?.map((item, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm text-foreground font-medium leading-relaxed">
