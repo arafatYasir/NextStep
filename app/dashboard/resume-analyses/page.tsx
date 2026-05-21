@@ -1,4 +1,6 @@
+import ResumeCardSkeletons from "@/components/dashboard/resume-analyses/ResumeCardSkeletons"
 import ResumeRecordsList from "@/components/dashboard/resume-analyses/ResumeRecordsList"
+import { SingleResumeCardSkeleton } from "@/components/dashboard/resume-analyses/SingleResumeCardSkeleton"
 import { Suspense } from "react"
 
 const ResumeAnalyses = () => {
@@ -15,9 +17,11 @@ const ResumeAnalyses = () => {
             </div>
 
             {/* ---- Resume Records ---- */}
-            <Suspense fallback="Loading All resumes.....">
+            <Suspense fallback={<ResumeCardSkeletons />}>
                 <ResumeRecordsList />
             </Suspense>
+
+            <SingleResumeCardSkeleton />
         </section>
     )
 }

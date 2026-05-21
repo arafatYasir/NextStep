@@ -1,12 +1,11 @@
 import { Suspense } from "react";
 import JobCardWrapper from "./JobCardWrapper";
-import { SingleJobCardSkeleton } from "./JobCardsSkeleton";
+import { SingleJobCardSkeleton } from "./SingleJobCardSkeleton";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import { Briefcase } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getJobData } from "@/src/helpers/apiCalls";
-import { toast } from "sonner";
 
 const JobsRecordsList = async () => {
     // Getting user id

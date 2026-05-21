@@ -5,6 +5,7 @@ import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
 import { FileText } from "lucide-react";
 import { Suspense } from "react";
 import ResumeCardWrapper from "./ResumeCardWrapper";
+import { SingleResumeCardSkeleton } from "./SingleResumeCardSkeleton";
 
 const ResumeRecordsList = async () => {
     const supabase = createClient();
@@ -41,7 +42,7 @@ const ResumeRecordsList = async () => {
                     const resumePromise = getResumeData(resume._id.toString());
 
                     return (
-                        <Suspense key={resume._id.toString()} fallback="Loading a single resume...">
+                        <Suspense key={resume._id.toString()} fallback={<SingleResumeCardSkeleton />}>
                             <ResumeCardWrapper resumePromise={resumePromise} />
                         </Suspense>
                     )
