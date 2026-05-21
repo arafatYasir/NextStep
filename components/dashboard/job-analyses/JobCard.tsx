@@ -63,7 +63,7 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
     }, [showDeletePopup]);
 
     // Functions
-    const handleDeleteJobRecord = async (id: string | number) => {
+    const handleDeleteJobRecord = async () => {
         try {
             const res = await fetch(`/api/job-results/${id}`, {
                 method: "DELETE"
@@ -173,7 +173,6 @@ const JobCard = ({ id, jobRole, status, analysis, createdAt }: JobCardProps) => 
                     ref={modalRef}
                     onClose={() => setShowDeletePopup(false)}
                     action={handleDeleteJobRecord}
-                    data={id}
                 />
             )}
         </>

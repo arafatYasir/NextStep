@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import ResumeAnalysisModal from "../../analysis/resume/ResumeAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface ResumeCardProps {
     id: string;
@@ -21,8 +23,8 @@ interface ResumeCardProps {
 const getFileTypeLabel = (mimeType: string) => {
     if (mimeType === "application/pdf") return "PDF";
     if (mimeType.includes("wordprocessingml")) return "DOCX";
-    const ext = mimeType.split("/").pop();
-    return ext ? ext.toUpperCase() : "FILE";
+
+    return "FILE";
 };
 
 const getFileTypeStyles = (label: string) => {
@@ -44,8 +46,6 @@ const getReadabilityStyles = (readability: ResumeAnalysis["metaAnalysis"]["atsRe
             return "bg-amber-50 border-amber-200/80 text-amber-700";
         case "Poor":
             return "bg-rose-50 border-rose-200/80 text-rose-700";
-        default:
-            return "bg-slate-50 border-slate-200/80 text-slate-600";
     }
 };
 
@@ -64,6 +64,7 @@ const ResumeCard = ({
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const router = useRouter();
 
     // Derived display values
     const fileTypeLabel = getFileTypeLabel(resumeFileType);
@@ -108,8 +109,27 @@ const ResumeCard = ({
     }, [showDeletePopup]);
 
     // Functions
-    const handleDeleteResumeRecord = async (_id: string | number) => {
-        // Delete API will be wired up later
+    const handleDeleteResumeRecord = async () => {
+        try {
+            const res = await fetch(`/api/resume-results/${id}`, {
+                method: "DELETE",
+            });
+
+            const data = await res.json();
+
+            if (data.status === "OK") {
+                // Show returned message and close delete modal
+                toast.message(data.message);
+                setShowDeletePopup(false);
+
+                // Refresh the page to reflect the deletion
+                router.refresh();
+            }
+        }
+        catch (e) {
+            console.error(e);
+            toast.error("Failed to delete resume record.");
+        }
     }
 
     return (
@@ -139,7 +159,7 @@ const ResumeCard = ({
                     <div className="flex items-center gap-1.5 mt-2 min-w-0">
                         <Briefcase className="size-4 shrink-0 text-[rgb(var(--text-tertiary))]" />
                         <p className="truncate text-sm text-[rgb(var(--text-tertiary))] font-sans">
-                            Job Title: <span className="font-medium text-foreground/80">{jobTitle}</span>
+                            Target Job Title: <span className="font-medium text-foreground/80">{jobTitle}</span>
                         </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-1.5">
@@ -249,7 +269,6 @@ const ResumeCard = ({
                     ref={modalRef}
                     onClose={() => setShowDeletePopup(false)}
                     action={handleDeleteResumeRecord}
-                    data={id}
                 />
             )}
         </>

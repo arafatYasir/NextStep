@@ -10,17 +10,16 @@ interface Props {
     ref: React.RefObject<HTMLDivElement | null>;
     onClose: () => void;
     title: string;
-    action: (params: string | number) => void;
-    data: string | number;
+    action: () => void;
 }
 
-const ConfirmationModal = ({ ref, onClose, title, action, data }: Props) => {
+const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
     const [loading, setLoading] = useState(false);
 
     const handleAction = async () => {
         try {
             setLoading(true);
-            await action(data);
+            await action();
             onClose();
         }
         catch (e) {
