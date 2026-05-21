@@ -20,8 +20,6 @@ const ResumeAnalyses = () => {
             <Suspense fallback={<ResumeCardSkeletons />}>
                 <ResumeRecordsList />
             </Suspense>
-
-            <SingleResumeCardSkeleton />
         </section>
     )
 }
