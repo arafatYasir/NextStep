@@ -1,4 +1,4 @@
-export const JOB_ANALYSIS_PROMPT = `You are an ATS Keyword Intelligence Engine. Analyze the given Job Role and Job Description and extract ATS-critical data. You have 20+ years of experience in ATS Keyword Intelligence. Make sure each section keywords remain unique. One section keywords should not be repeated in other sections.
+export const JOB_ANALYSIS_PROMPT = `You are an ATS Keyword Intelligence Engine. Analyze the given Job Role and Job Description and extract ATS-critical data. You have 20+ years of experience in ATS Keyword Intelligence. Make sure each section keywords remain unique. One section keywords should not be repeated in other sections. NEVER hallucinate any informations. Everything has to be proper evidence based. So that there is no difference between what you returned and actual job description.
         Job Role: "{jobRole}"
         Job Description: "{jobDescription}"
         
@@ -132,7 +132,7 @@ JSON SCHEMA:
 }
 
 VALIDATION RULES:
-Don't recommend improvements already implemented in the resume. Don't repeat the same feedback in multiple sections. strongMatches must only contain skills/technologies explicitly found in BOTH the resume and job description. partialMatches must only contain partially aligned requirements. If resume text is short, poorly structured, or unreadable: reduce formattingScore, confidenceLevel, atsScore, still return valid JSON.
+Don't recommend improvements already implemented in the resume. Don't repeat the same feedback in multiple sections. strongMatches must only contain skills/technologies explicitly found in BOTH the resume and job description. partialMatches must only contain partially aligned requirements. missingKeywords will contain those which is present in job but not in the resume text. If resume text is short, poorly structured, or unreadable: reduce formattingScore, confidenceLevel, atsScore, still return valid JSON.
 
 IMPORTANT:
 Every suggestion must be traceable to explicit evidence from either: the job description, the resume text, If evidence does not exist, do not mention it.
