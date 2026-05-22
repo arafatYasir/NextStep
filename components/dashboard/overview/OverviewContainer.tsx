@@ -77,7 +77,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
                     <button
                         onClick={() => setActiveTab("job")}
                         className={cn(
-                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer",
+                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer font-heading",
                             activeTab === "job"
                                 ? "text-[rgb(var(--bg-primary))]"
                                 : "text-foreground/80 hover:text-foreground active:text-foreground"
@@ -91,7 +91,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
                     <button
                         onClick={() => setActiveTab("resume")}
                         className={cn(
-                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer",
+                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer font-heading",
                             activeTab === "resume"
                                 ? "text-[rgb(var(--bg-primary))]"
                                 : "text-foreground/80 hover:text-foreground active:text-foreground"
