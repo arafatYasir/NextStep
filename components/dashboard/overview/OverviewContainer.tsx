@@ -8,11 +8,33 @@ import { toast } from "sonner";
 import OverviewSkeleton from "./OverviewSkeleton";
 import ResumeAnalysisTab from "./ResumeAnalysisTab";
 
+interface OverviewData {
+    stats: {
+        jobAnalysesCount: number,
+        resumeAnalysesCount: number,
+        resumesBuiltCount: number,
+        lettersWrittenCount: number
+    },
+    jobAnalysisData: {
+        hardSkills: {name: string, count: number}[],
+        softSkills: {name: string, count: number}[],
+        tools: {name: string, count: number}[],
+        actionVerbs: {name: string, count: number}[],
+        phrases: {name: string, count: number}[],
+    },
+    resumeAnalysisData: {
+        matchedKeywords: {name: string, count: number}[],
+        missingKeywords: {name: string, count: number}[],
+        overusedKeywords: {name: string, count: number}[],
+        skillGaps: {name: string, count: number}[],
+    }
+}
+
 const OverviewContainer = ({ userId }: { userId: string }) => {
     // States
     const [activeTab, setActiveTab] = useState<"job" | "resume">("job");
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<OverviewData | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,7 +97,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
                 {activeTab === "job" ? (
                     <JobAnalysisTab data={data.jobAnalysisData} />
                 ) : (
-                    <ResumeAnalysisTab />
+                    <ResumeAnalysisTab data={data.resumeAnalysisData} />
                 )}
             </div>
         </div>

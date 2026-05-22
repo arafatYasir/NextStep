@@ -53,6 +53,42 @@ export async function GET(req: NextRequest) {
             });
         });
 
+        // Constructing data from resumeRecords for metrics
+        const matchedKeywords: Record<string, number> = {};
+        const missingKeywords: Record<string, number> = {};
+        const overusedKeywords: Record<string, number> = {};
+        const skillGaps: Record<string, number> = {};
+
+        resumeRecords.map((resume: any) => {
+            const res = resume.result;
+
+            if (!res) return;
+
+            res.keywordAnalysis.matchedKeywords.map((keyword: string) => {
+                if (keyword.trim()) {
+                    matchedKeywords[keyword] = (matchedKeywords[keyword] || 0) + 1;
+                }
+            });
+
+            res.keywordAnalysis.missingKeywords.map((keyword: string) => {
+                if (keyword.trim()) {
+                    missingKeywords[keyword] = (missingKeywords[keyword] || 0) + 1; 1
+                }
+            });
+
+            res.keywordAnalysis.overusedKeywords.map((keyword: string) => {
+                if (keyword.trim()) {
+                    overusedKeywords[keyword] = (overusedKeywords[keyword] || 0) + 1;
+                }
+            });
+
+            res.improvementInsights.skillGapsToAddress.map((skill: string) => {
+                if (skill.trim()) {
+                    skillGaps[skill] = (skillGaps[skill] || 0) + 1;
+                }
+            });
+        });
+
         const formatMap = (map: Record<string, number>) =>
             Object.entries(map)
                 .map(([name, count]) => ({ name, count }))
@@ -72,6 +108,12 @@ export async function GET(req: NextRequest) {
                 tools: formatMap(toolsMap),
                 actionVerbs: formatMap(actionVerbsMap),
                 phrases: formatMap(phrasesMap),
+            },
+            resumeAnalysisData: {
+                matchedKeywords: formatMap(matchedKeywords),
+                missingKeywords: formatMap(missingKeywords),
+                overusedKeywords: formatMap(overusedKeywords),
+                skillGaps: formatMap(skillGaps)
             }
         });
 
