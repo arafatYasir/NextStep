@@ -14,10 +14,10 @@ const HorizontalBar = ({ name, count, maxCount }: HorizontalBarProps) => {
     return (
         <div className="space-y-1.5 w-full">
             <div className="flex justify-between items-end">
-                <span className="text-sm font-medium text-foreground truncate pr-4">
+                <span className="text-sm font-bold text-foreground truncate pr-4 font-heading">
                     {name}
                 </span>
-                <span className="text-sm font-semibold text-foreground/80 tabular-nums">
+                <span className="text-sm font-bold text-foreground tabular-nums font-sans">
                     {count} {count === 1 ? 'time' : 'times'}
                 </span>
             </div>
@@ -33,24 +33,18 @@ const HorizontalBar = ({ name, count, maxCount }: HorizontalBarProps) => {
 
 interface SkillChartProps {
     title: string;
-    description: string;
     data: { name: string; count: number }[];
     className?: string;
 }
 
-const SkillChart = ({ title, description, data, className }: SkillChartProps) => {
+const SkillChart = ({ title, data, className }: SkillChartProps) => {
     const maxCount = data.length > 0 ? Math.max(...data.map(d => d.count)) : 0;
 
     return (
         <div className={cn("bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250 shadow-sm flex flex-col h-full", className)}>
-            <div className="mb-6">
-                <h4 className="text-lg font-bold font-heading text-foreground">
-                    {title}
-                </h4>
-                <p className="text-sm font-sans text-foreground/80">
-                    {description}
-                </p>
-            </div>
+            <h4 className="text-lg font-bold font-heading text-foreground mb-6">
+                {title}
+            </h4>
 
             <div className="flex-1 space-y-5">
                 {data.length > 0 ? (
@@ -86,30 +80,25 @@ interface JobAnalysisTabProps {
 
 const JobAnalysisTab = ({ data }: JobAnalysisTabProps) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <SkillChart
                 title="Top Hard Skills"
-                description="Most frequent technical requirements found in your analyzed jobs."
                 data={data.hardSkills}
             />
             <SkillChart
-                title="Essential Tools"
-                description="Software and platforms mentioned most across all job roles."
+                title="Top Essential Tools"
                 data={data.tools}
             />
             <SkillChart
-                title="Soft Skills"
-                description="Interpersonal and leadership skills highlighted by recruiters."
+                title="Top Soft Skills"
                 data={data.softSkills}
             />
             <SkillChart
-                title="Action Verbs"
-                description="Use these verbs to mirror the language in job descriptions."
+                title="Top Action Verbs"
                 data={data.actionVerbs}
             />
             <SkillChart
-                title="Key Phrases"
-                description="Keywords the ATS systems are likely scanning for."
+                title="Top Key Phrases"
                 data={data.phrases}
                 className="col-span-2"
             />
