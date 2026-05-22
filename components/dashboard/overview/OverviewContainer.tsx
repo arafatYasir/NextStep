@@ -56,6 +56,16 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
 
     if (loading) return <OverviewSkeleton />;
 
+    if (!data) {
+        return (
+            <div className="flex-1 p-8">
+                <p className="text-base font-semibold font-heading text-center text-foreground/80">
+                    Could not load overview data. Please refresh the page.
+                </p>
+            </div>
+        );
+    }
+
     return (
         <div className="flex-1 p-8 space-y-10">
             {/* ---- Metric Cards ---- */}
