@@ -132,8 +132,8 @@ JSON SCHEMA:
 }
 
 VALIDATION RULES:
-Don't recommend improvements already implemented in the resume. Don't repeat the same feedback in multiple sections. strongMatches must only contain skills/technologies explicitly found in BOTH the resume and job description. partialMatches must only contain partially aligned requirements. missingKeywords will contain those which is present in job but not in the resume text. If resume text is short, poorly structured, or unreadable: reduce formattingScore, confidenceLevel, atsScore, still return valid JSON.
+Don't recommend improvements already implemented in the resume. Don't repeat the same feedback in multiple sections. strongMatches must only contain skills/technologies explicitly found in BOTH the resume and job description. partialMatches must only contain partially aligned requirements. missingKeywords will contain those which is present in job but not in the resume text. matchedKeywords will have keywords those are present in both job and resume. If resume text is short, poorly structured, or unreadable: reduce formattingScore, confidenceLevel, atsScore, still return valid JSON.
 
 IMPORTANT:
-Every suggestion must be traceable to explicit evidence from either: the job description, the resume text, If evidence does not exist, do not mention it.
+Every suggestion and info must be traceable to explicit evidence from either: the job description, the resume text, If evidence does not exist, do not mention it. So that there is no difference between what you returned and actual job desc and resume.
 `;
