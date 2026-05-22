@@ -1,8 +1,19 @@
 import JobCardsSkeleton from "@/components/dashboard/job-analyses/JobCardsSkeleton";
 import JobsRecordsList from "@/components/dashboard/job-analyses/JobsRecordList";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 const JobAnalyses = async () => {
+    const supabase = createClient();
+    const { data: { user } } = await (await supabase).auth.getUser();
+    const userId = user?.id;
+
+    // If user id is not found redirect to sign in page
+    if (!userId) {
+        redirect("/sign-in");
+    }
+
     return (
         <section className="flex-1 p-8 space-y-10 max-w-5xl">
             {/* ---- Header ---- */}

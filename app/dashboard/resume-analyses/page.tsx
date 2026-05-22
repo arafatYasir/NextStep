@@ -1,9 +1,18 @@
 import ResumeCardSkeletons from "@/components/dashboard/resume-analyses/ResumeCardSkeletons"
 import ResumeRecordsList from "@/components/dashboard/resume-analyses/ResumeRecordsList"
-import { SingleResumeCardSkeleton } from "@/components/dashboard/resume-analyses/SingleResumeCardSkeleton"
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { Suspense } from "react"
 
-const ResumeAnalyses = () => {
+const ResumeAnalyses = async () => {
+    const supabase = createClient();
+    const { data: { user } } = await(await supabase).auth.getUser();
+    const userId = user?.id;
+
+    // If user id is not found redirect to sign in page
+    if (!userId) {
+        redirect("/sign-in");
+    }
     return (
         <section className="flex-1 p-8 space-y-10 max-w-5xl">
             {/* ---- Header ---- */}

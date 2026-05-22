@@ -1,9 +1,16 @@
 import OverviewContainer from "@/components/dashboard/overview/OverviewContainer";
 import { createClient } from "@/lib/supabase/server"
+import { redirect } from "next/navigation";
 
 const DashboardOverview = async () => {
   const supabase = createClient();
   const { data: { user } } = await (await supabase).auth.getUser();
+  const userId = user?.id;
+
+  // If user id is not found redirect to sign in page
+  if (!userId) {
+    redirect("/sign-in");
+  }
 
   return (
     <section className="max-w-7xl">
@@ -18,7 +25,7 @@ const DashboardOverview = async () => {
       </div>
 
       {/* ---- Container ---- */}
-      <OverviewContainer userId={user?.id as string} />
+      <OverviewContainer userId={userId} />
     </section>
   )
 }
