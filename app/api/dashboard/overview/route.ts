@@ -1,34 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
+import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
 
 export async function GET(req: NextRequest) {
     try {
-        await connectToDatabase();
-
         const { searchParams } = new URL(req.url);
         const userId = searchParams.get("userId");
 
+        // If user id is not found then return
         if (!userId) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // Fetching job records
-        const jobs = await JobRecord.find({ userId, status: "completed" }).lean();
+        // Connec to DB
+        await connectToDatabase();
 
-        const jobAnalysesCount = jobs.length;
-        const resumeAnalysesCount = 0;
+        // Fetching job & resume records
+        const jobRecords = await JobRecord.find({ userId, status: "completed" }).lean();
+        const resumeRecords = await resumeAnalysisModel.find({ userId, status: "completed" }).lean();
+
+        const jobAnalysesCount = jobRecords.length;
+        const resumeAnalysesCount = resumeRecords.length;
         const resumesBuiltCount = 0;
         const lettersWrittenCount = 0;
 
-        // Constructing data for metrics
+        // Constructing data from jobRecords for metrics
         const skillsMap: Record<string, number> = {};
         const softSkillsMap: Record<string, number> = {};
         const toolsMap: Record<string, number> = {};
         const actionVerbsMap: Record<string, number> = {};
         const phrasesMap: Record<string, number> = {};
 
-        jobs.forEach((job: any) => {
+        jobRecords.forEach((job: any) => {
             const res = job.result;
             if (!res) return;
 

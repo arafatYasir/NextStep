@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import ServiceMetricCards from "./ServiceMetricCards";
 import JobAnalysisTab from "../JobAnalysisTab";
 import { cn } from "@/lib/utils";
-import { Spinner } from "../../ui/spinner";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import OverviewSkeleton from "./OverviewSkeleton";
 
@@ -15,12 +12,6 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
     const [activeTab, setActiveTab] = useState<"job" | "resume">("job");
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<any>(null);
-
-    // Extra hooks
-    const router = useRouter();
-
-    // If no user found then redirect to sign in page
-    if (!userId) router.push("/sign-in");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,7 +31,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
         fetchData();
     }, []);
 
-    if(loading) return <OverviewSkeleton />;
+    if (loading) return <OverviewSkeleton />;
 
     return (
         <div className="flex-1 p-8 space-y-10">
