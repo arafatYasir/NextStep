@@ -106,8 +106,8 @@ export async function GET(req: NextRequest) {
             }
         });
 
-    } catch (error) {
-        console.error("Dashboard Overview API Error:", error);
+    } catch (e) {
+        console.error("Dashboard Overview API Error:", e);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

@@ -1,7 +1,9 @@
 import OverviewContainer from "@/components/dashboard/overview/OverviewContainer";
 import ServiceMetricCards from "@/components/dashboard/overview/ServiceMetricCards";
+import ServiceMetricCardsSkeleton from "@/components/dashboard/overview/ServiceMetricCardsSkeleton";
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 const DashboardOverview = async () => {
   const supabase = createClient();
@@ -28,12 +30,13 @@ const DashboardOverview = async () => {
       {/* ---- Body ---- */}
       <div className="flex-1 p-8 space-y-10">
         {/* ---- Metric Cards ---- */}
-        <ServiceMetricCards />
+        <Suspense fallback={<ServiceMetricCardsSkeleton />}>
+          <ServiceMetricCards userId={userId} />
+        </Suspense>
 
+        {/* ---- Overview Container ---- */}
+        <OverviewContainer userId={userId} />
       </div>
-
-      {/* ---- Container ---- */}
-      <OverviewContainer userId={userId} />
     </section>
   )
 }
