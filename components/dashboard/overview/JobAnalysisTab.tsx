@@ -1,5 +1,3 @@
-"use client";
-
 import SkillChart from "../SkillChart"
 
 interface JobAnalysisTabProps {

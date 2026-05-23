@@ -60,7 +60,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
     }
 
     return (
-        <div className="">
+        <div>
             {/* ---- Tabs Section ---- */}
             <div className="space-y-6">
                 <div className="flex border-b border-[rgb(var(--border-default))]">

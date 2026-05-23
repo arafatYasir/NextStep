@@ -44,19 +44,24 @@ const SkillChart = ({ title, data, className }: SkillChartProps) => {
                 <h4 className="text-lg font-bold font-heading text-foreground">
                     {title}
                 </h4>
-                <Button
-                    type="button"
-                    onClick={handleCopy}
-                    title="Copy to clipboard"
-                    variant="secondary"
-                    className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
-                >
-                    {copied ? (
-                        <Check size={18} className="text-emerald-500 animate-in zoom-in duration-250" />
-                    ) : (
-                        <Copy size={18} />
-                    )}
-                </Button>
+
+                {
+                    copyContent.trim() && (
+                        <Button
+                            type="button"
+                            onClick={handleCopy}
+                            title="Copy to clipboard"
+                            variant="secondary"
+                            className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
+                        >
+                            {copied ? (
+                                <Check size={18} className="text-emerald-500 animate-in zoom-in duration-250" />
+                            ) : (
+                                <Copy size={18} />
+                            )}
+                        </Button>
+                    )
+                }
             </div>
 
             <div className="flex-1 space-y-5">
