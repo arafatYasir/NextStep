@@ -1,4 +1,5 @@
 import OverviewContainer from "@/components/dashboard/overview/OverviewContainer";
+import ServiceMetricCards from "@/components/dashboard/overview/ServiceMetricCards";
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation";
 
@@ -13,7 +14,7 @@ const DashboardOverview = async () => {
   }
 
   return (
-    <section className="max-w-7xl">
+    <section className="max-w-full 2xl:max-w-[90%]">
       {/* ---- Header ---- */}
       <div className="flex flex-col gap-1 pt-8 pl-8 pb-2">
         <h1 className="text-3xl font-bold font-heading tracking-tight text-foreground">
@@ -22,6 +23,13 @@ const DashboardOverview = async () => {
         <p className="text-foreground/80 font-sans text-base">
           Actionable intelligence from your career progression activities.
         </p>
+      </div>
+
+      {/* ---- Body ---- */}
+      <div className="flex-1 p-8 space-y-10">
+        {/* ---- Metric Cards ---- */}
+        <ServiceMetricCards />
+
       </div>
 
       {/* ---- Container ---- */}

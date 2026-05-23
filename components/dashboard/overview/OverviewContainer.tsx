@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ServiceMetricCards from "./ServiceMetricCards";
 import JobAnalysisTab from "./JobAnalysisTab";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -68,9 +67,6 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
 
     return (
         <div className="flex-1 p-8 space-y-10">
-            {/* ---- Metric Cards ---- */}
-            <ServiceMetricCards stats={data.stats} />
-
             {/* ---- Tabs Section ---- */}
             <div className="space-y-6">
                 <div className="flex border-b border-[rgb(var(--border-default))]">
