@@ -1,39 +1,38 @@
 import { FileSearch, ScanText, FilePlusCorner, PenLine } from "lucide-react";
+import MetricCard from "./MetricCard";
 
 const ServiceMetricCards = async ({ userId }: { userId: string }) => {
     const baseURL = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
 
     const res = await fetch(`${baseURL}/api/dashboard/metrics?userId=${userId}`);
-    const data = await res.json();
-
-    console.log(data);
+    const {jobRecords, resumeRecords, resumesBuilt, coverLetters} = await res.json();
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* <MetricCard
+            <MetricCard
                 label="Job Analyses"
-                value={stats.jobAnalysesCount}
+                value={jobRecords}
                 icon={FileSearch}
                 description="Total jobs analyzed"
             />
             <MetricCard
                 label="Resume Analyses"
-                value={stats.resumeAnalysesCount}
+                value={resumeRecords}
                 icon={ScanText}
                 description="Total resumes analyzed"
             />
             <MetricCard
                 label="Resumes Built"
-                value={stats.resumesBuiltCount}
+                value={resumesBuilt}
                 icon={FilePlusCorner}
                 description="Professional resumes created"
             />
             <MetricCard
                 label="Letters Written"
-                value={stats.lettersWrittenCount}
+                value={coverLetters}
                 icon={PenLine}
                 description="AI-generated cover letters"
-            /> */}
+            />
         </div>
     );
 };
