@@ -8,12 +8,6 @@ import OverviewSkeleton from "./OverviewSkeleton";
 import ResumeAnalysisTab from "./ResumeAnalysisTab";
 
 interface OverviewData {
-    stats: {
-        jobAnalysesCount: number,
-        resumeAnalysesCount: number,
-        resumesBuiltCount: number,
-        lettersWrittenCount: number
-    },
     jobAnalysisData: {
         hardSkills: {name: string, count: number}[],
         softSkills: {name: string, count: number}[],

@@ -13,17 +13,12 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // Connec to DB
+        // Connect to DB
         await connectToDatabase();
 
         // Fetching job & resume records
         const jobRecords = await JobRecord.find({ userId, status: "completed" }).lean();
         const resumeRecords = await resumeAnalysisModel.find({ userId, status: "completed" }).lean();
-
-        const jobAnalysesCount = jobRecords.length;
-        const resumeAnalysesCount = resumeRecords.length;
-        const resumesBuiltCount = 0;
-        const lettersWrittenCount = 0;
 
         // Constructing data from jobRecords for metrics
         const skillsMap: Record<string, number> = {};
@@ -96,12 +91,6 @@ export async function GET(req: NextRequest) {
                 .slice(0, 10);
 
         return NextResponse.json({
-            stats: {
-                jobAnalysesCount,
-                resumeAnalysesCount,
-                resumesBuiltCount,
-                lettersWrittenCount,
-            },
             jobAnalysisData: {
                 hardSkills: formatMap(skillsMap),
                 softSkills: formatMap(softSkillsMap),
