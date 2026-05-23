@@ -12,7 +12,7 @@ const MetricCardSkeleton = () => {
             {/* ---- Value and Description Skeleton ---- */}
             <div className="space-y-1">
                 <Skeleton className="w-[20%] rounded h-10" />
-                <Skeleton className="w-[87%] rounded h-5" />
+                <Skeleton className="w-[87%] rounded h-3" />
             </div>
         </div>
     )
