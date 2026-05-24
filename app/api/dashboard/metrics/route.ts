@@ -1,3 +1,4 @@
+import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,6 +11,9 @@ export async function GET(req: NextRequest) {
         if (!userId) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
+
+        // Connect to DB
+        await connectToDatabase();
 
         // Fetching metric data
         const jobRecords = await JobRecord.countDocuments({ userId, status: "completed" });
