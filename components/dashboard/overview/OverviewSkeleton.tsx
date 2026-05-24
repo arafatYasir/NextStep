@@ -5,9 +5,16 @@ const OverviewSkeleton = () => {
     return (
         <div className="space-y-6">
             {/* ---- Tabs Skeleton ---- */}
-            <Skeleton className="w-full rounded h-[45px]" />
+            <div className="flex border-b border-[rgb(var(--border-default))]">
+                <div className="px-6 py-3">
+                    <Skeleton className="h-[21px] w-25 rounded" />
+                </div>
+                <div className="px-6 py-3">
+                    <Skeleton className="h-[21px] w-25 rounded" />
+                </div>
+            </div>
 
-            {/* ---- Job Analysis Skeleton ---- */}
+            {/* ---- Analysis Skeletons ---- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {Array.from({ length: 5 }).map((_, index) => (
                     <div className={cn(
@@ -21,7 +28,7 @@ const OverviewSkeleton = () => {
 
                         <div className="flex-1 space-y-5">
                             {Array.from({ length: 8 }).map((_, index) => (
-                                <div className="space-y-1.5 w-full">
+                                <div className="space-y-1.5 w-full" key={index}>
                                     <div className="flex justify-between items-end">
                                         <Skeleton className="h-3 w-[20%]" />
                                         <Skeleton className="h-3 w-[10%]" />
