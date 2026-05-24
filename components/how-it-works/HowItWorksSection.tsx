@@ -23,6 +23,30 @@ export const howItWorksSteps = [
             </>
         ),
         image: "/images/how-it-works-step-2.png",
+    },
+    {
+        id: 3,
+        title: "Test Your Resume Against the Job",
+        description: (
+            <>
+                Upload <b>your resume</b> and compare it directly with the <b>job description</b> you analyzed earlier. Jump into <Link className="underline" href="/tools/resume-analyzer">AI Resume Analyzer</Link> page. <b>PDF</b> and <b>DOC/DOCX</b> files are fully supported, and you can upload files up to <b>5MB</b>.
+                <br /><br />
+                The Resume Analyzer instantly checks how well your resume matches the <b>role</b>, <b>including keywords</b>, <b>skills</b>, and important <b>requirements</b>.
+            </>
+        ),
+        image: "/images/how-it-works-step-3.png",
+    },
+    {
+        id: 4,
+        title: "Get Detailed Resume Insights",
+        description: (
+            <>
+                Once the analysis is complete, you'll get a complete breakdown of your resume performance. <b>ATS score</b>, <b>section-wise scores</b>, <b>matched keywords</b>, <b>missing keywords</b>, <b>overused keywords</b>, <b>formatting issues</b>, and personalized improvement suggestions.
+                <br /><br />
+                You'll also receive <b>section-by-section</b> feedback to understand exactly what's working and hurting your resume, and how to improve it for stronger ATS compatibility and more interview chances.
+            </>
+        ),
+        image: "/images/how-it-works-step-4.png"
     }
 ];
 
