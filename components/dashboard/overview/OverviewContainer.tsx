@@ -52,7 +52,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
     if (!data) {
         return (
             <div className="flex-1 p-8">
-                <p className="text-base font-semibold font-heading text-center text-foreground/80">
+                <p className="text-lg font-semibold font-heading text-center text-foreground/80">
                     Could not load overview data. Please refresh the page.
                 </p>
             </div>
