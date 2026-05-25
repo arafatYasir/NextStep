@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { SubmitEventHandler, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner"
@@ -22,12 +22,15 @@ interface LoadingState {
     loadingFor: "email" | "google" | "github" | "none";
 }
 
+
 const SignInPage = () => {
     // States
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState<LoadingState>({ isLoading: false, loadingFor: "none" });
     const [error, setError] = useState<ErrorState>({});
+
+    // Extra hooks
     const router = useRouter();
 
     // Constants
@@ -59,7 +62,7 @@ const SignInPage = () => {
         return Object.keys(tempError).length === 0;
     }
 
-    const handleSignIn = async (e: React.FormEvent) => {
+    const handleSignIn: SubmitEventHandler<HTMLFormElement> = async (e) => {
         // Prevent the page reload
         e.preventDefault();
 
@@ -254,7 +257,7 @@ const SignInPage = () => {
                     <Button
                         type="submit"
                         className="w-full"
-                        disabled={loading.isLoading && loading.loadingFor === "email"}
+                        disabled={loading.isLoading}
                     >
                         {loading.isLoading && loading.loadingFor === "email" ? <span className="flex items-center gap-x-2"><Spinner />Signing in...</span> : "Sign In"}
                     </Button>
@@ -278,7 +281,7 @@ const SignInPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGoogleSignIn}
-                        disabled={loading.isLoading && loading.loadingFor === "google"}
+                        disabled={loading.isLoading}
                     >
                         {
                             loading.isLoading && loading.loadingFor === "google" ?
@@ -293,7 +296,7 @@ const SignInPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGitHubSignIn}
-                        disabled={loading.isLoading && loading.loadingFor === "github"}
+                        disabled={loading.isLoading}
                     >
                         {
                             loading.isLoading && loading.loadingFor === "github" ?

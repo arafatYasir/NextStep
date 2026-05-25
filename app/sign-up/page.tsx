@@ -263,7 +263,7 @@ const SignUpPage = () => {
                     {/* Sign Up Button */}
                     <Button
                         type="submit"
-                        disabled={loading.isLoading && loading.loadingFor === "email"}
+                        disabled={loading.isLoading}
                         className="w-full"
                     >
                         {loading.isLoading && loading.loadingFor === "email" ? <span className="flex items-center gap-x-2"><Spinner />Signing up...</span> : "Sign Up"}
@@ -288,7 +288,7 @@ const SignUpPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGoogleSignUp}
-                        disabled={loading.isLoading && loading.loadingFor === "google"}
+                        disabled={loading.isLoading}
                     >
                         {
                             loading.isLoading && loading.loadingFor === "google" ?
@@ -303,7 +303,7 @@ const SignUpPage = () => {
                         variant="outline"
                         className="w-full"
                         onClick={handleGitHubSignUp}
-                        disabled={loading.isLoading && loading.loadingFor === "github"}
+                        disabled={loading.isLoading}
                     >
                         {
                             loading.isLoading && loading.loadingFor === "github" ?
