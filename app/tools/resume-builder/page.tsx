@@ -15,7 +15,7 @@ const ResumeBuilder = () => {
                         </h1>
 
                         <p className="text-sm sm:text-base md:text-lg font-sans text-foreground/80 sm:max-w-3xl leading-relaxed sm:text-balance">
-                            Build a job-ready, ATS-optimized resume in seconds by aligning your skills, experience, and details with the exact requirements employers are looking for.
+                            Build a job-ready, ATS-optimized resume in seconds against a specific job. Inlcuding skills, experience, and details with the exact requirements employer is looking for.
                         </p>
                     </div>
 
