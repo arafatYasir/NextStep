@@ -5,16 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
     LayoutDashboard,
-    Briefcase,
-    FileText,
     Zap,
     History,
     Settings,
-    ChevronRight
+    ChevronRight,
+    FileSearch,
+    ScanText,
+    FilePlusCorner,
+    PenLine
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/client";
 
 interface NavItem {
     label: string;
@@ -24,10 +25,10 @@ interface NavItem {
 
 const navItems: NavItem[] = [
     { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Job Analyses", href: "/dashboard/job-analyses", icon: Briefcase },
-    { label: "Resume Analyses", href: "/dashboard/resume-analyses", icon: FileText },
-    { label: "Usage & Limits", href: "/dashboard/usage", icon: Zap },
-    { label: "History", href: "/dashboard/history", icon: History },
+    { label: "Job Analyses", href: "/dashboard/job-analyses", icon: FileSearch },
+    { label: "Resume Analyses", href: "/dashboard/resume-analyses", icon: ScanText },
+    { label: "Resumes Built", href: "/dashboard/resumes-built", icon: FilePlusCorner },
+    { label: "Letters Written", href: "/dashboard/letters-written", icon: PenLine },
     { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
