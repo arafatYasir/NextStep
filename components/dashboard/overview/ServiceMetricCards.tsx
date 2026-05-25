@@ -8,10 +8,7 @@ const ServiceMetricCards = async ({ userId }: { userId: string }) => {
     await connectToDatabase();
 
     const jobRecords = await JobRecord.countDocuments({ userId, status: "completed" });
-    const resumeRecords = await resumeAnalysisModel.countDocuments({
-        userId,
-        status: "completed",
-    });
+    const resumeRecords = await resumeAnalysisModel.countDocuments({ userId, status: "completed" });
     const resumesBuilt = 0;
     const coverLetters = 0;
 

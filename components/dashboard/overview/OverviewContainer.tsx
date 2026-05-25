@@ -23,7 +23,7 @@ interface OverviewData {
     }
 }
 
-const OverviewContainer = ({ userId }: { userId: string }) => {
+const OverviewContainer = () => {
     // States
     const [activeTab, setActiveTab] = useState<"job" | "resume">("job");
     const [loading, setLoading] = useState(true);

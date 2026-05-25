@@ -10,8 +10,6 @@ const DashboardOverview = async () => {
   const { data: { user } } = await (await supabase).auth.getUser();
   const userId = user?.id;
 
-  console.log(userId)
-
   // If user id is not found redirect to sign in page
   if (!userId) {
     redirect("/sign-in");
@@ -37,7 +35,7 @@ const DashboardOverview = async () => {
         </Suspense>
 
         {/* ---- Overview Container ---- */}
-        <OverviewContainer userId={userId} />
+        <OverviewContainer />
       </div>
     </section>
   )
