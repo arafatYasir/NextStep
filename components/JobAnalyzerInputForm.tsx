@@ -10,10 +10,16 @@ import SignInAlertModal from "./SignInAlertModal";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
 
+interface ErrorState {
+    jobRole?: string;
+    jobDescription?: string;
+}
+
 const JobAnalyzerInputForm = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
+    const [errors, setErrors] = useState<ErrorState>({});
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<JobAnalysis | null>(null);
     const [showSignInModal, setShowSignInModal] = useState(false);
@@ -46,12 +52,60 @@ const JobAnalyzerInputForm = () => {
         }
     }, []);
 
+    const isDisabled = !jobRole.trim() || !jobDescription.trim();
+
     // Functions
+    const handleChangeJobRole = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setJobRole(e.target.value.slice(0, 50));
+
+        if (errors.jobRole) {
+            setErrors(prev => ({
+                ...prev,
+                jobRole: ""
+            }));
+        }
+    };
+
+    const handleChangeJobDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setJobDescription(e.target.value.slice(0, 3000));
+
+        if (errors.jobDescription) {
+            setErrors(prev => ({
+                ...prev,
+                jobDescription: ""
+            }));
+        }
+    };
+
+    const handleCheckErrors = () => {
+        const tempErrors: ErrorState = {};
+
+        if (!jobRole.trim()) {
+            tempErrors.jobRole = "Job title is required";
+        }
+
+        if (!jobDescription.trim()) {
+            tempErrors.jobDescription = "Job description is required";
+        }
+
+        setErrors(tempErrors);
+
+        return Object.keys(tempErrors).length > 0;
+    };
+
     const handleAnalyze: SubmitEventHandler<HTMLFormElement> = async (e) => {
         // Prevent the default behavior
         e.preventDefault();
 
         try {
+            // Clear previous errors
+            setErrors({});
+
+            // Check for errors
+            if (handleCheckErrors()) {
+                return;
+            }
+
             // Checking if the user is logged in or not
             const supabase = createClient();
 
@@ -147,8 +201,6 @@ const JobAnalyzerInputForm = () => {
         }
     };
 
-    const isDisabled = !jobRole.trim() || !jobDescription.trim();
-
     return (
         <>
             {/* ---- Input Card ---- */}
@@ -164,9 +216,13 @@ const JobAnalyzerInputForm = () => {
                     <Input
                         id="job-role"
                         value={jobRole}
-                        onChange={(e) => setJobRole(e.target.value.slice(0, 50))}
+                        onChange={handleChangeJobRole}
                         placeholder="Enter the job title as it appears in the job posting"
                     />
+
+                    {errors.jobRole && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.jobRole}</p>
+                    )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobRole.length}/50 characters
@@ -185,10 +241,14 @@ const JobAnalyzerInputForm = () => {
                     <Textarea
                         id="job-description"
                         value={jobDescription}
-                        onChange={(e) => setJobDescription(e.target.value.slice(0, 3000))}
+                        onChange={handleChangeJobDescription}
                         placeholder="Paste the full job description from the posting, including responsibilities and requirements"
                         className="h-40 resize-none scrollbar-custom"
                     />
+
+                    {errors.jobDescription && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.jobDescription}</p>
+                    )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobDescription.length}/3000 characters
