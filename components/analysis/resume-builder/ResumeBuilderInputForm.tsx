@@ -24,6 +24,17 @@ interface JobInfo {
     jobDescription: string;
 }
 
+interface ErrorState {
+    fullName?: string;
+    email?: string;
+    phone?: string;
+    location?: string;
+    github?: string;
+    linkedin?: string;
+    jobTitle?: string,
+    jobDescription?: string;
+}
+
 const ResumeBuilderInputForm = () => {
     // States
     const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
@@ -32,6 +43,7 @@ const ResumeBuilderInputForm = () => {
     const [jobInfo, setJobInfo] = useState<JobInfo>({
         jobTitle: "", jobDescription: ""
     });
+    const [errors, setErrors] = useState<ErrorState>({});
     const [showSignInModal, setShowSignInModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<ResumeAnalysis | null>(null);
@@ -39,6 +51,12 @@ const ResumeBuilderInputForm = () => {
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
     const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Variables
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phoneRegex = /^(\d{3}[- .]?){2}\d{4}$/;
+    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    const isDisabled = !personalInfo.fullName.trim() || !personalInfo.email.trim() || !personalInfo.phone.trim() || !personalInfo.location.trim() || !personalInfo.github.trim() || !personalInfo.linkedin.trim() || !jobInfo.jobTitle.trim() || !jobInfo.jobDescription.trim();
 
     // Handling outside clicks
     useEffect(() => {
@@ -68,24 +86,115 @@ const ResumeBuilderInputForm = () => {
             ...prev,
             [id]: value.slice(0, 50)
         }));
+
+        // Clear error for this specific field if has any
+        if (errors[id as keyof ErrorState]) {
+            setErrors(prev => ({
+                ...prev,
+                [id]: ""
+            }));
+        }
     }
 
     const handleChangeJobInfo = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
-        console.log(" I am here!!!!")
-        console.log(id, value)
 
         setJobInfo(prev => ({
             ...prev,
             [id]: id === "jobTitle" ? value.slice(0, 50) : value.slice(0, 2000)
         }));
+
+        // Clear error for this specific field if has any
+        if (errors[id as keyof ErrorState]) {
+            setErrors(prev => ({
+                ...prev,
+                [id]: ""
+            }));
+        }
     }
 
-    const isDisabled = !personalInfo.fullName.trim() || !personalInfo.email.trim() || !personalInfo.phone.trim() || !personalInfo.location.trim() || !personalInfo.github.trim() || !personalInfo.linkedin.trim() || !jobInfo.jobTitle.trim() || !jobInfo.jobDescription.trim();
+    const handleCheckErrors = () => {
+        // Initialize a new empty error object
+        const tempErrors: ErrorState = {};
+
+        // ---- Personal Informations ----
+        if (!personalInfo.fullName.trim()) {
+            tempErrors.fullName = "Full name is required";
+        }
+
+        if (!personalInfo.email.trim()) {
+            tempErrors.email = "Email is required";
+        }
+        else if (!emailRegex.test(personalInfo.email)) {
+            tempErrors.email = "Invalid email format"
+        }
+
+        if (!personalInfo.phone.trim()) {
+            tempErrors.phone = "Phone number is required";
+        }
+        else if (!phoneRegex.test(personalInfo.phone)) {
+            tempErrors.phone = "Invalid phone number format";
+        }
+
+        if (!personalInfo.location.trim()) {
+            tempErrors.location = "Location is required";
+        }
+
+        if (!personalInfo.github.trim()) {
+            tempErrors.github = "GitHub link is required";
+        }
+        else if (!urlRegex.test(personalInfo.github)) {
+            tempErrors.github = "Invalid url format";
+        }
+
+        if (!personalInfo.linkedin.trim()) {
+            tempErrors.linkedin = "LinkedIn link is required";
+        }
+        else if (!urlRegex.test(personalInfo.linkedin)) {
+            tempErrors.linkedin = "Invalid url format";
+        }
+
+        // ---- Job Informations ----
+        if (!jobInfo.jobTitle.trim()) {
+            tempErrors.jobTitle = "Job title is required";
+        }
+        if (!jobInfo.jobDescription.trim()) {
+            tempErrors.jobDescription = "Job description is required";
+        }
+
+        // Set new erros in the state
+        setErrors(tempErrors);
+
+        return Object.keys(tempErrors).length > 0;
+    }
+
+    const handleBuild: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
+        try {
+            // Prevent default behavior
+            e.preventDefault();
+
+            // Clear previous error
+            setErrors({});
+
+            // Check for errors
+            if (handleCheckErrors()) {
+                return;
+            }
+
+            // Start the loading
+            setLoading(true);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <>
-            <form className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+            <form onSubmit={handleBuild} className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Area Label: Personal Informations ---- */}
                 <div className="relative my-4 xs:my-6">
                     <div className="absolute inset-0 flex items-center">
@@ -93,7 +202,7 @@ const ResumeBuilderInputForm = () => {
                     </div>
 
                     <div className="relative flex justify-center text-xs xs:text-sm sm:text-[15px] uppercase font-semibold font-sans">
-                        <span className="bg-card px-4 text-foreground">Personal Informations</span>
+                        <span className="bg-card px-4 text-foreground">Personal Information</span>
                     </div>
                 </div>
 
@@ -108,6 +217,12 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangePersonalInfo}
                         placeholder="Full name (eg. John Doe)"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.fullName && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.fullName}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {personalInfo.fullName.length}/50 characters
                     </p>
@@ -125,6 +240,12 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangePersonalInfo}
                         placeholder="Email address (eg. johndoe@gmail.com)"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.email && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.email}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {personalInfo.email.length}/50 characters
                     </p>
@@ -142,6 +263,12 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangePersonalInfo}
                         placeholder="Phone number (eg. +XXXXXXXXXX)"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.phone && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.phone}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {personalInfo.phone.length}/50 characters
                     </p>
@@ -158,6 +285,12 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangePersonalInfo}
                         placeholder="Location (eg. San Francisco, USA)"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.location && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.location}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {personalInfo.location.length}/50 characters
                     </p>
@@ -175,6 +308,12 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangePersonalInfo}
                         placeholder="GitHub URL (eg. https://github.com/john)"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.github && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.github}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {personalInfo.github.length}/50 characters
                     </p>
@@ -192,12 +331,18 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangePersonalInfo}
                         placeholder="LinkedIn URL (eg. https://linkedin.com/in/john)"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.linkedin && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.linkedin}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {personalInfo.linkedin.length}/50 characters
                     </p>
                 </div>
 
-                
+
                 {/* ---- Area Label: Job Specific Informations ---- */}
                 <div className="relative my-4 xs:my-6">
                     <div className="absolute inset-0 flex items-center">
@@ -205,7 +350,7 @@ const ResumeBuilderInputForm = () => {
                     </div>
 
                     <div className="relative flex justify-center text-xs xs:text-sm sm:text-[15px] uppercase font-semibold font-sans">
-                        <span className="bg-card px-4 text-foreground">Job Specific Informations</span>
+                        <span className="bg-card px-4 text-foreground">Job Specific Information</span>
                     </div>
                 </div>
 
@@ -220,6 +365,12 @@ const ResumeBuilderInputForm = () => {
                         onChange={handleChangeJobInfo}
                         placeholder="Enter the job title as it appears in the job posting"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.jobTitle && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.jobTitle}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobInfo.jobTitle.length}/50 characters
                     </p>
@@ -237,6 +388,12 @@ const ResumeBuilderInputForm = () => {
                         placeholder="Paste the full job description"
                         className="h-40 resize-none scrollbar-custom"
                     />
+
+                    {/* ---- Error Message ---- */}
+                    {errors.jobDescription && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.jobDescription}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobInfo.jobDescription.length}/2000 characters
                     </p>
@@ -249,7 +406,7 @@ const ResumeBuilderInputForm = () => {
                     type="submit"
                 >
                     <span className="flex items-center gap-x-2">
-                        Build The Resume
+                        Build the Resume
                         <Sparkles className="size-4.5" />
                     </span>
                 </Button>

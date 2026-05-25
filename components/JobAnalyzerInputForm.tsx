@@ -8,7 +8,6 @@ import { Textarea } from "./ui/textarea";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
 import { toast } from "sonner";
-import { Spinner } from "./ui/spinner";
 import { Sparkles } from "lucide-react";
 
 const JobAnalyzerInputForm = () => {
