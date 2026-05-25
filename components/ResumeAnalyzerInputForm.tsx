@@ -11,11 +11,23 @@ import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
 import ResumeAnalysisModal from "./analysis/resume/ResumeAnalysisModal";
 
+interface ErrorState {
+    jobRole?: string;
+    jobDescription?: string;
+    resume?: string;
+}
+
+const ACCEPTED_RESUME_TYPES = [
+    "application/pdf",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+
 const ResumeAnalyzerInputForm = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [file, setFile] = useState<File | null>(null);
+    const [errors, setErrors] = useState<ErrorState>({});
     const [isDragging, setIsDragging] = useState(false);
     const [showSignInModal, setShowSignInModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -46,7 +58,57 @@ const ResumeAnalyzerInputForm = () => {
         }
     }, []);
 
+    const isDisabled = !jobRole.trim() || !jobDescription.trim() || !file;
+
+    const isAcceptedResumeFile = (resumeFile: File) =>
+        ACCEPTED_RESUME_TYPES.includes(resumeFile.type);
+
     // Handlers
+    const handleChangeJobRole = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setJobRole(e.target.value.slice(0, 50));
+
+        if (errors.jobRole) {
+            setErrors(prev => ({
+                ...prev,
+                jobRole: ""
+            }));
+        }
+    };
+
+    const handleChangeJobDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setJobDescription(e.target.value.slice(0, 2000));
+
+        if (errors.jobDescription) {
+            setErrors(prev => ({
+                ...prev,
+                jobDescription: ""
+            }));
+        }
+    };
+
+    const handleCheckErrors = () => {
+        const tempErrors: ErrorState = {};
+
+        if (!jobRole.trim()) {
+            tempErrors.jobRole = "Job title is required";
+        }
+
+        if (!jobDescription.trim()) {
+            tempErrors.jobDescription = "Job description is required";
+        }
+
+        if (!file) {
+            tempErrors.resume = "Resume is required";
+        }
+        else if (!isAcceptedResumeFile(file)) {
+            tempErrors.resume = "File type must be PDF or DOCX";
+        }
+
+        setErrors(tempErrors);
+
+        return Object.keys(tempErrors).length > 0;
+    };
+
     const handleClickResumeUpload = () => {
         if (resumeInputRef.current) {
             resumeInputRef.current.click();
@@ -69,8 +131,15 @@ const ResumeAnalyzerInputForm = () => {
 
         const droppedFile = e.dataTransfer.files[0];
 
-        if (droppedFile && (droppedFile.type === "application/pdf" || droppedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+        if (droppedFile && isAcceptedResumeFile(droppedFile)) {
             setFile(droppedFile);
+
+            if (errors.resume) {
+                setErrors(prev => ({
+                    ...prev,
+                    resume: ""
+                }));
+            }
         }
         else {
             toast.error("File is missing or file type is not supported!");
@@ -79,7 +148,22 @@ const ResumeAnalyzerInputForm = () => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
-        if (selectedFile) setFile(selectedFile);
+
+        if (!selectedFile) return;
+
+        if (isAcceptedResumeFile(selectedFile)) {
+            setFile(selectedFile);
+
+            if (errors.resume) {
+                setErrors(prev => ({
+                    ...prev,
+                    resume: ""
+                }));
+            }
+        }
+        else {
+            toast.error("File type is not supported! Please upload a PDF or DOCX file.");
+        }
     };
 
     const removeFile = () => setFile(null);
@@ -96,6 +180,14 @@ const ResumeAnalyzerInputForm = () => {
         e.preventDefault();
 
         try {
+            // Clear previous errors
+            setErrors({});
+
+            // Check for errors
+            if (handleCheckErrors()) {
+                return;
+            }
+
             // Checking if the user is logged in or not
             const supabase = createClient();
 
@@ -190,8 +282,6 @@ const ResumeAnalyzerInputForm = () => {
         }
     }
 
-    const isDisabled = !jobRole.trim() || !jobDescription.trim() || !file;
-
     return (
         <>
             <form onSubmit={handleAnalyze} className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
@@ -203,9 +293,14 @@ const ResumeAnalyzerInputForm = () => {
                     <Input
                         id="job-role"
                         value={jobRole}
-                        onChange={(e) => setJobRole(e.target.value.slice(0, 50))}
+                        onChange={handleChangeJobRole}
                         placeholder="Enter the job title as it appears in the job posting"
                     />
+
+                    {errors.jobRole && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.jobRole}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobRole.length}/50 characters
                     </p>
@@ -219,10 +314,15 @@ const ResumeAnalyzerInputForm = () => {
                     <Textarea
                         id="job-description"
                         value={jobDescription}
-                        onChange={(e) => setJobDescription(e.target.value.slice(0, 2000))}
+                        onChange={handleChangeJobDescription}
                         placeholder="Paste the full job description to compare against your resume"
                         className="h-40 resize-none scrollbar-custom"
                     />
+
+                    {errors.jobDescription && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.jobDescription}</p>
+                    )}
+
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                         {jobDescription.length}/2000 characters
                     </p>
@@ -285,6 +385,10 @@ const ResumeAnalyzerInputForm = () => {
                                 <X className="size-5" />
                             </button>
                         </div>
+                    )}
+
+                    {errors.resume && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.resume}</p>
                     )}
                 </div>
 

@@ -28,6 +28,9 @@ const JobAnalyzerInputForm = () => {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+    // Variables
+    const isDisabled = !jobRole.trim() || !jobDescription.trim();
+
     // Handling outside clicks
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -51,8 +54,6 @@ const JobAnalyzerInputForm = () => {
             }
         }
     }, []);
-
-    const isDisabled = !jobRole.trim() || !jobDescription.trim();
 
     // Functions
     const handleChangeJobRole = (e: React.ChangeEvent<HTMLInputElement>) => {

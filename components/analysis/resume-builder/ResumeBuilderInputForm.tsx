@@ -169,10 +169,10 @@ const ResumeBuilderInputForm = () => {
     }
 
     const handleBuild: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
-        try {
-            // Prevent default behavior
-            e.preventDefault();
+        // Prevent default behavior
+        e.preventDefault();
 
+        try {
             // Clear previous error
             setErrors({});
 
