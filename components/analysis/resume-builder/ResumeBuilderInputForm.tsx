@@ -120,6 +120,7 @@ const ResumeBuilderInputForm = () => {
                     </label>
                     <Input
                         id="email"
+                        type="email"
                         value={personalInfo.email}
                         onChange={handleChangePersonalInfo}
                         placeholder="Email address (eg. johndoe@gmail.com)"
@@ -136,6 +137,7 @@ const ResumeBuilderInputForm = () => {
                     </label>
                     <Input
                         id="phone"
+                        type="tel"
                         value={personalInfo.phone}
                         onChange={handleChangePersonalInfo}
                         placeholder="Phone number (eg. +XXXXXXXXXX)"
@@ -168,6 +170,7 @@ const ResumeBuilderInputForm = () => {
                     </label>
                     <Input
                         id="github"
+                        type="url"
                         value={personalInfo.github}
                         onChange={handleChangePersonalInfo}
                         placeholder="GitHub URL (eg. https://github.com/john)"
@@ -184,6 +187,7 @@ const ResumeBuilderInputForm = () => {
                     </label>
                     <Input
                         id="linkedin"
+                        type="url"
                         value={personalInfo.linkedin}
                         onChange={handleChangePersonalInfo}
                         placeholder="LinkedIn URL (eg. https://linkedin.com/in/john)"
@@ -193,7 +197,7 @@ const ResumeBuilderInputForm = () => {
                     </p>
                 </div>
 
-
+                
                 {/* ---- Area Label: Job Specific Informations ---- */}
                 <div className="relative my-4 xs:my-6">
                     <div className="absolute inset-0 flex items-center">
