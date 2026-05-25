@@ -1,11 +1,19 @@
 import { FileSearch, ScanText, FilePlusCorner, PenLine } from "lucide-react";
 import MetricCard from "./MetricCard";
+import { connectToDatabase } from "@/src/database/mongodb";
+import JobRecord from "@/src/models/jobRecord.model";
+import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
 
 const ServiceMetricCards = async ({ userId }: { userId: string }) => {
-    const baseURL = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
+    await connectToDatabase();
 
-    const res = await fetch(`${baseURL}/api/dashboard/metrics?userId=${userId}`);
-    const { jobRecords, resumeRecords, resumesBuilt, coverLetters } = await res.json();
+    const jobRecords = await JobRecord.countDocuments({ userId, status: "completed" });
+    const resumeRecords = await resumeAnalysisModel.countDocuments({
+        userId,
+        status: "completed",
+    });
+    const resumesBuilt = 0;
+    const coverLetters = 0;
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

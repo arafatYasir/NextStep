@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import GoogleIcon from "@/icons/GoogleIcon";
 import GitHubIcon from "@/icons/GitHubIcon";
 import { Spinner } from "@/components/ui/spinner";
+import { formatPasswordHint } from "@/src/helpers/validation";
 
 interface ErrorState {
     email?: string;
@@ -225,6 +226,9 @@ const SignUpPage = () => {
                         {error?.email && (
                             <p className="text-red-500 text-[15px] mt-2">{error?.email}</p>
                         )}
+                        <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                            Required · valid email format
+                        </p>
                     </div>
 
                     {/* ---- Password ---- */}
@@ -258,6 +262,9 @@ const SignUpPage = () => {
                         {error?.password && (
                             <p className="text-red-500 text-[15px] mt-2">{error?.password}</p>
                         )}
+                        <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                            {formatPasswordHint(password.length)}
+                        </p>
                     </div>
 
                     {/* Sign Up Button */}

@@ -9,6 +9,15 @@ import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
+import {
+    formatCharCountHint,
+    JOB_DESCRIPTION_MAX,
+    JOB_DESCRIPTION_MIN,
+    JOB_TITLE_MAX,
+    JOB_TITLE_MIN,
+    validateJobDescription,
+    validateJobTitle,
+} from "@/src/helpers/validation";
 
 interface ErrorState {
     jobRole?: string;
@@ -81,12 +90,14 @@ const JobAnalyzerInputForm = () => {
     const handleCheckErrors = () => {
         const tempErrors: ErrorState = {};
 
-        if (!jobRole.trim()) {
-            tempErrors.jobRole = "Job title is required";
+        const titleError = validateJobTitle(jobRole.trim());
+        if (titleError) {
+            tempErrors.jobRole = titleError;
         }
 
-        if (!jobDescription.trim()) {
-            tempErrors.jobDescription = "Job description is required";
+        const descriptionError = validateJobDescription(jobDescription.trim());
+        if (descriptionError) {
+            tempErrors.jobDescription = descriptionError;
         }
 
         setErrors(tempErrors);
@@ -128,7 +139,7 @@ const JobAnalyzerInputForm = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ jobRole, jobDescription, userId: user.id })
+                body: JSON.stringify({ jobRole, jobDescription })
             });
 
             // Get the queued job id
@@ -226,7 +237,7 @@ const JobAnalyzerInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobRole.length}/50 characters
+                        {formatCharCountHint(jobRole.length, JOB_TITLE_MIN, JOB_TITLE_MAX)}
                     </p>
                 </div>
 
@@ -252,7 +263,7 @@ const JobAnalyzerInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobDescription.length}/3000 characters
+                        {formatCharCountHint(jobDescription.length, JOB_DESCRIPTION_MIN, JOB_DESCRIPTION_MAX)}
                     </p>
                 </div>
 

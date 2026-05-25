@@ -9,6 +9,17 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "@/components/SignInAlertModal";
+import {
+    formatCharCountHint,
+    formatRequiredMaxHint,
+    JOB_DESCRIPTION_MIN,
+    JOB_TITLE_MAX,
+    JOB_TITLE_MIN,
+    PERSONAL_FIELD_MAX,
+    RESUME_JOB_DESCRIPTION_MAX,
+    validateJobDescription,
+    validateJobTitle,
+} from "@/src/helpers/validation";
 
 interface PersonalInfo {
     fullName: string;
@@ -155,11 +166,17 @@ const ResumeBuilderInputForm = () => {
         }
 
         // ---- Job Informations ----
-        if (!jobInfo.jobTitle.trim()) {
-            tempErrors.jobTitle = "Job title is required";
+        const jobTitleError = validateJobTitle(jobInfo.jobTitle.trim());
+        if (jobTitleError) {
+            tempErrors.jobTitle = jobTitleError;
         }
-        if (!jobInfo.jobDescription.trim()) {
-            tempErrors.jobDescription = "Job description is required";
+
+        const jobDescriptionError = validateJobDescription(
+            jobInfo.jobDescription.trim(),
+            RESUME_JOB_DESCRIPTION_MAX
+        );
+        if (jobDescriptionError) {
+            tempErrors.jobDescription = jobDescriptionError;
         }
 
         // Set new erros in the state
@@ -224,7 +241,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {personalInfo.fullName.length}/50 characters
+                        {formatRequiredMaxHint(personalInfo.fullName.length, PERSONAL_FIELD_MAX)}
                     </p>
                 </div>
 
@@ -247,7 +264,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {personalInfo.email.length}/50 characters
+                        {formatRequiredMaxHint(personalInfo.email.length, PERSONAL_FIELD_MAX)}
                     </p>
                 </div>
 
@@ -270,7 +287,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {personalInfo.phone.length}/50 characters
+                        {formatRequiredMaxHint(personalInfo.phone.length, PERSONAL_FIELD_MAX)}
                     </p>
                 </div>
 
@@ -292,7 +309,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {personalInfo.location.length}/50 characters
+                        {formatRequiredMaxHint(personalInfo.location.length, PERSONAL_FIELD_MAX)}
                     </p>
                 </div>
 
@@ -315,7 +332,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {personalInfo.github.length}/50 characters
+                        {formatRequiredMaxHint(personalInfo.github.length, PERSONAL_FIELD_MAX)}
                     </p>
                 </div>
 
@@ -338,7 +355,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {personalInfo.linkedin.length}/50 characters
+                        {formatRequiredMaxHint(personalInfo.linkedin.length, PERSONAL_FIELD_MAX)}
                     </p>
                 </div>
 
@@ -372,7 +389,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobInfo.jobTitle.length}/50 characters
+                        {formatCharCountHint(jobInfo.jobTitle.length, JOB_TITLE_MIN, JOB_TITLE_MAX)}
                     </p>
                 </div>
 
@@ -395,7 +412,11 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobInfo.jobDescription.length}/2000 characters
+                        {formatCharCountHint(
+                            jobInfo.jobDescription.length,
+                            JOB_DESCRIPTION_MIN,
+                            RESUME_JOB_DESCRIPTION_MAX
+                        )}
                     </p>
                 </div>
 

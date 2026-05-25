@@ -32,7 +32,7 @@ const OverviewContainer = ({ userId }: { userId: string }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`/api/dashboard/overview?userId=${userId}`);
+                const res = await fetch("/api/dashboard/overview");
                 const data = await res.json();
                 setData(data);
             } catch (e) {

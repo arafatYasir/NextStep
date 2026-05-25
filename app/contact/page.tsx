@@ -151,6 +151,9 @@ const ContactPage = () => {
                             {errors.name && (
                                 <p className="text-red-500 text-[15px]">{errors.name}</p>
                             )}
+                            <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))]">
+                                Required
+                            </p>
                         </div>
 
                         {/* ---- Email ---- */}
@@ -172,6 +175,9 @@ const ContactPage = () => {
                             {errors.email && (
                                 <p className="text-red-500 text-[15px]">{errors.email}</p>
                             )}
+                            <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))]">
+                                Required · valid email format
+                            </p>
                         </div>
                     </div>
 
@@ -212,6 +218,9 @@ const ContactPage = () => {
                         {errors.message && (
                             <p className="text-red-500 text-[15px]">{errors.message}</p>
                         )}
+                        <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))]">
+                            Required
+                        </p>
                     </div>
 
                     {/* ---- Submit Button ---- */}

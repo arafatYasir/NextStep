@@ -2,32 +2,37 @@ import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
 import { NextRequest, NextResponse } from "next/server";
+import { requireAuth } from "@/src/helpers/requireAuth";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
     try {
-        const { searchParams } = new URL(req.url);
-        const userId = searchParams.get("userId");
-
-        if (!userId) {
+        const auth = await requireAuth();
+        if (auth.unauthorized) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // Connect to DB
         await connectToDatabase();
 
-        // Fetching metric data
-        const jobRecords = await JobRecord.countDocuments({ userId, status: "completed" });
-        const resumeRecords = await resumeAnalysisModel.countDocuments({ userId, status: "completed" });
-        const resumesBuilt = 0, coverLetters = 0;
+        const userId = auth.user.id;
 
-        return NextResponse.json({
-            jobRecords,
-            resumeRecords,
-            resumesBuilt,
-            coverLetters
-        }, { status: 200 });
-    }
-    catch (e) {
+        const jobRecords = await JobRecord.countDocuments({ userId, status: "completed" });
+        const resumeRecords = await resumeAnalysisModel.countDocuments({
+            userId,
+            status: "completed",
+        });
+        const resumesBuilt = 0;
+        const coverLetters = 0;
+
+        return NextResponse.json(
+            {
+                jobRecords,
+                resumeRecords,
+                resumesBuilt,
+                coverLetters,
+            },
+            { status: 200 }
+        );
+    } catch (e) {
         console.error("Dashboard Metrics API Error:", e);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }

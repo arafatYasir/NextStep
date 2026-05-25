@@ -10,6 +10,15 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "./SignInAlertModal";
 import ResumeAnalysisModal from "./analysis/resume/ResumeAnalysisModal";
+import {
+    formatCharCountHint,
+    JOB_DESCRIPTION_MIN,
+    JOB_TITLE_MAX,
+    JOB_TITLE_MIN,
+    RESUME_JOB_DESCRIPTION_MAX,
+    validateJobDescription,
+    validateJobTitle,
+} from "@/src/helpers/validation";
 
 interface ErrorState {
     jobRole?: string;
@@ -89,12 +98,17 @@ const ResumeAnalyzerInputForm = () => {
     const handleCheckErrors = () => {
         const tempErrors: ErrorState = {};
 
-        if (!jobRole.trim()) {
-            tempErrors.jobRole = "Job title is required";
+        const titleError = validateJobTitle(jobRole.trim());
+        if (titleError) {
+            tempErrors.jobRole = titleError;
         }
 
-        if (!jobDescription.trim()) {
-            tempErrors.jobDescription = "Job description is required";
+        const descriptionError = validateJobDescription(
+            jobDescription.trim(),
+            RESUME_JOB_DESCRIPTION_MAX
+        );
+        if (descriptionError) {
+            tempErrors.jobDescription = descriptionError;
         }
 
         if (!file) {
@@ -207,7 +221,6 @@ const ResumeAnalyzerInputForm = () => {
             formData.append("jobTitle", jobRole.trim());
             formData.append("jobDescription", jobDescription.trim());
             formData.append("resume", file!);
-            formData.append("userId", user.id);
 
             // Calling the API
             const res = await fetch("/api/analyze-resume", {
@@ -302,7 +315,7 @@ const ResumeAnalyzerInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobRole.length}/50 characters
+                        {formatCharCountHint(jobRole.length, JOB_TITLE_MIN, JOB_TITLE_MAX)}
                     </p>
                 </div>
 
@@ -324,7 +337,11 @@ const ResumeAnalyzerInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {jobDescription.length}/2000 characters
+                        {formatCharCountHint(
+                            jobDescription.length,
+                            JOB_DESCRIPTION_MIN,
+                            RESUME_JOB_DESCRIPTION_MAX
+                        )}
                     </p>
                 </div>
 
@@ -386,6 +403,10 @@ const ResumeAnalyzerInputForm = () => {
                             </button>
                         </div>
                     )}
+
+                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                        Required · PDF or DOCX · max 5MB
+                    </p>
 
                     {errors.resume && (
                         <p className="text-red-500 text-[15px] mt-1.5">{errors.resume}</p>

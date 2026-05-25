@@ -2,19 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
+import { requireAuth } from "@/src/helpers/requireAuth";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
     try {
-        const { searchParams } = new URL(req.url);
-        const userId = searchParams.get("userId");
-
-        // If user id is not found then return
-        if (!userId) {
+        const auth = await requireAuth();
+        if (auth.unauthorized) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // Connect to DB
         await connectToDatabase();
+
+        const userId = auth.user.id;
 
         // Fetching job & resume records
         const jobRecords = await JobRecord.find({ userId, status: "completed" }).lean();
@@ -67,7 +66,7 @@ export async function GET(req: NextRequest) {
 
             res.keywordAnalysis.missingKeywords.map((keyword: string) => {
                 if (keyword.trim()) {
-                    missingKeywords[keyword] = (missingKeywords[keyword] || 0) + 1; 1
+                    missingKeywords[keyword] = (missingKeywords[keyword] || 0) + 1;
                 }
             });
 
