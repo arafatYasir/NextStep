@@ -1,5 +1,7 @@
+import { connectToDatabase } from "@/src/database/mongodb";
 import { requireAuth } from "@/src/helpers/requireAuth";
 import { emailRegex, parseTrimmedString, phoneRegex, RESUME_JOB_DESCRIPTION_MAX, urlRegex, validateJobDescription, validateJobTitle } from "@/src/helpers/validation";
+import Resume from "@/src/models/resume.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -66,6 +68,29 @@ export async function POST(req: NextRequest) {
         else if (!urlRegex.test(linkedin)) {
             return NextResponse.json({ status: "ERROR", message: "Invalid url format" }, { status: 400 });
         }
+
+        // Connect to database
+        await connectToDatabase();
+
+        const userId = auth.user.id;
+
+        // Creating a database record of that resume
+        const resumeRecord = await Resume.create({
+            userId,
+            personalInfo: {
+                fullName,
+                email,
+                phone,
+                location,
+                github,
+                linkedin
+            },
+            status: "queued"
+        });
+
+        return NextResponse.json({
+            resumeId: resumeRecord._id.toString(), status: "OK"
+        }, { status: 200 });
     }
     catch (e) {
         console.error("API Error:", e);

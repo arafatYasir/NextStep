@@ -112,7 +112,12 @@ const Resume = new mongoose.Schema({
                 trim: true,
             }
         }
-    ]
+    ],
+    status: {
+        type: String,
+        enum: ["queued", "completed", "failed"],
+        default: "queued"
+    }
 }, { timestamps: true });
 
 export default mongoose.models.Resume || mongoose.model("Resume", Resume);
