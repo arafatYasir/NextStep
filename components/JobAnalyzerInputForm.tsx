@@ -293,6 +293,7 @@ const JobAnalyzerInputForm = () => {
             {showSignInModal && (
                 <SignInAlertModal
                     title="Please sign in to continue your analysis"
+                    description="Sign in to generate detailed insights and keep your analysis accessible anytime."
                     onClose={() => setShowSignInModal(false)}
                     ref={modalRef}
                 />

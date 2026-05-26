@@ -226,9 +226,6 @@ const SignUpPage = () => {
                         {error?.email && (
                             <p className="text-red-500 text-[15px] mt-2">{error?.email}</p>
                         )}
-                        <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                            Required · valid email format
-                        </p>
                     </div>
 
                     {/* ---- Password ---- */}

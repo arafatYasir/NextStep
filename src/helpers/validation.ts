@@ -18,7 +18,7 @@ export function formatRequiredMaxHint(current: number, max: number): string {
 
 /** Hint for password fields. */
 export function formatPasswordHint(current: number, min: number = PASSWORD_MIN): string {
-    return `${current} characters (min ${min})`;
+    return `${current} characters / (min ${min})`;
 }
 
 export function parseTrimmedString(value: unknown): string {

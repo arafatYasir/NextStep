@@ -4,11 +4,12 @@ import Link from "next/link";
 
 interface Props {
     title: string;
+    description: string;
     onClose: () => void;
     ref: React.RefObject<HTMLDivElement | null>
 }
 
-const SignInAlertModal = ({ title, onClose, ref }: Props) => {
+const SignInAlertModal = ({ title, description, onClose, ref }: Props) => {
     return (
         <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50">
             <div ref={ref} className="relative w-full max-w-lg flex flex-col justify-center items-center bg-card rounded-xl shadow-xl border border-[rgb(var(--border-light))] p-6 xs:p-8 md:p-12">
@@ -26,7 +27,7 @@ const SignInAlertModal = ({ title, onClose, ref }: Props) => {
                 </h3>
 
                 <p className="text-foreground/80 text-center leading-relaxed mb-6 font-sans text-xs xs:text-sm sm:text-base">
-                    Sign in to generate detailed insights and keep your analysis accessible anytime.
+                    {description}
                 </p>
 
                 <Link className="block w-full" href="/sign-in">

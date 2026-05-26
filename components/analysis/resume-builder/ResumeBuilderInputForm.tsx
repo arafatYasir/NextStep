@@ -198,6 +198,16 @@ const ResumeBuilderInputForm = () => {
                 return;
             }
 
+            // Checking if the user is logged in or not
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+
+            // If user is not logged in return
+            if (!user) {
+                setShowSignInModal(true);
+                return;
+            }
+
             // Start the loading
             setLoading(true);
         }
@@ -446,6 +456,7 @@ const ResumeBuilderInputForm = () => {
             {showSignInModal && (
                 <SignInAlertModal
                     title="Please sign in to continue your build"
+                    description="Sign in to build the resume and keep your resume accessible anytime."
                     onClose={() => setShowSignInModal(false)}
                     ref={modalRef}
                 />

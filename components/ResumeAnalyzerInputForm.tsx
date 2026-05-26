@@ -404,10 +404,6 @@ const ResumeAnalyzerInputForm = () => {
                         </div>
                     )}
 
-                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        Required · PDF or DOCX · max 5MB
-                    </p>
-
                     {errors.resume && (
                         <p className="text-red-500 text-[15px] mt-1.5">{errors.resume}</p>
                     )}
@@ -439,6 +435,7 @@ const ResumeAnalyzerInputForm = () => {
             {showSignInModal && (
                 <SignInAlertModal
                     title="Please sign in to continue your analysis"
+                    description="Sign in to generate detailed insights and keep your analysis accessible anytime."
                     onClose={() => setShowSignInModal(false)}
                     ref={modalRef}
                 />
