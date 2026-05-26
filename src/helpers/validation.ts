@@ -1,3 +1,4 @@
+// Constants
 export const JOB_TITLE_MIN = 3;
 export const JOB_TITLE_MAX = 50;
 export const JOB_DESCRIPTION_MIN = 300;
@@ -5,6 +6,11 @@ export const JOB_DESCRIPTION_MAX = 3000;
 export const RESUME_JOB_DESCRIPTION_MAX = 2000;
 export const PERSONAL_FIELD_MAX = 50;
 export const PASSWORD_MIN = 8;
+
+// Regular expressions
+export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const phoneRegex = /^[0-9]{11}$/;
+export const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
 
 /** Character counter with min/max rules (e.g. job title, job description). */
 export function formatCharCountHint(current: number, min: number, max: number): string {

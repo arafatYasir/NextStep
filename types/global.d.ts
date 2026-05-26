@@ -154,4 +154,4 @@ interface ResumeData {
         institution: string,
         duration: string
     }[]
-}
+};

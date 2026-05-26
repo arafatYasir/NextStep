@@ -10,13 +10,16 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "@/components/SignInAlertModal";
 import {
+    emailRegex,
     formatCharCountHint,
     formatRequiredMaxHint,
     JOB_DESCRIPTION_MIN,
     JOB_TITLE_MAX,
     JOB_TITLE_MIN,
     PERSONAL_FIELD_MAX,
+    phoneRegex,
     RESUME_JOB_DESCRIPTION_MAX,
+    urlRegex,
     validateJobDescription,
     validateJobTitle,
 } from "@/src/helpers/validation";
@@ -64,9 +67,6 @@ const ResumeBuilderInputForm = () => {
     const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     // Variables
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex = /^[0-9]{11}$/;
-    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
     const isDisabled = !personalInfo.fullName.trim() || !personalInfo.email.trim() || !personalInfo.phone.trim() || !personalInfo.location.trim() || !personalInfo.github.trim() || !personalInfo.linkedin.trim() || !jobInfo.jobTitle.trim() || !jobInfo.jobDescription.trim();
 
     // Handling outside clicks
@@ -131,6 +131,9 @@ const ResumeBuilderInputForm = () => {
         // ---- Personal Informations ----
         if (!personalInfo.fullName.trim()) {
             tempErrors.fullName = "Full name is required";
+        }
+        else if (personalInfo.fullName.length < 4) {
+            tempErrors.fullName = "Full name must be at least 4 characters";
         }
 
         if (!personalInfo.email.trim()) {
