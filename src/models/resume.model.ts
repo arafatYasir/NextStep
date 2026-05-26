@@ -40,7 +40,6 @@ const Resume = new mongoose.Schema({
     },
     summary: {
         type: String,
-        required: true,
         trim: true,
     },
     skills: {

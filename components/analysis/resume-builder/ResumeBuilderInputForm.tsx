@@ -60,7 +60,7 @@ const ResumeBuilderInputForm = () => {
     const [errors, setErrors] = useState<ErrorState>({});
     const [showSignInModal, setShowSignInModal] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<ResumeAnalysis | null>(null);
+    const [result, setResult] = useState<ResumeData | null>(null);
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
@@ -84,8 +84,10 @@ const ResumeBuilderInputForm = () => {
 
     // Clearing polling interval on component unmount
     useEffect(() => {
-        if (pollIntervalRef.current) {
-            clearInterval(pollIntervalRef.current);
+        return () => {
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
         }
     }, []);
 
@@ -213,11 +215,101 @@ const ResumeBuilderInputForm = () => {
 
             // Start the loading
             setLoading(true);
+
+            // Enqueue a new resume record
+            const res = await fetch("/api/build-resume", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    fullName: personalInfo.fullName,
+                    email: personalInfo.email,
+                    phone: personalInfo.phone,
+                    location: personalInfo.location,
+                    github: personalInfo.github,
+                    linkedin: personalInfo.linkedin,
+                    jobTitle: jobInfo.jobTitle,
+                    jobDescription: jobInfo.jobDescription
+                })
+            });
+
+            // Get the queued resume id
+            const data = await res.json();
+            const { status, message, resumeId } = data;
+
+            // If any error happens
+            if (status === "ERROR") {
+                toast.error(message);
+                setLoading(false);
+                return;
+            }
+            if (!resumeId) {
+                toast.error("Failed to initialize resume.");
+                setLoading(false);
+                return;
+            }
+
+            // Clear any active polling interval first to prevent leakage
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
+
+            // Check for the result every 2 seconds with interval
+            pollIntervalRef.current = setInterval(async () => {
+                try {
+                    const res = await fetch(`/api/resumes/${resumeId}`);
+                    const resumeData = await res.json();
+
+                    // If error happens
+                    if (resumeData.status === "ERROR") {
+                        toast.error(resumeData.message);
+
+                        setLoading(false);
+                        setResult(null);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+
+                        console.error(resumeData.message);
+                    }
+
+                    if (resumeData.status === "completed") {
+                        const { userId, status, ...resumeContent } = resumeData;
+
+                        setResult(resumeContent);
+                        setLoading(false);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+                    else if (resumeData.status === "failed") {
+                        setResult(null);
+                        setLoading(false);
+
+                        toast.error("Failed to build resume. Please try again.");
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+                }
+                catch (e) {
+                    console.error("Polling error:", e);
+                    toast.error("Network error while checking status.");
+
+                    setLoading(false);
+
+                    if (pollIntervalRef.current) {
+                        clearInterval(pollIntervalRef.current);
+                    }
+                }
+            }, 2000);
         }
         catch (e) {
-            console.error(e);
-        }
-        finally {
+            console.error("API Error: ", e);
             setLoading(false);
         }
     }
