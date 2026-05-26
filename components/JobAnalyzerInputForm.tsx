@@ -204,6 +204,13 @@ const JobAnalyzerInputForm = () => {
                     }
                 } catch (e) {
                     console.error("Polling error:", e);
+                    toast.error("Network error while checking status.");
+
+                    setLoading(false);
+
+                    if (pollIntervalRef.current) {
+                        clearInterval(pollIntervalRef.current);
+                    }
                 }
             }, 2000);
         }
