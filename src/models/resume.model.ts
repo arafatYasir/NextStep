@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const Resume = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true,
+        trim: true
+    },
     personalInfo: {
         fullName: {
             type: String,
