@@ -120,3 +120,38 @@ interface ResumeAnalysis {
         confidenceLevel: "Low" | "Medium" | "High"
     };
 };
+
+interface ResumeData {
+    personalInfo: {
+        fullName: string,
+        email: string,
+        phone: string,
+        location: string,
+        github: string,
+        linkedin: string
+    };
+    summary: string;
+    skills: {
+        languages: string[],
+        frameworksAndLibraries: string[],
+        toolsAndPlatforms: string[],
+        softSkills: string[]
+    };
+    experience: {
+        jobTitle: string,
+        company: string,
+        duration: string,
+        responsibilities: string[]
+    }[];
+    projects: {
+        projectName: string,
+        techStack: string[],
+        highlights: string[],
+        link: string
+    }[];
+    education: {
+        degree: string,
+        institution: string,
+        duration: string
+    }[]
+}
