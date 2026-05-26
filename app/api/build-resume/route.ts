@@ -1,6 +1,7 @@
 import { connectToDatabase } from "@/src/database/mongodb";
 import { requireAuth } from "@/src/helpers/requireAuth";
 import { emailRegex, parseTrimmedString, phoneRegex, RESUME_JOB_DESCRIPTION_MAX, urlRegex, validateJobDescription, validateJobTitle } from "@/src/helpers/validation";
+import { inngest } from "@/src/inngest/client";
 import Resume from "@/src/models/resume.model";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -86,6 +87,22 @@ export async function POST(req: NextRequest) {
                 linkedin
             },
             status: "queued"
+        });
+
+        // Calling inngest function to proceed to the AI generation
+        inngest.send({
+            name: "build/resume",
+            data: {
+                resumeId: resumeRecord._id.toString(),
+                fullName,
+                email,
+                phone,
+                location,
+                github,
+                linkedin,
+                jobTitle,
+                jobDescription
+            }
         });
 
         return NextResponse.json({
