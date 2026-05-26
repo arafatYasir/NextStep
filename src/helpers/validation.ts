@@ -1,6 +1,6 @@
 export const JOB_TITLE_MIN = 3;
 export const JOB_TITLE_MAX = 50;
-export const JOB_DESCRIPTION_MIN = 100;
+export const JOB_DESCRIPTION_MIN = 300;
 export const JOB_DESCRIPTION_MAX = 3000;
 export const RESUME_JOB_DESCRIPTION_MAX = 2000;
 export const PERSONAL_FIELD_MAX = 50;

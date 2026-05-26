@@ -65,7 +65,7 @@ const ResumeBuilderInputForm = () => {
 
     // Variables
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex = /^(\d{3}[- .]?){2}\d{4}$/;
+    const phoneRegex = /^[0-9]{11}$/;
     const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
     const isDisabled = !personalInfo.fullName.trim() || !personalInfo.email.trim() || !personalInfo.phone.trim() || !personalInfo.location.trim() || !personalInfo.github.trim() || !personalInfo.linkedin.trim() || !jobInfo.jobTitle.trim() || !jobInfo.jobDescription.trim();
 
@@ -95,7 +95,7 @@ const ResumeBuilderInputForm = () => {
 
         setPersonalInfo(prev => ({
             ...prev,
-            [id]: value.slice(0, 50)
+            [id]: id === "phone" ? value.slice(0, 11) : value.slice(0, 50)
         }));
 
         // Clear error for this specific field if has any
@@ -288,7 +288,7 @@ const ResumeBuilderInputForm = () => {
                         type="tel"
                         value={personalInfo.phone}
                         onChange={handleChangePersonalInfo}
-                        placeholder="Phone number (eg. +XXXXXXXXXX)"
+                        placeholder="Phone number (eg. XXXXXXXXXX)"
                     />
 
                     {/* ---- Error Message ---- */}
@@ -297,7 +297,7 @@ const ResumeBuilderInputForm = () => {
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {formatRequiredMaxHint(personalInfo.phone.length, PERSONAL_FIELD_MAX)}
+                        {formatRequiredMaxHint(personalInfo.phone.length, 11)}
                     </p>
                 </div>
 
