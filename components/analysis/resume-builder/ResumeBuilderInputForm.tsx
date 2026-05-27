@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, FileText, X, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import SignInAlertModal from "@/components/SignInAlertModal";
@@ -23,6 +22,7 @@ import {
     validateJobDescription,
     validateJobTitle,
 } from "@/src/helpers/validation";
+import ResumePreviewModal from "./ResumePreviewModal";
 
 interface PersonalInfo {
     fullName: string;
@@ -539,13 +539,13 @@ const ResumeBuilderInputForm = () => {
             </form>
 
             {/* ---- Showing modal to show the result ---- */}
-            {/* {(result !== null || loading) && (
-                <ResumeAnalysisModal
-                    analysis={result}
+            {(result !== null || loading) && (
+                <ResumePreviewModal
+                    result={result as ResumeData}
                     onClose={() => setResult(null)}
                     isLoading={loading}
                 />
-            )} */}
+            )}
 
             {/* ---- Sign In Modal ---- */}
             {showSignInModal && (

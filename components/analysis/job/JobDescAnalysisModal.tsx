@@ -10,7 +10,13 @@ import BadgesLoadingSkeleton from "../badges/BadgesLoadingSkeleton";
 import { Button } from "../../ui/button";
 import Container from "../../Container";
 
-const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: { analysis: JobAnalysis, onClose: () => void, isLoading: boolean }) => {
+interface JobDescAnalysisModalProps {
+    analysis: JobAnalysis;
+    onClose: () => void;
+    isLoading: boolean;
+}
+
+const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisModalProps) => {
 
     // Preventing background scrolling when modal is open
     useEffect(() => {
