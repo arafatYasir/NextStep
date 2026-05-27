@@ -78,14 +78,7 @@ const ResumePreviewModal = ({ result, onClose, isLoading }: ResumePreviewModalPr
                     <div className="flex items-center justify-between">
                         <div>
                             <h2 className="text-xl sm:text-2xl font-bold text-foreground font-heading tracking-tight">
-                                {isLoading ? (
-                                    <span className="flex items-center gap-x-2">
-                                        <Sparkles className="size-5 text-[rgb(var(--bg-primary-hover))] animate-pulse" />
-                                        Building Your Resume
-                                    </span>
-                                ) : (
-                                    "Resume Preview"
-                                )}
+                                {isLoading ? "Building Your Resume" : "Resume Preview"}
                             </h2>
                             <p className="text-foreground/80 mt-1 font-sans text-sm sm:text-base">
                                 {isLoading

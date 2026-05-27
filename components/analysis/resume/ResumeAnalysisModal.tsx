@@ -51,10 +51,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                 <Container>
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-2xl font-bold text-foreground font-heading tracking-tight">
+                            <h2 className="text-xl sm:text-2xl font-bold text-foreground font-heading tracking-tight">
                                 Resume Analysis Insights
                             </h2>
-                            <p className="text-foreground/80 mt-1.5 font-sans">
+                            <p className="text-foreground/80 mt-1 font-sans text-sm sm:text-base">
                                 A detailed breakdown of how well your resume matches the job description.
                             </p>
                         </div>
