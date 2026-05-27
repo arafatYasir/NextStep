@@ -53,30 +53,30 @@ const LoadingView = ({
                                     <div
                                         key={idx}
                                         className={cn(
-                                            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300",
+                                            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-250",
                                             isActive && "bg-[rgb(var(--bg-primary))]/6",
-                                            isCompleted && "opacity-70"
+                                            isCompleted && "opacity-80"
                                         )}
                                     >
-                                        {/* Step Indicator */}
+                                        {/* ---- Step Indicator ---- */}
                                         <div className="shrink-0">
                                             {isCompleted ? (
-                                                <div className="w-6 h-6 rounded-full bg-emerald-500/15 flex items-center justify-center animate-in fade-in zoom-in duration-300">
+                                                <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center animate-in fade-in zoom-in duration-250">
                                                     <Check className="size-3.5 text-emerald-500" strokeWidth={3} />
                                                 </div>
                                             ) : isActive ? (
-                                                <div className="w-6 h-6 rounded-full bg-[rgb(var(--bg-primary))]/10 flex items-center justify-center">
+                                                <div className="w-6 h-6 rounded-full bg-[rgb(var(--bg-primary))]/15 flex items-center justify-center">
                                                     <Spinner className="size-3.5 text-[rgb(var(--bg-primary-hover))]" />
                                                 </div>
                                             ) : (
-                                                <div className="w-6 h-6 rounded-full border border-[rgb(var(--border-default))] bg-card" />
+                                                <div className="w-[23px] h-[23px] rounded-full border border-[rgb(var(--border-default))] bg-card" />
                                             )}
                                         </div>
 
-                                        {/* Step Label */}
+                                        {/* ---- Step Label ---- */}
                                         <span
                                             className={cn(
-                                                "font-sans text-sm transition-colors duration-300",
+                                                "font-sans text-sm transition-colors duration-250",
                                                 isActive && "text-foreground font-medium",
                                                 isCompleted && "text-[rgb(var(--text-tertiary))]",
                                                 isPending && "text-[rgb(var(--text-muted))]"

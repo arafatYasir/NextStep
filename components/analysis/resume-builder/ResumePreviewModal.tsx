@@ -49,11 +49,12 @@ const ResumePreviewModal = ({ result, onClose, isLoading }: ResumePreviewModalPr
 
         const advanceStep = () => {
             // If all steps are done but the "loading" is still going on, then keep running the last step until "loading" finishes otherwise move to next step
-            if(currentStep < RESUME_BUILDING_AI_STEPS.length - 1) {
-                setCompletedSteps(prev => [...prev, currentStep]);
+            if (currentStep < RESUME_BUILDING_AI_STEPS.length - 1) {
+                const stepToComplete = currentStep;
+                setCompletedSteps(prev => [...prev, stepToComplete]);
                 currentStep++;
 
-                if (currentStep < RESUME_BUILDING_AI_STEPS.length) {
+                if (currentStep <= RESUME_BUILDING_AI_STEPS.length - 1) {
                     setActiveStep(currentStep);
                     timerRef.current = setTimeout(advanceStep, RESUME_BUILDING_AI_STEPS[currentStep].duration);
                 }
