@@ -59,7 +59,7 @@ const ResumeBuilderInputForm = () => {
     });
     const [errors, setErrors] = useState<ErrorState>({});
     const [showSignInModal, setShowSignInModal] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [result, setResult] = useState<ResumeData | null>(null);
 
     // Extra hooks

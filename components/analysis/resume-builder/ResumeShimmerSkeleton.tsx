@@ -1,105 +1,96 @@
-import { cn } from "@/lib/utils";
-
-const ShimmerBar = ({ className }: { className?: string }) => (
-    <div className={cn("relative overflow-hidden rounded bg-[rgb(var(--border-default))]/40", className)}>
-        <div
-            className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent"
-            style={{ animation: "shimmer 2s infinite" }}
-        />
-    </div>
-);
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ResumeShimmerSkeleton = () => {
     return (
         <div className="w-full max-w-2xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-6 sm:p-10 space-y-8">
-            {/* Header: Name + Contact */}
-            <div className="text-center space-y-3 pb-6 border-b border-dashed border-[rgb(var(--border-default))]">
-                <ShimmerBar className="h-7 w-56 mx-auto" />
+            {/* ---- Header: Name + Contact + Links ---- */}
+            <div className="text-center space-y-3 pb-6 border-b border-[rgb(var(--border-default))]">
+                <Skeleton className="h-7 w-56 mx-auto rounded" />
                 <div className="flex items-center justify-center gap-3 flex-wrap">
-                    <ShimmerBar className="h-3.5 w-32" />
-                    <ShimmerBar className="h-3.5 w-28" />
-                    <ShimmerBar className="h-3.5 w-36" />
+                    <Skeleton className="h-3.5 w-32 rounded" />
+                    <Skeleton className="h-3.5 w-28 rounded" />
+                    <Skeleton className="h-3.5 w-36 rounded" />
                 </div>
                 <div className="flex items-center justify-center gap-3">
-                    <ShimmerBar className="h-3.5 w-40" />
-                    <ShimmerBar className="h-3.5 w-44" />
+                    <Skeleton className="h-3.5 w-40 rounded" />
+                    <Skeleton className="h-3.5 w-44 rounded" />
                 </div>
             </div>
 
-            {/* Summary */}
+            {/* ---- Summary ---- */}
             <div className="space-y-3">
-                <ShimmerBar className="h-5 w-28" />
-                <ShimmerBar className="h-3 w-full" />
-                <ShimmerBar className="h-3 w-full" />
-                <ShimmerBar className="h-3 w-4/5" />
+                <Skeleton className="h-5 w-28 rounded" />
+                <Skeleton className="h-3 w-full rounded" />
+                <Skeleton className="h-3 w-full rounded" />
+                <Skeleton className="h-3 w-4/5 rounded" />
             </div>
 
-            {/* Skills */}
+            {/* ---- Skills ---- */}
             <div className="space-y-3">
-                <ShimmerBar className="h-5 w-20" />
+                <Skeleton className="h-5 w-20 rounded" />
                 <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-2">
-                        <ShimmerBar className="h-3.5 w-24" />
+                        <Skeleton className="h-3.5 w-24 rounded" />
                         <div className="flex flex-wrap gap-1.5">
-                            <ShimmerBar className="h-6 w-16 rounded-full" />
-                            <ShimmerBar className="h-6 w-20 rounded-full" />
-                            <ShimmerBar className="h-6 w-14 rounded-full" />
-                            <ShimmerBar className="h-6 w-18 rounded-full" />
+                            <Skeleton className="h-6 w-16 rounded-full" />
+                            <Skeleton className="h-6 w-20 rounded-full" />
+                            <Skeleton className="h-6 w-14 rounded-full" />
+                            <Skeleton className="h-6 w-18 rounded-full" />
                         </div>
                     </div>
                     <div className="space-y-2">
-                        <ShimmerBar className="h-3.5 w-32" />
+                        <Skeleton className="h-3.5 w-32 rounded" />
                         <div className="flex flex-wrap gap-1.5">
-                            <ShimmerBar className="h-6 w-18 rounded-full" />
-                            <ShimmerBar className="h-6 w-14 rounded-full" />
-                            <ShimmerBar className="h-6 w-22 rounded-full" />
+                            <Skeleton className="h-6 w-18 rounded-full" />
+                            <Skeleton className="h-6 w-14 rounded-full" />
+                            <Skeleton className="h-6 w-22 rounded-full" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Experience */}
+            {/* ---- Experience ---- */}
             <div className="space-y-4">
-                <ShimmerBar className="h-5 w-36" />
+                <Skeleton className="h-5 w-36 rounded" />
                 {[1, 2].map(i => (
-                    <div key={i} className="space-y-2 pl-4 border-l-2 border-[rgb(var(--border-default))]/30">
+                    <div key={i} className="space-y-2 pl-4 border-l-2 border-[rgb(var(--border-default))]/50">
                         <div className="flex items-center justify-between">
-                            <ShimmerBar className="h-4 w-44" />
-                            <ShimmerBar className="h-3 w-28" />
+                            <Skeleton className="h-4 w-44 rounded" />
+                            <Skeleton className="h-3 w-28 rounded" />
                         </div>
-                        <ShimmerBar className="h-3 w-32" />
-                        <ShimmerBar className="h-3 w-full" />
-                        <ShimmerBar className="h-3 w-11/12" />
-                        <ShimmerBar className="h-3 w-3/4" />
+                        <Skeleton className="h-3 w-32 rounded" />
+                        <Skeleton className="h-3 w-full rounded" />
+                        <Skeleton className="h-3 w-11/12 rounded" />
+                        <Skeleton className="h-3 w-3/4 rounded" />
                     </div>
                 ))}
             </div>
 
-            {/* Projects */}
+            {/* ---- Projects ---- */}
             <div className="space-y-4">
-                <ShimmerBar className="h-5 w-24" />
+                <Skeleton className="h-5 w-24 rounded" />
                 {[1, 2].map(i => (
-                    <div key={i} className="space-y-2 pl-4 border-l-2 border-[rgb(var(--border-default))]/30">
-                        <ShimmerBar className="h-4 w-40" />
+                    <div key={i} className="space-y-2 pl-4 border-l-2 border-[rgb(var(--border-default))]/50">
+                        <Skeleton className="h-4 w-40 rounded" />
                         <div className="flex gap-1.5">
-                            <ShimmerBar className="h-5 w-14 rounded-full" />
-                            <ShimmerBar className="h-5 w-16 rounded-full" />
-                            <ShimmerBar className="h-5 w-12 rounded-full" />
+                            <Skeleton className="h-5 w-14 rounded-full" />
+                            <Skeleton className="h-5 w-16 rounded-full" />
+                            <Skeleton className="h-5 w-12 rounded-full" />
                         </div>
-                        <ShimmerBar className="h-3 w-full" />
-                        <ShimmerBar className="h-3 w-4/5" />
+                        <Skeleton className="h-3 w-full rounded" />
+                        <Skeleton className="h-3 w-4/5 rounded" />
                     </div>
                 ))}
             </div>
 
-            {/* Education */}
+            {/* ---- Education ---- */}
             <div className="space-y-3">
-                <ShimmerBar className="h-5 w-28" />
+                <Skeleton className="h-5 w-28 rounded" />
                 <div className="flex items-center justify-between">
-                    <ShimmerBar className="h-4 w-52" />
-                    <ShimmerBar className="h-3 w-24" />
+                    <Skeleton className="h-4 w-52 rounded" />
+                    <Skeleton className="h-3 w-24 rounded" />
                 </div>
-                <ShimmerBar className="h-3 w-40" />
+                <Skeleton className="h-3 w-40 rounded" />
             </div>
         </div>
     );

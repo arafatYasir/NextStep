@@ -90,8 +90,8 @@ const LoadingView = ({
                         </div>
 
                         {/* Subtle Tip */}
-                        <div className="px-3 py-3 rounded-lg border border-dashed border-[rgb(var(--border-default))] bg-card">
-                            <p className="text-xs font-sans text-[rgb(var(--text-tertiary))] leading-relaxed">
+                        <div className="p-3 rounded-lg border border-[rgb(var(--border-default))] bg-card">
+                            <p className="text-sm font-sans text-[rgb(var(--text-tertiary))] leading-relaxed">
                                 💡 The AI tailors every section of your resume to match the job description for maximum ATS compatibility.
                             </p>
                         </div>
