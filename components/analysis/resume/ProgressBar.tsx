@@ -6,7 +6,7 @@ const ProgressBar = ({ label, score, isLoading }: { label: string, score: number
             <div>
                 <div className="flex justify-between items-center mb-2 font-heading text-base font-bold text-foreground">
                     <span>{label}</span>
-                    <Skeleton className="h-4 w-8" />
+                    <Skeleton className="h-5 w-9 rounded" />
                 </div>
                 <div>
                     <Skeleton className="h-2.5" />

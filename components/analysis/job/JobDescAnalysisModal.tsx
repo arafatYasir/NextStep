@@ -72,7 +72,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                                 <div className="flex flex-wrap gap-3">
                                     {
                                         (!analysis?.skills?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={8} />
+                                            <BadgesLoadingSkeleton count={8} componentName="JobAnalysisModal" />
                                         ) : (analysis?.skills?.length > 0 && !isLoading) ? (
                                             analysis?.skills?.map((skill, idx) => (
                                                 <Badge key={idx} name={skill.name} count={skill.count} variant="blue" />
@@ -92,7 +92,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                                 <div className="flex flex-wrap gap-3">
                                     {
                                         (!analysis?.tools?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={8} />
+                                            <BadgesLoadingSkeleton count={8} componentName="JobAnalysisModal" />
                                         ) : (analysis?.tools?.length > 0 && !isLoading) ? (
                                             analysis?.tools?.map((tool, idx) => (
                                                 <Badge key={idx} name={tool.name} count={tool.count} variant="indigo" />
@@ -112,7 +112,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                                 <div className="flex flex-wrap gap-3">
                                     {
                                         (!analysis?.phrases?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={8} />
+                                            <BadgesLoadingSkeleton count={8} componentName="JobAnalysisModal" />
                                         ) : (analysis?.phrases?.length > 0 && !isLoading) ? (
                                             analysis?.phrases?.map((phrase, idx) => (
                                                 <Badge key={idx} name={phrase.name} count={phrase.count} variant="teal" />
@@ -135,7 +135,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                                 <div className="flex flex-wrap gap-2.5">
                                     {
                                         (!analysis?.softSkills?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={6} />
+                                            <BadgesLoadingSkeleton count={6} componentName="JobAnalysisModal" />
                                         ) : (analysis?.softSkills?.length > 0 && !isLoading) ? (
                                             analysis?.softSkills?.map((skill, idx) => (
                                                 <Badge key={idx} name={skill.name} count={skill.count} variant="emerald" />
@@ -155,7 +155,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         (!analysis?.actionVerbs?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={6} />
+                                            <BadgesLoadingSkeleton count={6} componentName="JobAnalysisModal" />
                                         ) : (analysis?.actionVerbs?.length > 0 && !isLoading) ? (
                                             analysis?.actionVerbs?.map((verb, idx) => (
                                                 <Badge key={idx} name={verb.name} count={verb.count} variant="rose" />

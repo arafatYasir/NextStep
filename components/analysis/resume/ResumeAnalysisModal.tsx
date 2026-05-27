@@ -12,6 +12,7 @@ import Container from "../../Container";
 import InfoLoadingSkeleton from "../job info card/InfoLoadingSkeleton";
 import { Skeleton } from "../../ui/skeleton";
 import ProgressBar from "./ProgressBar";
+import SuggestionSkeleton from "./SuggestionSkeleton";
 
 interface ResumeAnalysisModalProps {
     analysis: ResumeAnalysis | null;
@@ -86,16 +87,19 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                         <Target size={20} />
                                         <span className="text-lg font-bold uppercase tracking-wider font-heading">Overall ATS Score</span>
                                     </div>
-                                    {isLoading ? (
-                                        <Skeleton className="h-10 w-30 mt-2" />
-                                    ) : (
-                                        <div className="flex items-baseline gap-2 font-sans">
-                                            <p className="text-4xl font-bold tracking-tight">
-                                                {analysis?.atsScore}
-                                            </p>
-                                            <span className="text-xl font-medium opacity-80">/ 100</span>
-                                        </div>
-                                    )}
+
+                                    <div className="flex items-baseline gap-2 font-sans">
+                                        {
+                                            isLoading ? (
+                                                <Skeleton className="h-10 w-11 mt-2" />
+                                            ) : (
+                                                <p className="text-4xl font-bold tracking-tight">
+                                                    {analysis?.atsScore}
+                                                </p>
+                                            )
+                                        }
+                                        <span className="text-xl font-medium opacity-80">/ 100</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -152,8 +156,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                     {
                                         (!analysis?.matchInsights?.strongMatches?.length && isLoading) ? (
                                             <div className="space-y-3">
-                                                <Skeleton className="w-full h-16" />
-                                                <Skeleton className="w-full h-16" />
+                                                <SuggestionSkeleton count={3} />
                                             </div>
                                         ) : (analysis?.matchInsights?.strongMatches?.length && analysis.matchInsights.strongMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.strongMatches.map((match, idx) => (
@@ -183,8 +186,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                     {
                                         (!analysis?.matchInsights?.partialMatches?.length && isLoading) ? (
                                             <div className="space-y-3">
-                                                <Skeleton className="w-full h-16" />
-                                                <Skeleton className="w-full h-16" />
+                                                <SuggestionSkeleton count={3} />
                                             </div>
                                         ) : (analysis?.matchInsights?.partialMatches?.length && analysis.matchInsights.partialMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.partialMatches.map((match, idx) => (
@@ -217,7 +219,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <div className="flex flex-wrap gap-3">
                                     {
                                         (!analysis?.keywordAnalysis?.matchedKeywords?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={4} />
+                                            <BadgesLoadingSkeleton count={5} componentName="ResumeAnalysisModal" />
                                         ) : (analysis?.keywordAnalysis?.matchedKeywords?.length && analysis.keywordAnalysis.matchedKeywords.length > 0 && !isLoading) ? (
                                             analysis.keywordAnalysis.matchedKeywords.map((keyword, idx) => (
                                                 <Badge key={idx} name={keyword} count={0} variant="emerald" />
@@ -238,7 +240,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <div className="flex flex-wrap gap-3">
                                     {
                                         (!analysis?.keywordAnalysis?.missingKeywords?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={4} />
+                                            <BadgesLoadingSkeleton count={5} componentName="ResumeAnalysisModal" />
                                         ) : (analysis?.keywordAnalysis?.missingKeywords?.length && analysis.keywordAnalysis.missingKeywords.length > 0 && !isLoading) ? (
                                             analysis.keywordAnalysis.missingKeywords.map((keyword, idx) => (
                                                 <Badge key={idx} name={keyword} count={0} variant="rose" />
@@ -259,7 +261,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <div className="flex flex-wrap gap-3">
                                     {
                                         (!analysis?.keywordAnalysis?.overusedKeywords?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={4} />
+                                            <BadgesLoadingSkeleton count={5} componentName="ResumeAnalysisModal" />
                                         ) : (analysis?.keywordAnalysis?.overusedKeywords?.length && analysis.keywordAnalysis.overusedKeywords.length > 0 && !isLoading) ? (
                                             analysis.keywordAnalysis.overusedKeywords.map((keyword, idx) => (
                                                 <Badge key={idx} name={keyword} count={0} variant="yellow" />
@@ -279,7 +281,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         (!analysis?.improvementInsights?.skillGapsToAddress?.length && isLoading) ? (
-                                            <BadgesLoadingSkeleton count={4} />
+                                            <BadgesLoadingSkeleton count={5} componentName="ResumeAnalysisModal" />
                                         ) : (analysis?.improvementInsights?.skillGapsToAddress?.length && analysis.improvementInsights.skillGapsToAddress.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.skillGapsToAddress.map((gap, idx) => (
                                                 <Badge key={idx} name={gap} count={0} variant="indigo" />
@@ -300,8 +302,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                     {
                                         (!analysis?.improvementInsights?.priorityFixes?.length && isLoading) ? (
                                             <div className="space-y-3">
-                                                <Skeleton className="w-full h-16" />
-                                                <Skeleton className="w-full h-16" />
+                                                <SuggestionSkeleton count={2} />
                                             </div>
                                         ) : (analysis?.improvementInsights?.priorityFixes?.length && analysis.improvementInsights.priorityFixes.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.priorityFixes.map((fix, idx) => (
@@ -336,8 +337,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                     {
                                         (!analysis?.formattingAnalysis?.issues?.length && isLoading) ? (
                                             <div className="space-y-3">
-                                                <Skeleton className="w-full h-16" />
-                                                <Skeleton className="w-full h-16" />
+                                                <SuggestionSkeleton count={1} />
                                             </div>
                                         ) : (analysis?.formattingAnalysis?.issues?.length && analysis.formattingAnalysis.issues.length > 0 && !isLoading) ? (
                                             analysis.formattingAnalysis.issues.map((issue, idx) => (
@@ -362,8 +362,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                     {
                                         (!analysis?.improvementInsights?.resumeSectionAdvice?.length && isLoading) ? (
                                             <div className="space-y-3">
-                                                <Skeleton className="w-full h-16" />
-                                                <Skeleton className="w-full h-16" />
+                                                <SuggestionSkeleton count={2} />
                                             </div>
                                         ) : (analysis?.improvementInsights?.resumeSectionAdvice?.length && analysis.improvementInsights.resumeSectionAdvice.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.resumeSectionAdvice.map((adviceItem, idx) => (
