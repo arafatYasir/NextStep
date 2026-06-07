@@ -31,7 +31,7 @@ const ACCEPTED_RESUME_TYPES = [
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
-const ResumeAnalyzerInputForm = () => {
+const ResumeAnalyzerForm = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
@@ -451,4 +451,4 @@ const ResumeAnalyzerInputForm = () => {
     );
 };
 
-export default ResumeAnalyzerInputForm;
+export default ResumeAnalyzerForm;

@@ -143,12 +143,6 @@ export const RESUME_BUILDER_PROMPT = `You are a professional, recruiter-grade Re
 IMPORTANT RULE: The resume generation is NOT based on the candidate's actual skills, experience, or projects. You must generate all content as if the candidate is the absolute perfect fit for the job and possesses all the required skills, education, and relevant experiences mentioned in the job title and description. You will fabricate highly professional experiences, projects, and education history that perfectly match the job requirements. Keep the personal information exactly as provided.
 
 INPUTS:
-- Candidate Name: {fullName}
-- Email: {email}
-- Phone: {phone}
-- Location: {location}
-- GitHub: {github}
-- LinkedIn: {linkedin}
 - Targeted Job Title: {jobTitle}
 - Job Description: {jobDescription}
 
@@ -158,14 +152,15 @@ STEP-BY-STEP INSTRUCTIONS:
    - Perfectly align the summary with the target job description in every aspect.
    - Ground the summary in relevant experience levels required by the job.
    - Keep it professional, engaging, and perfectly balanced in length (not too long or too short).
-2. SKILLS:
+2. RESUME TITLE: Use jobTitle as resumeTitle if it is already a professional role (eg., Mern Stack Developer). Otherwise, infer and return the most appropriate professional role from the jobTitle (eg., Intern Mern Dev -> Mern Stack Developer).
+3. SKILLS:
    - Extract the key skills asked for in the job description.
    - Categorize them strictly into the following four sub-sections:
      - "languages": Programming, scripting, or markup languages (e.g., HTML, CSS, JS, TS, SQL, Python, etc.).
      - "frameworksAndLibraries": Frameworks, libraries, or UI components (e.g., React, Next.js, Redux, Tailwind, Bootstrap, shadcn etc.).
      - "toolsAndPlatforms": Developer software, platforms, services, and hosting providers (e.g., Git, GitHub, Vercel, Netlify, Figma, Postman, Inngest, Supabase, Firebase, Docker, databases, etc.).
-     - "softSkills": Key professional traits and principles (e.g., communication, problem-solving, clean coding, critical thinking, etc.).
-3. EXPERIENCE:
+     - "softSkills": Key professional traits and principles of self (e.g., communication, problem-solving, clean coding, critical thinking, etc.).
+4. EXPERIENCE:
    - Generate exactly TWO (2) job experiences with a clear, logical, and non-overlapping timeline (e.g., 2021-2023, 2023-Present).
    - For each experience, provide:
      - jobTitle (closely aligned with the target job title).
@@ -173,7 +168,7 @@ STEP-BY-STEP INSTRUCTIONS:
      - duration (e.g., "2021 - 2023").
      - Exactly THREE (3) bullet points detailing what the candidate did.
    - CRITICAL: Every bullet point description must be highly quantified with metrics and numbers, explaining the specific actions and how much impact/improvement they made on the company (e.g., optimized page load by 40%, improved click-through rates by 15%, scaled API throughput to 10k req/sec, etc.).
-4. PROJECTS:
+5. PROJECTS:
    - Generate exactly TWO (2) professional-grade projects.
    - For each project, provide:
      - projectName.
@@ -181,7 +176,7 @@ STEP-BY-STEP INSTRUCTIONS:
      - link (a live link of the project)
      - Exactly THREE (3) bullet points detailing what was done, what optimizations were performed, or what improvements were achieved.
    - CRITICAL: Quantify these points with realistic numbers and metrics for better ATS optimization (e.g., reduced bundle size by 25%, decreased database queries by 50%, etc.).
-5. EDUCATION:
+6. EDUCATION:
    - Generate educational achievements that perfectly fit what the job description is asking for (e.g., B.S. in Computer Science or similar relevant degrees).
    - Provide a realistic institution, degree title, and graduation year or duration.
 ---
@@ -190,15 +185,7 @@ Return ONLY a valid JSON object and nothing else like markdown code blocks or pr
 
 JSON Schema:
 {
-  // personal info should be as provided
-  "personalInfo": {
-    "fullName": "string",
-    "email": "string",
-    "phone": "string",
-    "location": "string",
-    "github": "string",
-    "linkedin": "string"
-  },
+  resumeTitle: "string",
   "summary": "string",
   "skills": {
     "languages": ["string"],

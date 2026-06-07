@@ -42,6 +42,10 @@ const Resume = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    resumeTitle: {
+        type: String,
+        trim: true,
+    },
     skills: {
         languages: [String],
         frameworksAndLibraries: [String],

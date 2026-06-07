@@ -24,7 +24,7 @@ interface ErrorState {
     jobDescription?: string;
 }
 
-const JobAnalyzerInputForm = () => {
+const JobAnalyzerForm = () => {
     // States
     const [jobRole, setJobRole] = useState("");
     const [jobDescription, setJobDescription] = useState("");
@@ -309,4 +309,4 @@ const JobAnalyzerInputForm = () => {
     );
 };
 
-export default JobAnalyzerInputForm;
+export default JobAnalyzerForm;

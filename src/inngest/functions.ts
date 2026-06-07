@@ -148,12 +148,6 @@ export const buildResume = inngest.createFunction(
     async ({ event, step }) => {
         const {
             resumeId,
-            fullName,
-            email,
-            phone,
-            location,
-            github,
-            linkedin,
             jobTitle,
             jobDescription
         } = event.data;
@@ -173,7 +167,7 @@ export const buildResume = inngest.createFunction(
             // Get AI resume content generation
             const parsedJSONData = await step.run("generate-resume-content", async () => {
                 // Generate dynamic prompt
-                const prompt = RESUME_BUILDER_PROMPT.replace("{fullName}", fullName).replace("{email}", email).replace("{phone}", phone).replace("{location}", location).replace("{github}", github).replace("{linkedin}", linkedin).replace("{jobTitle}", jobTitle).replace("{jobDescription}", jobDescription);
+                const prompt = RESUME_BUILDER_PROMPT.replace("{jobTitle}", jobTitle).replace("{jobDescription}", jobDescription);
 
                 // Generate response
                 const result = await model.generateContent(prompt);

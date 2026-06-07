@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Check, Sparkles } from "lucide-react";
 import ResumeShimmerSkeleton from "./ResumeShimmerSkeleton";
 
-const LoadingView = ({
+const ResumeLoadingView = ({
     activeStep,
     completedSteps,
 }: {
@@ -107,4 +107,4 @@ const LoadingView = ({
     );
 };
 
-export default LoadingView;
+export default ResumeLoadingView;

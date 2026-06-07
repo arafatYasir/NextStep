@@ -7,11 +7,14 @@ const ResumeResultView = ({ result }: { result: ResumeData }) => {
         <Container>
             <div className="py-8 lg:py-12 flex justify-center">
                 <div className="w-full max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-6 sm:p-10 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    {/* ---- Header: Name + Contact ---- */}
+                    {/* ---- Header: Name + Title + Contact ---- */}
                     <div className="text-center space-y-2 pb-6 border-b border-dashed border-[rgb(var(--border-default))]">
-                        <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
-                            {result.personalInfo.fullName}
-                        </h1>
+                        <div>
+                            <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
+                                {result.personalInfo.fullName}
+                            </h1>
+                            <h2 className="text-lg sm:text-xl font-semibold font-heading tracking-tight text-[rgb(var(--text-accent))]">{result.resumeTitle}</h2>
+                        </div>
                         <div className="flex items-center justify-center gap-x-2 gap-y-1 flex-wrap text-sm font-sans text-[rgb(var(--text-secondary))]">
                             <span>{result.personalInfo.email}</span>
                             <span className="text-[rgb(var(--text-muted))]">•</span>

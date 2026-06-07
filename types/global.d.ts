@@ -131,6 +131,7 @@ interface ResumeData {
         linkedin: string
     };
     summary: string;
+    resumeTitle: string;
     skills: {
         languages: string[],
         frameworksAndLibraries: string[],
@@ -155,3 +156,26 @@ interface ResumeData {
         duration: string
     }[]
 };
+
+interface CareerInfo {
+    companies: {
+        id: number;
+        company: string;
+        startYear: string;
+        isCurrentJob: boolean;
+        endYear?: string;
+        description: string;
+    }[];
+    projects: {
+        id: number;
+        name: string;
+        link: string;
+        description: string;
+    }[]
+}
+
+
+interface CareerInfoCount {
+    companies: number;
+    projects: number;
+}

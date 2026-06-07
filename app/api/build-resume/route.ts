@@ -94,12 +94,6 @@ export async function POST(req: NextRequest) {
             name: "build/resume",
             data: {
                 resumeId: resumeRecord._id.toString(),
-                fullName,
-                email,
-                phone,
-                location,
-                github,
-                linkedin,
                 jobTitle,
                 jobDescription
             }

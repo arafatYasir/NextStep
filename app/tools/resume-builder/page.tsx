@@ -1,4 +1,4 @@
-import ResumeBuilderInputForm from "@/components/analysis/resume-builder/ResumeBuilderInputForm";
+import ResumeBuilderInputForm from "@/components/analysis/resume-builder/ResumeBuilderForm";
 import Container from "@/components/Container";
 import Section from "@/components/Section";
 import LongDownArrowIcon from "@/icons/LongDownArrowIcon";

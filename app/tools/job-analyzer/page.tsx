@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import JobAnalyzerInputForm from "@/components/JobAnalyzerInputForm";
+import JobAnalyzerInputForm from "@/components/JobAnalyzerForm";
 import Section from "@/components/Section";
 import LongDownArrowIcon from "@/icons/LongDownArrowIcon";
 
