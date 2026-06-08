@@ -66,7 +66,7 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                     <Input
                                         type="text"
                                         id="company"
-                                        value={company.company.slice(0, 50)}
+                                        value={company.company}
                                         onChange={(e) => handleChangeCareerInfo(e, "companies", i)}
                                         placeholder={`Company Name ${i + 1}`}
                                         required={true}

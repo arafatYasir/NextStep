@@ -274,11 +274,17 @@ const ResumeBuilderForm = () => {
     const handleChangeCareerInfo = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: keyof CareerInfo, index: number) => {
         const { id, value } = e.target;
 
+        let sliceValue: number = 50;
+
+        if (id === "name" || id === "company") sliceValue = 50;
+        else if (id === "link") sliceValue = 100;
+        else if (id === "description") sliceValue = 200;
+
         setCareerInfo(prev => {
             const list = [...prev[name]] as any[];
             list[index] = {
                 ...list[index],
-                [id]: value
+                [id]: value.slice(0, sliceValue)
             };
             return {
                 ...prev,
@@ -323,7 +329,7 @@ const ResumeBuilderForm = () => {
         if (!personalInfo.fullName.trim()) {
             tempErrors.fullName = "Full name is required";
         }
-        else if (personalInfo.fullName.length < 4) {
+        else if (personalInfo.fullName.trim().length < 4) {
             tempErrors.fullName = "Full name must be at least 4 characters";
         }
 
@@ -399,7 +405,6 @@ const ResumeBuilderForm = () => {
                         message: projectNameError
                     };
                     tempErrors.projects.push(newError);
-                    console.log(tempErrors);
                 }
 
                 // Project link checking
@@ -459,6 +464,7 @@ const ResumeBuilderForm = () => {
                         field: "endYear",
                         message: "End year is required"
                     }
+                    tempErrors.companies.push(newError);
                 }
                 else if (!company.isCurrentJob && company.endYear) {
                     const companyEndYearError = validateCompanyEndYear(company.startYear, company.endYear);
@@ -496,7 +502,6 @@ const ResumeBuilderForm = () => {
                     message: projectNameError
                 };
                 tempErrors.projects.push(newError);
-                console.log(tempErrors);
             }
 
             // Project link checking
@@ -539,8 +544,6 @@ const ResumeBuilderForm = () => {
         // If there are not erros for companies and prjoects then separate them from object and check for other errors
         if (tempErrors.companies?.length === 0 && tempErrors.projects?.length === 0) {
             const { companies, projects, ...otherErrors } = tempErrors;
-
-            console.log(otherErrors);
 
             return Object.keys(otherErrors).length > 0;
         }
