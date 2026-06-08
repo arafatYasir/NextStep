@@ -37,9 +37,6 @@ const JobAnalyzerForm = () => {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Variables
-    const isDisabled = !jobRole.trim() || !jobDescription.trim();
-
     // Handling outside clicks
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -237,6 +234,7 @@ const JobAnalyzerForm = () => {
                         value={jobRole}
                         onChange={handleChangeJobRole}
                         placeholder="Enter the job title as it appears in the job posting"
+                        required={true}
                     />
 
                     {errors.jobRole && (
@@ -263,6 +261,7 @@ const JobAnalyzerForm = () => {
                         onChange={handleChangeJobDescription}
                         placeholder="Paste the full job description from the posting, including responsibilities and requirements"
                         className="h-40 resize-none scrollbar-custom"
+                        required={true}
                     />
 
                     {errors.jobDescription && (
@@ -276,7 +275,6 @@ const JobAnalyzerForm = () => {
 
                 {/* Action Button */}
                 <Button
-                    disabled={isDisabled || loading}
                     type="submit"
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                 >

@@ -67,10 +67,9 @@ const ResumeAnalyzerForm = () => {
         }
     }, []);
 
-    const isDisabled = !jobRole.trim() || !jobDescription.trim() || !file;
-
-    const isAcceptedResumeFile = (resumeFile: File) =>
-        ACCEPTED_RESUME_TYPES.includes(resumeFile.type);
+    const isAcceptedResumeFile = (resumeFile: File) => {
+        return ACCEPTED_RESUME_TYPES.includes(resumeFile.type);
+    }
 
     // Handlers
     const handleChangeJobRole = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -315,6 +314,7 @@ const ResumeAnalyzerForm = () => {
                         value={jobRole}
                         onChange={handleChangeJobRole}
                         placeholder="Enter the job title as it appears in the job posting"
+                        required={true}
                     />
 
                     {errors.jobRole && (
@@ -337,6 +337,7 @@ const ResumeAnalyzerForm = () => {
                         onChange={handleChangeJobDescription}
                         placeholder="Paste the full job description to compare against your resume"
                         className="h-40 resize-none scrollbar-custom"
+                        required={true}
                     />
 
                     {errors.jobDescription && (
@@ -371,7 +372,7 @@ const ResumeAnalyzerForm = () => {
                             )}
                             onClick={handleClickResumeUpload}
                         >
-                            <input
+                            <Input
                                 type="file"
                                 className="hidden"
                                 accept=".pdf,.docx"
@@ -418,7 +419,6 @@ const ResumeAnalyzerForm = () => {
 
                 {/* Action Button */}
                 <Button
-                    disabled={isDisabled || loading}
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                     type="submit"
                 >

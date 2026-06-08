@@ -9,8 +9,16 @@ interface ResumeBuilderFormCareerProps {
     handleChangeCareerInfo: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: keyof CareerInfo, index: number) => void;
     handleChangeCompanyField: (index: number, field: string, value: string | boolean) => void;
     errors: {
-        companies?: string;
-        projects?: string;
+        companies?: {
+            index: number;
+            field: string;
+            message: string;
+        }[];
+        projects?: {
+            index: number;
+            field: string;
+            message: string;
+        }[];
     }
 }
 
@@ -35,6 +43,17 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
             {
                 Array.from({ length: careerInfoCount.companies }).map((_, i) => {
                     const company = careerInfo.companies[i];
+                    const companyErrors = errors.companies;
+
+                    let nameError, startYearError, endYearError, descriptionError;
+
+                    if (companyErrors && companyErrors.length > 0) {
+                        nameError = companyErrors.find(err => (err.index === i && err.field === "company"));
+                        startYearError = companyErrors.find(err => (err.index === i && err.field === "startYear"));
+                        endYearError = companyErrors.find(err => (err.index === i && err.field === "endYear"));
+                        descriptionError = companyErrors.find(err => (err.index === i && err.field === "description"));
+                    }
+
                     return (
                         <div key={company.id} className="mb-6">
                             <p className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading">
@@ -47,7 +66,7 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                     <Input
                                         type="text"
                                         id="company"
-                                        value={company.company}
+                                        value={company.company.slice(0, 50)}
                                         onChange={(e) => handleChangeCareerInfo(e, "companies", i)}
                                         placeholder={`Company Name ${i + 1}`}
                                         required={true}
@@ -55,6 +74,11 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                                         {formatRequiredMaxHint(company.company.length, 50)}
                                     </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {nameError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{nameError.message}</p>
+                                    )}
                                 </div>
 
                                 {/* ---- Year Range ---- */}
@@ -63,6 +87,7 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                     <div>
                                         <Select
                                             value={company.startYear}
+                                            required={true}
                                             onValueChange={(val) => handleChangeCompanyField(i, "startYear", val)}
                                         >
                                             <SelectTrigger>
@@ -70,7 +95,6 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectGroup>
-                                                    <SelectLabel>Start Year</SelectLabel>
                                                     {YEAR_OPTIONS.map(year => (
                                                         <SelectItem key={year} value={year}>{year}</SelectItem>
                                                     ))}
@@ -80,12 +104,18 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                         <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                                             Required
                                         </p>
+
+                                        {/* ---- Error Message ---- */}
+                                        {startYearError && (
+                                            <p className="text-red-500 text-[15px] mt-1.5">{startYearError.message}</p>
+                                        )}
                                     </div>
 
                                     {/* End Year / Currently Working Here */}
                                     <div>
                                         <Select
                                             value={company.isCurrentJob ? "currently" : (company.endYear ?? "")}
+                                            required={true}
                                             onValueChange={(val) => {
                                                 if (val === "currently") {
                                                     handleChangeCompanyField(i, "isCurrentJob", true);
@@ -100,24 +130,25 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectGroup>
-                                                    <SelectLabel>End Year</SelectLabel>
+                                                    <SelectItem value="currently" className="text-foreground font-medium">
+                                                        Currently Working Here
+                                                    </SelectItem>
+                                                </SelectGroup>
+                                                <SelectGroup>
                                                     {YEAR_OPTIONS.map(year => (
                                                         <SelectItem key={year} value={year}>{year}</SelectItem>
                                                     ))}
                                                 </SelectGroup>
-
-                                                <SelectSeparator />
-
-                                                <SelectGroup>
-                                                    <SelectItem value="currently" className="text-[rgb(var(--text-accent))] font-medium">
-                                                        ✦ Currently Working Here
-                                                    </SelectItem>
-                                                </SelectGroup>
                                             </SelectContent>
                                         </Select>
                                         <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                                            {company.isCurrentJob ? "Currently working here" : "Required"}
+                                            Required
                                         </p>
+
+                                        {/* ---- Error Message ---- */}
+                                        {endYearError && (
+                                            <p className="text-red-500 text-[15px] mt-1.5">{endYearError.message}</p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -134,13 +165,13 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
                                         {formatRequiredMaxHint(company.description.length, 200)}
                                     </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {descriptionError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{descriptionError.message}</p>
+                                    )}
                                 </div>
                             </div>
-
-                            {/* ---- Error Message ---- */}
-                            {errors.companies && (
-                                <p className="text-red-500 text-[15px] mt-1.5">{errors.companies}</p>
-                            )}
                         </div>
                     );
                 })
@@ -148,62 +179,85 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
 
             {/* ---- Projects Data Input ---- */}
             {
-                Array.from({ length: careerInfoCount.projects }).map((_, i) => (
-                    <div key={careerInfo.projects[i].id} className="mb-6">
-                        <p className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading">
-                            Project {i + 1}
-                        </p>
+                Array.from({ length: careerInfoCount.projects }).map((_, i) => {
+                    const project = careerInfo.projects[i];
+                    const projectErrors = errors.projects;
 
-                        <div className="space-y-3">
-                            <div>
-                                <Input
-                                    type="text"
-                                    id="name"
-                                    value={careerInfo.projects[i].name}
-                                    onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
-                                    placeholder={`Name of Project ${i + 1}`}
-                                    required={true}
-                                />
-                                <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                                    {formatRequiredMaxHint(careerInfo.projects[i].name.length, 50)}
-                                </p>
-                            </div>
+                    let nameError, linkError, descriptionError;
 
-                            <div>
-                                <Input
-                                    type="url"
-                                    id="link"
-                                    value={careerInfo.projects[i].link}
-                                    onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
-                                    placeholder="Project Link"
-                                    required={true}
-                                />
-                                <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                                    {formatRequiredMaxHint(careerInfo.projects[i].link.length, 100)}
-                                </p>
-                            </div>
+                    if (projectErrors && projectErrors.length > 0) {
+                        nameError = projectErrors.find(err => (err.index === i && err.field === "name"));
+                        linkError = projectErrors.find(err => (err.index === i && err.field === "link"));
+                        descriptionError = projectErrors.find(err => (err.index === i && err.field === "description"));
+                    }
 
-                            <div>
-                                <Textarea
-                                    id="description"
-                                    value={careerInfo.projects[i].description}
-                                    onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
-                                    placeholder="Short description of the project"
-                                    className="h-30 resize-none scrollbar-custom"
-                                    required={true}
-                                />
-                                <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                                    {formatRequiredMaxHint(careerInfo.projects[i].description.length, 200)}
-                                </p>
+                    return (
+                        <div key={careerInfo.projects[i].id} className="mb-6">
+                            <p className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading">
+                                Project {i + 1}
+                            </p>
+
+                            <div className="space-y-3">
+                                <div>
+                                    <Input
+                                        type="text"
+                                        id="name"
+                                        value={project.name}
+                                        onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
+                                        placeholder={`Name of Project ${i + 1}`}
+                                        required={true}
+                                    />
+                                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                                        {formatRequiredMaxHint(project.name.length, 50)}
+                                    </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {nameError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{nameError.message}</p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <Input
+                                        type="url"
+                                        id="link"
+                                        value={project.link}
+                                        onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
+                                        placeholder="Project Link"
+                                        required={true}
+                                    />
+                                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                                        {formatRequiredMaxHint(project.link.length, 100)}
+                                    </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {linkError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{linkError.message}</p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <Textarea
+                                        id="description"
+                                        value={project.description}
+                                        onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
+                                        placeholder="Short description of the project"
+                                        className="h-30 resize-none scrollbar-custom"
+                                        required={true}
+                                    />
+                                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                                        {formatRequiredMaxHint(project.description.length, 200)}
+                                    </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {descriptionError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{descriptionError.message}</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
-
-                        {/* ---- Error Message ---- */}
-                        {errors.projects && (
-                            <p className="text-red-500 text-[15px] mt-1.5">{errors.projects}</p>
-                        )}
-                    </div>
-                ))
+                    )
+                })
             }
         </>
     )

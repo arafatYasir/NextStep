@@ -11,8 +11,15 @@ import {
     phoneRegex,
     RESUME_JOB_DESCRIPTION_MAX,
     urlRegex,
+    validateCompanyDescription,
+    validateCompanyEndYear,
+    validateCompanyName,
+    validateCompanyStartYear,
     validateJobDescription,
     validateJobTitle,
+    validateProjectDescription,
+    validateProjectLink,
+    validateProjectName,
 } from "@/src/helpers/validation";
 import ResumePreviewModal from "./ResumePreviewModal";
 import { cn } from "@/lib/utils";
@@ -41,8 +48,16 @@ interface ErrorState {
     location?: string;
     github?: string;
     linkedin?: string;
-    companies?: string;
-    projects?: string;
+    companies?: {
+        index: number;
+        field: string;
+        message: string;
+    }[];
+    projects?: {
+        index: number;
+        field: string;
+        message: string;
+    }[];
     jobTitle?: string,
     jobDescription?: string;
 }
@@ -189,24 +204,6 @@ const ResumeBuilderForm = () => {
     const modalRef = useRef<HTMLDivElement | null>(null);
     const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Variables
-    let sufficientCareerInfo = false;
-
-    // If fresher then only 3 projects are necessary
-    if (resumeType === "Fresher") {
-        if (careerInfo.projects.length === 3) {
-            sufficientCareerInfo = true;
-        }
-    }
-    // If experienced then companies + project = must be eaual to 3
-    else {
-        if ((careerInfo.companies.length >= 1) && (careerInfo.projects.length >= 1) && (careerInfo.companies.length + careerInfo.projects.length === 3)) {
-            sufficientCareerInfo = true;
-        }
-    }
-
-    const isDisabled = !personalInfo.fullName.trim() || !personalInfo.email.trim() || !personalInfo.phone.trim() || !personalInfo.location.trim() || !personalInfo.github.trim() || !personalInfo.linkedin.trim() || !jobInfo.jobTitle.trim() || !jobInfo.jobDescription.trim() || !sufficientCareerInfo;
-
     // Handling outside clicks
     useEffect(() => {
         const handleOutsideClick = (e: MouseEvent) => {
@@ -232,6 +229,22 @@ const ResumeBuilderForm = () => {
     // Functions
     const handleChangeResumeType = (value: "Fresher" | "Experienced") => {
         setResumeType(value);
+        setCareerInfo({
+            companies: [
+                { id: 1, company: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
+                { id: 2, company: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
+            ],
+            projects: [
+                { id: 1, name: "", link: "", description: "" },
+                { id: 2, name: "", link: "", description: "" },
+                { id: 3, name: "", link: "", description: "" }
+            ]
+        });
+        setErrors(prev => ({
+            ...prev,
+            companies: [],
+            projects: []
+        }));
 
         if (value === "Fresher") {
             setCareerInfoCount({ companies: 0, projects: 3 });
@@ -304,11 +317,9 @@ const ResumeBuilderForm = () => {
         }
     }
 
-    const handleCheckErrors = () => {
-        // Initialize a new empty error object
+    const handleValidatePersonalInfo = () => {
         const tempErrors: ErrorState = {};
 
-        // ---- Personal Informations ----
         if (!personalInfo.fullName.trim()) {
             tempErrors.fullName = "Full name is required";
         }
@@ -348,7 +359,12 @@ const ResumeBuilderForm = () => {
             tempErrors.linkedin = "Invalid url format";
         }
 
-        // ---- Job Informations ----
+        return tempErrors;
+    }
+
+    const handleValidateJobInfo = () => {
+        const tempErrors: ErrorState = {};
+
         const jobTitleError = validateJobTitle(jobInfo.jobTitle.trim());
         if (jobTitleError) {
             tempErrors.jobTitle = jobTitleError;
@@ -362,8 +378,172 @@ const ResumeBuilderForm = () => {
             tempErrors.jobDescription = jobDescriptionError;
         }
 
+        return tempErrors;
+    }
+
+    const handleValidateCareerInfo = () => {
+        const tempErrors: ErrorState = {};
+        tempErrors.projects = [];
+        tempErrors.companies = [];
+
+        if (resumeType === "Fresher") {
+            for (let i = 0; i < 3; i++) {
+                const project = careerInfo.projects[i];
+
+                // Project name checking
+                const projectNameError = validateProjectName(project.name);
+                if (projectNameError) {
+                    const newError = {
+                        index: i,
+                        field: "name",
+                        message: projectNameError
+                    };
+                    tempErrors.projects.push(newError);
+                    console.log(tempErrors);
+                }
+
+                // Project link checking
+                const projectLinkError = validateProjectLink(project.link);
+                if (projectLinkError) {
+                    const newError = {
+                        index: i,
+                        field: "link",
+                        message: projectLinkError
+                    };
+                    tempErrors.projects.push(newError);
+                }
+
+                // Project description checking
+                const projectDescription = validateProjectDescription(project.description);
+                if (projectDescription) {
+                    const newError = {
+                        index: i,
+                        field: "description",
+                        message: projectDescription
+                    };
+                    tempErrors.projects.push(newError);
+                }
+            }
+        }
+        else if (resumeType === "Experienced") {
+            // Comapnies Checking
+            for (let i = 0; i < 2; i++) {
+                const company = careerInfo.companies[i];
+
+                // Company name checking
+                const companyNameError = validateCompanyName(company.company);
+                if (companyNameError) {
+                    const newError = {
+                        index: i,
+                        field: "company",
+                        message: companyNameError
+                    }
+                    tempErrors.companies.push(newError);
+                }
+
+                // Company start year checking
+                const companyStartYearError = validateCompanyStartYear(company.startYear);
+                if (companyStartYearError) {
+                    const newError = {
+                        index: i,
+                        field: "startYear",
+                        message: companyStartYearError
+                    }
+                    tempErrors.companies.push(newError);
+                }
+
+                // Company end year checking
+                if (!company.isCurrentJob && !company.endYear?.trim()) {
+                    const newError = {
+                        index: i,
+                        field: "endYear",
+                        message: "End year is required"
+                    }
+                }
+                else if (!company.isCurrentJob && company.endYear) {
+                    const companyEndYearError = validateCompanyEndYear(company.startYear, company.endYear);
+
+                    if (companyEndYearError) {
+                        const newError = {
+                            index: i,
+                            field: "endYear",
+                            message: companyEndYearError
+                        }
+                        tempErrors.companies.push(newError);
+                    }
+                }
+
+                // Comapny description checking
+                const companyDescriptionError = validateCompanyDescription(company.description);
+                if (companyDescriptionError) {
+                    const newError = {
+                        index: i,
+                        field: "description",
+                        message: companyDescriptionError
+                    }
+                    tempErrors.companies.push(newError);
+                }
+            }
+
+            // Project Checking
+            const project = careerInfo.projects[0];
+            // Project name checking
+            const projectNameError = validateProjectName(project.name);
+            if (projectNameError) {
+                const newError = {
+                    index: 0,
+                    field: "name",
+                    message: projectNameError
+                };
+                tempErrors.projects.push(newError);
+                console.log(tempErrors);
+            }
+
+            // Project link checking
+            const projectLinkError = validateProjectLink(project.link);
+            if (projectLinkError) {
+                const newError = {
+                    index: 0,
+                    field: "link",
+                    message: projectLinkError
+                };
+                tempErrors.projects.push(newError);
+            }
+
+            // Project description checking
+            const projectDescription = validateProjectDescription(project.description);
+            if (projectDescription) {
+                const newError = {
+                    index: 0,
+                    field: "description",
+                    message: projectDescription
+                };
+                tempErrors.projects.push(newError);
+            }
+        }
+
+        return tempErrors;
+    }
+
+    const handleCheckErrors = () => {
+        // Initialize a new empty error object
+        const tempErrors: ErrorState = {
+            ...handleValidatePersonalInfo(),
+            ...handleValidateCareerInfo(),
+            ...handleValidateJobInfo(),
+        };
+
         // Set new erros in the state
         setErrors(tempErrors);
+
+        // If there are not erros for companies and prjoects then separate them from object and check for other errors
+        if (tempErrors.companies?.length === 0 && tempErrors.projects?.length === 0) {
+            const { companies, projects, ...otherErrors } = tempErrors;
+
+            console.log(otherErrors);
+
+            return Object.keys(otherErrors).length > 0;
+        }
 
         return Object.keys(tempErrors).length > 0;
     }
@@ -591,7 +771,6 @@ const ResumeBuilderForm = () => {
 
                 {/* ---- Action Button ---- */}
                 <Button
-                    disabled={isDisabled || loading}
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                     type="submit"
                 >

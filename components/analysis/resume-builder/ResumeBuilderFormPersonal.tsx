@@ -44,6 +44,7 @@ const ResumeBuilderFormPersonal = ({ personalInfo, handleChangePersonalInfo, err
                     value={personalInfo.fullName}
                     onChange={handleChangePersonalInfo}
                     placeholder="Full name (eg. John Doe)"
+                    required={true}
                 />
 
                 {/* ---- Error Message ---- */}
@@ -67,6 +68,7 @@ const ResumeBuilderFormPersonal = ({ personalInfo, handleChangePersonalInfo, err
                     value={personalInfo.email}
                     onChange={handleChangePersonalInfo}
                     placeholder="Email address (eg. johndoe@gmail.com)"
+                    required={true}
                 />
 
                 {/* ---- Error Message ---- */}
@@ -90,6 +92,7 @@ const ResumeBuilderFormPersonal = ({ personalInfo, handleChangePersonalInfo, err
                     value={personalInfo.phone}
                     onChange={handleChangePersonalInfo}
                     placeholder="Phone number (eg. XXXXXXXXXX)"
+                    required={true}
                 />
 
                 {/* ---- Error Message ---- */}
@@ -112,6 +115,7 @@ const ResumeBuilderFormPersonal = ({ personalInfo, handleChangePersonalInfo, err
                     value={personalInfo.location}
                     onChange={handleChangePersonalInfo}
                     placeholder="Location (eg. San Francisco, USA)"
+                    required={true}
                 />
 
                 {/* ---- Error Message ---- */}
@@ -135,6 +139,7 @@ const ResumeBuilderFormPersonal = ({ personalInfo, handleChangePersonalInfo, err
                     value={personalInfo.github}
                     onChange={handleChangePersonalInfo}
                     placeholder="GitHub URL (eg. https://github.com/john)"
+                    required={true}
                 />
 
                 {/* ---- Error Message ---- */}
@@ -158,6 +163,7 @@ const ResumeBuilderFormPersonal = ({ personalInfo, handleChangePersonalInfo, err
                     value={personalInfo.linkedin}
                     onChange={handleChangePersonalInfo}
                     placeholder="LinkedIn URL (eg. https://linkedin.com/in/john)"
+                    required={true}
                 />
 
                 {/* ---- Error Message ---- */}

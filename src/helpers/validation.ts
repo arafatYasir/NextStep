@@ -6,6 +6,14 @@ export const JOB_DESCRIPTION_MAX = 3000;
 export const RESUME_JOB_DESCRIPTION_MAX = 2000;
 export const PERSONAL_FIELD_MAX = 50;
 export const PASSWORD_MIN = 8;
+export const PROJECT_NAME_MIN = 4;
+export const PROJECT_NAME_MAX = 50;
+export const PROJECT_DESCRIPTOIN_MIN = 50;
+export const PROJECT_DESCRIPTOIN_MAX = 200;
+export const COMPANY_NAME_MIN = 4;
+export const COMPANY_NAME_MAX = 50;
+export const COMPANY_DESCRIPTOIN_MIN = 50;
+export const COMPANY_DESCRIPTOIN_MAX = 200;
 
 // Regular expressions
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -44,6 +52,64 @@ export function validateJobDescription(
 ): string | null {
     if (description.length < JOB_DESCRIPTION_MIN || description.length > maxLength) {
         return `Job description must be between ${JOB_DESCRIPTION_MIN} and ${maxLength} characters.`;
+    }
+    return null;
+}
+
+export function validateProjectName(name: string): string | null {
+    if (name.length < PROJECT_NAME_MIN || name.length > PROJECT_NAME_MAX) {
+        return `Project's name must be between ${PROJECT_NAME_MIN} and ${PROJECT_NAME_MAX} characters.`;
+    }
+    return null;
+}
+
+export function validateProjectLink(link: string): string | null {
+    if (!urlRegex.test(link)) {
+        return `Project link format is invalid.`;
+    }
+    return null;
+}
+
+export function validateProjectDescription(description: string): string | null {
+    if (description.length < PROJECT_DESCRIPTOIN_MIN || description.length > PROJECT_DESCRIPTOIN_MAX) {
+        return `Project's description must be between ${PROJECT_DESCRIPTOIN_MIN} and ${PROJECT_DESCRIPTOIN_MAX} characters.`;
+    }
+    return null;
+}
+
+export function validateCompanyName(name: string): string | null {
+    if (name.length < COMPANY_NAME_MIN || name.length > COMPANY_NAME_MAX) {
+        return `Company name must be between ${COMPANY_NAME_MIN} and ${COMPANY_NAME_MAX} characters.`;
+    }
+    return null;
+}
+
+export function validateCompanyStartYear(year: string): string | null {
+    if (isNaN(parseInt(year))) {
+        return `Start year must be a number`;
+    }
+    else if (parseInt(year) < 1970 || parseInt(year) > new Date().getFullYear()) {
+        return `Start year must be between 1970 and ${new Date().getFullYear()}`;
+    }
+    return null;
+}
+
+export function validateCompanyEndYear(startYear: string, endYear: string): string | null {
+    if (isNaN(parseInt(endYear))) {
+        return `End year must be a number`;
+    }
+    else if (parseInt(endYear) < parseInt(startYear)) {
+        return `End year must be greater than or equal to start year.`;
+    }
+    else if (parseInt(endYear) < 1970 || parseInt(endYear) > new Date().getFullYear()) {
+        return `End year must be between 1970 and ${new Date().getFullYear()}`;
+    }
+    return null;
+}
+
+export function validateCompanyDescription(description: string): string | null {
+    if (description.length < COMPANY_DESCRIPTOIN_MIN || description.length > COMPANY_DESCRIPTOIN_MAX) {
+        return `Company description must be between ${COMPANY_DESCRIPTOIN_MIN} and ${COMPANY_DESCRIPTOIN_MAX} characters.`;
     }
     return null;
 }
