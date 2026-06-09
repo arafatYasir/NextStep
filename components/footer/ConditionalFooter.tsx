@@ -10,7 +10,7 @@ const ConditionalFooter = () => {
     const hiddenPaths = ["/tools/job-analyzer", "/tools/resume-analyzer", "/tools/resume-builder", "/tools/cover-letter-writer"];
 
     // Check if the current path is among the hiddenPaths list
-    const isFooterHidden = hiddenPaths.includes(pathname) || pathname.startsWith("/dashboard");
+    const isFooterHidden = hiddenPaths.includes(pathname) || pathname.startsWith("/dashboard") || pathname.startsWith("/resume/print");
 
     return (
         <>

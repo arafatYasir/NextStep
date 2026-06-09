@@ -1,12 +1,15 @@
 import Container from "@/components/Container";
 import ResumeSection from "./ResumeSection";
 import ResumeSkillGroup from "./ResumeSkillGroup";
+import { cn } from "@/lib/utils";
 
-const ResumeResultView = ({ result }: { result: ResumeData }) => {
+const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData, isPrintMode?: boolean }) => {
     return (
         <Container>
             <div className="py-8 lg:py-12 flex justify-center">
-                <div className="w-full max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className={cn("w-full bg-card space-y-5",
+                    !isPrintMode && "animate-in fade-in slide-in-from-bottom-4 duration-500"
+                )}>
                     {/* ---- Header: Name + Title + Contact ---- */}
                     <div className="text-center space-y-2 pb-5 border-b border-[rgb(var(--border-default))]">
                         <div>

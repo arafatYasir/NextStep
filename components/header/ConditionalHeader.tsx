@@ -5,11 +5,11 @@ import Header from "./Header";
 
 const ConditionalHeader = () => {
     const pathname = usePathname();
-    const isDashboard = pathname.startsWith("/dashboard");
+    const isHidden = pathname.startsWith("/dashboard") || pathname.startsWith("/resume/print");
     
     return (
         <>
-            {!isDashboard && <Header />}
+            {!isHidden && <Header />}
         </>
     );
 };
