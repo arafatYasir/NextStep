@@ -161,6 +161,7 @@ interface CareerInfo {
     companies: {
         id: number;
         company: string;
+        role: string;
         startYear: string;
         isCurrentJob: boolean;
         endYear?: string;
@@ -170,6 +171,7 @@ interface CareerInfo {
         id: number;
         name: string;
         link: string;
+        techStack: string;
         description: string;
     }[]
 }

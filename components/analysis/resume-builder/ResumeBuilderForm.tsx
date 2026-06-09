@@ -14,18 +14,21 @@ import {
     validateCompanyDescription,
     validateCompanyEndYear,
     validateCompanyName,
+    validateCompanyRole,
     validateCompanyStartYear,
     validateJobDescription,
     validateJobTitle,
     validateProjectDescription,
     validateProjectLink,
     validateProjectName,
+    validateProjectTechStack,
 } from "@/src/helpers/validation";
 import ResumePreviewModal from "./ResumePreviewModal";
 import { cn } from "@/lib/utils";
 import ResumeBuilderInputFormJob from "./ResumeBuilderFormJob";
 import ResumeBuilderInputFormPersonal from "./ResumeBuilderFormPersonal";
 import ResumeBuilderFormCareer from "./ResumeBuilderFormCareer";
+import { projectCompilationEventsSubscribe } from "next/dist/build/swc/generated-native";
 
 interface PersonalInfo {
     fullName: string;
@@ -181,13 +184,13 @@ const ResumeBuilderForm = () => {
     });
     const [careerInfo, setCareerInfo] = useState<CareerInfo>({
         companies: [
-            { id: 1, company: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
-            { id: 2, company: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
+            { id: 1, company: "", role: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
+            { id: 2, company: "", role: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
         ],
         projects: [
-            { id: 1, name: "", link: "", description: "" },
-            { id: 2, name: "", link: "", description: "" },
-            { id: 3, name: "", link: "", description: "" }
+            { id: 1, name: "", link: "", techStack: "", description: "" },
+            { id: 2, name: "", link: "", techStack: "", description: "" },
+            { id: 3, name: "", link: "", techStack: "", description: "" }
         ]
     });
     const [careerInfoCount, setCareerInfoCount] = useState<CareerInfoCount>({
@@ -231,13 +234,13 @@ const ResumeBuilderForm = () => {
         setResumeType(value);
         setCareerInfo({
             companies: [
-                { id: 1, company: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
-                { id: 2, company: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
+                { id: 1, company: "", role: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
+                { id: 2, company: "", role: "", startYear: "", isCurrentJob: false, endYear: "", description: "" },
             ],
             projects: [
-                { id: 1, name: "", link: "", description: "" },
-                { id: 2, name: "", link: "", description: "" },
-                { id: 3, name: "", link: "", description: "" }
+                { id: 1, name: "", link: "", techStack: "", description: "" },
+                { id: 2, name: "", link: "", techStack: "", description: "" },
+                { id: 3, name: "", link: "", techStack: "", description: "" }
             ]
         });
         setErrors(prev => ({
@@ -276,9 +279,10 @@ const ResumeBuilderForm = () => {
 
         let sliceValue: number = 50;
 
-        if (id === "name" || id === "company") sliceValue = 50;
+        if (id === "name" || id === "company" || id === "role") sliceValue = 50;
         else if (id === "link") sliceValue = 100;
-        else if (id === "description") sliceValue = 200;
+        else if (id === "techStack") sliceValue = 150;
+        else if (id === "description") sliceValue = 300;
 
         setCareerInfo(prev => {
             const list = [...prev[name]] as any[];
@@ -418,6 +422,17 @@ const ResumeBuilderForm = () => {
                     tempErrors.projects.push(newError);
                 }
 
+                // Project tech stack checking
+                const projectTechStackError = validateProjectTechStack(project.techStack);
+                if (projectTechStackError) {
+                    const newError = {
+                        index: i,
+                        field: "techStack",
+                        message: projectTechStackError
+                    };
+                    tempErrors.projects.push(newError);
+                }
+
                 // Project description checking
                 const projectDescription = validateProjectDescription(project.description);
                 if (projectDescription) {
@@ -442,6 +457,17 @@ const ResumeBuilderForm = () => {
                         index: i,
                         field: "company",
                         message: companyNameError
+                    }
+                    tempErrors.companies.push(newError);
+                }
+
+                // Company role checking
+                const companyRoleError = validateCompanyRole(company.role);
+                if (companyRoleError) {
+                    const newError = {
+                        index: i,
+                        field: "role",
+                        message: companyRoleError
                     }
                     tempErrors.companies.push(newError);
                 }
@@ -493,6 +519,7 @@ const ResumeBuilderForm = () => {
 
             // Project Checking
             const project = careerInfo.projects[0];
+
             // Project name checking
             const projectNameError = validateProjectName(project.name);
             if (projectNameError) {
@@ -511,6 +538,17 @@ const ResumeBuilderForm = () => {
                     index: 0,
                     field: "link",
                     message: projectLinkError
+                };
+                tempErrors.projects.push(newError);
+            }
+
+            // Project tech stack checking
+            const projectTechStackError = validateProjectTechStack(project.techStack);
+            if (projectTechStackError) {
+                const newError = {
+                    index: 0,
+                    field: "techStack",
+                    message: projectTechStackError
                 };
                 tempErrors.projects.push(newError);
             }
@@ -577,6 +615,15 @@ const ResumeBuilderForm = () => {
             // Start the loading
             setLoading(true);
 
+            let experiences, projects;
+            if (resumeType === "Fresher") {
+                projects = [...careerInfo.projects];
+            }
+            else {
+                experiences = [...careerInfo.companies];
+                projects = careerInfo.projects[0];
+            }
+
             // Enqueue a new resume record
             const res = await fetch("/api/build-resume", {
                 method: "POST",
@@ -591,7 +638,10 @@ const ResumeBuilderForm = () => {
                     github: personalInfo.github,
                     linkedin: personalInfo.linkedin,
                     jobTitle: jobInfo.jobTitle,
-                    jobDescription: jobInfo.jobDescription
+                    jobDescription: jobInfo.jobDescription,
+                    resumeType,
+                    projects,
+                    experiences
                 })
             });
 

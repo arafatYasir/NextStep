@@ -45,10 +45,11 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                     const company = careerInfo.companies[i];
                     const companyErrors = errors.companies;
 
-                    let nameError, startYearError, endYearError, descriptionError;
+                    let nameError, roleError, startYearError, endYearError, descriptionError;
 
                     if (companyErrors && companyErrors.length > 0) {
                         nameError = companyErrors.find(err => (err.index === i && err.field === "company"));
+                        roleError = companyErrors.find(err => (err.index === i && err.field === "role"));
                         startYearError = companyErrors.find(err => (err.index === i && err.field === "startYear"));
                         endYearError = companyErrors.find(err => (err.index === i && err.field === "endYear"));
                         descriptionError = companyErrors.find(err => (err.index === i && err.field === "description"));
@@ -78,6 +79,26 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                     {/* ---- Error Message ---- */}
                                     {nameError && (
                                         <p className="text-red-500 text-[15px] mt-1.5">{nameError.message}</p>
+                                    )}
+                                </div>
+                                
+                                {/* ---- Your Role ---- */}
+                                <div>
+                                    <Input
+                                        type="text"
+                                        id="role"
+                                        value={company.role}
+                                        onChange={(e) => handleChangeCareerInfo(e, "companies", i)}
+                                        placeholder="Your Role"
+                                        required={true}
+                                    />
+                                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                                        {formatRequiredMaxHint(company.role.length, 50)}
+                                    </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {roleError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{roleError.message}</p>
                                     )}
                                 </div>
 
@@ -163,7 +184,7 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                         required={true}
                                     />
                                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                                        {formatRequiredMaxHint(company.description.length, 200)}
+                                        {formatRequiredMaxHint(company.description.length, 300)}
                                     </p>
 
                                     {/* ---- Error Message ---- */}
@@ -183,11 +204,12 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                     const project = careerInfo.projects[i];
                     const projectErrors = errors.projects;
 
-                    let nameError, linkError, descriptionError;
+                    let nameError, linkError, techStackError, descriptionError;
 
                     if (projectErrors && projectErrors.length > 0) {
                         nameError = projectErrors.find(err => (err.index === i && err.field === "name"));
                         linkError = projectErrors.find(err => (err.index === i && err.field === "link"));
+                        techStackError = projectErrors.find(err => (err.index === i && err.field === "techStack"));
                         descriptionError = projectErrors.find(err => (err.index === i && err.field === "description"));
                     }
 
@@ -237,6 +259,25 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                 </div>
 
                                 <div>
+                                    <Input
+                                        type="text"
+                                        id="techStack"
+                                        value={project.techStack}
+                                        onChange={(e) => handleChangeCareerInfo(e, "projects", i)}
+                                        placeholder="Enter the technologies used in this project, separated by commas (eg., HTML, CSS, JavaScript)"
+                                        required={true}
+                                    />
+                                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                                        {formatRequiredMaxHint(project.techStack.length, 150)}
+                                    </p>
+
+                                    {/* ---- Error Message ---- */}
+                                    {techStackError && (
+                                        <p className="text-red-500 text-[15px] mt-1.5">{techStackError.message}</p>
+                                    )}
+                                </div>
+
+                                <div>
                                     <Textarea
                                         id="description"
                                         value={project.description}
@@ -246,7 +287,7 @@ const ResumeBuilderFormCareer = ({ careerInfo, careerInfoCount, handleChangeCare
                                         required={true}
                                     />
                                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                                        {formatRequiredMaxHint(project.description.length, 200)}
+                                        {formatRequiredMaxHint(project.description.length, 300)}
                                     </p>
 
                                     {/* ---- Error Message ---- */}

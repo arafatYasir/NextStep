@@ -8,12 +8,16 @@ export const PERSONAL_FIELD_MAX = 50;
 export const PASSWORD_MIN = 8;
 export const PROJECT_NAME_MIN = 4;
 export const PROJECT_NAME_MAX = 50;
+export const TECH_STACK_MIN = 3;
+export const TECH_STACK_MAX = 150;
 export const PROJECT_DESCRIPTOIN_MIN = 50;
-export const PROJECT_DESCRIPTOIN_MAX = 200;
+export const PROJECT_DESCRIPTOIN_MAX = 300;
 export const COMPANY_NAME_MIN = 4;
 export const COMPANY_NAME_MAX = 50;
+export const COMPANY_ROLE_MIN = 3;
+export const COMPANY_ROLE_MAX = 50;
 export const COMPANY_DESCRIPTOIN_MIN = 50;
-export const COMPANY_DESCRIPTOIN_MAX = 200;
+export const COMPANY_DESCRIPTOIN_MAX = 300;
 
 // Regular expressions
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -70,6 +74,13 @@ export function validateProjectLink(link: string): string | null {
     return null;
 }
 
+export function validateProjectTechStack(stack: string): string | null {
+    if (stack.length < TECH_STACK_MIN || stack.length > TECH_STACK_MAX) {
+        return `Technologies must be between ${TECH_STACK_MIN} and ${TECH_STACK_MAX} characters.`;
+    }
+    return null;
+}
+
 export function validateProjectDescription(description: string): string | null {
     if (description.length < PROJECT_DESCRIPTOIN_MIN || description.length > PROJECT_DESCRIPTOIN_MAX) {
         return `Project's description must be between ${PROJECT_DESCRIPTOIN_MIN} and ${PROJECT_DESCRIPTOIN_MAX} characters.`;
@@ -80,6 +91,13 @@ export function validateProjectDescription(description: string): string | null {
 export function validateCompanyName(name: string): string | null {
     if (name.length < COMPANY_NAME_MIN || name.length > COMPANY_NAME_MAX) {
         return `Company name must be between ${COMPANY_NAME_MIN} and ${COMPANY_NAME_MAX} characters.`;
+    }
+    return null;
+}
+
+export function validateCompanyRole(role: string): string | null {
+    if (role.length < COMPANY_ROLE_MIN || role.length > COMPANY_ROLE_MAX) {
+        return `Company role must be between ${COMPANY_ROLE_MIN} and ${COMPANY_ROLE_MAX} characters.`;
     }
     return null;
 }

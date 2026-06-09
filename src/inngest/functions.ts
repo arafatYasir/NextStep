@@ -1,4 +1,4 @@
-import { JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT } from "@/lib/prompts";
+import { JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT_1, RESUME_BUILDER_PROMPT_2 } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/cleanAIResponse";
@@ -149,7 +149,10 @@ export const buildResume = inngest.createFunction(
         const {
             resumeId,
             jobTitle,
-            jobDescription
+            jobDescription,
+            resumeType,
+            experiences,
+            projects
         } = event.data;
 
         try {
@@ -164,25 +167,41 @@ export const buildResume = inngest.createFunction(
             // Choose a model
             const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
-            // Get AI resume content generation
-            const parsedJSONData = await step.run("generate-resume-content", async () => {
+            // Generate summary and skills sections of the resume
+            const resumeJSONData1 = await step.run("generate-resume-content-1", async () => {
                 // Generate dynamic prompt
-                const prompt = RESUME_BUILDER_PROMPT.replace("{jobTitle}", jobTitle).replace("{jobDescription}", jobDescription);
+                const prompt = RESUME_BUILDER_PROMPT_1.replace("{jobTitle}", jobTitle).replace("{jobDescription}", jobDescription);
 
                 // Generate response
                 const result = await model.generateContent(prompt);
 
-                // Clean response and parse to json
+                // Clean response and parse to jsonData
                 const response = cleanAIResponse(result.response.text());
                 const jsonData = JSON.parse(response);
 
                 return jsonData;
             });
 
+            // Generate experience, projects & education sections of resume
+            const resumeJSONData2 = await step.run("generate-resume-content-2", async () => {
+                // Generate dynamic prompt
+                const prompt = RESUME_BUILDER_PROMPT_2.replace("{jobDescription}", jobDescription).replace("{resumeType}", resumeType).replace("{experiences}", JSON.stringify(experiences)).replace("{projects}", JSON.stringify(projects));
+
+                // Generate response
+                const result = await model.generateContent(prompt);
+
+                // Clean response and parse to jsonData
+                const response = cleanAIResponse(result.response.text());
+                const jsonData = JSON.parse(response);
+
+                return jsonData;
+            })
+
             // Update resume record
             await step.run("update-resume-record", async () => {
                 await resumeModel.findByIdAndUpdate(resumeId, {
-                    ...parsedJSONData,
+                    ...resumeJSONData1,
+                    ...resumeJSONData2,
                     status: "completed"
                 })
             })

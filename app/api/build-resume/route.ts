@@ -19,6 +19,9 @@ export async function POST(req: NextRequest) {
         const linkedin = parseTrimmedString(body?.linkedin);
         const jobTitle = parseTrimmedString(body?.jobTitle);
         const jobDescription = parseTrimmedString(body?.jobDescription);
+        const resumeType = parseTrimmedString(body?.resumeType);
+        const experiences = body?.experiences;
+        const projects = body.projects;
 
         // Checking if data is valid
         const titleError = validateJobTitle(jobTitle);
@@ -70,6 +73,20 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: "ERROR", message: "Invalid url format" }, { status: 400 });
         }
 
+        if (resumeType === "Fresher") {
+            if (projects.length !== 3) {
+                return NextResponse.json({ status: "ERROR", message: "3 Projects are required for freshers" }, { status: 400 });
+            }
+        }
+        else {
+            if(experiences.length !== 2) {
+                return NextResponse.json({ status: "ERROR", message: "2 Companies are required" }, { status: 400 });
+            }
+            else if (!projects) {
+                return NextResponse.json({ status: "ERROR", message: "Project is required" }, { status: 400 });
+            }
+        }
+
         // Connect to database
         await connectToDatabase();
 
@@ -95,7 +112,10 @@ export async function POST(req: NextRequest) {
             data: {
                 resumeId: resumeRecord._id.toString(),
                 jobTitle,
-                jobDescription
+                jobDescription,
+                resumeType,
+                experiences,
+                projects
             }
         });
 
