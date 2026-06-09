@@ -28,7 +28,6 @@ import { cn } from "@/lib/utils";
 import ResumeBuilderInputFormJob from "./ResumeBuilderFormJob";
 import ResumeBuilderInputFormPersonal from "./ResumeBuilderFormPersonal";
 import ResumeBuilderFormCareer from "./ResumeBuilderFormCareer";
-import { projectCompilationEventsSubscribe } from "next/dist/build/swc/generated-native";
 
 interface PersonalInfo {
     fullName: string;
