@@ -3,13 +3,14 @@ import MetricCard from "./MetricCard";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import resumeAnalysisModel from "@/src/models/resumeAnalysis.model";
+import resumeModel from "@/src/models/resume.model";
 
 const ServiceMetricCards = async ({ userId }: { userId: string }) => {
     await connectToDatabase();
 
     const jobRecords = await JobRecord.countDocuments({ userId, status: "completed" });
     const resumeRecords = await resumeAnalysisModel.countDocuments({ userId, status: "completed" });
-    const resumesBuilt = 0;
+    const resumesBuilt = await resumeModel.countDocuments({ userId, status: "completed" });
     const coverLetters = 0;
 
     return (
