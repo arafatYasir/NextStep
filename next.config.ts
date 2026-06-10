@@ -9,8 +9,9 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  experimental: {
-    serverComponentsExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
+  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
+  outputFileTracingIncludes: {
+    "/api/resume/print/[resumeId]": ["node_modules/@sparticuz/chromium/bin/**/*"],
   },
 };
 
