@@ -30,11 +30,10 @@ const OverviewSkeleton = () => {
                             {Array.from({ length: 8 }).map((_, index) => (
                                 <div className="space-y-1.5 w-full" key={index}>
                                     <div className="flex justify-between items-end">
-                                        <Skeleton className="h-3 w-[20%]" />
-                                        <Skeleton className="h-3 w-[10%]" />
+                                        <Skeleton className="h-4 rounded w-[20%]" />
+                                        <Skeleton className="h-4 rounded w-[10%]" />
                                     </div>
-                                    <div className="h-2 w-full bg-[rgb(var(--border-default))] rounded-full overflow-hidden">
-                                    </div>
+                                    <Skeleton className="h-2 w-full rounded-full" />
                                 </div>
                             ))}
                         </div>
