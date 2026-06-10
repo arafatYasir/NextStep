@@ -39,7 +39,7 @@ export async function GET(
             : (await import("puppeteer-core")).default.launch({
                 args: chromium.args,
                 defaultViewport: { width: 1280, height: 720 },
-                executablePath: await chromium.executablePath(),
+                executablePath: await chromium.executablePath("https://github.com/Sparticuz/chromium/releases/download/v138.0.1/chromium-v138.0.1-pack.tar"),
                 headless: true,
             })
         );
