@@ -106,7 +106,7 @@ const ResumePreviewModal = ({ result, onClose, isLoading }: ResumePreviewModalPr
                 {isLoading ? (
                     <LoadingView activeStep={activeStep} completedSteps={completedSteps} />
                 ) : (
-                    <ResumeResultView result={result} />
+                    <ResumeResultView result={result} isPrintMode={false} />
                 )}
             </div>
         </div>

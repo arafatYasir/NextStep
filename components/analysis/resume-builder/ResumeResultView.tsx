@@ -1,17 +1,65 @@
+"use client";
+
 import Container from "@/components/Container";
 import ResumeSection from "./ResumeSection";
 import ResumeSkillGroup from "./ResumeSkillGroup";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData, isPrintMode?: boolean }) => {
+    // States
+    const [loading, setLoading] = useState<boolean>(false);
+
+    // Variables
+    const resumeId = result.resumeId;
+
+    // Functions
+    const handleDownloadResume = async () => {
+        try {
+            setLoading(true);
+
+            // Send request to backend
+            const res = await fetch(`/api/resumes/${resumeId}/download`);
+
+            if (!res.ok) {
+                throw new Error("Failed to generate PDF");
+            }
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+
+            console.log("The blob: ", blob);
+            console.log("The URL: ", url);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `resume-${resumeId}.pdf`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        } catch (e) {
+            console.error("Resume download error: ", e);
+            toast.error("Failed to downlaod resume. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
-        <Container>
-            <div className="py-8 lg:py-12 flex justify-center">
-                <div className={cn("w-full bg-card space-y-5",
-                    !isPrintMode && "animate-in fade-in slide-in-from-bottom-4 duration-500"
+        <Container removeDefault={isPrintMode ? true : false}>
+            <div className={cn(
+                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse sm:flex-row items-start justify-center gap-3"
+            )}>
+                {/* ---- Resume ---- */}
+                <div className={cn("w-full space-y-4",
+                    !isPrintMode && "max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500"
                 )}>
                     {/* ---- Header: Name + Title + Contact ---- */}
-                    <div className="text-center space-y-2 pb-5 border-b border-[rgb(var(--border-default))]">
+                    <div className="text-center space-y-1 pb-5 border-b border-[rgb(var(--border-default))]">
                         <div>
                             <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
                                 {result.personalInfo.fullName}
@@ -37,14 +85,14 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
 
                     {/* ---- Summary ---- */}
                     <ResumeSection title="Professional Summary">
-                        <p className="text-sm sm:text-[15px] font-sans text-[rgb(var(--text-secondary))] leading-relaxed">
+                        <p className="text-sm font-sans text-[rgb(var(--text-secondary))] leading-relaxed">
                             {result.summary}
                         </p>
                     </ResumeSection>
 
                     {/* ---- Skills ---- */}
                     <ResumeSection title="Skills">
-                        <div className="space-y-2">
+                        <div className="space-y-1">
                             <ResumeSkillGroup label="Languages" skills={result.skills.languages} />
                             <ResumeSkillGroup label="Frameworks & Libraries" skills={result.skills.frameworksAndLibraries} />
                             <ResumeSkillGroup label="Tools & Platforms" skills={result.skills.toolsAndPlatforms} />
@@ -55,11 +103,11 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                     {/* ---- Experience ---- */}
                     {result.experience?.length > 0 && (
                         <ResumeSection title="Work Experience">
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {result.experience.map((exp, idx) => (
                                     <div key={idx} className="pl-4 border-l border-[rgb(var(--bg-primary))]/40 space-y-1.5">
                                         <div className="flex items-center justify-between flex-wrap gap-x-4 gap-y-1">
-                                            <h4 className="font-heading font-semibold text-foreground text-sm sm:text-[15px]">
+                                            <h4 className="font-heading font-semibold text-foreground text-sm">
                                                 {exp.jobTitle}
                                             </h4>
                                             <span className="text-xs font-sans text-[rgb(var(--text-tertiary))] whitespace-nowrap">
@@ -70,7 +118,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                                         <p className="text-sm font-sans text-[rgb(var(--text-accent))] font-medium">{exp.company}</p>
                                         <ul className="list-disc list-inside space-y-1">
                                             {exp.responsibilities.map((r, i) => (
-                                                <li key={i} className="text-sm font-sans text-[rgb(var(--text-secondary))] leading-relaxed">
+                                                <li key={i} className="text-sm font-sans text-[rgb(var(--text-secondary))]">
                                                     {r}
                                                 </li>
                                             ))}
@@ -84,11 +132,11 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                     {/* ---- Projects ---- */}
                     {result.projects?.length > 0 && (
                         <ResumeSection title="Projects">
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {result.projects.map((proj, idx) => (
                                     <div key={idx} className="pl-4 border-l border-[rgb(var(--bg-primary))]/40 space-y-1.5">
                                         <div className="flex items-center gap-2 flex-wrap">
-                                            <h4 className="font-heading font-semibold text-foreground text-sm sm:text-[15px]">
+                                            <h4 className="font-heading font-semibold text-foreground text-sm">
                                                 {proj.projectName}
                                             </h4>
                                             {proj.link && (
@@ -101,7 +149,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                                             {proj.techStack.map((tech, i) => (
                                                 <span
                                                     key={i}
-                                                    className="px-2 py-0.5 text-xs font-sans rounded-full bg-[rgb(var(--bg-primary))]/5 text-[rgb(var(--text-accent))] font-medium"
+                                                    className="text-xs font-sans text-[rgb(var(--text-accent))] font-medium"
                                                 >
                                                     {tech}
                                                 </span>
@@ -109,7 +157,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                                         </div>
                                         <ul className="list-disc list-inside space-y-1">
                                             {proj.highlights.map((h, i) => (
-                                                <li key={i} className="text-sm font-sans text-[rgb(var(--text-secondary))] leading-relaxed">
+                                                <li key={i} className="text-sm font-sans text-[rgb(var(--text-secondary))]">
                                                     {h}
                                                 </li>
                                             ))}
@@ -123,11 +171,11 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                     {/* ---- Education ---- */}
                     {result.education?.length > 0 && (
                         <ResumeSection title="Education">
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {result.education.map((edu, idx) => (
                                     <div key={idx} className="flex items-start justify-between flex-wrap gap-x-4 gap-y-1">
                                         <div>
-                                            <h4 className="font-heading font-semibold text-foreground text-sm sm:text-[15px]">{edu.degree}</h4>
+                                            <h4 className="font-heading font-semibold text-foreground text-sm">{edu.degree}</h4>
                                             <p className="text-[13px] sm:text-sm font-sans text-[rgb(var(--text-secondary))]">{edu.institution}</p>
                                         </div>
                                         <span className="text-xs font-sans text-[rgb(var(--text-tertiary))] whitespace-nowrap">
@@ -138,6 +186,30 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                             </div>
                         </ResumeSection>
                     )}
+                </div>
+
+                {/* ---- Download Button ---- */}
+                <div className={cn(
+                    isPrintMode ? "hidden" : "block"
+                )}>
+                    <Button
+                        variant="outline"
+                        className="flex items-center gap-x-2"
+                        disabled={loading}
+                        onClick={handleDownloadResume}
+                    >
+                        {
+                            loading ? (
+                                <Spinner />
+                            ) : (
+                                <Download className="size-4.5" />
+                            )
+                        }
+
+                        <span className="hidden lg:inline">
+                            Download Resume
+                        </span>
+                    </Button>
                 </div>
             </div>
         </Container>

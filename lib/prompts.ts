@@ -163,7 +163,7 @@ STEP-BY-STEP INSTRUCTIONS:
      - "languages": Programming, scripting, or markup languages (e.g., HTML, CSS, JS, TS, SQL, Python, etc.).
      - "frameworksAndLibraries": Frameworks, libraries, or UI components (e.g., React, Next.js, Redux, Tailwind, Bootstrap, shadcn etc.).
      - "toolsAndPlatforms": Developer software, platforms, services, and hosting providers (e.g., Git, GitHub, Vercel, Netlify, Figma, Postman, Inngest, Supabase, Firebase, Docker, databases, etc.).
-     - "softSkills": Key professional traits and principles of self (e.g., communication, problem-solving, clean coding, critical thinking, etc.).
+     - "softSkills": Key professional traits and principles of self (e.g., communication, problem-solving, clean coding, critical thinking, etc.). It MUST only contain things which are related to self. It shouldn't contain any technical skills like "Frontend Development, API Development".
 
 ---
 OUTPUT FORMAT:

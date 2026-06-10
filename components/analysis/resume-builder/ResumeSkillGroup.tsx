@@ -3,7 +3,7 @@ const ResumeSkillGroup = ({ label, skills }: { label: string; skills: string[] }
 
     return (
         <p>
-            <span className="font-heading text-sm sm:text-[15px] font-semibold text-foreground tracking-wider">
+            <span className="font-heading text-[13px] sm:text-sm font-semibold text-foreground">
                 {label}:
             </span>
             <span className="font-sans text-[13px] sm:text-sm text-[rgb(var(--text-secondary))]">

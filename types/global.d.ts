@@ -122,6 +122,7 @@ interface ResumeAnalysis {
 };
 
 interface ResumeData {
+    resumeId: string;
     personalInfo: {
         fullName: string,
         email: string,

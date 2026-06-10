@@ -65,6 +65,7 @@ interface ErrorState {
 }
 
 // const resumeContents = {
+//     resumeId: "asdfasdf",
 //     resumeTitle: "Mern Stack Developer",
 //     education: [
 //         {
@@ -688,7 +689,7 @@ const ResumeBuilderForm = () => {
                     if (resumeData.status === "completed") {
                         const { userId, status, ...resumeContent } = resumeData;
 
-                        setResult(resumeContent);
+                        setResult({ ...resumeContent, resumeId });
                         setLoading(false);
 
                         if (pollIntervalRef.current) {

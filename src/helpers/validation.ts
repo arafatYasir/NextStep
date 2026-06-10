@@ -23,6 +23,7 @@ export const COMPANY_DESCRIPTOIN_MAX = 300;
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const phoneRegex = /^[0-9]{11}$/;
 export const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+export const mongodbIDRegex = /^[a-fA-F0-9]{24}$/;
 
 /** Character counter with min/max rules (e.g. job title, job description). */
 export function formatCharCountHint(current: number, min: number, max: number): string {
