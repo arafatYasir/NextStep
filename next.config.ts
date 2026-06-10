@@ -8,7 +8,10 @@ const nextConfig: NextConfig = {
         hostname: "**"
       }
     ]
-  }
+  },
+  experimental: {
+    serverComponentsExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
+  },
 };
 
 export default nextConfig;
