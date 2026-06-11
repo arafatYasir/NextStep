@@ -5,11 +5,11 @@ export const SingleJobCardSkeleton = () => (
         <Skeleton className="size-11 shrink-0" />
 
         <div className="space-y-3 w-1/3">
-            <Skeleton className="h-4 rounded w-full" />
+            <Skeleton className="h-5 rounded w-full" />
             <div className="flex gap-4">
-                <Skeleton className="h-3 rounded w-1/3" />
-                <Skeleton className="h-3 rounded w-1/3" />
-                <Skeleton className="h-3 rounded w-1/3" />
+                <Skeleton className="h-4 rounded w-1/3" />
+                <Skeleton className="h-4 rounded w-1/3" />
+                <Skeleton className="h-4 rounded w-1/3" />
             </div>
         </div>
     </div>
