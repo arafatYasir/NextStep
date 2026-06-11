@@ -3,7 +3,7 @@ import JobCardWrapper from "./JobCardWrapper";
 import { SingleJobCardSkeleton } from "./SingleJobCardSkeleton";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
-import { Briefcase } from "lucide-react";
+import { FileSearch } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getJobData } from "@/src/helpers/apiCalls";
 
@@ -26,7 +26,7 @@ const JobsRecordsList = async () => {
         return (
             <div className="flex flex-col items-center justify-center py-24 px-4 rounded-xl border border-dashed border-[rgb(var(--border-hover))] bg-card">
                 <div className="size-16 rounded-full bg-[rgb(var(--bg-primary))]/10 flex items-center justify-center text-[rgb(var(--bg-primary))] mb-4">
-                    <Briefcase className="size-8" />
+                    <FileSearch className="size-8" />
                 </div>
                 <h3 className="text-lg font-heading font-semibold text-foreground">
                     No job analyses yet

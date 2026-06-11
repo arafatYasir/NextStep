@@ -122,7 +122,9 @@ interface ResumeAnalysis {
 };
 
 interface ResumeData {
-    resumeId: string;
+    resumeId?: string;
+    _id?: string;
+    resumeType: "Fresher" | "Experienced";
     personalInfo: {
         fullName: string,
         email: string,
@@ -155,7 +157,9 @@ interface ResumeData {
         degree: string,
         institution: string,
         duration: string
-    }[]
+    }[];
+    createdAt: Date;
+    status: "queued" | "completed" | "failed";
 };
 
 interface CareerInfo {

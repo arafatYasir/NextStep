@@ -95,6 +95,7 @@ export async function POST(req: NextRequest) {
         // Creating a database record of that resume
         const resumeRecord = await Resume.create({
             userId,
+            resumeType,
             personalInfo: {
                 fullName,
                 email,

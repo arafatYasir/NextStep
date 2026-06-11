@@ -15,7 +15,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
     const [loading, setLoading] = useState<boolean>(false);
 
     // Variables
-    const resumeId = result.resumeId;
+    const resumeId = result?.resumeId || result?._id;
 
     // Functions
     const handleDownloadResume = async () => {

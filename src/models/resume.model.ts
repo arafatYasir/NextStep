@@ -6,6 +6,11 @@ const Resume = new mongoose.Schema({
         required: true,
         trim: true
     },
+    resumeType: {
+        type: String,
+        enum: ["Fresher", "Experienced"],
+        required: true
+    },
     personalInfo: {
         fullName: {
             type: String,
