@@ -109,7 +109,25 @@ const BuiltResumeCard = ({ data }: { data: ResumeData }) => {
     }, [showDeletePopup]);
 
     const handleDelete = async () => {
-        // TODO: call delete API
+        try {
+            const res = await fetch(`/api/resumes/${data?._id || data?.resumeId}`, {
+                method: "DELETE"
+            });
+            const { status, error, message } = await res.json();
+
+            if (status === "OK") {
+                toast.message(message);
+                router.refresh();
+            }
+            else {
+                console.error(error);
+                toast.error(error);
+            }
+        }
+        catch (e) {
+            console.error("Resume deletion error: ", e);
+            toast.error("Failed to delete the resume.");
+        }
     };
 
     return (

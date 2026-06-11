@@ -23,7 +23,7 @@ const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
             onClose();
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
         finally {
             setLoading(false);

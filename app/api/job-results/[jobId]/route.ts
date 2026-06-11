@@ -53,19 +53,12 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ j
 
         await connectToDatabase();
 
-        const jobRecord = await JobRecord.findOne({ _id: jobId });
+        const jobRecord = await JobRecord.findOne({ _id: jobId, userId: auth.user.id });
 
         if (!jobRecord) {
             return NextResponse.json(
                 { message: "Job record not found", status: "ERROR" },
                 { status: 404 }
-            );
-        }
-
-        if (jobRecord.userId !== auth.user.id) {
-            return NextResponse.json(
-                { message: "Forbidden", status: "ERROR" },
-                { status: 403 }
             );
         }
 

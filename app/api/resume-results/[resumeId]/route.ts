@@ -53,19 +53,12 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ r
 
         await connectToDatabase();
 
-        const resumeRecord = await resumeAnalysisModel.findOne({ _id: resumeId });
+        const resumeRecord = await resumeAnalysisModel.findOne({ _id: resumeId, userId: auth.user.id });
 
         if (!resumeRecord) {
             return NextResponse.json(
                 { error: "Resume record not found", status: "ERROR" },
                 { status: 404 }
-            );
-        }
-
-        if (resumeRecord.userId !== auth.user.id) {
-            return NextResponse.json(
-                { error: "Forbidden", status: "ERROR" },
-                { status: 403 }
             );
         }
 
