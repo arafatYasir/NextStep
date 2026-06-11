@@ -39,7 +39,7 @@ export async function GET(
             : (await import("puppeteer-core")).default.launch({
                 args: chromium.args,
                 defaultViewport: { width: 1280, height: 720 },
-                executablePath: await chromium.executablePath("https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-layer.arm64.zip"),
+                executablePath: await chromium.executablePath("https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.arm64.tar"),
                 headless: true,
             })
         );
