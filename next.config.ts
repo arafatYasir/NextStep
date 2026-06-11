@@ -10,9 +10,6 @@ const nextConfig: NextConfig = {
     ]
   },
   serverExternalPackages: ["@sparticuz/chromium-min", "puppeteer-core"],
-  outputFileTracingIncludes: {
-    "/api/resume/print/[resumeId]": ["node_modules/@sparticuz/chromium/bin/**/*"],
-  },
 };
 
 export default nextConfig;
