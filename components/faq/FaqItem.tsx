@@ -12,7 +12,7 @@ const FaqItem = ({ item }: { item: { question: string; answer: string } }) => {
             className={cn(
                 "group rounded-xl border transition-all duration-250 bg-card overflow-hidden",
                 isOpen
-                    ? "border-[rgb(var(--border-hover))] shadow-xl shadow-primary/5 bg-primary/2"
+                    ? "border-[rgb(var(--border-hover))] shadow-xl shadow-primary/5"
                     : "border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] hover:shadow-md"
             )}
         >
