@@ -32,9 +32,6 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
             const blob = await res.blob();
             const url = URL.createObjectURL(blob);
 
-            console.log("The blob: ", blob);
-            console.log("The URL: ", url);
-
             const a = document.createElement("a");
             a.href = url;
             a.download = `resume-${resumeId}.pdf`;
@@ -141,7 +138,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                                             </h4>
                                             {proj.link && (
                                                 <a href={proj.link} target="_blank" className="text-xs text-[rgb(var(--text-accent))] hover:underline font-sans">
-                                                    ↗ View
+                                                    View
                                                 </a>
                                             )}
                                         </div>
