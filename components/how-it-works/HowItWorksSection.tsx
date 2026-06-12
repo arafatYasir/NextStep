@@ -59,6 +59,18 @@ export const howItWorksSteps = [
             </>
         ),
         image: "/images/how-it-works-step-5.png"
+    },
+    {
+        id: 6,
+        title: "Review Your Generated Resume",
+        description: (
+            <>
+                Once your resume is generated, you can preview it. The resume will include structured sections such as <b>Summary</b>, <b>Skills</b>, <b>Experience</b>, <b>Projects</b>, and <b>Education</b>, based on your provided information.
+                <br /><br />
+                If you selected resume type <b>Experienced</b>, your resume will include an experience section. If you selected <b>Fresher</b>, it will exclude experience and focus on your projects instead. Finally, you can download your resume.
+            </>
+        ),
+        image: "/images/how-it-works-step-6.png"
     }
 ];
 
