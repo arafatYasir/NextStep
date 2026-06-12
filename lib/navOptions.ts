@@ -43,11 +43,6 @@ export const navOptions: (NavLink | NavSubmenu)[] = [
     },
     {
         id: 3,
-        name: "Blogs",
-        url: "/blogs"
-    },
-    {
-        id: 4,
         name: "Contact",
         url: "/contact"
     }
