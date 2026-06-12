@@ -47,6 +47,18 @@ export const howItWorksSteps = [
             </>
         ),
         image: "/images/how-it-works-step-4.png"
+    },
+    {
+        id: 5,
+        title: "Build Your Resume",
+        description: (
+            <>
+                Go to the <Link className="underline" href="/tools/resume-builder">AI Resume Builder</Link> page and fill in your personal details such as your <b>full name</b>, <b>email address</b>, <b>phone number</b>, <b>location</b>, <b>LinkedIn and GitHub</b> links.
+                <br /><br />
+                Next, add your career information, including your <b>work experience</b> & <b>projects</b>. Finally, enter the target <b>job title</b> and <b>job description</b>, then click <b>Build Resume</b> to let the AI generate your resume in just a few seconds.
+            </>
+        ),
+        image: "/images/how-it-works-step-5.png"
     }
 ];
 
