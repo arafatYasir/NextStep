@@ -10,8 +10,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     DropdownMenuLabel
@@ -56,8 +54,14 @@ const AuthenticationMenus = () => {
 
     // Functions
     const handleSignOut = async () => {
-        await supabase.auth.signOut();
-        toast.success("Logout successful");
+        try {
+            await supabase.auth.signOut();
+            toast.success("Logout successful");
+        }
+        catch (e) {
+            toast.error("Something went wrong. Please try again.");
+            console.error("Failed to log out: ", e);
+        }
     };
 
     // If loading then show a skeleton UI
@@ -98,7 +102,7 @@ const AuthenticationMenus = () => {
 
                         <DropdownMenuContent side="bottom" className="font-sans mt-2.5 bg-[rgb(var(--bg-surface))] border border-[rgb(var(--border-default))] shadow-lg rounded-xl duration-200">
                             <DropdownMenuLabel>
-                                User: {user.user_metadata.full_name}
+                                User: {user.user_metadata.email}
                             </DropdownMenuLabel>
 
                             <DropdownMenuSeparator />
