@@ -21,7 +21,7 @@ const HeroSection = () => {
                         <span className="font-sans">
                             <Sparkles className="w-4 h-4 xs:w-5 xs:h-5 text-[rgb(var(--bg-primary-hover))]" />
                         </span>
-                        <span className="font-sans text-xs xs:text-sm">AI Career Co-Pilot for Quick Job Wins</span>
+                        <span className="font-sans text-xs xs:text-sm font-semibold">AI Career Co-Pilot for Quick Job Wins</span>
                     </TextBadge>
 
                     {/* ---- Main Heading ---- */}
