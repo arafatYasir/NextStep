@@ -12,7 +12,8 @@ const strongMatchSchema = new mongoose.Schema(
             required: true,
             trim: true
         }
-    }
+    },
+    { _id: false }
 )
 
 const partialMatchSchema = new mongoose.Schema(
@@ -77,12 +78,6 @@ const resumeAnalysisSchema = new mongoose.Schema(
         },
 
         jobTitle: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-
-        jobDescription: {
             type: String,
             required: true,
             trim: true,

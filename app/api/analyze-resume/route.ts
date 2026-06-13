@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
 
         const resumeText = await extractTextFromFile(resume);
 
-        if (resumeText.trim() === "" || resumeText.trim().length < 200) {
+        if (resumeText.trim() === "" || resumeText.trim().length < 300) {
             return NextResponse.json(
                 { status: "ERROR", message: "The resume content is empty or insufficient." },
                 { status: 400 }
@@ -79,7 +79,6 @@ export async function POST(req: NextRequest) {
         const resumeAnalysis = await ResumeAnalysis.create({
             userId,
             jobTitle,
-            jobDescription,
             resumeFileName: resume.name,
             resumeFileType: resume.type,
             resumeFileSize: resume.size,
