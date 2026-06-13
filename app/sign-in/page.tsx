@@ -1,6 +1,6 @@
 "use client";
 
-import { SubmitEventHandler, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner"
@@ -62,7 +62,7 @@ const SignInPage = () => {
         return Object.keys(tempError).length === 0;
     }
 
-    const handleSignIn: SubmitEventHandler<HTMLFormElement> = async (e) => {
+    const handleSignIn: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
         // Prevent the page reload
         e.preventDefault();
 

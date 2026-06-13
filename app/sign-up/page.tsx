@@ -58,8 +58,8 @@ const SignUpPage = () => {
 
         return Object.keys(tempError).length === 0;
     }
-    
-    const handleSignUp = async (e: React.FormEvent) => {
+
+    const handleSignUp: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
         // Reset error state
@@ -87,14 +87,32 @@ const SignUpPage = () => {
             });
 
             if (data?.user) {
+                // Create a default subscription for the user
+                const res = await fetch("/api/subscriptions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ userId: data.user.id })
+                });
+
+                if (!res.ok) {
+                    throw new Error("Failed to create default subscription for user");
+                }
+
+                // Show notification and reset form values
                 toast.success("Check your email for the confirmation link!");
                 setEmail("");
                 setPassword("");
             }
+            else if (error) {
+                console.error("Failed to sign up: ", error);
+                toast.error("Sign Up Failed!");
+            }
 
         } catch (e: any) {
             toast.error("Something went wrong. Please try again.");
-            console.error(e.message);
+            console.error(e);
         } finally {
             setLoading({
                 isLoading: false,
@@ -113,16 +131,18 @@ const SignUpPage = () => {
             // Create the supabase client
             const supabase = createClient();
 
+            const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
+
             // Sign up the user
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "google",
                 options: {
-                    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+                    redirectTo: `${siteUrl}/auth/callback`,
                 },
             });
 
             if (error) {
-                toast.error("Login failed");
+                toast.error("Sign Up Failed!");
                 console.error(error);
             }
 
@@ -152,10 +172,10 @@ const SignUpPage = () => {
                 loadingFor: "github"
             });
 
-            const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
-
             // Create the supabase client
             const supabase = createClient();
+
+            const siteUrl = process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_SITE_URL_DEV : process.env.NEXT_PUBLIC_SITE_URL_PROD;
 
             // Sign up the user
             const { data, error } = await supabase.auth.signInWithOAuth({
@@ -166,7 +186,7 @@ const SignUpPage = () => {
             });
 
             if (error) {
-                toast.error("Login failed");
+                toast.error("Sign Up Failed!");
                 console.error(error);
             }
 
