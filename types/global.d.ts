@@ -37,6 +37,7 @@ interface TestimonialItem {
 
 interface PricingPlan {
     plan: string;
+    planKey: "FREE" | "STANDARD" | "PREMIUM";
     price: string;
     description: string;
     allowed: string[];

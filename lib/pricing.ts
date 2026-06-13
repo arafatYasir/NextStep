@@ -1,6 +1,7 @@
-export const pricingPlans = [
+export const pricingPlans: PricingPlan[] = [
     {
         plan: "Free — Explore",
+        planKey: "FREE",
         price: "$0",
         description: "Get a flavour of how NextStep works and understand where your stand.",
         allowed: [
@@ -13,6 +14,7 @@ export const pricingPlans = [
     },
     {
         plan: "Standard — Apply Smarter",
+        planKey: "STANDARD",
         price: "$5",
         description: "Everything you need to apply seriously and stop guessing what recruiters want.",
         allowed: [
@@ -27,6 +29,7 @@ export const pricingPlans = [
     },
     {
         plan: "Premium — Get Hired Faster",
+        planKey: "PREMIUM",
         price: "$15",
         description: "Unlimited access for developers who want maximum precision and control.",
         allowed: [
