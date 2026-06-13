@@ -12,8 +12,77 @@ const jobRecordSchema = new mongoose.Schema({
         trim: true
     },
     result: {
-        type: mongoose.Schema.Types.Mixed,
-        default: null
+        skills: [
+            {
+                name: {
+                    type: String,
+                    trim: true
+                },
+                count: {
+                    type: Number,
+                }
+            },
+        ],
+        softSkills: [
+            {
+                name: {
+                    type: String,
+                    trim: true
+                },
+                count: {
+                    type: Number,
+                }
+            }
+        ],
+        tools: [
+            {
+                name: {
+                    type: String,
+                    trim: true
+                },
+                count: {
+                    type: Number,
+                }
+            }
+        ],
+        phrases: [
+            {
+                name: {
+                    type: String,
+                    trim: true
+                },
+                count: {
+                    type: Number,
+                }
+            }
+        ],
+        actionVerbs: [
+            {
+                name: {
+                    type: String,
+                    trim: true
+                },
+                count: {
+                    type: Number,
+                }
+            }
+        ],
+        seniorityLevels: [
+            {
+                type: String,
+                trim: true
+            }
+        ],
+        educationalRequirements: [
+            {
+                type: String,
+                trim: true
+            }
+        ],
+        salary: {
+            type: String,
+            trim: true,
+        }
     },
     status: {
         type: String,

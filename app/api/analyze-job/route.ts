@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
                 jobId: newJobRecord._id.toString(),
                 jobRole,
                 jobDescription,
-                userId,
             },
         });
 
