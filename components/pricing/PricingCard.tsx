@@ -1,9 +1,58 @@
+"use client";
+
 import { Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Spinner } from "../ui/spinner";
 
 const PricingCard = ({ plan }: { plan: PricingPlan }) => {
+    // States
+    const [loading, setLoading] = useState(false);
+
+    // Extra hooks
+    const router = useRouter();
+
+    // Variables
     const isPopular = plan.tag === "Most Popular";
+
+    // Functions
+    const handleUpgrade = async () => {
+        if (plan.planKey === "FREE") {
+            router.push("/#how-it-works");
+        }
+        else {
+            setLoading(true);
+
+            try {
+                const res = await fetch("/api/stripe/checkout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ planKey: plan.planKey })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.message || "Something went wrong.");
+                }
+
+                if (data.url) {
+                    window.location.href = data.url;
+                }
+            } catch (e: any) {
+                console.error("Stripe subscription error: ", e.message);
+
+                toast.error(e.message || "Subscription processing failed. Please try again later.");
+            } finally {
+                setLoading(false);
+            }
+        }
+    }
 
     return (
         <div className={cn(
@@ -41,8 +90,17 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
                 className={cn("w-full font-sans shadow-md duration-250", {
                     "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
                 })}
+                onClick={handleUpgrade}
+                disabled={loading}
             >
-                {plan.cta || "Get Started"}
+                {loading ? (
+                    <span className="flex items-center gap-x-2">
+                        <Spinner />
+                        Processing...
+                    </span>
+                ) : (
+                    plan.cta || "Get Started"
+                )}
             </Button>
 
             {/* ---- Divider ---- */}
