@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CheckCircle2, LayoutDashboard } from "lucide-react";
+import { CheckCircle2, CircleDollarSign, LayoutDashboard } from "lucide-react";
 import Container from "@/components/Container";
 import Section from "@/components/Section";
 import TextBadge from "@/components/TextBadge";
@@ -64,8 +64,9 @@ const PaymentSuccessPage = () => {
                                 Go to Dashboard
                             </Link>
                         </Button>
-                        <Button variant="secondary" size="lg">
+                        <Button asChild variant="secondary" size="lg">
                             <Link href="/billing">
+                                <CircleDollarSign className="w-4 h-4" />
                                 View Billing
                             </Link>
                         </Button>
