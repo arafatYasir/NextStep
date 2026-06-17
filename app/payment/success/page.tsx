@@ -48,6 +48,8 @@ const PaymentSuccessPage = () => {
         const timeout = setTimeout(() => {
             verifyPayment();
         }, 50);
+
+        return () => clearTimeout(timeout);
     }, []);
 
     if (status === "verifying") {
@@ -76,7 +78,7 @@ const PaymentSuccessPage = () => {
                         <span className="font-sans text-xs xs:text-sm font-semibold">Payment Confirmed</span>
                     </TextBadge>
 
-                    {/* ---- Icon — gradient ring with a shimmer sweep while the plan activates ---- */}
+                    {/* ---- Icon ---- */}
                     <div
                         className={`relative flex items-center justify-center w-20 h-20 rounded-full bg-linear-to-br from-[rgb(var(--bg-primary))] to-[rgb(var(--bg-primary-hover))] transition-all duration-700 ease-out`}
                     >
@@ -111,10 +113,6 @@ const PaymentSuccessPage = () => {
                             </Link>
                         </Button>
                     </div>
-
-                    <p className="text-xs text-foreground/50 font-sans pt-2">
-                        A receipt has been sent to your email address.
-                    </p>
                 </div>
             </Container>
         </Section>
