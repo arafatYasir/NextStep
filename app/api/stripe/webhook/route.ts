@@ -58,13 +58,14 @@ export async function POST(req: NextRequest) {
                 break;
             }
 
+            case "customer.subscription.created":
             case "customer.subscription.updated": {
                 const subscription = event.data.object as Stripe.Subscription;
                 const userId = subscription.metadata?.userId;
                 const planKey = subscription.metadata?.planKey;
 
                 if (!userId) {
-                    console.error("Missing userId metadata on subscription update");
+                    console.error("Missing userId metadata on subscription event");
                     break;
                 }
 
@@ -73,12 +74,13 @@ export async function POST(req: NextRequest) {
                     {
                         planKey: planKey ?? undefined,
                         subscriptionStatus: subscription.status,
+                        stripeSubscriptionId: subscription.id,
                         currentPeriodEnd: new Date(subscription.items.data[0].current_period_end * 1000),
                         cancelAtPeriodEnd: subscription.cancel_at_period_end,
                     }
                 );
 
-                console.log(`Subscription updated for user ${userId}`);
+                console.log(`Subscription synced for user ${userId}`);
                 break;
             }
 
