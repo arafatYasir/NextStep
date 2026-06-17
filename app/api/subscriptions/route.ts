@@ -1,4 +1,5 @@
 import { connectToDatabase } from "@/src/database/mongodb";
+import { requireAuth } from "@/src/helpers/requireAuth";
 import { Subscription } from "@/src/models/subscription.model";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -26,5 +27,34 @@ export async function POST(req: NextRequest) {
     } catch (e) {
         console.error("Failed to create user subscription: ", e);
         return NextResponse.json({ status: "ERROR", message: "Failed to create subscription" }, { status: 500 });
+    }
+}
+
+export async function GET(req: NextRequest) {
+    try {
+        const { user, unauthorized } = await requireAuth();
+        if (unauthorized) return unauthorized;
+
+        const userId = user.id;
+
+        if (!userId) {
+            return NextResponse.json({ status: "ERROR", message: "User id is not found" }, { status: 400 });
+        }
+
+        await connectToDatabase();
+
+        const subscription = await Subscription.findOne({ userId });
+
+        if (!subscription) {
+            return NextResponse.json({ status: "ERROR", message: "User subscription not found!" }, { status: 404 });
+        }
+
+        return NextResponse.json({
+            planKey: subscription.planKey,
+            currentPeriodEnd: subscription.currentPeriodEnd
+        })
+    } catch (e) {
+        console.error("Failed to get subscription details.");
+        return NextResponse.json({ status: "ERROR", message: "Internal server error" }, { status: 500 })
     }
 }
