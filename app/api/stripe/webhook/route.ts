@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
                         planKey,
                         subscriptionStatus: subscription.status,
                         stripeSubscriptionId: subscription.id,
-                        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                        currentPeriodEnd: new Date(subscription.items.data[0].current_period_end * 1000),
                         cancelAtPeriodEnd: subscription.cancel_at_period_end,
                     }
                 );
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
                     {
                         planKey: planKey ?? undefined,
                         subscriptionStatus: subscription.status,
-                        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                        currentPeriodEnd: new Date(subscription.items.data[0].current_period_end * 1000),
                         cancelAtPeriodEnd: subscription.cancel_at_period_end,
                     }
                 );
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
 
             case "invoice.payment_failed": {
                 const invoice = event.data.object as Stripe.Invoice;
-                const subscriptionId = invoice.subscription as string;
+                const subscriptionId = invoice.parent?.subscription_details?.subscription as string;
 
                 if (!subscriptionId) break;
 
