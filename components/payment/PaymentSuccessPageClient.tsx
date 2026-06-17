@@ -91,7 +91,7 @@ const PaymentSuccessPageClient = ({ sessionId }: { sessionId: string }) => {
 
                     {/* ---- Sub-heading ---- */}
                     <p className="text-sm sm:text-base font-sans text-foreground/80 max-w-lg leading-relaxed">
-                        Your payment went through and your plan is being activated. This usually takes just a few seconds — refresh your dashboard if it doesn&apos;t update right away.
+                        Your payment went through and your plan is being activated. This usually takes just a few seconds — refresh your dashboard if it doesn't update right away.
                     </p>
 
                     {/* ---- CTA Buttons ---- */}

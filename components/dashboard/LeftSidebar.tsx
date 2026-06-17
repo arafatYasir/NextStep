@@ -5,8 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
     LayoutDashboard,
-    Zap,
-    History,
     Settings,
     ChevronRight,
     FileSearch,
@@ -16,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useAppSelector } from "@/src/store/hooks";
 
 interface NavItem {
     label: string;
@@ -33,6 +32,10 @@ const navItems: NavItem[] = [
 ];
 
 const LeftSidebar = () => {
+    // States
+    const { subscriptionPlan } = useAppSelector((state) => state.auth);
+
+    // Extra hooks
     const pathname = usePathname();
 
     return (
@@ -96,8 +99,8 @@ const LeftSidebar = () => {
                             Yasir Arafat
                         </span>
                         <span className="truncate text-xs font-sans text-[rgb(var(--text-tertiary))]">
-                            Pro Plan
-                        </span> 
+                            {subscriptionPlan} Plan
+                        </span>
                     </div>
                 </div>
             </div>
