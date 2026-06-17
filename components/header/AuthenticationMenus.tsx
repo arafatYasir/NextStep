@@ -18,45 +18,21 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
 import Image from "next/image";
+import { useAppSelector } from "@/src/store/hooks";
 
 const AuthenticationMenus = () => {
     // States
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
+    const { user, isLoading } = useAppSelector((state) => state.auth);
 
     // Extra hooks
     const supabase = createClient();
-    const router = useRouter();
-
-    // Checking auth state
-    useEffect(() => {
-        const getUser = async () => {
-            const { data } = await supabase.auth.getUser();
-            setUser(data.user);
-            setLoading(false);
-        };
-
-        getUser();
-
-        // Listen for auth state changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null);
-
-            if (_event === 'SIGNED_OUT') {
-                router.refresh();
-            }
-        });
-
-        return () => {
-            subscription.unsubscribe();
-        };
-    }, [supabase, router]);
 
     // Functions
     const handleSignOut = async () => {
         try {
             await supabase.auth.signOut();
-            toast.success("Logout successful");
+
+            toast.success("Log Out successful");
         }
         catch (e) {
             toast.error("Something went wrong. Please try again.");
@@ -65,7 +41,7 @@ const AuthenticationMenus = () => {
     };
 
     // If loading then show a skeleton UI
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex items-center gap-4">
                 <Skeleton className="hidden sm:block w-[121px] h-9" />

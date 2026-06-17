@@ -7,10 +7,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Spinner } from "../ui/spinner";
+import { useAppSelector } from "@/src/store/hooks";
 
 const PricingCard = ({ plan }: { plan: PricingPlan }) => {
     // States
     const [loading, setLoading] = useState(false);
+    const userCurrentPlan = useAppSelector((state) => state.auth.subscriptionPlan);
 
     // Extra hooks
     const router = useRouter();
@@ -57,8 +59,8 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
     return (
         <div className={cn(
             "group relative flex flex-col gap-5 xs:gap-6 p-5 xs:p-6 rounded-xl border transition-all duration-250 shadow-xl bg-card",
-            isPopular
-                ? "border-[rgb(var(--border-hover))]"
+            (userCurrentPlan === plan.planKey)
+                ? "border-2 border-[rgb(var(--border-hover))]"
                 : "border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))]"
         )}>
             {/* ---- Popular Tag ---- */}
@@ -85,23 +87,27 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
             </div>
 
             {/* ---- CTA Button ---- */}
-            <Button
-                variant={isPopular ? "default" : "outline"}
-                className={cn("w-full font-sans shadow-md duration-250", {
-                    "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
-                })}
-                onClick={handleUpgrade}
-                disabled={loading}
-            >
-                {loading ? (
-                    <span className="flex items-center gap-x-2">
-                        <Spinner />
-                        Processing...
-                    </span>
-                ) : (
-                    plan.cta || "Get Started"
-                )}
-            </Button>
+            {
+                !(userCurrentPlan !== "FREE" && userCurrentPlan === plan.planKey) && (
+                    <Button
+                        variant={isPopular ? "default" : "outline"}
+                        className={cn("w-full font-sans shadow-md duration-250", {
+                            "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
+                        })}
+                        onClick={handleUpgrade}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <span className="flex items-center gap-x-2">
+                                <Spinner />
+                                Processing...
+                            </span>
+                        ) : (
+                            plan.cta || "Get Started"
+                        )}
+                    </Button>
+                )
+            }
 
             {/* ---- Divider ---- */}
             <div className="h-px w-full bg-[rgb(var(--border-default))]" />

@@ -22,7 +22,7 @@ export const fetchUserAndSubscription = createAsyncThunk(
 
         // Call subscription fetching api
         const res = await fetch("/api/subscriptions");
-        
+
         if (!res.ok) {
             throw new Error("Failed to fetch subscription");
         }
@@ -35,7 +35,7 @@ export const fetchUserAndSubscription = createAsyncThunk(
             currentPeriodEnd: subscription.currentPeriodEnd
         }
     }
-)
+);
 
 const initialState: AuthState = {
     user: null,
