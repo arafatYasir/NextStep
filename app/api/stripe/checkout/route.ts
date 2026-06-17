@@ -5,8 +5,8 @@ import { stripe } from "@/src/stripe/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
 const PLAN_PRICE_MAP: Record<string, string> = {
-    STANDARD: process.env.STRIPE_STANDARD_PRODUCT_ID!,
-    PREMIUM: process.env.STRIPE_PREMIUM_PRODUCT_ID!
+    STANDARD: process.env.STRIPE_STANDARD_PRICE_ID!,
+    PREMIUM: process.env.STRIPE_PREMIUM_PRICE_ID!
 };
 
 export async function POST(req: NextRequest) {
