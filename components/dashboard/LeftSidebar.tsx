@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useAppSelector } from "@/src/store/hooks";
 
 interface NavItem {
     label: string;
@@ -32,9 +31,6 @@ const navItems: NavItem[] = [
 ];
 
 const LeftSidebar = () => {
-    // States
-    const { subscriptionPlan } = useAppSelector((state) => state.auth);
-
     // Extra hooks
     const pathname = usePathname();
 
@@ -87,23 +83,6 @@ const LeftSidebar = () => {
                     );
                 })}
             </nav>
-
-            {/* ---- Footer / Account ---- */}
-            <div className="border-t border-[rgb(var(--border-default))] p-2">
-                <div className="flex items-center gap-3 p-4 rounded-lg transition-colors hover:bg-[rgb(var(--bg-hover))] active:bg-[rgb(var(--bg-hover))] cursor-pointer">
-                    <div className="size-9 rounded-full bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs ring-2 ring-white shadow-sm">
-                        YA
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                        <span className="truncate text-sm font-heading font-semibold text-[rgb(var(--text-primary))]">
-                            Yasir Arafat
-                        </span>
-                        <span className="truncate text-xs font-sans text-[rgb(var(--text-tertiary))]">
-                            {subscriptionPlan} Plan
-                        </span>
-                    </div>
-                </div>
-            </div>
         </aside>
     );
 };

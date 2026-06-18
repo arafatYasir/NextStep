@@ -51,7 +51,9 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({
             planKey: subscription.planKey,
-            currentPeriodEnd: subscription.currentPeriodEnd
+            currentPeriodEnd: subscription.currentPeriodEnd,
+            subscriptionStatus: subscription.subscriptionStatus,
+            cancelAtPeriodEnd: subscription.cancelAtPeriodEnd
         })
     } catch (e) {
         console.error("Failed to get subscription details.");

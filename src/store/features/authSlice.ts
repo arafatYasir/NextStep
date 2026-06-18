@@ -6,6 +6,8 @@ interface AuthState {
     user: User | null,
     subscriptionPlan: string;
     currentPeriodEnd: Date | null,
+    subscriptionStatus: "active" | "inactive" | "past_due" | "canceled" | "incomplete";
+    cancelAtPeriodEnd: boolean;
     isLoading: boolean,
     error: string
 }
@@ -32,7 +34,9 @@ export const fetchUserAndSubscription = createAsyncThunk(
         return {
             user,
             subscriptionPlan: subscription.planKey,
-            currentPeriodEnd: subscription.currentPeriodEnd
+            currentPeriodEnd: subscription.currentPeriodEnd,
+            subscriptionStatus: subscription.subscriptionStatus,
+            cancelAtPeriodEnd: subscription.cancelAtPeriodEnd,
         }
     }
 );
@@ -41,6 +45,8 @@ const initialState: AuthState = {
     user: null,
     subscriptionPlan: "",
     currentPeriodEnd: null,
+    subscriptionStatus: "inactive",
+    cancelAtPeriodEnd: false,
     isLoading: false,
     error: ""
 }
@@ -65,6 +71,8 @@ export const authSlice = createSlice({
                 state.user = action.payload.user;
                 state.subscriptionPlan = action.payload.subscriptionPlan;
                 state.currentPeriodEnd = action.payload.currentPeriodEnd;
+                state.subscriptionStatus = action.payload.subscriptionStatus;
+                state.cancelAtPeriodEnd = action.payload.cancelAtPeriodEnd;
                 state.isLoading = false;
             })
             .addCase(fetchUserAndSubscription.rejected, (state, action) => {
