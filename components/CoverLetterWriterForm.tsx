@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
-import { COMPANY_NAME_MAX, COMPANY_NAME_MIN, formatCharCountHint, JOB_DESCRIPTION_MIN, JOB_TITLE_MAX, JOB_TITLE_MIN, MANAGER_NAME_MAX, MANAGER_NAME_MIN, RESUME_JOB_DESCRIPTION_MAX, validateCompanyName, validateJobDescription, validateJobTitle, validateManagerName } from "@/src/helpers/validation";
+import { COMPANY_NAME_MAX, COMPANY_NAME_MIN, formatCharCountHint, JOB_DESCRIPTION_MIN, JOB_TITLE_MAX, JOB_TITLE_MIN, MANAGER_NAME_MAX, MANAGER_NAME_MIN, NAME_MAX, NAME_MIN, RESUME_JOB_DESCRIPTION_MAX, validateCompanyName, validateJobDescription, validateJobTitle, validateManagerName, validateName } from "@/src/helpers/validation";
 import { Textarea } from "./ui/textarea";
 import { Select } from "@radix-ui/react-select";
 import { SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -13,6 +13,7 @@ import { useAppSelector } from "@/src/store/hooks";
 import SignInAlertModal from "./SignInAlertModal";
 
 interface FormData {
+    name: string;
     jobTitle: string;
     jobDescription: string;
     companyName: string;
@@ -21,6 +22,7 @@ interface FormData {
 }
 
 interface ErrorState {
+    name?: string;
     jobTitle?: string;
     jobDescription?: string;
     companyName?: string;
@@ -34,7 +36,7 @@ const CoverLetterWriterForm = () => {
     // States
     const [letterType, setLetterType] = useState<"Experienced" | "Fresher">("Experienced");
     const [formData, setFormData] = useState<FormData>({
-        jobTitle: "", jobDescription: "", companyName: "", hiringMangerName: "", letterTone: "Professional"
+        name: "", jobTitle: "", jobDescription: "", companyName: "", hiringMangerName: "", letterTone: "Professional"
     });
     const [errors, setErrors] = useState<ErrorState>({});
     const [showSignInModal, setShowSignInModal] = useState(false);
@@ -74,6 +76,11 @@ const CoverLetterWriterForm = () => {
 
     const handleCheckErrors = () => {
         const tempErrors: ErrorState = {};
+
+        const nameError = validateName(formData.name.trim());
+        if (nameError) {
+            tempErrors.name = nameError;
+        }
 
         const jobTitleError = validateJobTitle(formData.jobTitle.trim());
         if (jobTitleError) {
@@ -154,7 +161,7 @@ const CoverLetterWriterForm = () => {
                             onClick={() => setLetterType("Experienced")}
                             className={cn(
                                 "relative flex flex-col items-center justify-center gap-2 h-auto py-5 px-4 w-full text-center cursor-pointer whitespace-normal",
-                                letterType === "Experienced" && "border-[rgb(var(--border-hover))]!"
+                                letterType === "Experienced" && "border-[rgb(var(--border-hover))]"
                             )}
                         >
                             <div className="flex size-10 items-center justify-center rounded-full bg-[rgb(var(--border-default))]">
@@ -180,7 +187,7 @@ const CoverLetterWriterForm = () => {
                             onClick={() => setLetterType("Fresher")}
                             className={cn(
                                 "relative flex flex-col items-center justify-center gap-2 h-auto py-5 px-4 w-full text-center cursor-pointer whitespace-normal",
-                                letterType === "Fresher" && "border-[rgb(var(--border-hover))]!"
+                                letterType === "Fresher" && "border-[rgb(var(--border-hover))]"
                             )}
                         >
                             <div className="flex size-10 items-center justify-center rounded-full bg-[rgb(var(--border-default))]">
@@ -199,6 +206,31 @@ const CoverLetterWriterForm = () => {
                             )}
                         </Button>
                     </div>
+                </div>
+
+                {/* ---- Your Name ---- */}
+                <div className="mb-6">
+                    <label
+                        htmlFor="name"
+                        className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading"
+                    >
+                        Your Name
+                    </label>
+                    <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={handleChangeValue}
+                        placeholder="Enter your name"
+                        required={true}
+                    />
+
+                    {errors.name && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.name}</p>
+                    )}
+
+                    <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
+                        {formatCharCountHint(formData.name.length, NAME_MIN, NAME_MAX)}
+                    </p>
                 </div>
 
                 {/* ---- Job Title ---- */}

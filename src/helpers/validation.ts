@@ -22,6 +22,9 @@ export const COMPANY_DESCRIPTOIN_MAX = 300;
 export const MANAGER_NAME_MIN = 4;
 export const MANAGER_NAME_MAX = 50;
 
+export const NAME_MIN = 4;
+export const NAME_MAX = 50;
+
 // Regular expressions
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const phoneRegex = /^[0-9]{11}$/;
@@ -139,6 +142,13 @@ export function validateCompanyDescription(description: string): string | null {
 export function validateManagerName(name: string): string | null {
     if (name.length < MANAGER_NAME_MIN || name.length > MANAGER_NAME_MAX) {
         return `Name must be between ${MANAGER_NAME_MIN} and ${MANAGER_NAME_MAX} characters.`;
+    }
+    return null;
+}
+
+export function validateName(name: string): string | null {
+    if (name.length < NAME_MIN || name.length > NAME_MAX) {
+        return `Name must be between ${NAME_MIN} and ${NAME_MAX} characters.`;
     }
     return null;
 }
