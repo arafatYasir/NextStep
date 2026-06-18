@@ -22,14 +22,40 @@ const coverLetterSchema = new Schema(
             default: ""
         },
         coverLetter: {
-            type: String,
-            required: true,
-            trim: true
+            greeting: {
+                type: String,
+                trim: true,
+            },
+            opening: {
+                type: String,
+                trim: true,
+            },
+            paragraphs: {
+                type: [String]
+            },
+            closing: {
+                type: String,
+                trim: true,
+            },
+            signature: {
+                type: String,
+                trim: true,
+            },
         },
         letterTone: {
             type: String,
             enum: ["Professional", "Enthusiastic", "Confident", "Friendly", "Formal"],
             default: "Professional"
+        },
+        letterType: {
+            type: String,
+            enum: ["Experienced", "Fresher"],
+            default: "Experienced"
+        },
+        status: {
+            type: String,
+            enum: ["queued", "completed", "failed"],
+            default: "queued"
         }
     },
     { timestamps: true }

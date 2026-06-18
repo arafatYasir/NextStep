@@ -17,7 +17,7 @@ interface FormData {
     jobTitle: string;
     jobDescription: string;
     companyName: string;
-    hiringMangerName?: string;
+    hiringManagerName?: string;
     letterTone: "Professional" | "Enthusiastic" | "Confident" | "Friendly" | "Formal";
 }
 
@@ -26,7 +26,7 @@ interface ErrorState {
     jobTitle?: string;
     jobDescription?: string;
     companyName?: string;
-    hiringMangerName?: string;
+    hiringManagerName?: string;
     letterTone?: string;
 }
 
@@ -36,7 +36,7 @@ const CoverLetterWriterForm = () => {
     // States
     const [letterType, setLetterType] = useState<"Experienced" | "Fresher">("Experienced");
     const [formData, setFormData] = useState<FormData>({
-        name: "", jobTitle: "", jobDescription: "", companyName: "", hiringMangerName: "", letterTone: "Professional"
+        name: "", jobTitle: "", jobDescription: "", companyName: "", hiringManagerName: "", letterTone: "Professional"
     });
     const [errors, setErrors] = useState<ErrorState>({});
     const [showSignInModal, setShowSignInModal] = useState(false);
@@ -100,11 +100,11 @@ const CoverLetterWriterForm = () => {
             tempErrors.companyName = companyNameError;
         }
 
-        if (formData.hiringMangerName?.trim()) {
-            const hiringMangerNameError = validateManagerName(formData.hiringMangerName.trim());
+        if (formData.hiringManagerName?.trim()) {
+            const hiringManagerNameError = validateManagerName(formData.hiringManagerName.trim());
 
-            if (hiringMangerNameError) {
-                tempErrors.hiringMangerName = hiringMangerNameError;
+            if (hiringManagerNameError) {
+                tempErrors.hiringManagerName = hiringManagerNameError;
             }
         }
 
@@ -136,9 +136,11 @@ const CoverLetterWriterForm = () => {
                 return;
             }
 
-            // setLoading(true);
+            // Start the loading
+            setLoading(true);
 
-
+            // Enqueue a new cover letter record
+            
         } catch (e) {
 
         }
@@ -313,26 +315,26 @@ const CoverLetterWriterForm = () => {
                 {/* ---- Hiring Manger Name ---- */}
                 <div className="mb-6">
                     <label
-                        htmlFor="hiringMangerName"
+                        htmlFor="hiringManagerName"
                         className="block font-semibold text-foreground text-sm sm:text-base mb-2 font-heading"
                     >
                         <span>Hiring Manger Name</span>
                         <span className="ml-1 text-[rgb(var(--text-tertiary))] font-normal">(Optional)</span>
                     </label>
                     <Input
-                        id="hiringMangerName"
-                        value={formData.hiringMangerName}
+                        id="hiringManagerName"
+                        value={formData.hiringManagerName}
                         onChange={handleChangeValue}
                         placeholder="Enter the Hiring Manager's name"
                         required={true}
                     />
 
-                    {errors.hiringMangerName && (
-                        <p className="text-red-500 text-[15px] mt-1.5">{errors.hiringMangerName}</p>
+                    {errors.hiringManagerName && (
+                        <p className="text-red-500 text-[15px] mt-1.5">{errors.hiringManagerName}</p>
                     )}
 
                     <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-tertiary))] mt-1.5">
-                        {formatCharCountHint(formData?.hiringMangerName?.length || 0, MANAGER_NAME_MIN, MANAGER_NAME_MAX)}
+                        {formatCharCountHint(formData?.hiringManagerName?.length || 0, MANAGER_NAME_MIN, MANAGER_NAME_MAX)}
                     </p>
                 </div>
 

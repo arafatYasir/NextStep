@@ -1,4 +1,4 @@
-import { JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT_1, RESUME_BUILDER_PROMPT_2 } from "@/lib/prompts";
+import { COVER_LETTER_WRITER_PRMPT, JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT_1, RESUME_BUILDER_PROMPT_2 } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/cleanAIResponse";
@@ -6,6 +6,7 @@ import JobRecord from "../models/jobRecord.model";
 import { connectToDatabase } from "../database/mongodb";
 import resumeAnalysisModel from "../models/resumeAnalysis.model";
 import resumeModel from "../models/resume.model";
+import CoverLetter from "../models/coverLetter.model";
 
 // Analyze Job Description
 export const analyzeJobDescription = inngest.createFunction(
@@ -216,4 +217,85 @@ export const buildResume = inngest.createFunction(
             });
         }
     }
-)
+);
+
+// Build Cover Letter
+export const buildCoverLetter = inngest.createFunction(
+    {
+        id: "generate/cover-letter",
+        concurrency: {
+            limit: 5,
+        },
+        throttle: {
+            limit: 10,
+            period: "1m",
+        },
+        triggers: [{ event: "generate/cover-letter" }],
+    },
+    async ({ event, step }) => {
+        const {
+            coverLetterId,
+            name,
+            jobTitle,
+            jobDescription,
+            companyName,
+            hiringManagerName,
+            letterTone,
+            letterType,
+        } = event.data;
+
+        try {
+            // 1. Connect to DB
+            await step.run("connect-database", async () => {
+                await connectToDatabase();
+            });
+
+            // 2. Init Gemini
+            const genAI = new GoogleGenerativeAI(process.env.AI_API_KEY!);
+
+            const model = genAI.getGenerativeModel({
+                model: "gemini-2.5-flash-lite",
+            });
+
+            // 3. Generate Cover Letter using AI
+            const generatedCoverLetter = await step.run(
+                "generate-cover-letter",
+                async () => {
+                    const prompt = COVER_LETTER_WRITER_PRMPT
+                        .replace("{name}", name)
+                        .replace("{jobTitle}", jobTitle)
+                        .replace("{jobDescription}", jobDescription)
+                        .replace("{companyName}", companyName)
+                        .replace("{hiringManagerName}", hiringManagerName)
+                        .replace("{letterType}", letterType)
+                        .replace("{letterTone}", letterTone);
+
+                    const result = await model.generateContent(prompt);
+
+                    const responseText = cleanAIResponse(result.response.text());
+
+                    const jsonData = JSON.parse(responseText);
+
+                    return jsonData;
+                }
+            );
+
+            // 4. Update DB with success
+            await step.run("update-cover-letter-success", async () => {
+                await CoverLetter.findByIdAndUpdate(coverLetterId, {
+                    coverLetter: generatedCoverLetter.coverLetter,
+                    status: "completed",
+                });
+            });
+        } catch (error) {
+            console.error("Cover Letter Generation Failed (Inngest)", error);
+
+            // 5. Mark as failed
+            await step.run("update-cover-letter-failed", async () => {
+                await CoverLetter.findByIdAndUpdate(coverLetterId, {
+                    status: "failed",
+                });
+            });
+        }
+    }
+);
