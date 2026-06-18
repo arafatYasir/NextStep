@@ -2,13 +2,15 @@
 
 import { Briefcase, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
-import { COMPANY_NAME_MAX, COMPANY_NAME_MIN, formatCharCountHint, JOB_DESCRIPTION_MIN, JOB_TITLE_MAX, JOB_TITLE_MIN, MANAGER_NAME_MAX, MANAGER_NAME_MIN, RESUME_JOB_DESCRIPTION_MAX } from "@/src/helpers/validation";
+import { COMPANY_NAME_MAX, COMPANY_NAME_MIN, formatCharCountHint, JOB_DESCRIPTION_MIN, JOB_TITLE_MAX, JOB_TITLE_MIN, MANAGER_NAME_MAX, MANAGER_NAME_MIN, RESUME_JOB_DESCRIPTION_MAX, validateCompanyName, validateJobDescription, validateJobTitle, validateManagerName } from "@/src/helpers/validation";
 import { Textarea } from "./ui/textarea";
 import { Select } from "@radix-ui/react-select";
 import { SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { useAppSelector } from "@/src/store/hooks";
+import SignInAlertModal from "./SignInAlertModal";
 
 interface FormData {
     jobTitle: string;
@@ -35,6 +37,26 @@ const CoverLetterWriterForm = () => {
         jobTitle: "", jobDescription: "", companyName: "", hiringMangerName: "", letterTone: "Professional"
     });
     const [errors, setErrors] = useState<ErrorState>({});
+    const [showSignInModal, setShowSignInModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const user = useAppSelector((state) => state.auth.user);
+
+    // Extra hooks
+    const modalRef = useRef<HTMLDivElement | null>(null);
+
+    // Handling outside clicks
+    useEffect(() => {
+        const handleOutsideClick = (e: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+                setShowSignInModal(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => document.removeEventListener("mousedown", handleOutsideClick);
+    }, []);
 
     // Functions
     const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -50,10 +72,75 @@ const CoverLetterWriterForm = () => {
         }));
     }
 
+    const handleCheckErrors = () => {
+        const tempErrors: ErrorState = {};
+
+        const jobTitleError = validateJobTitle(formData.jobTitle.trim());
+        if (jobTitleError) {
+            tempErrors.jobTitle = jobTitleError;
+        }
+
+        const jobDescriptionError = validateJobDescription(
+            formData.jobDescription.trim(),
+            RESUME_JOB_DESCRIPTION_MAX
+        );
+        if (jobDescriptionError) {
+            tempErrors.jobDescription = jobDescriptionError;
+        }
+
+        const companyNameError = validateCompanyName(formData.companyName.trim());
+        if (companyNameError) {
+            tempErrors.companyName = companyNameError;
+        }
+
+        if (formData.hiringMangerName?.trim()) {
+            const hiringMangerNameError = validateManagerName(formData.hiringMangerName.trim());
+
+            if (hiringMangerNameError) {
+                tempErrors.hiringMangerName = hiringMangerNameError;
+            }
+        }
+
+        if (!COVER_LETTER_TONES.includes(formData.letterTone)) {
+            tempErrors.letterTone = "Invalid Letter Tone";
+        }
+
+        setErrors(tempErrors);
+
+        return Object.keys(tempErrors).length > 0;
+    }
+
+    const handleGenerateLetter: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
+        // Prevent default behaviour
+        e.preventDefault();
+
+        try {
+            // Clear previous errors
+            setErrors({});
+
+            // Check for errors
+            if (handleCheckErrors()) {
+                return;
+            }
+
+            // If not logged in then stop
+            if (!user) {
+                setShowSignInModal(true);
+                return;
+            }
+
+            // setLoading(true);
+
+
+        } catch (e) {
+
+        }
+    }
+
     return (
         <>
             {/* ---- Input Card ---- */}
-            <form className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
+            <form onSubmit={handleGenerateLetter} className="w-full max-w-3xl mx-auto bg-card rounded-xl shadow-xl p-4 xs:p-6 sm:p-8">
                 {/* ---- Candidate Type Selector ---- */}
                 <div className="mb-6">
                     <label className="block font-semibold text-foreground text-sm sm:text-base mb-3 font-heading">
@@ -269,14 +356,14 @@ const CoverLetterWriterForm = () => {
             )} */}
 
             {/* ---- Sign In Modal ---- */}
-            {/* {showSignInModal && (
+            {showSignInModal && (
                 <SignInAlertModal
-                    title="Please sign in to continue your analysis"
-                    description="Sign in to generate detailed insights and keep your analysis accessible anytime."
+                    title="Please sign in to continue generating letter"
+                    description="Sign in to generate professional cover letter for your job application."
                     onClose={() => setShowSignInModal(false)}
                     ref={modalRef}
                 />
-            )} */}
+            )}
         </>
     );
 }

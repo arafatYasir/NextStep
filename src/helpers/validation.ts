@@ -135,3 +135,10 @@ export function validateCompanyDescription(description: string): string | null {
     }
     return null;
 }
+
+export function validateManagerName(name: string): string | null {
+    if (name.length < MANAGER_NAME_MIN || name.length > MANAGER_NAME_MAX) {
+        return `Name must be between ${MANAGER_NAME_MIN} and ${MANAGER_NAME_MAX} characters.`;
+    }
+    return null;
+}
