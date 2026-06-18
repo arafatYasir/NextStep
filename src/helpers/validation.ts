@@ -19,6 +19,9 @@ export const COMPANY_ROLE_MAX = 50;
 export const COMPANY_DESCRIPTOIN_MIN = 50;
 export const COMPANY_DESCRIPTOIN_MAX = 300;
 
+export const MANAGER_NAME_MIN = 4;
+export const MANAGER_NAME_MAX = 50;
+
 // Regular expressions
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const phoneRegex = /^[0-9]{11}$/;

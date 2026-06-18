@@ -788,7 +788,6 @@ const ResumeBuilderForm = () => {
                     </div>
                 </div>
 
-
                 {/* ---- Area Label: Personal Informations ---- */}
                 <ResumeBuilderInputFormPersonal
                     personalInfo={personalInfo}
