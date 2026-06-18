@@ -1,20 +1,8 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { toast } from "sonner";
-import { CalendarClock, CreditCard, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-
-interface SubscriptionCardProps {
-    planName: string;
-    planPrice: string;
-    planKey: string;
-    subscriptionStatus: string;
-    currentPeriodEnd: string | null;
-    cancelAtPeriodEnd: boolean;
-}
+import { CalendarClock, CreditCard } from "lucide-react";
+import SubscriptionActions from "./SubscriptionActions";
+import { connectToDatabase } from "@/src/database/mongodb";
+import { Subscription } from "@/src/models/subscription.model";
+import { pricingPlans } from "@/lib/pricing";
 
 const STATUS_STYLES: Record<string, string> = {
     active: "bg-emerald-50 border border-emerald-200 text-emerald-500",
@@ -23,19 +11,21 @@ const STATUS_STYLES: Record<string, string> = {
     inactive: "bg-[rgb(var(--text-tertiary))]/10 text-[rgb(var(--text-tertiary))]",
 };
 
-const SubscriptionCard = ({
-    planName,
-    planPrice,
-    planKey,
-    subscriptionStatus,
-    currentPeriodEnd,
-    cancelAtPeriodEnd,
-}: SubscriptionCardProps) => {
-    // States
-    const [loading, setLoading] = useState(false);
+const SubscriptionCard = async ({ userId }: { userId: string }) => {
+    // Fetching subscription details
+    await connectToDatabase();
+    const subscription = await Subscription.findOne({ userId: userId }).lean();
 
-    // Extra hooks
-    const router = useRouter();
+    // Choose the plan details according to plan key
+    const planDetails = pricingPlans.find((p) => p.planKey === subscription?.planKey) ?? pricingPlans[0];
+
+    // Extracting plan values
+    const { plan: planName, price: planPrice } = planDetails;
+    const planKey = subscription?.planKey ?? "FREE";
+    const subscriptionStatus = subscription?.subscriptionStatus ?? "inactive";
+
+    const currentPeriodEnd = subscription?.currentPeriodEnd?.toISOString() ?? null;
+    const cancelAtPeriodEnd = subscription?.cancelAtPeriodEnd ?? false;
 
     const formattedDate = currentPeriodEnd
         ? new Date(currentPeriodEnd).toLocaleDateString("en-US", {
@@ -44,31 +34,6 @@ const SubscriptionCard = ({
             day: "numeric",
         })
         : null;
-
-    const handleAction = async (action: "cancel" | "resume") => {
-        try {
-            setLoading(true);
-
-            const res = await fetch(`/api/subscriptions/${action}`, { method: "POST" });
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.message || "Something went wrong");
-            }
-
-            toast.success(
-                action === "cancel"
-                    ? "Your subscription will end at the period end."
-                    : "Your subscription has been resumed."
-            );
-
-            router.refresh();
-        } catch (e: any) {
-            toast.error(e.message || "Failed to update subscription");
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <div className="rounded-xl border border-[rgb(var(--border-default))] bg-card p-6 sm:p-8 space-y-6">
@@ -125,25 +90,10 @@ const SubscriptionCard = ({
             )}
 
             {/* ---- Actions ---- */}
-            <div className="flex flex-col xs:flex-row gap-3 pt-2">
-                <Button size="lg">
-                    <Link href="/#pricing">Upgrade Plan</Link>
-                </Button>
-
-                {planKey !== "FREE" && (
-                    cancelAtPeriodEnd ? (
-                        <Button onClick={() => handleAction("resume")} disabled={loading} size="lg" variant="outline">
-                            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-                            Resume Subscription
-                        </Button>
-                    ) : (
-                        <Button onClick={() => handleAction("cancel")} disabled={loading} variant="outline" size="lg">
-                            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-                            Cancel Subscription
-                        </Button>
-                    )
-                )}
-            </div>
+            <SubscriptionActions
+                planKey={planKey}
+                cancelAtPeriodEnd={cancelAtPeriodEnd}
+            />
         </div>
     );
 };

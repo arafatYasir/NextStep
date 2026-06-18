@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { connectToDatabase } from "@/src/database/mongodb";
-import { Subscription } from "@/src/models/subscription.model";
-import { pricingPlans } from "@/lib/pricing";
-import SubscriptionCard from "@/components/dashboard/SubscriptionCard";
+import SubscriptionCard from "@/components/dashboard/settings/SubscriptionCard";
+import { Suspense } from "react";
+import SubscriptionCardSkeleton from "@/components/dashboard/settings/SubscriptionCardSkeleton";
 
 const SettingsPage = async () => {
     const supabase = await createClient();
@@ -12,12 +11,6 @@ const SettingsPage = async () => {
     if (!user) {
         redirect("/sign-in");
     }
-
-    await connectToDatabase();
-    const subscription = await Subscription.findOne({ userId: user.id }).lean();
-
-    const planDetails =
-        pricingPlans.find((p) => p.planKey === subscription?.planKey) ?? pricingPlans[0];
 
     return (
         <div className="max-w-2xl p-8 space-y-10">
@@ -30,14 +23,9 @@ const SettingsPage = async () => {
                 </p>
             </div>
 
-            <SubscriptionCard
-                planName={planDetails.plan}
-                planPrice={planDetails.price}
-                planKey={subscription?.planKey ?? "FREE"}
-                subscriptionStatus={subscription?.subscriptionStatus ?? "inactive"}
-                currentPeriodEnd={subscription?.currentPeriodEnd?.toISOString() ?? null}
-                cancelAtPeriodEnd={subscription?.cancelAtPeriodEnd ?? false}
-            />
+            <Suspense fallback={<SubscriptionCardSkeleton />}>
+                <SubscriptionCard userId={user.id} />
+            </Suspense>
         </div>
     );
 };
