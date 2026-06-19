@@ -34,7 +34,7 @@ export const analyzeJobDescription = inngest.createFunction(
             const genAI = new GoogleGenerativeAI(process.env.AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+            const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
             // Get parsed json data from AI
             const parsedJSONData = await step.run("generate-ai-analysis", async () => {
@@ -97,7 +97,7 @@ export const analyzeResume = inngest.createFunction(
             const genAI = new GoogleGenerativeAI(process.env.AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+            const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
             // Get AI resume analysis
             const parsedJSONData = await step.run("generate-ai-analysis", async () => {
@@ -166,7 +166,7 @@ export const buildResume = inngest.createFunction(
             const genAI = new GoogleGenerativeAI(process.env.AI_API_KEY!);
 
             // Choose a model
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+            const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
             // Generate summary and skills sections of the resume
             const resumeJSONData1 = await step.run("generate-resume-content-1", async () => {
@@ -254,7 +254,7 @@ export const generateCoverLetter = inngest.createFunction(
             const genAI = new GoogleGenerativeAI(process.env.AI_API_KEY!);
 
             const model = genAI.getGenerativeModel({
-                model: "gemini-2.5-flash-lite",
+                model: "gemini-3.1-flash-lite",
             });
 
             // 3. Generate Cover Letter using AI
