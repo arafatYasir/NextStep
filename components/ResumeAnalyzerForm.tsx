@@ -381,13 +381,13 @@ const ResumeAnalyzerForm = () => {
                                 ref={resumeInputRef}
                             />
 
-                            <div className="size-14 rounded-full bg-card shadow-sm border border-[rgb(var(--border-default))] flex items-center justify-center mb-4 text-[rgb(var(--bg-primary))]">
-                                <Upload className="size-6" />
+                            <div className="size-10 xs:size-12 sm:size-14 rounded-full bg-card shadow-sm border border-[rgb(var(--border-default))] flex items-center justify-center mb-4 text-[rgb(var(--bg-primary))]">
+                                <Upload className="size-4 xs:size-5 sm:size-6" />
                             </div>
-                            <h4 className="text-base font-bold font-heading text-foreground mb-1">
+                            <h4 className="text-sm xs:text-base font-bold font-heading text-foreground mb-1">
                                 Click or drag resume here
                             </h4>
-                            <p className="text-sm font-sans text-[rgb(var(--text-secondary))]">
+                            <p className="text-xs xs:text-sm font-sans text-[rgb(var(--text-secondary))]">
                                 Supports PDF and DOCX (Max 5MB)
                             </p>
                         </div>
@@ -423,9 +423,9 @@ const ResumeAnalyzerForm = () => {
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                     type="submit"
                 >
-                    <span className="flex items-center gap-x-2">
+                    <span className="text-xs xs:text-sm flex items-center gap-x-2">
                         Analyze Resume
-                        <Sparkles className="size-4.5" />
+                        <Sparkles className="size-4 xs:size-4.5" />
                     </span>
                 </Button>
             </form>

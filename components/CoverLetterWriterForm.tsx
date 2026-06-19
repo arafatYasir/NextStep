@@ -473,9 +473,9 @@ const CoverLetterWriterForm = () => {
                     type="submit"
                     className="hover:-translate-y-0.5 active:-translate-y-0.5 transition-all w-full"
                 >
-                    <span className="flex items-center gap-x-2">
+                    <span className="text-xs xs:text-sm flex items-center gap-x-2">
                         Generate Cover Letter
-                        <Sparkles className="size-4.5" />
+                        <Sparkles className="size-4 xs:size-4.5" />
                     </span>
                 </Button>
             </form>

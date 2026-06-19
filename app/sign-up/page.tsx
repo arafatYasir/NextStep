@@ -290,7 +290,11 @@ const SignUpPage = () => {
                         disabled={loading.isLoading}
                         className="w-full"
                     >
-                        {loading.isLoading && loading.loadingFor === "email" ? <span className="flex items-center gap-x-2"><Spinner />Signing up...</span> : "Sign Up"}
+                        {loading.isLoading && loading.loadingFor === "email" ? (
+                            <span className="text-xs xs:text-sm flex items-center gap-x-2"><Spinner />Signing up...</span>
+                        ) : (
+                            <span className="text-xs xs:text-sm">Sign Up</span>
+                        )}
                     </Button>
                 </form>
 
@@ -315,10 +319,11 @@ const SignUpPage = () => {
                         disabled={loading.isLoading}
                     >
                         {
-                            loading.isLoading && loading.loadingFor === "google" ?
-                                <span className="flex items-center gap-x-2"><Spinner />Continue with Google</span>
-                                :
-                                <span className="flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>
+                            loading.isLoading && loading.loadingFor === "google" ? (
+                                <span className="text-xs xs:text-sm flex items-center gap-x-2"><Spinner />Continue with Google</span>
+                            ) : (
+                                <span className="text-xs xs:text-sm flex items-center gap-x-2"><GoogleIcon />Continue with Google</span>
+                            )
                         }
                     </Button>
 
@@ -330,16 +335,17 @@ const SignUpPage = () => {
                         disabled={loading.isLoading}
                     >
                         {
-                            loading.isLoading && loading.loadingFor === "github" ?
-                                <span className="flex items-center gap-x-2"><Spinner />Continue with GitHub</span>
-                                :
-                                <span className="flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>
+                            loading.isLoading && loading.loadingFor === "github" ? (
+                                <span className="text-xs xs:text-sm flex items-center gap-x-2"><Spinner />Continue with GitHub</span>
+                            ) : (
+                                <span className="text-xs xs:text-sm flex items-center gap-x-2"><GitHubIcon />Continue with GitHub</span>
+                            )
                         }
                     </Button>
                 </div>
 
                 {/* ---- Footer Links ---- */}
-                <p className="text-center text-sm xs:text-base font-sans text-foreground/80 mt-6">
+                <p className="text-center text-xs xs:text-sm sm:text-base font-sans text-foreground/80 mt-6">
                     Already have an account?{" "}
                     <Link href="/sign-in" className="text-[rgb(var(--bg-primary))] hover:text-[rgb(var(--bg-primary-hover))] font-semibold hover:underline active:underline transition-colors">
                         Sign In

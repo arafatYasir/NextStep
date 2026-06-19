@@ -230,12 +230,12 @@ const ContactPage = () => {
                         disabled={loading}
                     >
                         {loading ? (
-                            <span className="flex items-center gap-x-2">
+                            <span className="text-xs xs:text-sm flex items-center gap-x-2">
                                 <Spinner /> Sending...
                             </span>
                         ) : (
-                            <span className="flex items-center gap-x-2">
-                                Send Message <Send className="size-4" />
+                            <span className="text-xs xs:text-sm flex items-center gap-x-2">
+                                Send Message <Send className="size-4 xs:size-4.5" />
                             </span>
                         )}
                     </Button>

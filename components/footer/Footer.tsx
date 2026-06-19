@@ -27,14 +27,14 @@ const Footer = () => {
                                 />
                             </div>
                         </Link>
-                        <p className="font-sans text-foreground/80 leading-relaxed max-w-xs">
+                        <p className="text-sm sm:text-base font-sans text-foreground/80 leading-relaxed max-w-xs">
                             Your personal AI career copilot. Providing precision intelligence to help developers land more interviews and better roles.
                         </p>
                     </div>
 
                     {/* ---- Column 2: Product ---- */}
                     <div className="flex flex-col gap-6 lg:col-span-3">
-                        <h4 className="text-sm font-heading font-bold uppercase tracking-wider text-foreground">
+                        <h4 className="text-xs xs:text-sm font-heading font-bold uppercase tracking-wider text-foreground">
                             Product
                         </h4>
                         <ul className="flex flex-col gap-4">
@@ -42,7 +42,7 @@ const Footer = () => {
                                 <li key={tool.id}>
                                     <Link
                                         href={tool.url}
-                                        className="font-sans text-foreground/80 hover:underline hover:text-[rgb(var(--bg-primary-hover))] active:underline active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
+                                        className="text-sm sm:text-base font-sans text-foreground/80 hover:underline hover:text-[rgb(var(--bg-primary-hover))] active:underline active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
                                     >
                                         {tool.name}
                                     </Link>
@@ -53,21 +53,21 @@ const Footer = () => {
 
                     {/* ---- Column 3: Company ---- */}
                     <div className="flex flex-col gap-6 lg:col-span-2">
-                        <h4 className="text-sm font-heading font-bold uppercase tracking-wider text-foreground">
+                        <h4 className="text-xs xs:text-sm font-heading font-bold uppercase tracking-wider text-foreground">
                             Company
                         </h4>
                         <ul className="flex flex-col gap-4">
                             {[
                                 { name: "About", href: "/about" },
-                                { name: "Pricing", href: "#pricing" },
-                                { name: "FAQ", href: "#faq" },
+                                { name: "Pricing", href: "/#pricing" },
+                                { name: "FAQ", href: "/#faq" },
                                 { name: "Contact", href: "/contact" },
                                 { name: "Dashboard", href: "/dashboard" }
                             ].map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="font-sans text-foreground/80 hover:underline hover:text-[rgb(var(--bg-primary-hover))] active:underline active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
+                                        className="text-sm sm:text-base font-sans text-foreground/80 hover:underline hover:text-[rgb(var(--bg-primary-hover))] active:underline active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
                                     >
                                         {link.name}
                                     </Link>
@@ -78,7 +78,7 @@ const Footer = () => {
 
                     {/* ---- Column 4: Legals ---- */}
                     <div className="flex flex-col gap-6 lg:col-span-3">
-                        <h4 className="text-sm font-heading font-bold uppercase tracking-wider text-foreground">
+                        <h4 className="text-xs xs:text-sm font-heading font-bold uppercase tracking-wider text-foreground">
                             Legal
                         </h4>
                         <ul className="flex flex-col gap-4">
@@ -86,7 +86,7 @@ const Footer = () => {
                                 <li key={legal}>
                                     <Link
                                         href="#"
-                                        className="font-sans text-foreground/80 hover:underline hover:text-[rgb(var(--bg-primary-hover))] active:underline active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
+                                        className="text-sm sm:text-base font-sans text-foreground/80 hover:underline hover:text-[rgb(var(--bg-primary-hover))] active:underline active:text-[rgb(var(--bg-primary-hover))] transition-colors duration-250"
                                     >
                                         {legal}
                                     </Link>
@@ -98,11 +98,11 @@ const Footer = () => {
 
                 {/* ---- Bottom Bar ---- */}
                 <div className="py-8 border-t border-[rgb(var(--border-default))] flex flex-col md:flex-row items-center justify-between gap-6">
-                    <p className="text-muted-foreground font-sans text-sm">
+                    <p className="text-muted-foreground font-sans text-xs xs:text-sm">
                         © {new Date().getFullYear()} NextStep. All rights reserved.
                     </p>
                     <div className="flex items-center gap-8">
-                        <p className="text-muted-foreground font-sans text-sm">
+                        <p className="text-muted-foreground font-sans text-xs xs:text-sm">
                             Crafted with precision for developers.
                         </p>
                     </div>
