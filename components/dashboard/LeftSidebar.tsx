@@ -87,8 +87,8 @@ const LeftSidebar = () => {
             {/* ---- Mobile Hamburger Button ---- */}
             <Button
                 onClick={() => setIsOpen(true)}
-                variant="outline"
-                className="fixed top-3 left-4 z-40 lg:hidden size-10 p-0 flex items-center justify-center rounded-md border-[rgb(var(--border-default))] bg-card hover:bg-accent hover:text-accent-foreground shadow-xs cursor-pointer focus-visible:ring-2 focus-visible:ring-[rgb(var(--bg-primary))]"
+                variant="secondary"
+                className="fixed top-3 left-4 z-40 lg:hidden size-10 p-0 flex items-center justify-center rounded-md border-[rgb(var(--border-default))] bg-card hover:bg-accent hover:text-accent-foreground shadow-xs cursor-pointer focus-visible:ring-2 focus-visible:ring-[rgb(var(--bg-primary))] border"
                 aria-label="Open menu"
                 aria-expanded={isOpen}
             >
