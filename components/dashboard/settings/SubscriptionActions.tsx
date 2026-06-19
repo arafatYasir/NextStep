@@ -53,13 +53,26 @@ const SubscriptionActions = ({ planKey, cancelAtPeriodEnd }: SubscriptionActions
             {planKey !== "FREE" && (
                 cancelAtPeriodEnd ? (
                     <Button onClick={() => handleAction("resume")} disabled={loading} size="lg" variant="outline">
-                        {loading && <Spinner />}
-                        Resume Subscription
+                        {loading ? (
+                            <span className="flex items-center gap-x-2">
+                                <Spinner />
+                                Resuming Subscription...
+                            </span>
+                        ) : (
+                            <span>Resume Subscription</span>
+                        )}
                     </Button>
                 ) : (
                     <Button onClick={() => handleAction("cancel")} disabled={loading} variant="outline" size="lg">
-                        {loading && <Spinner />}
-                        Cancel Subscription
+                        {loading ? (
+                            <span className="flex items-center gap-x-2">
+                                <Spinner />
+                                Canceling Subscription...
+                            </span>
+                        ) : (
+                            <span>Cancel Subscription</span>
+                        )}
+
                     </Button>
                 )
             )}

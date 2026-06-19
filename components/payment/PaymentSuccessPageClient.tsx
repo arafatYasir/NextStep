@@ -95,12 +95,19 @@ const PaymentSuccessPageClient = ({ sessionId }: { sessionId: string }) => {
                     </p>
 
                     {/* ---- CTA Buttons ---- */}
-                    <Button asChild size="lg">
-                        <Link href="/dashboard">
-                            <LayoutDashboard className="w-4 h-4" />
-                            Go to Dashboard
-                        </Link>
-                    </Button>
+                    <div className="flex gap-x-6">
+                        <Button asChild size="lg">
+                            <Link href="/dashboard">
+                                <LayoutDashboard className="w-4 h-4" />
+                                Go to Dashboard
+                            </Link>
+                        </Button>
+                        <Button size="lg" variant="secondary">
+                            <Link href="/dashboard/settings">
+                                View Billing
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
             </Container>
         </Section>
