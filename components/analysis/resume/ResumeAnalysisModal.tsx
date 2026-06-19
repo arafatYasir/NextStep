@@ -9,7 +9,6 @@ import JobInfoCard from "../job info card/JobInfoCard";
 import BadgesLoadingSkeleton from "../badges/BadgesLoadingSkeleton";
 import { Button } from "../../ui/button";
 import Container from "../../Container";
-import InfoLoadingSkeleton from "../job info card/InfoLoadingSkeleton";
 import { Skeleton } from "../../ui/skeleton";
 import ProgressBar from "./ProgressBar";
 import SuggestionSkeleton from "./SuggestionSkeleton";

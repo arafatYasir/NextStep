@@ -1,4 +1,3 @@
-// CoverLetterView.tsx
 import Container from "@/components/Container";
 import { cn } from "@/lib/utils";
 import { CoverLetter } from "@/types/global";

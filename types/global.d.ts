@@ -46,12 +46,6 @@ interface PricingPlan {
     tag?: string;
 }
 
-interface FaqItem {
-    id: number;
-    question: string;
-    answer: string;
-}
-
 interface JobAnalysis {
     skills: { name: string, count: number }[];
     softSkills: { name: string, count: number }[];

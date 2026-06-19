@@ -8,6 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Spinner } from "../ui/spinner";
 import { useAppSelector } from "@/src/store/hooks";
+import { PricingPlan } from "@/types/global";
 
 const PricingCard = ({ plan }: { plan: PricingPlan }) => {
     // States

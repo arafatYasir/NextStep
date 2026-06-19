@@ -18,6 +18,7 @@ import {
     validateJobDescription,
     validateJobTitle,
 } from "@/src/helpers/validation";
+import { JobAnalysis } from "@/types/global";
 
 interface ErrorState {
     jobRole?: string;

@@ -1,3 +1,5 @@
+import { OfferItem } from "@/types/global";
+
 const Offer = ({ offer }: { offer: OfferItem }) => {
     const { id, title, description } = offer;
 

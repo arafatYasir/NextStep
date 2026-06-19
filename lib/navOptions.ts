@@ -1,3 +1,4 @@
+import { NavLink, NavSubmenu } from "@/types/global";
 import { FileSearch, ScanText, FilePlusCorner, PenLine } from "lucide-react";
 
 export const navOptions: (NavLink | NavSubmenu)[] = [

@@ -1,3 +1,5 @@
+import { PricingPlan } from "@/types/global";
+
 export const pricingPlans: PricingPlan[] = [
     {
         plan: "Free — Explore",

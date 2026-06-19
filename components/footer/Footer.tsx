@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "../Container";
 import { navOptions } from "@/lib/navOptions";
+import { NavSubmenu } from "@/types/global";
 
 const Footer = () => {
     // Extract tools from navOptions

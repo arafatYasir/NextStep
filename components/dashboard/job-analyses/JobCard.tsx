@@ -9,6 +9,7 @@ import JobDescAnalysisModal from "../../analysis/job/JobDescAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { JobAnalysis } from "@/types/global";
 
 interface JobCardProps {
     id: string;

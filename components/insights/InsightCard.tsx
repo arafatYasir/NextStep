@@ -1,3 +1,5 @@
+import { InsightItem } from "@/types/global"
+
 const InsightCard = ({ item }: { item: InsightItem }) => {
     return (
         <div className="group relative flex flex-col gap-4 p-4 xs:p-6 rounded-xl border border-transparent hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] bg-card transition-all duration-250 shadow-xl">

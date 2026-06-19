@@ -4,6 +4,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { NavSubmenu } from "@/types/global";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 

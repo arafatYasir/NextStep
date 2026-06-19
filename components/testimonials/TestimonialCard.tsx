@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Quote, Star } from "lucide-react"
+import { TestimonialItem } from "@/types/global";
 
 const TestimonialCard = ({ testimonial }: { testimonial: TestimonialItem }) => {
     const { rating, quote, name, title, image } = testimonial;

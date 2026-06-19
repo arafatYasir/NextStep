@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { toast } from "sonner";
 import ResumePreviewModal from "@/components/analysis/resume-builder/ResumePreviewModal";
+import { ResumeData } from "@/types/global";
 
 const getExperienceLabel = (count: number) => {
     if (count === 0) return null;
