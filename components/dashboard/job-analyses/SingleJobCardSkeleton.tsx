@@ -7,7 +7,7 @@ export const SingleJobCardSkeleton = () => (
         <div className="space-y-3 w-1/3">
             <Skeleton className="h-5 rounded w-full" />
             <div className="flex gap-4">
-                <Skeleton className="h-4 rounded w-1/3" />
+                <Skeleton className="h-4 w-1/3 rounded-full" />
                 <Skeleton className="h-4 rounded w-1/3" />
                 <Skeleton className="h-4 rounded w-1/3" />
             </div>

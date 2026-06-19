@@ -12,11 +12,11 @@ export const SingleResumeCardSkeleton = () => (
             <Skeleton className="h-4 w-9 rounded-full absolute top-4 right-30" />
 
             <div className="flex gap-4">
+                <Skeleton className="h-4 rounded-full w-1/5" />
                 <Skeleton className="h-4 rounded w-1/5" />
                 <Skeleton className="h-4 rounded w-1/5" />
-                <Skeleton className="h-4 rounded w-1/5" />
-                <Skeleton className="h-4 rounded w-1/5" />
-                <Skeleton className="h-4 rounded w-1/5" />
+                <Skeleton className="h-4 rounded-full w-1/5" />
+                <Skeleton className="h-4 rounded-full w-1/5" />
             </div>
         </div>
     </div>
