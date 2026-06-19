@@ -1,4 +1,4 @@
-import { COVER_LETTER_WRITER_PRMPT, JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT_1, RESUME_BUILDER_PROMPT_2 } from "@/lib/prompts";
+import { COVER_LETTER_WRITER_PROMPT, JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT_1, RESUME_BUILDER_PROMPT_2 } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cleanAIResponse } from "../helpers/cleanAIResponse";
@@ -219,8 +219,8 @@ export const buildResume = inngest.createFunction(
     }
 );
 
-// Build Cover Letter
-export const buildCoverLetter = inngest.createFunction(
+// Generate Cover Letter
+export const generateCoverLetter = inngest.createFunction(
     {
         id: "generate/cover-letter",
         concurrency: {
@@ -261,7 +261,7 @@ export const buildCoverLetter = inngest.createFunction(
             const generatedCoverLetter = await step.run(
                 "generate-cover-letter",
                 async () => {
-                    const prompt = COVER_LETTER_WRITER_PRMPT
+                    const prompt = COVER_LETTER_WRITER_PROMPT
                         .replace("{name}", name)
                         .replace("{jobTitle}", jobTitle)
                         .replace("{jobDescription}", jobDescription)

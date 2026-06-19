@@ -1,7 +1,8 @@
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { formatRequiredMaxHint } from "@/src/helpers/validation";
+import { CareerInfo, CareerInfoCount } from "@/types/global";
 
 interface ResumeBuilderFormCareerProps {
     careerInfo: CareerInfo;

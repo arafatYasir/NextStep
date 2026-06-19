@@ -28,6 +28,7 @@ import { cn } from "@/lib/utils";
 import ResumeBuilderInputFormJob from "./ResumeBuilderFormJob";
 import ResumeBuilderInputFormPersonal from "./ResumeBuilderFormPersonal";
 import ResumeBuilderFormCareer from "./ResumeBuilderFormCareer";
+import { CareerInfo, CareerInfoCount, ResumeData } from "@/types/global";
 
 interface PersonalInfo {
     fullName: string;

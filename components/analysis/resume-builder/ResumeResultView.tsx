@@ -9,6 +9,7 @@ import { Download } from "lucide-react";
 import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
+import { ResumeData } from "@/types/global";
 
 const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData, isPrintMode?: boolean }) => {
     // States

@@ -247,11 +247,9 @@ JSON Schema:
 }
 `;
 
-export const COVER_LETTER_WRITER_PRMPT = `
+export const COVER_LETTER_WRITER_PROMPT = `
 You are an expert-level professional career writer with deep experience in HR and recruitment psychology.
-
 Your task is to analyze the provided informations and generate a highly personalized, natural, and compelling cover letter that makes the candidate appear as a strong and highly suitable match for the role.
-
 You MUST think like a senior hiring manager reviewing applications at companies like Google, Amazon, Meta, and high-growth startups.
 
 # INPUTS
@@ -265,7 +263,7 @@ You MUST think like a senior hiring manager reviewing applications at companies 
 
 # CORE OBJECTIVE
 Your goal is to craft a cover letter that:
-- Feels deeply human-written (NOT AI-generated)
+- Feels deeply human-written (NOT AI-generated). Perfectly balanced in length, not too long or not too short.
 - Is highly tailored to the job description
 - Aligns perfectly with the candidate's experience level
 - Naturally matches the company's expectations and culture
@@ -300,7 +298,7 @@ Format:
     "opening": string,
     "paragraphs": string[],
     "closing": string,
-    "signature": string
+    "signature": string // This would only contain the provided {name}
   }
 }
 `;

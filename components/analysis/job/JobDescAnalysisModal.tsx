@@ -9,6 +9,7 @@ import JobInfoCard from "../job info card/JobInfoCard";
 import BadgesLoadingSkeleton from "../badges/BadgesLoadingSkeleton";
 import { Button } from "../../ui/button";
 import Container from "../../Container";
+import { JobAnalysis } from "@/types/global";
 
 interface JobDescAnalysisModalProps {
     analysis: JobAnalysis;

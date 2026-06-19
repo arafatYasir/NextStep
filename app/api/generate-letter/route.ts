@@ -91,6 +91,10 @@ export async function POST(req: NextRequest) {
                 letterType
             }
         });
+
+        return NextResponse.json({
+            coverLetterId: coverLetter._id.toString(), status: "OK"
+        }, { status: 200 });
     } catch (e) {
         console.error("API Error:", e);
         return NextResponse.json(

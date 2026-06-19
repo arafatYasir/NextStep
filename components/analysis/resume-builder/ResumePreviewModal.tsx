@@ -7,6 +7,7 @@ import Container from "@/components/Container";
 import { RESUME_BUILDING_AI_STEPS } from "@/lib/aiSteps";
 import LoadingView from "./ResumeLoadingView";
 import ResumeResultView from "./ResumeResultView";
+import { ResumeData } from "@/types/global";
 
 interface ResumePreviewModalProps {
     result: ResumeData;

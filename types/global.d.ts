@@ -103,7 +103,7 @@ interface ResumeAnalysis {
             advice: string;
         }[];
     };
-    
+
     sectionScores: {
         summary: number,
         experience: number,
@@ -186,4 +186,23 @@ interface CareerInfo {
 interface CareerInfoCount {
     companies: number;
     projects: number;
+}
+
+export interface CoverLetter {
+    userId: string;
+    jobTitle: string;
+    companyName: string;
+    hiringManagerName: string;
+    coverLetter: {
+        greeting?: string;
+        opening?: string;
+        paragraphs?: string[];
+        closing?: string;
+        signature?: string;
+    };
+    letterTone: "Professional" | "Enthusiastic" | "Confident" | "Friendly" | "Formal";
+    letterType: "Experienced" | "Fresher";
+    status: "queued" | "completed" | "failed";
+    createdAt: Date;
+    updatedAt: Date;
 }

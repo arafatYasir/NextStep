@@ -13,6 +13,7 @@ import InfoLoadingSkeleton from "../job info card/InfoLoadingSkeleton";
 import { Skeleton } from "../../ui/skeleton";
 import ProgressBar from "./ProgressBar";
 import SuggestionSkeleton from "./SuggestionSkeleton";
+import { ResumeAnalysis } from "@/types/global";
 
 interface ResumeAnalysisModalProps {
     analysis: ResumeAnalysis | null;

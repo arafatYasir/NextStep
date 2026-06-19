@@ -11,6 +11,9 @@ import { Select } from "@radix-ui/react-select";
 import { SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { useAppSelector } from "@/src/store/hooks";
 import SignInAlertModal from "./SignInAlertModal";
+import { toast } from "sonner";
+import { CoverLetter } from "@/types/global";
+import CoverLetterModal from "./analysis/cover-letter/CoverLetterModal";
 
 interface FormData {
     name: string;
@@ -41,11 +44,24 @@ const CoverLetterWriterForm = () => {
     const [errors, setErrors] = useState<ErrorState>({});
     const [showSignInModal, setShowSignInModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<CoverLetter | null>(null);
 
     const user = useAppSelector((state) => state.auth.user);
 
     // Extra hooks
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Preventing background scrolling when modal is open
+    useEffect(() => {
+        if (result !== null || loading) {
+            document.body.style.overflow = "hidden";
+        }
+
+        return () => {
+            document.body.style.overflow = "unset";
+        }
+    }, [result, loading]);
 
     // Handling outside clicks
     useEffect(() => {
@@ -58,6 +74,15 @@ const CoverLetterWriterForm = () => {
         document.addEventListener("mousedown", handleOutsideClick);
 
         return () => document.removeEventListener("mousedown", handleOutsideClick);
+    }, []);
+
+    // Clearing polling interval on component unmount
+    useEffect(() => {
+        return () => {
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
+        }
     }, []);
 
     // Functions
@@ -140,9 +165,85 @@ const CoverLetterWriterForm = () => {
             setLoading(true);
 
             // Enqueue a new cover letter record
-            
-        } catch (e) {
+            const res = await fetch("/api/generate-letter", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    jobTitle: formData.jobTitle,
+                    jobDescription: formData.jobDescription,
+                    companyName: formData.companyName,
+                    hiringManagerName: formData.hiringManagerName,
+                    letterTone: formData.letterTone,
+                    letterType
+                })
+            });
 
+            const data = await res.json();
+            const { coverLetterId } = data;
+
+            if (!res.ok) {
+                throw new Error(data.message || "Failed to generate cover letter");
+            }
+
+            // Clear any active polling interval first to prevent leakage
+            if (pollIntervalRef.current) {
+                clearInterval(pollIntervalRef.current);
+            }
+
+            // Check for the result every 2 seconds with interval
+            pollIntervalRef.current = setInterval(async () => {
+                try {
+                    const res = await fetch(`/api/cover-letters/${coverLetterId}`);
+                    const coverLetterData = await res.json();
+
+                    // If error happens
+                    if (!res.ok) {
+                        setResult(null);
+                        setLoading(false);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+
+                        throw new Error(coverLetterData.message || "Failed to generate cover letter");
+                    }
+                    if (coverLetterData.status === "completed") {
+                        setResult(coverLetterData);
+                        setLoading(false);
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+                    else if (coverLetterData.status === "failed") {
+                        setResult(null);
+                        setLoading(false);
+
+                        toast.error("Failed to generate letter. Please try again.");
+
+                        if (pollIntervalRef.current) {
+                            clearInterval(pollIntervalRef.current);
+                        }
+                    }
+                }
+                catch (e: any) {
+                    console.error("Polling error:", e.message);
+                    toast.error(e.message);
+
+                    if (pollIntervalRef.current) {
+                        clearInterval(pollIntervalRef.current);
+                    }
+                    setLoading(false);
+                }
+            }, 2000);
+        } catch (e: any) {
+            toast.error(e.message);
+            console.error("API Error:", e.message);
+
+            setLoading(false);
         }
     }
 
@@ -163,7 +264,7 @@ const CoverLetterWriterForm = () => {
                             onClick={() => setLetterType("Experienced")}
                             className={cn(
                                 "relative flex flex-col items-center justify-center gap-2 h-auto py-5 px-4 w-full text-center cursor-pointer whitespace-normal",
-                                letterType === "Experienced" && "border-[rgb(var(--border-hover))]"
+                                letterType === "Experienced" && "border-[rgb(var(--border-hover))]!"
                             )}
                         >
                             <div className="flex size-10 items-center justify-center rounded-full bg-[rgb(var(--border-default))]">
@@ -189,7 +290,7 @@ const CoverLetterWriterForm = () => {
                             onClick={() => setLetterType("Fresher")}
                             className={cn(
                                 "relative flex flex-col items-center justify-center gap-2 h-auto py-5 px-4 w-full text-center cursor-pointer whitespace-normal",
-                                letterType === "Fresher" && "border-[rgb(var(--border-hover))]"
+                                letterType === "Fresher" && "border-[rgb(var(--border-hover))]!"
                             )}
                         >
                             <div className="flex size-10 items-center justify-center rounded-full bg-[rgb(var(--border-default))]">
@@ -326,7 +427,6 @@ const CoverLetterWriterForm = () => {
                         value={formData.hiringManagerName}
                         onChange={handleChangeValue}
                         placeholder="Enter the Hiring Manager's name"
-                        required={true}
                     />
 
                     {errors.hiringManagerName && (
@@ -381,13 +481,13 @@ const CoverLetterWriterForm = () => {
             </form>
 
             {/* ---- Showing modal to show the result ---- */}
-            {/* {(result !== null || loading) && (
-                <JobDescAnalysisModal
-                    analysis={result as JobAnalysis}
+            {(result !== null || loading) && (
+                <CoverLetterModal
+                    result={result as CoverLetter}
                     onClose={() => setResult(null)}
                     isLoading={loading}
                 />
-            )} */}
+            )}
 
             {/* ---- Sign In Modal ---- */}
             {showSignInModal && (
