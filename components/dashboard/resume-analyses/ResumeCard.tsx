@@ -9,6 +9,7 @@ import ResumeAnalysisModal from "../../analysis/resume/ResumeAnalysisModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ResumeAnalysis } from "@/types/global";
 
 interface ResumeCardProps {
     id: string;
