@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -34,10 +34,10 @@ const navItems: NavItem[] = [
 
 const LeftSidebar = () => {
     const pathname = usePathname();
-    const [isCollapsed, setIsCollapsed] = React.useState(false);
-    const [isMounted, setIsMounted] = React.useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const stored = localStorage.getItem("sidebar-collapsed");
         if (stored === "true") {
             setIsCollapsed(true);
@@ -51,7 +51,7 @@ const LeftSidebar = () => {
 
     const toggleSidebar = () => {
         const nextState = !isCollapsed;
-        setIsCollapsed(nextState);
+        setIsCollapsed(prev => !prev);
         localStorage.setItem("sidebar-collapsed", String(nextState));
     };
 
@@ -89,7 +89,7 @@ const LeftSidebar = () => {
                     onClick={toggleSidebar}
                     aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
                     aria-expanded={!isCollapsed}
-                    className="flex items-center justify-center rounded-md p-1.5 text-foreground/80 hover:bg-[rgb(var(--bg-primary))]/10 hover:text-[rgb(var(--bg-primary))] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--bg-primary))]"
+                    className="flex items-center justify-center rounded-md p-1.5 text-foreground/80 hover:bg-[rgb(var(--bg-primary))]/10 hover:text-[rgb(var(--bg-primary))] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--bg-primary))] cursor-pointer"
                 >
                     {isCollapsed ? (
                         <PanelLeftOpen className="size-5" />
@@ -101,10 +101,7 @@ const LeftSidebar = () => {
 
             {/* ---- Navigation Items ---- */}
             <nav
-                className={cn(
-                    "flex-1 space-y-2 overflow-y-auto scrollbar-custom transition-all duration-300",
-                    isCollapsed ? "p-4" : "p-6"
-                )}
+                className="flex-1 space-y-2 overflow-y-auto scrollbar-custom transition-all duration-300 p-6"
             >
                 {navItems.map((item) => {
                     const isActive = pathname === item.href;
