@@ -4,15 +4,9 @@ import { SingleJobCardSkeleton } from "./SingleJobCardSkeleton";
 import { connectToDatabase } from "@/src/database/mongodb";
 import JobRecord from "@/src/models/jobRecord.model";
 import { FileSearch } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
 import { getJobData } from "@/src/helpers/apiCalls";
 
-const JobsRecordsList = async () => {
-    // Getting user id
-    const supabase = createClient();
-    const { data: { user } } = await (await supabase).auth.getUser();
-    const userId = user?.id;
-
+const JobsRecordsList = async ({ userId }: { userId: string | null }) => {
     // If user is not found then return
     if (!userId) {
         return null;

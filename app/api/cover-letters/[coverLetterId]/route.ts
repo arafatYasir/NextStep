@@ -36,3 +36,43 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ cove
         );
     }
 }
+
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ coverLetterId: string }> }) {
+    try {
+        const auth = await requireAuth();
+        if (auth.unauthorized) return auth.unauthorized;
+
+        const { coverLetterId } = await params;
+
+        if (!isValidObjectId(coverLetterId)) {
+            return NextResponse.json(
+                { message: "Invalid cover letter id", status: "ERROR" },
+                { status: 400 }
+            );
+        }
+
+        await connectToDatabase();
+
+        const coverLetter = await CoverLetter.findOne({ _id: coverLetterId, userId: auth.user.id });
+
+        if (!coverLetter) {
+            return NextResponse.json(
+                { message: "Cover letter not found", status: "ERROR" },
+                { status: 404 }
+            );
+        }
+
+        await CoverLetter.findByIdAndDelete(coverLetterId);
+
+        return NextResponse.json(
+            { message: "Cover letter deleted successfully.", status: "OK" },
+            { status: 200 }
+        );
+    } catch (e) {
+        console.error(e);
+        return NextResponse.json(
+            { message: "Failed to delete cover letter", status: "ERROR" },
+            { status: 500 }
+        );
+    }
+}
