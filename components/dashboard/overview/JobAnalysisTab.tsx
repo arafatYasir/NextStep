@@ -12,7 +12,7 @@ interface JobAnalysisTabProps {
 
 const JobAnalysisTab = ({ data }: JobAnalysisTabProps) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <SkillChart
                 title="Top Hard Skills"
                 data={data.hardSkills}
@@ -32,7 +32,7 @@ const JobAnalysisTab = ({ data }: JobAnalysisTabProps) => {
             <SkillChart
                 title="Top Key Phrases"
                 data={data.phrases}
-                className="col-span-2"
+                className="col-span-1 md:col-span-2"
             />
         </div>
     );

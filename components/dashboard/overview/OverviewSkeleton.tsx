@@ -6,10 +6,10 @@ const OverviewSkeleton = () => {
         <div className="space-y-6">
             {/* ---- Tabs Skeleton ---- */}
             <div className="flex border-b border-[rgb(var(--border-default))]">
-                <div className="px-6 py-3">
+                <div className="px-4 md:px-6 py-3">
                     <Skeleton className="h-[21px] w-25 rounded" />
                 </div>
-                <div className="px-6 py-3">
+                <div className="px-4 md:px-6 py-3">
                     <Skeleton className="h-[21px] w-25 rounded" />
                 </div>
             </div>
@@ -19,7 +19,7 @@ const OverviewSkeleton = () => {
                 {Array.from({ length: 5 }).map((_, index) => (
                     <div className={cn(
                         "bg-card p-6 rounded-xl border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250 shadow-sm flex flex-col h-full",
-                        index === 4 ? "col-span-2" : ""
+                        index === 4 ? "col-span-1 md:col-span-2" : ""
                     )} key={index}>
                         <div className="mb-6 flex items-center justify-between">
                             <Skeleton className="h-5 w-[40%] rounded" />

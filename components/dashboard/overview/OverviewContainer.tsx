@@ -51,7 +51,7 @@ const OverviewContainer = () => {
 
     if (!data) {
         return (
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-4 md:p-8">
                 <p className="text-lg font-semibold font-heading text-center text-foreground/80">
                     Could not load overview data. Please refresh the page.
                 </p>
@@ -67,7 +67,7 @@ const OverviewContainer = () => {
                     <button
                         onClick={() => setActiveTab("job")}
                         className={cn(
-                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer font-heading",
+                            "px-4 md:px-6 py-3 text-xs md:text-sm font-semibold transition-all relative cursor-pointer font-heading",
                             activeTab === "job"
                                 ? "text-[rgb(var(--bg-primary))]"
                                 : "text-foreground/80 hover:text-foreground active:text-foreground"
@@ -81,7 +81,7 @@ const OverviewContainer = () => {
                     <button
                         onClick={() => setActiveTab("resume")}
                         className={cn(
-                            "px-6 py-3 text-sm font-semibold transition-all relative cursor-pointer font-heading",
+                            "px-4 md:px-6 py-3 text-xs md:text-sm font-semibold transition-all relative cursor-pointer font-heading",
                             activeTab === "resume"
                                 ? "text-[rgb(var(--bg-primary))]"
                                 : "text-foreground/80 hover:text-foreground active:text-foreground"

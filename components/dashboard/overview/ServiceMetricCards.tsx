@@ -15,7 +15,9 @@ const ServiceMetricCards = async ({ userId }: { userId: string }) => {
     const coverLetters = await CoverLetter.countDocuments({ userId, status: "completed" });
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid gap-4" style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))"
+        }}>
             <MetricCard
                 label="Job Analyses"
                 value={jobRecords}
