@@ -22,7 +22,7 @@ const FaqItem = ({ item }: { item: { question: string; answer: string } }) => {
                 aria-expanded={isOpen}
             >
                 <h3 className={cn(
-                    "text-base xs:text-lg md:text-xl font-heading font-bold tracking-tight",
+                    "text-sm xs:text-base sm:text-lg md:text-xl font-heading font-bold tracking-tight",
                 )}>
                     {item.question}
                 </h3>

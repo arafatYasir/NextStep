@@ -9,45 +9,14 @@ import Link from "next/link";
 import Container from "../Container";
 import Image from "next/image";
 import NavDropdownMenu from "./NavDropdownMenu";
-import { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
+import { useAppSelector } from "@/src/store/hooks";
 
 const NavbarMenu = () => {
     // States
     const [showMenu, setShowMenu] = useState(false);
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    // Extra hooks
-    const supabase = createClient();
-    const router = useRouter();
-
-    // Checking auth state
-    useEffect(() => {
-        const getUser = async () => {
-            const { data } = await supabase.auth.getUser();
-            setUser(data.user);
-            setLoading(false);
-        }
-
-        getUser();
-
-        // Listen for auth state changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null);
-
-            if (_event === 'SIGNED_OUT') {
-                router.refresh();
-            }
-        });
-
-        return () => {
-            subscription.unsubscribe();
-        };
-    }, []);
-
+    const { user, isLoading } = useAppSelector((state) => state.auth);
 
     // useEffect to stop scrolling when menu is open
     useEffect(() => {
@@ -115,16 +84,16 @@ const NavbarMenu = () => {
 
                         {/* ---- Buttons ---- */}
                         <div className="sm:hidden mt-5">
-                            {(user && !loading) ? (
+                            {(user && !isLoading) ? (
                                 <Link onClick={() => setShowMenu(false)} href="/dashboard" className="inline-block w-full">
-                                    <Button className="w-full">
-                                        <LayoutDashboard size={16} />
+                                    <Button className="w-full text-xs xs:text-sm">
+                                        <LayoutDashboard className="size-3.5 xs:size-4" />
                                         Dashboard
                                     </Button>
                                 </Link>
-                            ) : (!user && !loading) ? (
+                            ) : (!user && !isLoading) ? (
                                 <Link onClick={() => setShowMenu(false)} href="/sign-in" className="inline-block w-full">
-                                    <Button className="w-full">Sign In</Button>
+                                    <Button className="w-full text-xs xs:text-sm">Sign In</Button>
                                 </Link>
                             ) : (
                                 <Skeleton className="w-full h-[40px]" />

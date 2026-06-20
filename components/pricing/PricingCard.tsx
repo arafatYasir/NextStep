@@ -92,7 +92,7 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
                 !(userCurrentPlan !== "FREE" && userCurrentPlan === plan.planKey) && (
                     <Button
                         variant={isPopular ? "default" : "outline"}
-                        className={cn("w-full font-sans shadow-md duration-250", {
+                        className={cn("w-full font-sans shadow-md duration-250 text-xs xs:text-sm", {
                             "hover:-translate-y-0.5 active:-translate-y-0.5": isPopular
                         })}
                         onClick={handleUpgrade}
