@@ -48,7 +48,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
     }
 
     return (
-        <Container removeDefault={isPrintMode ? true : false}>
+        <Container removeDefault={isPrintMode}>
             <div className={cn(
                 !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse sm:flex-row items-start justify-center gap-3"
             )}>
@@ -103,7 +103,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                         <ResumeSection title="Work Experience">
                             <div className="space-y-3">
                                 {result.experience.map((exp, idx) => (
-                                    <div key={idx} className="pl-4 border-l border-[rgb(var(--bg-primary))]/40 space-y-1.5">
+                                    <div key={idx} className="space-y-1.5">
                                         <div className="flex items-center justify-between flex-wrap gap-x-4 gap-y-1">
                                             <h4 className="font-heading font-semibold text-foreground text-sm">
                                                 {exp.jobTitle}
@@ -132,7 +132,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                         <ResumeSection title="Projects">
                             <div className="space-y-3">
                                 {result.projects.map((proj, idx) => (
-                                    <div key={idx} className="pl-4 border-l border-[rgb(var(--bg-primary))]/40 space-y-1.5">
+                                    <div key={idx} className="space-y-1.5">
                                         <div className="flex items-center gap-2 flex-wrap">
                                             <h4 className="font-heading font-semibold text-foreground text-sm">
                                                 {proj.projectName}
