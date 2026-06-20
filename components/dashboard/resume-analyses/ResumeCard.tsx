@@ -135,121 +135,123 @@ const ResumeCard = ({
 
     return (
         <>
-            <div className="group flex-1 flex items-start gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
-                {/* ---- Resume Icon Wrapper ---- */}
-                <div className="flex size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105">
-                    <FileText className="size-5" />
-                </div>
+            <div className="group flex-1 flex flex-col sm:flex-row sm:items-start justify-between gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
+                <div className="flex items-start gap-4 min-w-0 flex-1 w-full">
+                    {/* ---- Resume Icon Wrapper ---- */}
+                    <div className="flex size-9 xs:size-10 sm:size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105 mt-0.5 sm:mt-0">
+                        <FileText className="size-4 xs:size-4.5 sm:size-5" />
+                    </div>
 
-                {/* ---- Resume Content ---- */}
-                <div className="flex-1 flex flex-col min-w-0 pr-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                        <h3 className="truncate flex-1 min-w-0 text-base font-heading font-semibold text-foreground leading-tight">
-                            {resumeFileName}
-                        </h3>
-                        <span
-                            className={cn(
-                                "shrink-0 inline-flex items-center px-2 py-0.5 rounded-md border text-[10px] font-sans font-bold uppercase tracking-wider",
-                                getFileTypeStyles(fileTypeLabel)
-                            )}
-                            title={`File type: ${fileTypeLabel}`}
-                        >
-                            {fileTypeLabel}
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 mt-2 min-w-0">
-                        <Briefcase className="size-4 shrink-0 text-[rgb(var(--text-tertiary))]" />
-                        <p className="truncate text-sm text-[rgb(var(--text-tertiary))] font-sans">
-                            Target Job Title: <span className="font-medium text-foreground/80">{jobTitle}</span>
-                        </p>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-1.5">
-                        {/* ---- Status Label ---- */}
-                        <div className={cn("flex items-center gap-1.5 px-1.5 py-1 rounded-full",
-                            status === "completed" ? "bg-emerald-50" :
-                                status === "failed" ? "bg-red-50" :
-                                    "bg-amber-50"
-                        )}>
-                            <div className={cn(
-                                "size-1.5 rounded-full",
-                                status === "completed" ? "bg-emerald-500" :
-                                    status === "failed" ? "bg-red-500" :
-                                        "bg-amber-500"
-                            )} />
-                            <span className={cn(
-                                "text-xs font-sans font-medium capitalize",
-                                status === "completed" ? "text-emerald-700" :
-                                    status === "failed" ? "text-red-600" :
-                                        "text-amber-700"
-                            )}>
-                                {status}
+                    {/* ---- Resume Content ---- */}
+                    <div className="flex-1 flex flex-col min-w-0 pr-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                            <h3 className="truncate flex-1 min-w-0 text-xs xs:text-sm sm:text-base font-heading font-semibold text-foreground leading-tight">
+                                {resumeFileName}
+                            </h3>
+                            <span
+                                className={cn(
+                                    "shrink-0 inline-flex items-center px-1.5 py-0.5 xs:px-2 rounded-md border text-[9px] xs:text-[10px] font-sans font-bold uppercase tracking-wider",
+                                    getFileTypeStyles(fileTypeLabel)
+                                )}
+                                title={`File type: ${fileTypeLabel}`}
+                            >
+                                {fileTypeLabel}
                             </span>
                         </div>
-
-                        {/* ---- Date ---- */}
-                        <div className="flex items-center gap-1.5 text-xs text-[rgb(var(--text-tertiary))] font-sans">
-                            <CalendarDays className="size-3.5" />
-                            <span>{formattedDate}</span>
+                        <div className="flex items-center gap-1.5 mt-2 min-w-0">
+                            <Briefcase className="size-3.5 xs:size-4 shrink-0 text-[rgb(var(--text-tertiary))]" />
+                            <p className="truncate text-xs xs:text-sm text-[rgb(var(--text-tertiary))] font-sans">
+                                Job Title: <span className="font-medium text-foreground/80">{jobTitle}</span>
+                            </p>
                         </div>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-1.5">
+                            {/* ---- Status Label ---- */}
+                            <div className={cn("flex items-center gap-1 px-1 py-0.5 xs:gap-1.5 xs:px-1.5 xs:py-1 rounded-full shrink-0",
+                                status === "completed" ? "bg-emerald-50" :
+                                    status === "failed" ? "bg-red-50" :
+                                        "bg-amber-50"
+                            )}>
+                                <div className={cn(
+                                    "size-1 xs:size-1.5 rounded-full",
+                                    status === "completed" ? "bg-emerald-500" :
+                                        status === "failed" ? "bg-red-500" :
+                                            "bg-amber-500"
+                                )} />
+                                <span className={cn(
+                                    "text-[10px] xs:text-xs font-sans font-medium capitalize",
+                                    status === "completed" ? "text-emerald-700" :
+                                        status === "failed" ? "text-red-600" :
+                                            "text-amber-700"
+                                )}>
+                                    {status}
+                                </span>
+                            </div>
 
-                        {/* ---- Time ---- */}
-                        <div className="flex items-center gap-1.5 text-xs text-[rgb(var(--text-tertiary))] font-sans">
-                            <Clock className="size-3.5" />
-                            <span>{formattedTime}</span>
+                            {/* ---- Date ---- */}
+                            <div className="flex items-center gap-1.5 text-[10px] xs:text-xs text-[rgb(var(--text-tertiary))] font-sans shrink-0">
+                                <CalendarDays className="size-3 xs:size-3.5" />
+                                <span>{formattedDate}</span>
+                            </div>
+
+                            {/* ---- Time ---- */}
+                            <div className="flex items-center gap-1.5 text-[10px] xs:text-xs text-[rgb(var(--text-tertiary))] font-sans shrink-0">
+                                <Clock className="size-3 xs:size-3.5" />
+                                <span>{formattedTime}</span>
+                            </div>
+
+                            {/* ---- ATS Score ---- */}
+                            {showAtsScore && (
+                                <div
+                                    className={cn(
+                                        "flex items-center gap-1 px-1 py-0.5 xs:px-1.5 xs:py-1 rounded-full border text-[10px] xs:text-xs font-sans font-medium shrink-0",
+                                        atsScore >= 80
+                                            ? "bg-emerald-50 border-emerald-200/80 text-emerald-700"
+                                            : atsScore >= 60
+                                                ? "bg-amber-50 border-amber-200/80 text-amber-700"
+                                                : "bg-rose-50 border-rose-200/80 text-rose-700"
+                                    )}
+                                >
+                                    <span className="opacity-80">ATS Score:</span>
+                                    <span className="font-semibold">{atsScore}</span>
+                                </div>
+                            )}
+
+                            {/* ---- ATS Readability ---- */}
+                            {showAtsReadability && atsReadability && (
+                                <div
+                                    className={cn(
+                                        "flex items-center gap-1 px-1 py-0.5 xs:px-1.5 xs:py-1 rounded-full border text-[10px] xs:text-xs font-sans font-medium shrink-0",
+                                        getReadabilityStyles(atsReadability)
+                                    )}
+                                >
+                                    <ScanEye className="size-2.5 xs:size-3 shrink-0 opacity-80" />
+                                    <span className="opacity-80">Readability:</span>
+                                    <span className="font-semibold">{atsReadability}</span>
+                                </div>
+                            )}
                         </div>
-
-                        {/* ---- ATS Score ---- */}
-                        {showAtsScore && (
-                            <div
-                                className={cn(
-                                    "flex items-center gap-1 px-1.5 py-1 rounded-full border text-xs font-sans font-medium",
-                                    atsScore >= 80
-                                        ? "bg-emerald-50 border-emerald-200/80 text-emerald-700"
-                                        : atsScore >= 60
-                                            ? "bg-amber-50 border-amber-200/80 text-amber-700"
-                                            : "bg-rose-50 border-rose-200/80 text-rose-700"
-                                )}
-                            >
-                                <span className="opacity-80">ATS Score:</span>
-                                <span className="font-semibold">{atsScore}</span>
-                            </div>
-                        )}
-
-                        {/* ---- ATS Readability ---- */}
-                        {showAtsReadability && atsReadability && (
-                            <div
-                                className={cn(
-                                    "flex items-center gap-1 px-1.5 py-1 rounded-full border text-xs font-sans font-medium",
-                                    getReadabilityStyles(atsReadability)
-                                )}
-                            >
-                                <ScanEye className="size-3 shrink-0 opacity-80" />
-                                <span className="opacity-80">Readability:</span>
-                                <span className="font-semibold">{atsReadability}</span>
-                            </div>
-                        )}
                     </div>
                 </div>
 
                 {/* ---- Action Buttons ---- */}
-                <div className="flex items-center gap-2 shrink-0 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
+                <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
                     <Button
                         variant="outline"
                         title="Open Resume Analysis"
-                        className="size-9 border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] text-foreground transition-colors"
+                        className="size-7 xs:size-8 sm:size-9 border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] text-foreground transition-colors"
                         onClick={() => setOpen(true)}
                         disabled={status !== "completed"}
                     >
-                        <ExternalLink className="size-4" />
+                        <ExternalLink className="size-3.5 xs:size-4" />
                     </Button>
 
                     <Button
                         variant="outline"
                         title="Delete Record"
-                        className="size-9 border-[rgb(var(--border-default))] text-red-500 hover:text-red-500 active:text-red-500 hover:border-red-500 active:border-red-500 transition-colors"
+                        className="size-7 xs:size-8 sm:size-9 border-[rgb(var(--border-default))] text-red-500 hover:text-red-500 active:text-red-500 hover:border-red-500 active:border-red-500 transition-colors"
                         onClick={() => setShowDeletePopup(true)}
                     >
-                        <Trash2 className="size-4" />
+                        <Trash2 className="size-3.5 xs:size-4" />
                     </Button>
                 </div>
             </div>
