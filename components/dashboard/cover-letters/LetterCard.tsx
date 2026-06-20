@@ -88,79 +88,81 @@ const LetterCard = ({ id, jobTitle, companyName, status, letter, createdAt }: Le
 
     return (
         <>
-            <div className="group flex-1 flex items-center gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
-                {/* ---- Letter Icon Wrapper ---- */}
-                <div className="flex size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105">
-                    <FileText className="size-5" />
-                </div>
+            <div className="group flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-[rgb(var(--border-default))] bg-card p-4 transition-all duration-250 hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] hover:shadow-md active:shadow-md">
+                <div className="flex items-start gap-4 min-w-0 flex-1 w-full">
+                    {/* ---- Letter Icon Wrapper ---- */}
+                    <div className="flex size-9 xs:size-10 sm:size-11 items-center justify-center rounded-lg bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--bg-primary))] shrink-0 transition-transform group-hover:scale-105 mt-0.5 sm:mt-0">
+                        <FileText className="size-4 xs:size-4.5 sm:size-5" />
+                    </div>
 
-                {/* ---- Letter Content ---- */}
-                <div className="flex-1 flex flex-col min-w-0 pr-2">
-                    <h3 className="truncate text-base font-heading font-semibold text-foreground leading-tight">
-                        {jobTitle}
-                    </h3>
+                    {/* ---- Letter Content ---- */}
+                    <div className="flex-1 min-w-0 pr-2">
+                        <h3 className="truncate text-xs xs:text-sm sm:text-base font-heading font-semibold text-foreground leading-tight">
+                            {jobTitle}
+                        </h3>
 
-                    <div className="flex items-center gap-4 mt-1.5">
-                        {/* ---- Company ---- */}
-                        <div className="flex items-center gap-1.5 text-xs text-[rgb(var(--text-tertiary))] font-sans min-w-0">
-                            <Building2 className="size-3.5 shrink-0" />
-                            <span className="truncate">{companyName}</span>
-                        </div>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-1.5">
+                            {/* ---- Company ---- */}
+                            <div className="flex items-center gap-1.5 text-[10px] xs:text-xs text-[rgb(var(--text-tertiary))] font-sans min-w-0 shrink-0">
+                                <Building2 className="size-3 xs:size-3.5 shrink-0" />
+                                <span className="truncate">{companyName}</span>
+                            </div>
 
-                        {/* ---- Status Label ---- */}
-                        <div className={cn("flex items-center gap-1.5 px-1.5 py-1 rounded-full shrink-0",
-                            status === "completed" ? "bg-emerald-50" :
-                                status === "failed" ? "bg-red-50" :
-                                    "bg-amber-50"
-                        )}>
-                            <div className={cn(
-                                "size-1.5 rounded-full",
-                                status === "completed" ? "bg-emerald-500" :
-                                    status === "failed" ? "bg-red-500" :
-                                        "bg-amber-500"
-                            )} />
-                            <span className={cn(
-                                "text-xs font-sans font-medium capitalize",
-                                status === "completed" ? "text-emerald-700" :
-                                    status === "failed" ? "text-red-600" :
-                                        "text-amber-700"
+                            {/* ---- Status Label ---- */}
+                            <div className={cn("flex items-center gap-1 px-1 py-0.5 xs:px-1.5 xs:py-1 rounded-full shrink-0",
+                                status === "completed" ? "bg-emerald-50" :
+                                    status === "failed" ? "bg-red-50" :
+                                        "bg-amber-50"
                             )}>
-                                {status}
-                            </span>
-                        </div>
+                                <div className={cn(
+                                    "size-1 xs:size-1.5 rounded-full",
+                                    status === "completed" ? "bg-emerald-500" :
+                                        status === "failed" ? "bg-red-500" :
+                                            "bg-amber-500"
+                                )} />
+                                <span className={cn(
+                                    "text-[10px] xs:text-xs font-sans font-medium capitalize",
+                                    status === "completed" ? "text-emerald-700" :
+                                        status === "failed" ? "text-red-600" :
+                                            "text-amber-700"
+                                )}>
+                                    {status}
+                                </span>
+                            </div>
 
-                        {/* ---- Date ---- */}
-                        <div className="flex items-center gap-1.5 text-xs text-[rgb(var(--text-tertiary))] font-sans shrink-0">
-                            <CalendarDays className="size-3.5" />
-                            <span>{formattedDate}</span>
-                        </div>
+                            {/* ---- Date ---- */}
+                            <div className="flex items-center gap-1.5 text-[10px] xs:text-xs text-[rgb(var(--text-tertiary))] font-sans shrink-0">
+                                <CalendarDays className="size-3 xs:size-3.5" />
+                                <span>{formattedDate}</span>
+                            </div>
 
-                        {/* ---- Time ---- */}
-                        <div className="flex items-center gap-1.5 text-xs text-[rgb(var(--text-tertiary))] font-sans shrink-0">
-                            <Clock className="size-3.5" />
-                            <span>{formattedTime}</span>
+                            {/* ---- Time ---- */}
+                            <div className="flex items-center gap-1.5 text-[10px] xs:text-xs text-[rgb(var(--text-tertiary))] font-sans shrink-0">
+                                <Clock className="size-3 xs:size-3.5" />
+                                <span>{formattedTime}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* ---- Action Buttons ---- */}
-                <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250">
+                <div className="flex items-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-250 self-end sm:self-auto shrink-0">
                     <Button
                         variant="outline"
                         title="Open Cover Letter"
-                        className="size-9 border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] text-foreground transition-colors"
+                        className="size-7 xs:size-8 sm:size-9 border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] text-foreground transition-colors"
                         onClick={() => setOpen(true)}
                     >
-                        <ExternalLink className="size-4" />
+                        <ExternalLink className="size-3.5 xs:size-4" />
                     </Button>
 
                     <Button
                         variant="outline"
                         title="Delete Record"
-                        className="size-9 border-[rgb(var(--border-default))] text-red-500 hover:text-red-500 active:text-red-500 hover:border-red-500 active:border-red-500 transition-colors"
+                        className="size-7 xs:size-8 sm:size-9 border-[rgb(var(--border-default))] text-red-500 hover:text-red-500 active:text-red-500 hover:border-red-500 active:border-red-500 transition-colors"
                         onClick={() => setShowDeletePopup(true)}
                     >
-                        <Trash2 className="size-4" />
+                        <Trash2 className="size-3.5 xs:size-4" />
                     </Button>
                 </div>
             </div>
