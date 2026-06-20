@@ -13,12 +13,12 @@ const SettingsPage = async () => {
     }
 
     return (
-        <div className="max-w-2xl p-8 space-y-10">
+        <div className="max-w-2xl p-4 md:p-8 space-y-6 md:space-y-10">
             <div>
-                <h1 className="text-3xl font-bold font-heading tracking-tight text-foreground">
+                <h1 className="text-2xl md:text-3xl font-bold font-heading tracking-tight text-foreground">
                     Settings
                 </h1>
-                <p className="text-foreground/80 font-sans text-base">
+                <p className="text-foreground/80 font-sans text-sm md:text-base">
                     Manage your account and subscription
                 </p>
             </div>

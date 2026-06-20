@@ -46,13 +46,19 @@ const SubscriptionActions = ({ planKey, cancelAtPeriodEnd }: SubscriptionActions
 
     return (
         <div className="flex flex-col xs:flex-row gap-3 pt-2">
-            <Button size="lg">
+            <Button size="lg" className="text-xs xs:text-sm">
                 <Link href="/#pricing">Upgrade Plan</Link>
             </Button>
 
             {planKey !== "FREE" && (
                 cancelAtPeriodEnd ? (
-                    <Button onClick={() => handleAction("resume")} disabled={loading} size="lg" variant="outline">
+                    <Button
+                        onClick={() => handleAction("resume")}
+                        disabled={loading}
+                        size="lg"
+                        variant="outline"
+                        className="text-xs xs:text-sm"
+                    >
                         {loading ? (
                             <span className="flex items-center gap-x-2">
                                 <Spinner />
@@ -63,7 +69,13 @@ const SubscriptionActions = ({ planKey, cancelAtPeriodEnd }: SubscriptionActions
                         )}
                     </Button>
                 ) : (
-                    <Button onClick={() => handleAction("cancel")} disabled={loading} variant="outline" size="lg">
+                    <Button
+                        onClick={() => handleAction("cancel")}
+                        disabled={loading}
+                        variant="outline"
+                        size="lg"
+                        className="text-xs xs:text-sm"
+                    >
                         {loading ? (
                             <span className="flex items-center gap-x-2">
                                 <Spinner />
