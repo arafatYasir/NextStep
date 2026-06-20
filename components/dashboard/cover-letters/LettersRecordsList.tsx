@@ -4,7 +4,7 @@ import CoverLetterRecord from "@/src/models/coverLetter.model";
 import { FileText } from "lucide-react";
 import { getCoverLetterData } from "@/src/helpers/apiCalls";
 import LetterCardWrapper from "./LetterCardWrapper";
-import SingleLetterCardSkeleton from "./ingleLetterCardSkeleton";
+import SingleLetterCardSkeleton from "./SingleLetterCardSkeleton";
 
 const LettersRecordsList = async ({ userId }: { userId: string | null }) => {
     // If user is not found then return

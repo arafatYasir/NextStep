@@ -1,4 +1,4 @@
-import SingleLetterCardSkeleton from "./ingleLetterCardSkeleton";
+import SingleLetterCardSkeleton from "./SingleLetterCardSkeleton";
 
 const LetterCardsSkeleton = ({ count = 5 }: { count?: number }) => {
     return (
