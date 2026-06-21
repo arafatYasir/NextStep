@@ -60,7 +60,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
             <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth pt-10">
                 <Container>
                     {/* Top Stats / Summary Grid */}
-                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xs:gap-6">
                         {/* LEFT COLUMN (Technical & Hard Requirements) */}
                         <div className="xl:col-span-7 space-y-6">
                             {/* ---- Hard Skills ---- */}
