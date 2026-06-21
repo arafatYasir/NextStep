@@ -50,14 +50,14 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
     return (
         <Container removeDefault={isPrintMode}>
             <div className={cn(
-                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse sm:flex-row items-start justify-center gap-3"
+                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-3"
             )}>
                 {/* ---- Resume ---- */}
-                <div className={cn("w-full space-y-4",
+                <div className={cn("w-full space-y-3",
                     !isPrintMode && "max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500"
                 )}>
                     {/* ---- Header: Name + Title + Contact ---- */}
-                    <div className="text-center space-y-1 pb-5 border-b border-[rgb(var(--border-default))]">
+                    <div className="text-center space-y-1 pb-3 border-b border-[rgb(var(--border-default))]">
                         <div>
                             <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
                                 {result.personalInfo.fullName}
@@ -192,7 +192,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                 )}>
                     <Button
                         variant="outline"
-                        className="flex items-center gap-x-2"
+                        className="flex items-center gap-x-2 text-xs xs:text-sm"
                         disabled={loading}
                         onClick={handleDownloadResume}
                     >
@@ -200,12 +200,14 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                             loading ? (
                                 <Spinner />
                             ) : (
-                                <Download className="size-4.5" />
+                                <Download className="size-4 xs:size-4.5" />
                             )
                         }
 
-                        <span className="hidden lg:inline">
-                            Download Resume
+                        <span className="">
+                            {
+                                loading ? "Downloading..." : " Download"
+                            }
                         </span>
                     </Button>
                 </div>
