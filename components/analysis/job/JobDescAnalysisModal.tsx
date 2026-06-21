@@ -62,7 +62,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                     {/* Top Stats / Summary Grid */}
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xs:gap-6">
                         {/* LEFT COLUMN (Technical & Hard Requirements) */}
-                        <div className="xl:col-span-7 space-y-6">
+                        <div className="xl:col-span-7 space-y-4 xs:space-y-6">
                             {/* ---- Hard Skills ---- */}
                             <JobDescAnalysisSection
                                 title="Hard Skills"
@@ -125,7 +125,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                         </div>
 
                         {/* RIGHT COLUMN (Soft Skills, Context, Requirements) */}
-                        <div className="xl:col-span-5 space-y-6">
+                        <div className="xl:col-span-5 space-y-4 xs:space-y-6">
                             {/* ---- Soft Skills ---- */}
                             <JobDescAnalysisSection
                                 title="Soft Skills"
