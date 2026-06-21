@@ -25,6 +25,81 @@ interface ErrorState {
     jobDescription?: string;
 }
 
+const data = {
+    actionVerbs: [
+        { count: 1, name: "hiring" },
+        { count: 2, name: "work" },
+        { count: 2, name: "contribute" },
+        { count: 1, name: "Develop" },
+        { count: 1, name: "maintain" },
+        { count: 1, name: "Design" },
+        { count: 1, name: "build" },
+        { count: 1, name: "optimize" },
+        { count: 1, name: "Collaborate" },
+        { count: 1, name: "ensure" },
+        { count: 1, name: "Write" },
+        { count: 1, name: "following" },
+        { count: 1, name: "Troubleshoot" },
+        { count: 1, name: "debug" },
+        { count: 1, name: "improve" },
+        { count: 1, name: "Participate" },
+        { count: 1, name: "Integrate" },
+        { count: 1, name: "required" },
+        { count: 1, name: "Learn" },
+        { count: 1, name: "adapt" }
+    ],
+    educationalRequirements: ["Not specified"],
+    phrases: [
+        { count: 2, name: "Backend Developer (AI Application)" },
+        { count: 1, name: "AI Application" },
+        { count: 1, name: "offshore software development" },
+        { count: 1, name: "Japanese clients" },
+        { count: 1, name: "scalable AI-powered application development" },
+        { count: 1, name: "scalable backend systems" },
+        { count: 1, name: "REST APIs" },
+        { count: 1, name: "API architecture" },
+        { count: 2, name: "application performance" },
+        { count: 1, name: "maintainable code" },
+        { count: 1, name: "efficient code" },
+        { count: 1, name: "scalable code" },
+        { count: 1, name: "industry best practices" },
+        { count: 1, name: "scalability" },
+        { count: 1, name: "reliability" },
+        { count: 1, name: "backend architecture improvement" },
+        { count: 1, name: "feature development" },
+        { count: 1, name: "AI-related technologies" },
+        { count: 1, name: "emerging technologies" },
+        { count: 1, name: "modern engineering practices" },
+        { count: 1, name: "technical discussions" },
+        { count: 1, name: "solution architecture" }
+    ],
+    salary: "Not specified",
+    seniorityLevels: ["Senior (5+ years)"],
+    skills: [
+        { count: 3, name: "Backend Development" },
+        { count: 1, name: "Laravel" },
+        { count: 1, name: "Python" },
+        { count: 1, name: "FastAPI" },
+        { count: 6, name: "API" },
+        { count: 1, name: "LLM integrations" },
+        { count: 1, name: "AI APIs" },
+        { count: 1, name: "RAG-based solutions" }
+    ],
+    softSkills: [
+        { count: 2, name: "problem-solving" },
+        { count: 1, name: "adapt to" },
+        { count: 1, name: "technical planning" }
+    ],
+    tools: [
+        { count: 2, name: "web applications" },
+        { count: 1, name: "platform integrations" },
+        { count: 1, name: "third-party services" },
+        { count: 1, name: "external systems" },
+        { count: 1, name: "development tools" },
+        { count: 1, name: "engineering practices" }
+    ]
+};
+
 const JobAnalyzerForm = () => {
     // States
     const [jobRole, setJobRole] = useState("");

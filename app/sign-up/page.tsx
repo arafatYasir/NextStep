@@ -11,6 +11,7 @@ import GoogleIcon from "@/icons/GoogleIcon";
 import GitHubIcon from "@/icons/GitHubIcon";
 import { Spinner } from "@/components/ui/spinner";
 import { formatPasswordHint } from "@/src/helpers/validation";
+import { useRouter } from "next/navigation";
 
 interface ErrorState {
     email?: string;
@@ -29,6 +30,9 @@ const SignUpPage = () => {
     const [loading, setLoading] = useState<LoadingState>({ isLoading: false, loadingFor: "none" });
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState<ErrorState>({});
+
+    // Extra hooks
+    const router = useRouter();
 
     // Constants
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -104,6 +108,9 @@ const SignUpPage = () => {
                 toast.success("Check your email for the confirmation link!");
                 setEmail("");
                 setPassword("");
+                
+                // Navigate to sign in page
+                router.push("/sign-in");
             }
             else if (error) {
                 console.error("Failed to sign up: ", error);

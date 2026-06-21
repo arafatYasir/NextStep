@@ -51,7 +51,7 @@ const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
                     <Button
                         onClick={onClose}
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 text-xs xs:text-sm"
                         disabled={loading}
                     >
                         Cancel
@@ -59,7 +59,7 @@ const ConfirmationModal = ({ ref, onClose, title, action }: Props) => {
 
                     <Button
                         onClick={handleAction}
-                        className="flex-1"
+                        className="flex-1 text-xs xs:text-sm"
                         disabled={loading}
                     >
                         {loading ? (

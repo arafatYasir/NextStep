@@ -117,7 +117,7 @@ const ContactPage = () => {
     };
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-[60px] px-4 xs:px-6">
+        <main className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-body))] pt-20 px-4 xs:px-6">
             <div className="w-full max-w-2xl bg-card rounded-xl shadow-xl p-6 xs:p-8 sm:p-10">
                 {/* ---- Header ---- */}
                 <div className="text-center mb-10">
