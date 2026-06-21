@@ -17,13 +17,13 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
                 >
                     {/* ---- Header: Role + Company + Meta ---- */}
                     <div className="space-y-2 pb-5 border-b border-[rgb(var(--border-default))]">
-                        <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
+                        <h1 className="text-base xs:text-xl sm:text-2xl md:text-3xl font-bold font-heading tracking-tight text-foreground">
                             {result.jobTitle}
                         </h1>
-                        <h2 className="text-lg sm:text-xl font-semibold font-heading tracking-tight text-[rgb(var(--text-accent))]">
+                        <h2 className="text-sm xs:text-base sm:text-lg md:text-xl font-semibold font-heading tracking-tight text-[rgb(var(--text-accent))]">
                             {result.companyName}
                         </h2>
-                        <div className="flex items-center gap-x-2 gap-y-1 flex-wrap text-xs font-sans pt-1">
+                        <div className="flex items-center gap-x-2 gap-y-1 flex-wrap text-[10px] xs:text-xs font-sans pt-1">
                             <span className="px-2.5 py-1 rounded-full bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--text-accent))] font-medium">
                                 {result.letterTone}
                             </span>

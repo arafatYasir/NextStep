@@ -19,10 +19,10 @@ const CoverLetterModal = ({ result, onClose, isLoading }: CoverLetterModalProps)
                 <Container>
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-xl sm:text-2xl font-bold text-foreground font-heading tracking-tight">
+                            <h2 className="text-sm xs:text-base sm:text-xl md:text-2xl font-bold text-foreground font-heading tracking-tight">
                                 {isLoading ? "Writing Your Cover Letter" : "Cover Letter Preview"}
                             </h2>
-                            <p className="text-foreground/80 mt-1 font-sans text-sm sm:text-base">
+                            <p className="text-foreground/80 mt-1 font-sans text-xs xs:text-sm sm:text-base">
                                 {isLoading
                                     ? "Our AI is crafting a tailored cover letter based on your details."
                                     : "Your AI-generated cover letter is ready."}
@@ -33,10 +33,10 @@ const CoverLetterModal = ({ result, onClose, isLoading }: CoverLetterModalProps)
                             onClick={onClose}
                             disabled={isLoading}
                             variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-2"
+                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-1 xs:has-[>svg]:p-2 shrink-0"
                             aria-label="Close Modal"
                         >
-                            <X size={24} />
+                            <X className="size-4 xs:size-5 sm:size-6" />
                         </Button>
                     </div>
                 </Container>

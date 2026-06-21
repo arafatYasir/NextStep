@@ -33,7 +33,7 @@ interface ErrorState {
     letterTone?: string;
 }
 
-const COVER_LETTER_TONES = ["Professional", "Enthusiastic", "Confident", "Friendly", "Formal"]
+const COVER_LETTER_TONES = ["Professional", "Enthusiastic", "Confident", "Friendly", "Formal"];
 
 const CoverLetterWriterForm = () => {
     // States
