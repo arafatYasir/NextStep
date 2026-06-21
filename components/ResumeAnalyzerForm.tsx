@@ -393,8 +393,8 @@ const ResumeAnalyzerForm = () => {
                         </div>
                     ) : (
                         <div className="flex items-center gap-4 p-4 rounded-xl border border-[rgb(var(--border-hover))] bg-[rgb(var(--bg-primary))]/5 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
-                            <div className="size-12 rounded-lg bg-[rgb(var(--bg-primary))] flex items-center justify-center text-white">
-                                <FileText className="size-6" />
+                            <div className="size-8 xs:size-10 sm:size-12 rounded-lg bg-[rgb(var(--bg-primary))] flex items-center justify-center text-white">
+                                <FileText className="size-3 xs:size-4 sm:size-6" />
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="text-xs xs:text-sm sm:text-base font-semibold text-foreground truncate">
