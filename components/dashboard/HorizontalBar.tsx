@@ -17,7 +17,7 @@ const HorizontalBar = ({ name, count, maxCount }: HorizontalBarProps) => {
                     {count} {count === 1 ? 'time' : 'times'}
                 </span>
             </div>
-            <div className="h-2 w-full bg-[rgb(var(--border-default))] rounded-full overflow-hidden">
+            <div className="h-1.5 xs:h-2 w-full bg-[rgb(var(--border-default))] rounded-full overflow-hidden">
                 <div
                     className="h-full bg-[rgb(var(--bg-primary))] rounded-full transition-all duration-1000 ease-out"
                     style={{ width: `${percentage}%` }}
