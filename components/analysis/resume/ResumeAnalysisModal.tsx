@@ -52,10 +52,10 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                 <Container>
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-xl sm:text-2xl font-bold text-foreground font-heading tracking-tight">
+                            <h2 className="text-sm xs:text-base sm:text-xl md:text-2xl font-bold text-foreground font-heading tracking-tight">
                                 Resume Analysis Insights
                             </h2>
-                            <p className="text-foreground/80 mt-1 font-sans text-sm sm:text-base">
+                            <p className="text-foreground/80 mt-1 font-sans text-xs xs:text-sm sm:text-base">
                                 A detailed breakdown of how well your resume matches the job description.
                             </p>
                         </div>
@@ -64,41 +64,41 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             onClick={onClose}
                             disabled={isLoading}
                             variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-2"
+                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-1 xs:has-[>svg]:p-2"
                             aria-label="Close Analysis"
                         >
-                            <X size={24} />
+                            <X className="size-4 xs:size-5 sm:size-6"/>
                         </Button>
                     </div>
                 </Container>
             </div>
 
             {/* ---- Scrollable Content ---- */}
-            <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth pt-10 pb-20">
+            <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth pt-10 pb-5">
                 <Container>
                     {/* ---- Top Stats / Summary Grid ---- */}
-                    <div className="flex gap-6">
+                    <div className="flex flex-col xl:flex-row gap-4 xs:gap-6">
                         {/* ---- LEFT COLUMN (Scores & Matches) ---- */}
-                        <div className="space-y-6 w-1/2">
+                        <div className="space-y-4 xs:space-y-6 w-full xl:w-1/2">
                             {/* ---- Overall ATS Score ---- */}
-                            <div className={`relative overflow-hidden p-6 rounded-xl ${!isLoading ? `${scoreColor} bg-linear-to-br text-white` : "text-foreground bg-card border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250"} `}>
+                            <div className={`relative overflow-hidden p-4 xs:p-6 rounded-xl ${!isLoading ? `${scoreColor} bg-linear-to-br text-white` : "text-foreground bg-card border border-[rgb(var(--border-default))] hover:border-[rgb(var(--border-hover))] active:border-[rgb(var(--border-hover))] transition-colors duration-250"} `}>
                                 <div className="relative z-10">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <Target size={20} />
-                                        <span className="text-lg font-bold uppercase tracking-wider font-heading">Overall ATS Score</span>
+                                    <div className="flex items-center gap-2 xs:gap-3 mb-2">
+                                        <Target className="size-4 xs:size-5" />
+                                        <span className="text-sm xs:text-base sm:text-lg font-bold uppercase tracking-wider font-heading">Overall ATS Score</span>
                                     </div>
 
                                     <div className="flex items-baseline gap-2 font-sans">
                                         {
                                             isLoading ? (
-                                                <Skeleton className="h-10 w-11 mt-2" />
+                                                <Skeleton className="h-8 xs:h-9 sm:h-10 w-11 mt-2" />
                                             ) : (
-                                                <p className="text-4xl font-bold tracking-tight">
+                                                <p className="text-2xl xs:text-3xl sm:text-4xl font-bold tracking-tight">
                                                     {analysis?.atsScore}
                                                 </p>
                                             )
                                         }
-                                        <span className="text-xl font-medium opacity-80">/ 100</span>
+                                        <span className="text-base xs:text-lg sm:text-xl font-medium opacity-80">/ 100</span>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Score Breakdown"
                                 description="Breakdown of your resume performance."
-                                icon={<ChartColumn size={20} className="text-blue-500" />}
+                                icon={<ChartColumn className="text-blue-500 size-4 xs:size-5" />}
                                 isLoading={isLoading}
                             >
                                 <div className="space-y-4">
@@ -129,7 +129,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Section Scores"
                                 description="Performance insights for every section."
-                                icon={<TableOfContents size={20} className="text-indigo-500" />}
+                                icon={<TableOfContents className="text-indigo-500 size-4 xs:size-5" />}
                                 isLoading={isLoading}
                             >
                                 <div className="space-y-4">
@@ -149,7 +149,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Strong Matches"
                                 description="Keywords and skills perfectly aligned with the job."
-                                icon={<ListChecks size={20} className="text-emerald-500" />}
+                                icon={<ListChecks className="text-emerald-500 size-4 xs:size-5" />}
                                 isLoading={isLoading}
                             >
                                 <ul className="space-y-3">
@@ -161,11 +161,11 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                         ) : (analysis?.matchInsights?.strongMatches?.length && analysis.matchInsights.strongMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.strongMatches.map((match, idx) => (
                                                 <li key={idx} className="flex flex-col gap-1 bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
-                                                    <span className="text-sm font-bold font-heading text-foreground flex items-center gap-2">
-                                                        <Search size={14} className="text-emerald-500 shrink-0" />
+                                                    <span className="text-xs xs:text-sm font-bold font-heading text-foreground flex items-start gap-2">
+                                                        <Search className="size-3 xs:size-3.5 text-emerald-500 shrink-0 mt-0.5 xs:mt-1" />
                                                         {match.requirement}
                                                     </span>
-                                                    <span className="text-sm text-foreground/80 font-normal font-sans leading-relaxed pl-5">
+                                                    <span className="text-xs xs:text-sm text-foreground/80 font-normal font-sans leading-relaxed pl-5">
                                                         {match.reason}
                                                     </span>
                                                 </li>
@@ -179,7 +179,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Partial Matches"
                                 description="Keywords and skills that partially meet requirements."
-                                icon={<ListCheck size={20} className="text-amber-500" />}
+                                icon={<ListCheck className="size-4 xs:size-5 text-amber-500" />}
                                 isLoading={isLoading}
                             >
                                 <ul className="space-y-3">
@@ -191,11 +191,11 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                         ) : (analysis?.matchInsights?.partialMatches?.length && analysis.matchInsights.partialMatches.length > 0 && !isLoading) ? (
                                             analysis.matchInsights.partialMatches.map((match, idx) => (
                                                 <li key={idx} className="flex flex-col gap-1 bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
-                                                    <span className="text-sm font-bold font-heading text-foreground flex items-center gap-2">
-                                                        <Search size={14} className="text-amber-500 shrink-0" />
+                                                    <span className="text-xs xs:text-sm font-bold font-heading text-foreground flex items-start gap-2">
+                                                        <Search className="size-3 xs:size-3.5 text-amber-500 shrink-0 mt-0.5 xs:mt-1" />
                                                         {match.requirement}
                                                     </span>
-                                                    <span className="text-sm text-foreground/80 font-sans font-normal leading-relaxed pl-5">
+                                                    <span className="text-xs xs:text-sm text-foreground/80 font-sans font-normal leading-relaxed pl-5">
                                                         {match.reason}
                                                     </span>
                                                 </li>
@@ -207,12 +207,12 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                         </div>
 
                         {/* RIGHT COLUMN (Improvements & Meta) */}
-                        <div className="space-y-6 w-1/2">
+                        <div className="space-y-4 xs:space-y-6 w-full xl:w-1/2">
                             {/* ---- Keyword Analysis: Matched Keywords ---- */}
                             <JobDescAnalysisSection
                                 title="Matched Keywords"
                                 description="Keywords found in both job description and your resume."
-                                icon={<CheckCircle size={20} className="text-emerald-500" />}
+                                icon={<CheckCircle className="size-4 xs:size-5 text-emerald-500" />}
                                 isLoading={isLoading}
                                 copyContent={matchedKeywordsCopyContent}
                             >
@@ -233,7 +233,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Missing Keywords"
                                 description="Keywords from the job description missing in your resume."
-                                icon={<X size={20} className="text-rose-500" />}
+                                icon={<X className="size-4 xs:size-5 text-rose-500" />}
                                 isLoading={isLoading}
                                 copyContent={missingKeywordsCopyContent}
                             >
@@ -254,7 +254,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Overused Keywords"
                                 description="Keywords appearing too frequently that might hurt readability."
-                                icon={<AlertTriangle size={20} className="text-amber-500" />}
+                                icon={<AlertTriangle className="size-4 xs:size-5 text-amber-500" />}
                                 isLoading={isLoading}
                                 copyContent={overusedKeywordsCopyContent}
                             >
@@ -275,7 +275,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Skill Gaps to Address"
                                 description="Skills you should consider learning or adding to match the role better."
-                                icon={<Search size={20} className="text-indigo-500" />}
+                                icon={<Search className="size-4 xs:size-5 text-indigo-500" />}
                                 isLoading={isLoading}
                             >
                                 <div className="flex flex-wrap gap-2">
@@ -295,7 +295,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Priority Fixes"
                                 description="Top actions to take to improve your ATS score."
-                                icon={<AlertCircle size={20} className="text-amber-500" />}
+                                icon={<AlertCircle className="size-4 xs:size-5 text-amber-500" />}
                                 isLoading={isLoading}
                             >
                                 <ul className="space-y-3">
@@ -307,18 +307,18 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                         ) : (analysis?.improvementInsights?.priorityFixes?.length && analysis.improvementInsights.priorityFixes.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.priorityFixes.map((fix, idx) => (
                                                 <li key={idx} className="flex flex-col gap-1 text-sm text-foreground font-medium leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
-                                                    <div className="flex items-center gap-2 w-full">
-                                                        <AlertCircle size={14} className="text-amber-500 shrink-0" />
+                                                    <div className="flex items-start gap-2 w-full">
+                                                        <AlertCircle className="size-3 xs:size-3.5 text-amber-500 shrink-0 mt-0.5 xs:mt-1" />
 
-                                                        <span className="font-bold font-heading flex items-center justify-between w-full gap-2 text-foreground">
+                                                        <span className="text-xs xs:text-sm font-bold font-heading flex items-center justify-between w-full gap-2 text-foreground">
                                                             {fix.issue}
 
-                                                            <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold shrink-0 ${fix.impact === 'High' ? 'bg-rose-50 text-rose-700 border border-rose-300' : fix.impact === 'Medium' ? 'bg-amber-50 text-amber-700 border border-amber-300' : 'bg-blue-50 text-blue-700 border border-blue-300'}`}>
+                                                            <span className={`text-[8px] xs:text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold shrink-0 ${fix.impact === 'High' ? 'bg-rose-50 text-rose-700 border border-rose-300' : fix.impact === 'Medium' ? 'bg-amber-50 text-amber-700 border border-amber-300' : 'bg-blue-50 text-blue-700 border border-blue-300'}`}>
                                                                 {fix.impact}
                                                             </span>
                                                         </span>
                                                     </div>
-                                                    <span className="text-foreground/80 font-normal pl-5 font-sans">{fix.fix}</span>
+                                                    <span className="text-xs xs:text-sm text-foreground/80 font-normal pl-5 font-sans">{fix.fix}</span>
                                                 </li>
                                             ))
                                         ) : <EmptyState text="No priority fixes needed" />
@@ -330,7 +330,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Formatting Issues"
                                 description="Issues with resume layout, structure, or readability."
-                                icon={<AlertTriangle size={20} className="text-rose-500" />}
+                                icon={<AlertTriangle className="size-4 xs:size-5 text-rose-500" />}
                                 isLoading={isLoading}
                             >
                                 <ul className="space-y-3">
@@ -341,8 +341,8 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                             </div>
                                         ) : (analysis?.formattingAnalysis?.issues?.length && analysis.formattingAnalysis.issues.length > 0 && !isLoading) ? (
                                             analysis.formattingAnalysis.issues.map((issue, idx) => (
-                                                <li key={idx} className="flex items-start gap-2 text-sm text-foreground font-bold font-heading leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
-                                                    <AlertTriangle size={16} className="text-rose-500 shrink-0 mt-1" />
+                                                <li key={idx} className="flex items-start gap-2 text-xs xs:text-sm text-foreground font-bold font-heading leading-relaxed bg-[rgb(var(--bg-body))] p-3 rounded-lg border border-[rgb(var(--border-default))]">
+                                                    <AlertTriangle className="size-3 xs:size-4 text-rose-500 shrink-0 mt-1.5 xs:mt-1" />
                                                     <span>{issue}</span>
                                                 </li>
                                             ))
@@ -355,7 +355,7 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                             <JobDescAnalysisSection
                                 title="Section-by-Section Advice"
                                 description="Improvement advices for each sections."
-                                icon={<Briefcase size={20} className="text-emerald-500" />}
+                                icon={<Briefcase className="size-4 xs:size-5 text-emerald-500" />}
                                 isLoading={isLoading}
                             >
                                 <div className="space-y-4">
@@ -367,11 +367,11 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                         ) : (analysis?.improvementInsights?.resumeSectionAdvice?.length && analysis.improvementInsights.resumeSectionAdvice.length > 0 && !isLoading) ? (
                                             analysis.improvementInsights.resumeSectionAdvice.map((adviceItem, idx) => (
                                                 <div key={idx} className="bg-[rgb(var(--bg-body))] p-4 rounded-lg border border-[rgb(var(--border-default))]">
-                                                    <h4 className="text-sm font-bold uppercase tracking-wider text-foreground mb-2 flex items-center gap-2 font-heading">
+                                                    <h4 className="text-xs xs:text-sm font-bold uppercase tracking-wider text-foreground mb-2 flex items-center gap-2 font-heading">
                                                         <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                                                         {adviceItem.section}
                                                     </h4>
-                                                    <p className="text-sm text-foreground/80 font-sans font-medium leading-relaxed">
+                                                    <p className="text-xs xs:text-sm text-foreground/80 font-sans font-medium leading-relaxed">
                                                         {adviceItem.advice}
                                                     </p>
                                                 </div>

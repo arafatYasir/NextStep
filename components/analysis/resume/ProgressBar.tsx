@@ -4,12 +4,12 @@ const ProgressBar = ({ label, score, isLoading }: { label: string, score: number
     if (isLoading) {
         return (
             <div>
-                <div className="flex justify-between items-center mb-2 font-heading text-base font-bold text-foreground">
+                <div className="flex justify-between items-center mb-2 font-heading text-sm sm:text-base font-bold text-foreground">
                     <span>{label}</span>
-                    <Skeleton className="h-5 w-9 rounded" />
+                    <Skeleton className="h-4 xs:h-5 w-8 xs:w-9 rounded" />
                 </div>
                 <div>
-                    <Skeleton className="h-2.5" />
+                    <Skeleton className="h-1.5 sm:h-2.5" />
                 </div>
             </div>
         )
@@ -23,12 +23,12 @@ const ProgressBar = ({ label, score, isLoading }: { label: string, score: number
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-2 font-heading text-base font-bold text-foreground">
+            <div className="flex justify-between items-center mb-2 font-heading text-sm sm:text-base font-bold text-foreground">
                 <span>{label}</span>
                 <span>{score}%</span>
             </div>
-            <div className="w-full bg-slate-100 rounded-full h-2.5">
-                <div className={`h-2.5 rounded-full transition-all duration-1000 ${getColor(score)}`} style={{ width: `${score}%` }}></div>
+            <div className="w-full bg-slate-100 rounded-full h-1.5 sm:h-2.5">
+                <div className={`h-full rounded-full transition-all duration-1000 ${getColor(score)}`} style={{ width: `${score}%` }}></div>
             </div>
         </div>
     );
