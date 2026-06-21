@@ -1,4 +1,5 @@
 # NextStep — AI-Powered Career Toolkit
+<img width="1919" height="1079" alt="Screenshot 2026-06-20 193534" src="https://github.com/user-attachments/assets/a0b41451-dd67-49d5-865c-73527f167827" />
 
 > **Analyze job descriptions, evaluate your resume, and build tailored resumes — all powered by AI to help you stand out in a competitive job market.**
 
