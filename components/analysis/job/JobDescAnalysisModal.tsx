@@ -67,7 +67,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                             <JobDescAnalysisSection
                                 title="Hard Skills"
                                 description="Core technical competencies required like languages, frameworks, libraries."
-                                icon={<Zap size={20} className="text-blue-500" />}
+                                icon={<Zap className="size-4 xs:size-5 text-blue-500" />}
                                 copyContent={analysis?.skills?.map(s => s.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
@@ -87,7 +87,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                             <JobDescAnalysisSection
                                 title="Tools & Technologies"
                                 description="Software, platforms, and services."
-                                icon={<Wrench size={20} className="text-indigo-500" />}
+                                icon={<Wrench className="size-4 xs:size-5 text-indigo-500" />}
                                 copyContent={analysis?.tools?.map(t => t.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
@@ -107,7 +107,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                             <JobDescAnalysisSection
                                 title="Key Phrases & Terminology"
                                 description="Important technical concepts and industry terms."
-                                icon={<BookOpen size={20} className="text-teal-500" />}
+                                icon={<BookOpen className="size-4 xs:size-5 text-teal-500" />}
                                 copyContent={analysis?.phrases?.map(p => p.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-3">
@@ -130,7 +130,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                             <JobDescAnalysisSection
                                 title="Soft Skills"
                                 description="Interpersonal and behavioral traits."
-                                icon={<MessageSquare size={20} className="text-emerald-500" />}
+                                icon={<MessageSquare className="size-4 xs:size-5 text-emerald-500" />}
                                 copyContent={analysis?.softSkills?.map(s => s.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-2.5">
@@ -150,7 +150,7 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                             <JobDescAnalysisSection
                                 title="Action Verbs"
                                 description="Impact words for your resume."
-                                icon={<Target size={20} className="text-rose-500" />}
+                                icon={<Target className="size-4 xs:size-5 text-rose-500" />}
                                 copyContent={analysis?.actionVerbs?.map(v => v.name).join(", ")}
                             >
                                 <div className="flex flex-wrap gap-2">
