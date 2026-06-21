@@ -397,10 +397,10 @@ const ResumeAnalyzerForm = () => {
                                 <FileText className="size-6" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-foreground truncate">
+                                <p className="text-xs xs:text-sm sm:text-base font-semibold text-foreground truncate">
                                     {file.name}
                                 </p>
-                                <p className="text-sm font-semibold text-[rgb(var(--text-secondary))] truncate">
+                                <p className="text-xs xs:text-sm font-semibold text-[rgb(var(--text-secondary))] truncate">
                                     Size: {formatFileSize(file.size)}
                                 </p>
                             </div>
@@ -408,7 +408,7 @@ const ResumeAnalyzerForm = () => {
                                 onClick={removeFile}
                                 className="p-2 hover:bg-white active:bg-white border border-transparent hover:border-red-500 active:border-red-500 hover:shadow-md active:shadow-md rounded-full transition-colors text-[rgb(var(--text-tertiary))] hover:text-red-500 active:text-red-500 active:scale-95 cursor-pointer"
                             >
-                                <X className="size-5" />
+                                <X className="size-4 xs:size-5" />
                             </button>
                         </div>
                     )}
