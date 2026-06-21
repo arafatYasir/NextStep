@@ -62,9 +62,9 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                             <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
                                 {result.personalInfo.fullName}
                             </h1>
-                            <h2 className="text-lg sm:text-xl font-semibold font-heading tracking-tight text-[rgb(var(--text-accent))]">{result.resumeTitle}</h2>
+                            <h2 className="text-lg font-semibold font-heading tracking-tight text-[rgb(var(--text-accent))]">{result.resumeTitle}</h2>
                         </div>
-                        <div className="flex items-center justify-center gap-x-2 gap-y-1 flex-wrap text-sm font-sans text-[rgb(var(--text-secondary))]">
+                        <div className="flex items-center justify-center gap-x-2 gap-y-1 flex-wrap text-[13px] font-sans text-[rgb(var(--text-secondary))]">
                             <span>{result.personalInfo.email}</span>
                             <span className="text-[rgb(var(--text-muted))]">•</span>
                             <span>{result.personalInfo.phone}</span>
@@ -101,7 +101,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                     {/* ---- Experience ---- */}
                     {result.experience?.length > 0 && (
                         <ResumeSection title="Work Experience">
-                            <div className="space-y-3">
+                            <div className="space-y-2.5">
                                 {result.experience.map((exp, idx) => (
                                     <div key={idx} className="pl-4 border-l border-[rgb(var(--bg-primary))]/40 space-y-1.5">
                                         <div className="flex items-center justify-between flex-wrap gap-x-4 gap-y-1">
@@ -130,7 +130,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                     {/* ---- Projects ---- */}
                     {result.projects?.length > 0 && (
                         <ResumeSection title="Projects">
-                            <div className="space-y-3">
+                            <div className="space-y-2.5">
                                 {result.projects.map((proj, idx) => (
                                     <div key={idx} className="pl-4 border-l border-[rgb(var(--bg-primary))]/40 space-y-1.5">
                                         <div className="flex items-center gap-2 flex-wrap">
@@ -169,7 +169,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
                     {/* ---- Education ---- */}
                     {result.education?.length > 0 && (
                         <ResumeSection title="Education">
-                            <div className="space-y-3">
+                            <div className="space-y-2.5">
                                 {result.education.map((edu, idx) => (
                                     <div key={idx} className="flex items-start justify-between flex-wrap gap-x-4 gap-y-1">
                                         <div>

@@ -63,7 +63,7 @@ interface ErrorState {
     }[];
     jobTitle?: string,
     jobDescription?: string;
-}
+};
 
 const ResumeBuilderForm = () => {
     // States
