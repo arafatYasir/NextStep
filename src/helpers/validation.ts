@@ -47,7 +47,7 @@ export function formatPasswordHint(current: number, min: number = PASSWORD_MIN):
 }
 
 export function parseTrimmedString(value: unknown): string {
-    return typeof value === "string" ? value.trim() : "";
+    return typeof value === "string" ? value.replace(/\r\n/g, "\n").trim() : "";
 }
 
 export function validateJobTitle(title: string): string | null {
