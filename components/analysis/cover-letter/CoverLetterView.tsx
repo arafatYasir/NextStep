@@ -1,6 +1,7 @@
 import Container from "@/components/Container";
 import { cn } from "@/lib/utils";
 import { CoverLetter } from "@/types/global";
+import { Building2 } from "lucide-react";
 
 const CoverLetterView = ({ result }: { result: CoverLetter }) => {
     const { coverLetter } = result;
@@ -20,16 +21,23 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
                         <h1 className="text-base xs:text-xl sm:text-2xl md:text-3xl font-bold font-heading tracking-tight text-foreground">
                             {result.jobTitle}
                         </h1>
-                        <h2 className="text-sm xs:text-base sm:text-lg md:text-xl font-semibold font-heading tracking-tight text-[rgb(var(--text-accent))]">
-                            {result.companyName}
+                        <h2 className="flex items-center gap-x-2 text-sm xs:text-base sm:text-lg font-semibold font-heading tracking-tight">
+                            <Building2 className="size-4 xs:size-4.5 shrink-0" />
+                            <span className="text-[rgb(var(--text-accent))]">{result.companyName}</span>
                         </h2>
-                        <div className="flex items-center gap-x-2 gap-y-1 flex-wrap text-[10px] xs:text-xs font-sans pt-1">
-                            <span className="px-2.5 py-1 rounded-full bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--text-accent))] font-medium">
-                                {result.letterTone}
-                            </span>
-                            <span className="px-2.5 py-1 rounded-full bg-[rgb(var(--bg-primary))]/10 text-[rgb(var(--text-accent))] font-medium">
-                                {result.letterType}
-                            </span>
+                        <div className="flex items-center justify-between gap-y-1 flex-wrap text-[10px] xs:text-xs sm:text-sm font-sans font-medium pt-1">
+                            <p>
+                                <span>Letter Tone: </span>
+                                <span className="text-[rgb(var(--text-accent))]">
+                                    {result.letterTone}
+                                </span>
+                            </p>
+                            <p>
+                                <span>Letter Type: </span>
+                                <span className="text-[rgb(var(--text-accent))]">
+                                    {result.letterType}
+                                </span>
+                            </p>
                         </div>
                     </div>
 

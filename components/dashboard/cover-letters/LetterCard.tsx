@@ -1,4 +1,3 @@
-// components/dashboard/cover-letters/LetterCard.tsx
 "use client";
 
 import { FileText, Clock, ExternalLink, Trash2, CalendarDays, Building2 } from "lucide-react";
