@@ -1,7 +1,7 @@
 import { COVER_LETTER_WRITER_PROMPT, JOB_ANALYSIS_PROMPT, RESUME_ANALYSIS_PROMPT, RESUME_BUILDER_PROMPT_1, RESUME_BUILDER_PROMPT_2 } from "@/lib/prompts";
 import { inngest } from "./client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { cleanAIResponse } from "../helpers/cleanAIResponse";
+import { cleanAIResponse } from "../helpers/helperFunctions";
 import JobRecord from "../models/jobRecord.model";
 import { connectToDatabase } from "../database/mongodb";
 import resumeAnalysisModel from "../models/resumeAnalysis.model";
@@ -59,7 +59,7 @@ export const analyzeJobDescription = inngest.createFunction(
                 });
             })
 
-        } catch (e: any) {
+        } catch (e) {
             console.error("Failed to analyze job (Inngest Function)", e);
 
             await step.run("update-job-record", async () => {
@@ -121,7 +121,7 @@ export const analyzeResume = inngest.createFunction(
                     status: "completed"
                 });
             });
-        } catch (e: any) {
+        } catch (e) {
             console.error("Failed to analyze resume (Inngest Function)", e);
 
             await step.run("update-resume-record", async () => {

@@ -1,14 +1,18 @@
 import Container from "@/components/Container";
+import CopyBtn from "@/components/CopyBtn";
 import { cn } from "@/lib/utils";
+import { generateLetterCopyContent } from "@/src/helpers/helperFunctions";
 import { CoverLetter } from "@/types/global";
 import { Building2 } from "lucide-react";
 
 const CoverLetterView = ({ result }: { result: CoverLetter }) => {
     const { coverLetter } = result;
 
+    const copyContent = generateLetterCopyContent(coverLetter);
+
     return (
         <Container>
-            <div className="py-8 lg:py-12 flex items-start justify-center">
+            <div className="py-8 lg:py-12 flex items-start justify-center gap-5">
                 {/* ---- Letter Document ---- */}
                 <div
                     className={cn(
@@ -73,6 +77,12 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
                             </p>
                         </div>
                     )}
+                </div>
+
+                {/* ---- Options ---- */}
+                <div className="sticky top-0">
+                    {/* ---- Copy Btn ---- */}
+                    <CopyBtn copyContent={copyContent} />
                 </div>
             </div>
         </Container>

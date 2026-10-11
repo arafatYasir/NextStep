@@ -1,9 +1,12 @@
+"use client";
+
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { CoverLetter } from "@/types/global";
 import { X } from "lucide-react";
 import CoverLetterLoadingView from "./CoverLetterLoadingView";
 import CoverLetterView from "./CoverLetterView";
+import { useEffect } from "react";
 
 interface CoverLetterModalProps {
     result: CoverLetter;
@@ -12,6 +15,15 @@ interface CoverLetterModalProps {
 }
 
 const CoverLetterModal = ({ result, onClose, isLoading }: CoverLetterModalProps) => {
+    // Preventing background scrolling when modal is open
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, []);
+    
     return (
         <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))]">
             {/* ---- Header ---- */}
