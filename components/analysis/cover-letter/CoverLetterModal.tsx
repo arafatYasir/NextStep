@@ -1,12 +1,11 @@
 "use client";
 
 import Container from "@/components/Container";
-import { Button } from "@/components/ui/button";
 import { CoverLetter } from "@/types/global";
-import { X } from "lucide-react";
 import CoverLetterLoadingView from "./CoverLetterLoadingView";
 import CoverLetterView from "./CoverLetterView";
 import { useEffect } from "react";
+import ModalCloseBtn from "@/components/ModalCloseBtn";
 
 interface CoverLetterModalProps {
     result: CoverLetter;
@@ -40,16 +39,9 @@ const CoverLetterModal = ({ result, onClose, isLoading }: CoverLetterModalProps)
                                     : "Your AI-generated cover letter is ready."}
                             </p>
                         </div>
-                        <Button
-                            type="button"
-                            onClick={onClose}
-                            disabled={isLoading}
-                            variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-1 xs:has-[>svg]:p-2 shrink-0"
-                            aria-label="Close Modal"
-                        >
-                            <X className="size-4 xs:size-5 sm:size-6" />
-                        </Button>
+                        
+                        {/* ---- Close Btn ---- */}
+                        <ModalCloseBtn onClick={onClose} disabled={isLoading} />
                     </div>
                 </Container>
             </div>

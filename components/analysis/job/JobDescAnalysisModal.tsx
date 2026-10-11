@@ -10,6 +10,7 @@ import BadgesLoadingSkeleton from "../badges/BadgesLoadingSkeleton";
 import { Button } from "../../ui/button";
 import Container from "../../Container";
 import { JobAnalysis } from "@/types/global";
+import ModalCloseBtn from "@/components/ModalCloseBtn";
 
 interface JobDescAnalysisModalProps {
     analysis: JobAnalysis;
@@ -42,22 +43,15 @@ const JobDescAnalysisModal = ({ analysis, onClose, isLoading }: JobDescAnalysisM
                                 A clear breakdown of the skills, experience, and expectations the employer is looking for.
                             </p>
                         </div>
-                        <Button
-                            type="button"
-                            onClick={onClose}
-                            disabled={isLoading}
-                            variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-1 xs:has-[>svg]:p-2 shrink-0"
-                            aria-label="Close Analysis"
-                        >
-                            <X className="size-4 xs:size-5 sm:size-6" />
-                        </Button>
+                        
+                        {/* ---- Close Btn ---- */}
+                        <ModalCloseBtn onClick={onClose} disabled={isLoading} />
                     </div>
                 </Container>
             </div>
 
             {/* ---- Scrollable Content ---- */}
-            <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth pt-10">
+            <div className="flex-1 overflow-y-auto scrollbar-custom bg-[rgb(var(--bg-body))] scroll-smooth pt-10 pb-5">
                 <Container>
                     {/* Top Stats / Summary Grid */}
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xs:gap-6">

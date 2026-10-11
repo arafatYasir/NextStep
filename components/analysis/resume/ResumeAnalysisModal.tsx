@@ -13,6 +13,7 @@ import { Skeleton } from "../../ui/skeleton";
 import ProgressBar from "./ProgressBar";
 import SuggestionSkeleton from "./SuggestionSkeleton";
 import { ResumeAnalysis } from "@/types/global";
+import ModalCloseBtn from "@/components/ModalCloseBtn";
 
 interface ResumeAnalysisModalProps {
     analysis: ResumeAnalysis | null;
@@ -21,7 +22,6 @@ interface ResumeAnalysisModalProps {
 }
 
 const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisModalProps) => {
-
     // Preventing background scrolling when modal is open
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -59,16 +59,9 @@ const ResumeAnalysisModal = ({ analysis, onClose, isLoading }: ResumeAnalysisMod
                                 A detailed breakdown of how well your resume matches the job description.
                             </p>
                         </div>
-                        <Button
-                            type="button"
-                            onClick={onClose}
-                            disabled={isLoading}
-                            variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-1 xs:has-[>svg]:p-2"
-                            aria-label="Close Analysis"
-                        >
-                            <X className="size-4 xs:size-5 sm:size-6"/>
-                        </Button>
+                        
+                        {/* ---- Close Btn ---- */}
+                        <ModalCloseBtn onClick={onClose} disabled={isLoading} />
                     </div>
                 </Container>
             </div>

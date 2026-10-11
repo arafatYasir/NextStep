@@ -35,7 +35,7 @@ const CopyBtn = ({ copyContent }: Props) => {
             onClick={handleCopy}
             title="Copy to clipboard"
             variant="secondary"
-            className="has-[>svg]:p-1 xs:has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
+            className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
         >
             {copied ? (
                 <Check className="size-3.5 xs:size-4.5 text-emerald-500 animate-in zoom-in duration-250" />

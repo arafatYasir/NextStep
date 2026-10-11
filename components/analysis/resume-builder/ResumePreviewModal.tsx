@@ -8,6 +8,7 @@ import { RESUME_BUILDING_AI_STEPS } from "@/lib/aiSteps";
 import LoadingView from "./ResumeLoadingView";
 import ResumeResultView from "./ResumeResultView";
 import { ResumeData } from "@/types/global";
+import ModalCloseBtn from "@/components/ModalCloseBtn";
 
 interface ResumePreviewModalProps {
     result: ResumeData;
@@ -88,16 +89,9 @@ const ResumePreviewModal = ({ result, onClose, isLoading }: ResumePreviewModalPr
                                 }
                             </p>
                         </div>
-                        <Button
-                            type="button"
-                            onClick={onClose}
-                            disabled={isLoading}
-                            variant="secondary"
-                            className="border border-[rgb(var(--border-default))] text-foreground/80 hover:text-foreground active:text-foreground has-[>svg]:p-1 xs:has-[>svg]:p-2 shrink-0"
-                            aria-label="Close Modal"
-                        >
-                            <X className="size-4 xs:size-5 sm:size-6" />
-                        </Button>
+                        
+                        {/* ---- Close Btn ---- */}
+                        <ModalCloseBtn onClick={onClose} disabled={isLoading} />
                     </div>
                 </Container>
             </div>

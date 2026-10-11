@@ -1,9 +1,10 @@
 import Container from "@/components/Container";
 import CopyBtn from "@/components/CopyBtn";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { generateLetterCopyContent } from "@/src/helpers/helperFunctions";
 import { CoverLetter } from "@/types/global";
-import { Building2 } from "lucide-react";
+import { Building2, Download, Pen } from "lucide-react";
 
 const CoverLetterView = ({ result }: { result: CoverLetter }) => {
     const { coverLetter } = result;
@@ -72,9 +73,29 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
                 </div>
 
                 {/* ---- Options ---- */}
-                <div className="lg:sticky top-0">
+                <div className="lg:sticky top-0 flex lg:flex-col items-start gap-2">
                     {/* ---- Copy Btn ---- */}
                     <CopyBtn copyContent={copyContent} />
+
+                    {/* ---- Edit Btn ---- */}
+                    <Button
+                        type="button"
+                        title="Edit"
+                        variant="secondary"
+                        className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
+                    >
+                        <Pen className="size-3.5 xs:size-4.5" />
+                    </Button>
+
+                    {/* ---- Download Btn ---- */}
+                    <Button
+                        type="button"
+                        title="Download"
+                        variant="secondary"
+                        className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
+                    >
+                        <Download className="size-4 xs:size-4.5" />
+                    </Button>
                 </div>
             </div>
         </Container>
