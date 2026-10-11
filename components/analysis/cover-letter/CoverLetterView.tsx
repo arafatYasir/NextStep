@@ -12,7 +12,7 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
 
     return (
         <Container>
-            <div className="py-8 lg:py-12 flex items-start justify-center gap-5">
+            <div className="py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4">
                 {/* ---- Letter Document ---- */}
                 <div
                     className={cn(
@@ -45,14 +45,6 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
                         </div>
                     </div>
 
-                    {/* ---- Recipient ---- */}
-                    <div className="space-y-0.5 font-sans text-sm text-[rgb(var(--text-secondary))]">
-                        <p className="font-semibold text-foreground">
-                            {result.hiringManagerName || "Hiring Manager"}
-                        </p>
-                        <p>{result.companyName}</p>
-                    </div>
-
                     {/* ---- Letter Body ---- */}
                     <div className="space-y-4 font-sans text-sm text-[rgb(var(--text-secondary))] leading-relaxed">
                         {coverLetter.greeting && (
@@ -80,7 +72,7 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
                 </div>
 
                 {/* ---- Options ---- */}
-                <div className="sticky top-0">
+                <div className="lg:sticky top-0">
                     {/* ---- Copy Btn ---- */}
                     <CopyBtn copyContent={copyContent} />
                 </div>

@@ -50,7 +50,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
     return (
         <Container removeDefault={isPrintMode}>
             <div className={cn(
-                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-3"
+                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4"
             )}>
                 {/* ---- Resume ---- */}
                 <div className={cn("w-full space-y-3",
@@ -188,7 +188,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
 
                 {/* ---- Download Button ---- */}
                 <div className={cn(
-                    isPrintMode ? "hidden" : "block"
+                    isPrintMode ? "hidden" : "block lg:sticky top-0"
                 )}>
                     <Button
                         variant="outline"
