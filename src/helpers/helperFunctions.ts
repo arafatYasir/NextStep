@@ -13,10 +13,19 @@ export function cleanAIResponse(text: string): string {
     return cleaned.trim();
 }
 
-export function generateLetterCopyContent(letter: CoverLetter["coverLetter"]): string {
-    const { greeting, opening, paragraphs, closing, signature } = letter;
+export function generateLetterCopyContent(letter: CoverLetter): string {
+    const { coverLetter: { greeting, opening, paragraphs, closing, signature }, createdAt, companyName } = letter;
 
     const sections: string[] = [];
+
+    const date = new Date(createdAt).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    sections.push(date);
+    sections.push(`Hiring Manager\n${companyName}`);
 
     if (greeting?.trim()) sections.push(greeting.trim());
     if (opening?.trim()) sections.push(opening.trim());

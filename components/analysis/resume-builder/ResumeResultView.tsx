@@ -13,7 +13,7 @@ import { ResumeData } from "@/types/global";
 
 const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData, isPrintMode?: boolean }) => {
     // States
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
 
     // Variables
     const resumeId = result?.resumeId || result?._id;

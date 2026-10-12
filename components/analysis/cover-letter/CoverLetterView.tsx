@@ -8,8 +8,13 @@ import { Building2, Download, Pen } from "lucide-react";
 
 const CoverLetterView = ({ result }: { result: CoverLetter }) => {
     const { coverLetter } = result;
+    const date = new Date(result.createdAt).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
 
-    const copyContent = generateLetterCopyContent(coverLetter);
+    const copyContent = generateLetterCopyContent(result);
 
     return (
         <Container>
@@ -48,6 +53,13 @@ const CoverLetterView = ({ result }: { result: CoverLetter }) => {
 
                     {/* ---- Letter Body ---- */}
                     <div className="space-y-4 font-sans text-sm text-[rgb(var(--text-secondary))] leading-relaxed">
+                        <p>{date}</p>
+
+                        <div>
+                            <p className="text-foreground font-medium">Hiring Manager</p>
+                            <p>{result.companyName}</p>
+                        </div>
+
                         {coverLetter.greeting && (
                             <p className="text-foreground font-medium">{coverLetter.greeting}</p>
                         )}
