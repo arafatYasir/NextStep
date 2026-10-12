@@ -1,0 +1,86 @@
+export const maxDuration = 60;
+
+import { requireAuth } from "@/src/helpers/requireAuth";
+import { mongodbIDRegex } from "@/src/helpers/validation";
+import { NextRequest, NextResponse } from "next/server";
+import chromium from "@sparticuz/chromium-min";
+
+export async function GET(
+    req: NextRequest,
+    { params }: { params: Promise<{ coverLetterId: string }> }
+) {
+    try {
+        // Check authentication
+        const auth = await requireAuth();
+        if (auth.unauthorized) return auth.unauthorized;
+
+        // get cover letter id
+        const { coverLetterId } = await params;
+
+        // Validate cove letter id ID
+        if (!mongodbIDRegex.test(coverLetterId)) {
+            return NextResponse.json({ message: "Invalid cover letter ID" }, { status: 400 });
+        }
+
+        // Build print URL
+        const baseUrl = req.nextUrl.origin;
+        const url = `${baseUrl}/letter/print/${coverLetterId}`;
+
+        // Launch Chromium
+        const browser = await (process.env.NODE_ENV === "development"
+            ? (await import("puppeteer")).default.launch({
+                args: ["--no-sandbox", "--disable-setuid-sandbox"],
+                headless: true,
+            })
+            : (await import("puppeteer-core")).default.launch({
+                args: chromium.args,
+                defaultViewport: { width: 1280, height: 720 },
+                executablePath: await chromium.executablePath("https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.x64.tar"),
+                headless: true,
+            })
+        );
+
+        try {
+            const page = await browser.newPage();
+
+            // Passing session cookies so headless Chromium can authenticate on the print page
+            const cookieHeader = req.headers.get("cookie");
+            if (cookieHeader) {
+                await page.setExtraHTTPHeaders({
+                    cookie: cookieHeader,
+                });
+            }
+
+            await page.goto(url, {
+                waitUntil: "networkidle0",
+                timeout: 60000,
+            });
+
+            // Wait for full render (fonts, layout)
+            await page.evaluateHandle("document.fonts.ready");
+
+            const pdf = await page.pdf({
+                format: "A4",
+                margin: { top: "10mm", bottom: "10mm", left: "10mm", right: "10mm" },
+            });
+
+            // Return binary PDF
+            return new NextResponse(Buffer.from(pdf), {
+                status: 200,
+                headers: {
+                    "Content-Type": "application/pdf",
+                    "Content-Disposition": `attachment; filename="coverLetter-${coverLetterId}.pdf"`,
+                    "Cache-Control": "private, no-cache, no-store, must-revalidate",
+                },
+            });
+        } catch (e) {
+            throw e;
+        } finally {
+            await browser.close();
+        }
+    }
+    catch (e) {
+        console.error("PDF generation failed:", e);
+        return NextResponse.json({ message: "Failed to generate PDF" }, { status: 500 });
+    }
+}

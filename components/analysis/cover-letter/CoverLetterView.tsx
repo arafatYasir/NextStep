@@ -1,10 +1,15 @@
+"use client";
+
 import Container from "@/components/Container";
 import CopyBtn from "@/components/CopyBtn";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import { generateLetterCopyContent } from "@/src/helpers/helperFunctions";
 import { CoverLetter } from "@/types/global";
 import { Building2, Download, Pen } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
     result: CoverLetter;
@@ -12,7 +17,11 @@ interface Props {
 }
 
 const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
-    const { coverLetter } = result;
+    // States
+    const [loading, setLoading] = useState(false);
+
+    // Variables
+    const { coverLetter, _id: coverLetterId } = result;
     const date = new Date(result.createdAt).toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
@@ -20,6 +29,37 @@ const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
     });
 
     const copyContent = generateLetterCopyContent(result);
+
+    // Functions
+    const handleDownloadCoverLetter = async () => {
+        setLoading(true);
+
+        try {
+            // Send request to backend
+            const res = await fetch(`/api/cover-letters/${coverLetterId}/download`);
+
+            if (!res.ok) {
+                throw new Error("Failed to generate PDF");
+            }
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `coverLetter-${coverLetterId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        } catch (e) {
+            console.error("Cover letter download error: ", e);
+            toast.error("Failed to download. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <Container removeDefault={isPrintMode}>
@@ -112,11 +152,19 @@ const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
                         {/* ---- Download Btn ---- */}
                         <Button
                             type="button"
+                            onClick={handleDownloadCoverLetter}
+                            disabled={loading}
                             title="Download"
                             variant="secondary"
                             className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
                         >
-                            <Download className="size-4 xs:size-4.5" />
+                            {
+                                loading ? (
+                                    <Spinner />
+                                ) : (
+                                    <Download className="size-4 xs:size-4.5" />
+                                )
+                            }
                         </Button>
                     </div>
                 )}

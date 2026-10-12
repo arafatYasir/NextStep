@@ -11,7 +11,12 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { ResumeData } from "@/types/global";
 
-const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData, isPrintMode?: boolean }) => {
+interface Props {
+    result: ResumeData;
+    isPrintMode?: boolean
+}
+
+const ResumeResultView = ({ result, isPrintMode = false }: Props) => {
     // States
     const [loading, setLoading] = useState(false);
 
@@ -36,12 +41,14 @@ const ResumeResultView = ({ result, isPrintMode = false }: { result: ResumeData,
             const a = document.createElement("a");
             a.href = url;
             a.download = `resume-${resumeId}.pdf`;
+            document.body.appendChild(a);
             a.click();
+            a.remove();
 
-            URL.revokeObjectURL(url);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         } catch (e) {
             console.error("Resume download error: ", e);
-            toast.error("Failed to downlaod resume. Please try again.");
+            toast.error("Failed to downlaod. Please try again.");
         } finally {
             setLoading(false);
         }

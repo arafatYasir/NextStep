@@ -23,17 +23,13 @@ export async function GET(
         }
 
         // Build print URL
-        const baseUrl =
-            process.env.NODE_ENV === "development"
-                ? process.env.NEXT_PUBLIC_SITE_URL_DEV
-                : process.env.NEXT_PUBLIC_SITE_URL_PROD;
-
+        const baseUrl = req.nextUrl.origin;
         const url = `${baseUrl}/resume/print/${resumeId}`;
 
         // Launch Chromium
         const browser = await (process.env.NODE_ENV === "development"
             ? (await import("puppeteer")).default.launch({
-                args: [],
+                args: ["--no-sandbox", "--disable-setuid-sandbox"],
                 headless: true,
             })
             : (await import("puppeteer-core")).default.launch({
@@ -47,13 +43,21 @@ export async function GET(
         try {
             const page = await browser.newPage();
 
+            // Passing session cookies so headless Chromium can authenticate on the print page
+            const cookieHeader = req.headers.get("cookie");
+            if (cookieHeader) {
+                await page.setExtraHTTPHeaders({
+                    cookie: cookieHeader,
+                });
+            }
+
             await page.goto(url, {
                 waitUntil: "networkidle0",
                 timeout: 60000,
             });
 
             // Wait for full render (fonts, layout)
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await page.evaluateHandle("document.fonts.ready");
 
             // Generate PDF
             const pdf = await page.pdf({
@@ -67,7 +71,7 @@ export async function GET(
                 headers: {
                     "Content-Type": "application/pdf",
                     "Content-Disposition": `attachment; filename="resume-${resumeId}.pdf"`,
-                    "Cache-Control": "private, max-age=300",
+                    "Cache-Control": "private, no-cache, no-store, must-revalidate",
                 },
             });
         } catch (e) {
