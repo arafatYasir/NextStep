@@ -6,7 +6,12 @@ import { generateLetterCopyContent } from "@/src/helpers/helperFunctions";
 import { CoverLetter } from "@/types/global";
 import { Building2, Download, Pen } from "lucide-react";
 
-const CoverLetterView = ({ result }: { result: CoverLetter }) => {
+interface Props {
+    result: CoverLetter;
+    isPrintMode?: boolean;
+}
+
+const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
     const { coverLetter } = result;
     const date = new Date(result.createdAt).toLocaleDateString("en-US", {
         month: "long",

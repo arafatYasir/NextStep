@@ -1,6 +1,3 @@
-import ConditionalFooter from "@/components/footer/ConditionalFooter";
-import ConditionalHeader from "@/components/header/ConditionalHeader";
-
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -9,14 +6,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
-                {/* ---- Header ---- */}
-                <ConditionalHeader />
-
-                {/* ---- Main Content ---- */}
                 {children}
-
-                {/* ---- Footer ---- */}
-                <ConditionalFooter />
             </body>
         </html>
     );

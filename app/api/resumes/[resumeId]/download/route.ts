@@ -14,7 +14,7 @@ export async function GET(
         const auth = await requireAuth();
         if (auth.unauthorized) return auth.unauthorized;
 
-        // Await params (required in Next.js 15)
+        // Await params
         const { resumeId } = await params;
 
         // Validate resume ID
