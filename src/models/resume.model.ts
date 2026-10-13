@@ -6,6 +6,10 @@ const Resume = new mongoose.Schema({
         required: true,
         trim: true
     },
+    pdfKey: {
+        type: String,
+        default: ""
+    },
     resumeType: {
         type: String,
         enum: ["Fresher", "Experienced"],

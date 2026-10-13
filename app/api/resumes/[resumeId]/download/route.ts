@@ -4,6 +4,13 @@ import { requireAuth } from "@/src/helpers/requireAuth";
 import { mongodbIDRegex } from "@/src/helpers/validation";
 import { NextRequest, NextResponse } from "next/server";
 import chromium from "@sparticuz/chromium-min";
+import { connectToDatabase } from "@/src/database/mongodb";
+import resumeModel from "@/src/models/resume.model";
+import { resumePdfKey } from "@/src/helpers/pdf/key";
+import { pdfStore } from "@/src/helpers/pdf/store";
+import { generateAndStoreResumePdf } from "@/src/helpers/pdf/generateResumePdf";
+
+const inflight = new Map<string, Promise<Uint8Array>>();
 
 export async function GET(
     req: NextRequest,
@@ -22,63 +29,46 @@ export async function GET(
             return NextResponse.json({ message: "Invalid resume ID" }, { status: 400 });
         }
 
-        // Build print URL
-        const baseUrl = req.nextUrl.origin;
-        const url = `${baseUrl}/resume/print/${resumeId}`;
+        // Find the resume document from database
+        await connectToDatabase();
+        const resume = await resumeModel.findOne({
+            _id: resumeId,
+            userId: auth.user.id
+        }).lean();
 
-        // Launch Chromium
-        const browser = await (process.env.NODE_ENV === "development"
-            ? (await import("puppeteer")).default.launch({
-                args: ["--no-sandbox", "--disable-setuid-sandbox"],
-                headless: true,
-            })
-            : (await import("puppeteer-core")).default.launch({
-                args: chromium.args,
-                defaultViewport: { width: 1280, height: 720 },
-                executablePath: await chromium.executablePath("https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.x64.tar"),
-                headless: true,
-            })
-        );
+        if (!resume) {
+            return NextResponse.json({ message: "Resume not found" }, { status: 404 });
+        }
 
-        try {
-            const page = await browser.newPage();
+        // Generate an unique key for that resume
+        const key = resumePdfKey(String(resume.userId), resumeId, resume);
 
-            // Passing session cookies so headless Chromium can authenticate on the print page
-            const cookieHeader = req.headers.get("cookie");
-            if (cookieHeader) {
-                await page.setExtraHTTPHeaders({
-                    cookie: cookieHeader,
-                });
+        // If the stored pdf matches the current content
+        let pdf: Uint8Array | null = null;
+        if (resume.pdfKey === key) {
+            pdf = await pdfStore.get(key).catch(() => null);
+        }
+
+        // If not found then generate on demand
+        if (!pdf) {
+            let job = inflight.get(key);
+
+            if (!job) {
+                job = generateAndStoreResumePdf(resume, key).finally(() => inflight.delete(key));
+                inflight.set(key, job);
             }
 
-            await page.goto(url, {
-                waitUntil: "networkidle0",
-                timeout: 60000,
-            });
-
-            // Wait for full render (fonts, layout)
-            await page.evaluateHandle("document.fonts.ready");
-
-            // Generate PDF
-            const pdf = await page.pdf({
-                format: "A4",
-                margin: { top: "10mm", bottom: "10mm", left: "10mm", right: "10mm" },
-            });
-
-            // Return binary PDF
-            return new NextResponse(Buffer.from(pdf), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/pdf",
-                    "Content-Disposition": `attachment; filename="resume-${resumeId}.pdf"`,
-                    "Cache-Control": "private, no-cache, no-store, must-revalidate",
-                },
-            });
-        } catch (e) {
-            throw e;
-        } finally {
-            await browser.close();
+            pdf = await job;
         }
+
+        return new NextResponse(pdf as BodyInit, {
+            status: 200,
+            headers: {
+                "Content-Type": "application/pdf",
+                "Content-Disposition": `attachment; filename="resume-${resumeId}.pdf"`,
+                "Cache-Control": "private, no-store",
+            },
+        });
     } catch (e) {
         console.error("PDF generation failed:", e);
         return NextResponse.json({ message: "Failed to generate PDF" }, { status: 500 });

@@ -119,6 +119,7 @@ interface ResumeAnalysis {
 interface ResumeData {
     resumeId?: string;
     _id?: string;
+    pdfKey: string;
     resumeType: "Fresher" | "Experienced";
     personalInfo: {
         fullName: string,
