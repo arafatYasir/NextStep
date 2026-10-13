@@ -3,7 +3,6 @@ export const maxDuration = 60;
 import { requireAuth } from "@/src/helpers/requireAuth";
 import { mongodbIDRegex } from "@/src/helpers/validation";
 import { NextRequest, NextResponse } from "next/server";
-import chromium from "@sparticuz/chromium-min";
 import { connectToDatabase } from "@/src/database/mongodb";
 import resumeModel from "@/src/models/resume.model";
 import { resumePdfKey } from "@/src/helpers/pdf/key";
