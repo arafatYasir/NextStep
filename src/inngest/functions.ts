@@ -7,6 +7,8 @@ import { connectToDatabase } from "../database/mongodb";
 import resumeAnalysisModel from "../models/resumeAnalysis.model";
 import resumeModel from "../models/resume.model";
 import CoverLetter from "../models/coverLetter.model";
+import { resumePdfKey } from "../helpers/pdf/key";
+import { generateAndStoreResumePdf } from "../helpers/pdf/generateResumePdf";
 
 // Analyze Job Description
 export const analyzeJobDescription = inngest.createFunction(
@@ -205,7 +207,17 @@ export const buildResume = inngest.createFunction(
                     ...resumeJSONData2,
                     status: "completed"
                 })
-            })
+            });
+
+            // Send an event to start pdf generation in the background
+            try {
+                await step.sendEvent("trigger-pdf-generation", {
+                    name: "pdf/resume.generate",
+                    data: { resumeId }
+                });
+            } catch (e) {
+                console.error("Failed to queue resume PDF generation", e);
+            }
 
         } catch (e) {
             console.error("Failed to build resume (Inngest Function)", e);
@@ -299,3 +311,36 @@ export const generateCoverLetter = inngest.createFunction(
         }
     }
 );
+
+// Generate Resume PDF and Store
+export const generateResumePdf = inngest.createFunction(
+    {
+        id: "generate/resume-pdf",
+        concurrency: { limit: 3 },
+        retries: 2,
+        triggers: [{ event: "pdf/resume.generate" }]
+    },
+    async ({ event, step }) => {
+        const { resumeId } = event.data;
+
+        return step.run("render-and-store", async () => {
+            // Find the resume from database
+            await connectToDatabase();
+
+            const resume = await resumeModel.findById(resumeId).lean();
+            if (!resume) return { skipped: "not-found" };
+
+            // Create an unique key according to resume contents
+            const key = resumePdfKey(String(resume.userId), String(resume._id), resume);
+
+            // Already generated key for this content
+            if (resume.pdfKey === key) {
+                return { key, cached: true };
+            }
+
+            await generateAndStoreResumePdf(resume, key);
+
+            return { key, cached: false };
+        })
+    }
+)
