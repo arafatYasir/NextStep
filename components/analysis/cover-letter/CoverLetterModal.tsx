@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import Container from "@/components/Container";
-import { CoverLetter } from "@/types/global";
+import { COVER_LETTER_AI_STEPS } from "@/lib/aiSteps";
 import CoverLetterLoadingView from "./CoverLetterLoadingView";
 import CoverLetterView from "./CoverLetterView";
-import { useEffect } from "react";
+import { CoverLetter } from "@/types/global";
 import ModalCloseBtn from "@/components/ModalCloseBtn";
 
 interface CoverLetterModalProps {
@@ -14,15 +15,61 @@ interface CoverLetterModalProps {
 }
 
 const CoverLetterModal = ({ result, onClose, isLoading }: CoverLetterModalProps) => {
+    // States
+    const [activeStep, setActiveStep] = useState(0);
+    const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+
+    // Extra hooks
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+
     // Preventing background scrolling when modal is open
     useEffect(() => {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = "hidden";
 
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = "unset";
         };
     }, []);
-    
+
+    // Cycling through AI steps while loading
+    useEffect(() => {
+        if (!isLoading) {
+            // Mark all steps as completed when loading finishes
+            setCompletedSteps(COVER_LETTER_AI_STEPS.map((_, i) => i));
+            setActiveStep(COVER_LETTER_AI_STEPS.length);
+
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+            return;
+        }
+
+        // Reset on mount
+        let currentStep = 0;
+
+        const advanceStep = () => {
+            // If all steps are done but the "loading" is still going on, then keep running the last step until "loading" finishes otherwise move to next step
+            if (currentStep < COVER_LETTER_AI_STEPS.length - 1) {
+                const stepToComplete = currentStep;
+                setCompletedSteps(prev => [...prev, stepToComplete]);
+                currentStep++;
+
+                if (currentStep <= COVER_LETTER_AI_STEPS.length - 1) {
+                    setActiveStep(currentStep);
+                    timerRef.current = setTimeout(advanceStep, COVER_LETTER_AI_STEPS[currentStep].duration);
+                }
+            }
+        };
+
+        timerRef.current = setTimeout(advanceStep, COVER_LETTER_AI_STEPS[currentStep].duration);
+
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, [isLoading]);
+
     return (
         <div className="fixed inset-0 z-100 flex flex-col bg-[rgb(var(--bg-body))]">
             {/* ---- Header ---- */}
@@ -49,7 +96,7 @@ const CoverLetterModal = ({ result, onClose, isLoading }: CoverLetterModalProps)
             {/* ---- Content ---- */}
             <div className="flex-1 overflow-y-auto scrollbar-custom scroll-smooth">
                 {isLoading ? (
-                    <CoverLetterLoadingView />
+                    <CoverLetterLoadingView activeStep={activeStep} completedSteps={completedSteps} />
                 ) : (
                     <CoverLetterView result={result} />
                 )}

@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Container from "@/components/Container";
 import { RESUME_BUILDING_AI_STEPS } from "@/lib/aiSteps";
 import LoadingView from "./ResumeLoadingView";

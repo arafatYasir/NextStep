@@ -176,7 +176,7 @@ const ResumeBuilderForm = () => {
         else if (id === "description") sliceValue = 300;
 
         setCareerInfo(prev => {
-            const list = [...prev[name]] as any[];
+            const list = [...prev[name]];
             list[index] = {
                 ...list[index],
                 [id]: value.slice(0, sliceValue)
