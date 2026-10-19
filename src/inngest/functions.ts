@@ -7,8 +7,8 @@ import { connectToDatabase } from "../database/mongodb";
 import resumeAnalysisModel from "../models/resumeAnalysis.model";
 import resumeModel from "../models/resume.model";
 import CoverLetter from "../models/coverLetter.model";
-import { resumePdfKey } from "../helpers/pdf/key";
-import { generateAndStoreResumePdf } from "../helpers/pdf/generateResumePdf";
+import { coverLetterPdfKey, resumePdfKey } from "../helpers/pdf/key";
+import { generateAndStoreLetterPdf, generateAndStoreResumePdf } from "../helpers/pdf/generatePdfAndStore";
 
 // Analyze Job Description
 export const analyzeJobDescription = inngest.createFunction(
@@ -299,10 +299,20 @@ export const generateCoverLetter = inngest.createFunction(
                     status: "completed",
                 });
             });
+
+            // 5. Send an event to start pdf generation in the background
+            try {
+                await step.sendEvent("trigger-pdf-generation", {
+                    name: "pdf/letter.generate",
+                    data: { coverLetterId }
+                });
+            } catch (e) {
+                console.error("Failed to queue cover letter PDF generation", e);
+            }
         } catch (error) {
             console.error("Cover Letter Generation Failed (Inngest)", error);
 
-            // 5. Mark as failed
+            // 6. Mark as failed
             await step.run("update-cover-letter-failed", async () => {
                 await CoverLetter.findByIdAndUpdate(coverLetterId, {
                     status: "failed",
@@ -343,4 +353,38 @@ export const generateResumePdf = inngest.createFunction(
             return { key, cached: false };
         })
     }
-)
+);
+
+// Generate Cover Letter PDF and Store
+export const generateLetterPdf = inngest.createFunction(
+    {
+        id: "generate/letter-pdf",
+        concurrency: { limit: 3 },
+        retries: 2,
+        triggers: [{ event: "pdf/letter.generate" }]
+    },
+    async ({ event, step }) => {
+        const { coverLetterId } = event.data;
+
+        return step.run("render-and-store", async () => {
+            // Find the cover lette from database
+            await connectToDatabase();
+
+            const coverLetter = await CoverLetter.findById(coverLetterId).lean();
+
+            if (!coverLetter) return { skipped: "not-found" };
+
+            // Create an unique key according to cover letter contents
+            const key = coverLetterPdfKey(String(coverLetter.userId), String(coverLetter._id), coverLetter);
+
+            // Already generated key for this content
+            if (coverLetter.pdfKey === key) {
+                return { key, cached: true };
+            }
+
+            await generateAndStoreLetterPdf(coverLetter, key);
+
+            return { key, cached: false };
+        });
+    }
+);

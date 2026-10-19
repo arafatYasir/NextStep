@@ -62,7 +62,7 @@ const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
     }
 
     return (
-        <Container removeDefault={isPrintMode}>
+        <Container>
             <div className={cn(
                 !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4"
             )}>
@@ -74,31 +74,29 @@ const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
                     )}
                 >
                     {/* ---- Header: Role + Company + Meta ---- */}
-                    {!isPrintMode && (
-                        <div className="space-y-2 pb-5 border-b border-[rgb(var(--border-default))]">
-                            <h1 className="text-base xs:text-xl sm:text-2xl md:text-3xl font-bold font-heading tracking-tight text-foreground">
-                                {result.jobTitle}
-                            </h1>
-                            <h2 className="flex items-center gap-x-2 text-sm xs:text-base sm:text-lg font-semibold font-heading tracking-tight">
-                                <Building2 className="size-4 xs:size-4.5 shrink-0" />
-                                <span className="text-[rgb(var(--text-accent))]">{result.companyName}</span>
-                            </h2>
-                            <div className="flex items-center justify-between gap-y-1 flex-wrap text-[10px] xs:text-xs sm:text-sm font-sans font-medium pt-1">
-                                <p>
-                                    <span>Letter Tone: </span>
-                                    <span className="text-[rgb(var(--text-accent))]">
-                                        {result.letterTone}
-                                    </span>
-                                </p>
-                                <p>
-                                    <span>Letter Type: </span>
-                                    <span className="text-[rgb(var(--text-accent))]">
-                                        {result.letterType}
-                                    </span>
-                                </p>
-                            </div>
+                    <div className="space-y-2 pb-5 border-b border-[rgb(var(--border-default))]">
+                        <h1 className="text-base xs:text-xl sm:text-2xl md:text-3xl font-bold font-heading tracking-tight text-foreground">
+                            {result.jobTitle}
+                        </h1>
+                        <h2 className="flex items-center gap-x-2 text-sm xs:text-base sm:text-lg font-semibold font-heading tracking-tight">
+                            <Building2 className="size-4 xs:size-4.5 shrink-0" />
+                            <span className="text-[rgb(var(--text-accent))]">{result.companyName}</span>
+                        </h2>
+                        <div className="flex items-center justify-between gap-y-1 flex-wrap text-[10px] xs:text-xs sm:text-sm font-sans font-medium pt-1">
+                            <p>
+                                <span>Letter Tone: </span>
+                                <span className="text-[rgb(var(--text-accent))]">
+                                    {result.letterTone}
+                                </span>
+                            </p>
+                            <p>
+                                <span>Letter Type: </span>
+                                <span className="text-[rgb(var(--text-accent))]">
+                                    {result.letterType}
+                                </span>
+                            </p>
                         </div>
-                    )}
+                    </div>
 
                     {/* ---- Letter Body ---- */}
                     <div className="space-y-4 font-sans text-sm text-[rgb(var(--text-secondary))] leading-relaxed">

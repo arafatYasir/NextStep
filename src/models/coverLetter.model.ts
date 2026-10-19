@@ -7,6 +7,10 @@ const coverLetterSchema = new Schema(
             required: true,
             trim: true
         },
+        pdfKey: {
+            type: String,
+            default: ""
+        },
         jobTitle: {
             type: String,
             required: true,

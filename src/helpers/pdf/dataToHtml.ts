@@ -1,51 +1,51 @@
-import type { ResumeData } from "@/types/global";
+import type { CoverLetter, ResumeData } from "@/types/global";
 
 const link = (url: unknown, text: string) =>
-    typeof url === "string" && /^https?:\/\//i.test(url)
-        ? `<a href="${url}">${text}</a>`
-        : "";
+  typeof url === "string" && /^https?:\/\//i.test(url)
+    ? `<a href="${url}">${text}</a>`
+    : "";
 
 const section = (title: string, body: string) =>
-    `<section><h3>${title}</h3>${body}</section>`;
+  `<section><h3>${title}</h3>${body}</section>`;
 
 const skillRow = (label: string, items?: string[]) =>
-    items?.length
-        ? `<p class="skill"><span class="skill-label">${label}:</span><span class="skill-values"> ${items.join(", ")}</span></p>`
-        : "";
+  items?.length
+    ? `<p class="skill"><span class="skill-label">${label}:</span><span class="skill-values"> ${items.join(", ")}</span></p>`
+    : "";
 
 const bullets = (items?: string[]) =>
-    items?.length ? `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>` : "";
+  items?.length ? `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>` : "";
 
 export function buildResumeHtml(r: ResumeData): string {
-    const p = r.personalInfo;
+  const p = r.personalInfo;
 
-    const experience = r.experience?.length
-        ? section("Work Experience", `<div class="item-group">${r.experience.map((e) => `
+  const experience = r.experience?.length
+    ? section("Work Experience", `<div class="item-group">${r.experience.map((e) => `
         <div class="item bordered">
           <div class="row"><span class="item-title">${e.jobTitle}</span><span class="muted">${e.duration}</span></div>
           <p class="company">${e.company}</p>
           ${bullets(e.responsibilities)}
         </div>`).join("")}</div>`)
-        : "";
+    : "";
 
-    const projects = r.projects?.length
-        ? section("Projects", `<div class="item-group">${r.projects.map((pr) => `
+  const projects = r.projects?.length
+    ? section("Projects", `<div class="item-group">${r.projects.map((pr) => `
         <div class="item bordered">
           <div class="row" style="justify-content:flex-start;gap:8px"><span class="item-title">${pr.projectName}</span>${pr.link ? `<a href="${pr.link}" class="view-link">View</a>` : ""}</div>
           <div class="tech-stack">${(pr.techStack ?? []).map((t) => `<span class="tech-item">${t}</span>`).join("")}</div>
           ${bullets(pr.highlights)}
         </div>`).join("")}</div>`)
-        : "";
+    : "";
 
-    const education = r.education?.length
-        ? section("Education", `<div class="item-group">${r.education.map((ed) => `
+  const education = r.education?.length
+    ? section("Education", `<div class="item-group">${r.education.map((ed) => `
         <div class="item edu-row">
           <div><span class="item-title" style="display:block">${ed.degree}</span><p class="edu-institution">${ed.institution}</p></div>
           <span class="muted">${ed.duration}</span>
         </div>`).join("")}</div>`)
-        : "";
+    : "";
 
-    return `<!doctype html><html><head><meta charset="utf-8">
+  return `<!doctype html><html><head><meta charset="utf-8">
 <style>
     @page { size: A4; margin: 10mm; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -102,12 +102,101 @@ export function buildResumeHtml(r: ResumeData): string {
       <div class="links">${link(p.github, "GitHub")}${link(p.linkedin, "LinkedIn")}</div>
     </header>
     ${section("Professional Summary", `<p class="summary">${r.summary}</p>`)}
-    ${section("Skills", `<div class="skills-group">${
-        skillRow("Languages", r.skills?.languages) +
-        skillRow("Frameworks &amp; Libraries", r.skills?.frameworksAndLibraries) +
-        skillRow("Tools &amp; Platforms", r.skills?.toolsAndPlatforms) +
-        skillRow("Soft Skills", r.skills?.softSkills)
+    ${section("Skills", `<div class="skills-group">${skillRow("Languages", r.skills?.languages) +
+    skillRow("Frameworks &amp; Libraries", r.skills?.frameworksAndLibraries) +
+    skillRow("Tools &amp; Platforms", r.skills?.toolsAndPlatforms) +
+    skillRow("Soft Skills", r.skills?.softSkills)
     }</div>`)}
     ${experience}${projects}${education}
   </body></html>`;
+}
+
+export function buildLetterHtml(
+  cl: CoverLetter
+): string {
+  const d = new Date(cl.createdAt).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+
+  const date = d ? `<p>${d}</p>` : "";
+
+  const recipient = cl.companyName
+    ? `<div><p class="recipient-title">Hiring Manager</p><p>${cl.companyName}</p></div>`
+    : "";
+  
+  const greeting = cl.coverLetter.greeting ? `<p class="greeting">${cl.coverLetter.greeting}</p>` : "";
+
+  const opening = cl.coverLetter.opening ? `<p>${cl.coverLetter.opening}</p>` : "";
+
+  const paragraphs = (cl.coverLetter.paragraphs ?? [])
+    .filter((p) => p && p.trim().length > 0)
+    .map((p) => `<p>${p}</p>`);
+  
+  const closing = cl.coverLetter.closing ? `<p>${cl.coverLetter.closing}</p>` : "";
+
+  const signature = cl.coverLetter.signature
+    ? `<div class="signature-block">
+        <p class="signature-closing">Sincerely,</p>
+        <p class="signature-name">${cl.coverLetter.signature}</p>
+      </div>`
+    : "";
+
+  const bodyItems = [
+    date,
+    recipient,
+    greeting,
+    opening,
+    ...paragraphs,
+    closing,
+  ].filter(Boolean);
+
+  return `<!doctype html><html><head><meta charset="utf-8">
+<style>
+    @page { size: A4; margin: 10mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font: 12.5px/1.5 system-ui, -apple-system, "Segoe UI", Arial, sans-serif; line-height: 1.5; color: #0F172A; }
+
+    /* ---- Letter Body ---- */
+    .letter-body {
+        font-size: 14px;
+        color: #475569;
+        line-height: 1.625;
+    }
+    .letter-body > * + * {
+        margin-top: 16px;
+    }
+    .recipient-title {
+        color: #0F172A;
+        font-weight: 500;
+    }
+    .greeting {
+        color: #0F172A;
+        font-weight: 500;
+    }
+
+    /* ---- Signature ---- */
+    .signature-block {
+        margin-top: 24px;
+        padding-top: 16px;
+        font-size: 14px;
+    }
+    .signature-block > * + * {
+        margin-top: 2px;
+    }
+    .signature-closing {
+        color: #475569;
+    }
+    .signature-name {
+        color: #0F172A;
+        font-weight: 600;
+        font-size: 16px;
+    }
+</style></head><body>
+    <div class="letter-body">
+      ${bodyItems.join("\n      ")}
+    </div>
+    ${signature}
+</body></html>`;
 }

@@ -186,6 +186,7 @@ interface CareerInfoCount {
 export interface CoverLetter {
     _id: string;
     userId: string;
+    pdfKey: string;
     jobTitle: string;
     companyName: string;
     hiringManagerName: string;
