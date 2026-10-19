@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/inngest": ["./node_modules/@sparticuz/chromium/bin/**"],
     "/api/resumes/[resumeId]/download": ["./node_modules/@sparticuz/chromium/bin/**"],
+    "/api/cover-letters/[coverLetterId]/download": ["./node_modules/@sparticuz/chromium/bin/**"]
   },
 };
 
