@@ -15,7 +15,6 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@reduxjs/toolkit": "^2.12.0",
     "@sparticuz/chromium": "^149.0.0",
-    "@sparticuz/chromium-min": "^149.0.0",
     "@stripe/stripe-js": "^9.8.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.87.1",
