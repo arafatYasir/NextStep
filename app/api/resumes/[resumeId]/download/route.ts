@@ -7,7 +7,7 @@ import { connectToDatabase } from "@/src/database/mongodb";
 import resumeModel from "@/src/models/resume.model";
 import { resumePdfKey } from "@/src/helpers/pdf/key";
 import { pdfStore } from "@/src/helpers/pdf/store";
-import { generateAndStoreResumePdf } from "@/src/helpers/pdf/generateResumePdf";
+import { generateAndStoreResumePdf } from "@/src/helpers/pdf/generatePdfAndStore";
 
 const inflight = new Map<string, Promise<Uint8Array>>();
 

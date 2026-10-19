@@ -1,4 +1,4 @@
-import { ResumeData } from "@/types/global";
+import { CoverLetter, ResumeData } from "@/types/global";
 import { createHash } from "node:crypto";
 
 export const RESUME_TEMPLATE_VERSION = "1";
@@ -38,4 +38,23 @@ export function resumePdfKey(
         .slice(0, 16);
 
     return `resume-pdfs/${userId}/${resumeId}-${hash}.pdf`;
+}
+
+export function coverLetterPdfKey(
+    userId: string,
+    coverLetterId: string,
+    coverLetter: CoverLetter["coverLetter"]
+): string {
+    const content: Record<string, unknown> = {};
+
+    (Object.keys(coverLetter) as Array<keyof typeof coverLetter>).filter(k => coverLetter[k] !== undefined).sort().forEach(k => {
+        content[k] = coverLetter[k];
+    });
+
+    const hash = createHash("sha256")
+        .update(`${JSON.stringify(content)}`)
+        .digest("hex")
+        .slice(0, 16);
+
+    return `coverLetter-pdfs/${userId}/${coverLetterId}-${hash}.pdf`;
 }

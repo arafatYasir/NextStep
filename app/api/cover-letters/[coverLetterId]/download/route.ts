@@ -3,7 +3,13 @@ export const maxDuration = 60;
 import { requireAuth } from "@/src/helpers/requireAuth";
 import { mongodbIDRegex } from "@/src/helpers/validation";
 import { NextRequest, NextResponse } from "next/server";
-import chromium from "@sparticuz/chromium-min";
+import { connectToDatabase } from "@/src/database/mongodb";
+import CoverLetter from "@/src/models/coverLetter.model";
+import { coverLetterPdfKey } from "@/src/helpers/pdf/key";
+import { pdfStore } from "@/src/helpers/pdf/store";
+import { generateAndStoreLetterPdf } from "@/src/helpers/pdf/generatePdfAndStore";
+
+const inflight = new Map<string, Promise<Uint8Array>>();
 
 export async function GET(
     req: NextRequest,
@@ -17,67 +23,53 @@ export async function GET(
         // get cover letter id
         const { coverLetterId } = await params;
 
-        // Validate cove letter id ID
+        // Validate cove letter id
         if (!mongodbIDRegex.test(coverLetterId)) {
             return NextResponse.json({ message: "Invalid cover letter ID" }, { status: 400 });
         }
 
-        // Build print URL
-        const baseUrl = req.nextUrl.origin;
-        const url = `${baseUrl}/letter/print/${coverLetterId}`;
+        // Find the cover letter document from database
+        await connectToDatabase();
 
-        // Launch Chromium
-        const browser = await (process.env.NODE_ENV === "development"
-            ? (await import("puppeteer")).default.launch({
-                args: ["--no-sandbox", "--disable-setuid-sandbox"],
-                headless: true,
-            })
-            : (await import("puppeteer-core")).default.launch({
-                args: chromium.args,
-                defaultViewport: { width: 1280, height: 720 },
-                executablePath: await chromium.executablePath("https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.x64.tar"),
-                headless: true,
-            })
-        );
+        const coverLetter = await CoverLetter.findOne({
+            _id: coverLetterId,
+            userId: auth.user.id
+        }).lean();
 
-        try {
-            const page = await browser.newPage();
+        if (!coverLetter) {
+            return NextResponse.json({ message: "Cover letter not found" }, { status: 404 });
+        }
 
-            // Passing session cookies so headless Chromium can authenticate on the print page
-            const cookieHeader = req.headers.get("cookie");
-            if (cookieHeader) {
-                await page.setExtraHTTPHeaders({
-                    cookie: cookieHeader,
-                });
+        // Generate an unique key for that cover letter
+        const key = coverLetterPdfKey(String(coverLetter.userId), coverLetterId, coverLetter);
+
+        // If the stored pdf matches the current content
+        let pdf: Uint8Array | null = null;
+        if (coverLetter.pdfKey === key) {
+            pdf = await pdfStore.get(key).catch(() => null);
+        }
+
+        // If not found then generate on demand
+        if (!pdf) {
+            let job = inflight.get(key);
+
+            if (!job) {
+                job = generateAndStoreLetterPdf(coverLetter, key).finally(() => inflight.delete(key));
+
+                inflight.set(key, job);
             }
 
-            await page.goto(url, {
-                waitUntil: "networkidle0",
-                timeout: 60000,
-            });
-
-            // Wait for full render (fonts, layout)
-            await page.evaluateHandle("document.fonts.ready");
-
-            const pdf = await page.pdf({
-                format: "A4",
-                margin: { top: "10mm", bottom: "10mm", left: "10mm", right: "10mm" },
-            });
-
-            // Return binary PDF
-            return new NextResponse(Buffer.from(pdf), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/pdf",
-                    "Content-Disposition": `attachment; filename="coverLetter-${coverLetterId}.pdf"`,
-                    "Cache-Control": "private, no-cache, no-store, must-revalidate",
-                },
-            });
-        } catch (e) {
-            throw e;
-        } finally {
-            await browser.close();
+            pdf = await job;
         }
+
+        return new NextResponse(pdf as BodyInit, {
+            status: 200,
+            headers: {
+                "Content-Type": "application/pdf",
+                "Content-Disposition": `attachment; filename="coverLetter-${coverLetterId}.pdf"`,
+                "Cache-Control": "private, no-store",
+            },
+        });
     }
     catch (e) {
         console.error("PDF generation failed:", e);
