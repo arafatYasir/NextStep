@@ -13,10 +13,9 @@ import { toast } from "sonner";
 
 interface Props {
     result: CoverLetter;
-    isPrintMode?: boolean;
 }
 
-const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
+const CoverLetterView = ({ result }: Props) => {
     // States
     const [loading, setLoading] = useState(false);
 
@@ -64,13 +63,13 @@ const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
     return (
         <Container>
             <div className={cn(
-                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4"
+                "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4"
             )}>
                 {/* ---- Letter Document ---- */}
                 <div
                     className={cn(
                         "w-full space-y-6",
-                        !isPrintMode && "max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500"
+                        "max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500"
                     )}
                 >
                     {/* ---- Header: Role + Company + Meta ---- */}
@@ -132,40 +131,38 @@ const CoverLetterView = ({ result, isPrintMode = false }: Props) => {
                 </div>
 
                 {/* ---- Options ---- */}
-                {!isPrintMode && (
-                    <div className="lg:sticky top-0 flex lg:flex-col items-start gap-2">
-                        {/* ---- Copy Btn ---- */}
-                        <CopyBtn copyContent={copyContent} />
+                <div className="lg:sticky top-0 flex lg:flex-col items-start gap-2">
+                    {/* ---- Copy Btn ---- */}
+                    <CopyBtn copyContent={copyContent} />
 
-                        {/* ---- Edit Btn ---- */}
-                        <Button
-                            type="button"
-                            title="Edit"
-                            variant="secondary"
-                            className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
-                        >
-                            <Pen className="size-3.5 xs:size-4.5" />
-                        </Button>
+                    {/* ---- Edit Btn ---- */}
+                    <Button
+                        type="button"
+                        title="Edit"
+                        variant="secondary"
+                        className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
+                    >
+                        <Pen className="size-3.5 xs:size-4.5" />
+                    </Button>
 
-                        {/* ---- Download Btn ---- */}
-                        <Button
-                            type="button"
-                            onClick={handleDownloadCoverLetter}
-                            disabled={loading}
-                            title="Download"
-                            variant="secondary"
-                            className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
-                        >
-                            {
-                                loading ? (
-                                    <Spinner />
-                                ) : (
-                                    <Download className="size-4 xs:size-4.5" />
-                                )
-                            }
-                        </Button>
-                    </div>
-                )}
+                    {/* ---- Download Btn ---- */}
+                    <Button
+                        type="button"
+                        onClick={handleDownloadCoverLetter}
+                        disabled={loading}
+                        title="Download"
+                        variant="secondary"
+                        className="has-[>svg]:p-2 text-foreground/80 hover:text-foreground active:text-foreground transition-all active:scale-95 border border-[rgb(var(--border-default))]"
+                    >
+                        {
+                            loading ? (
+                                <Spinner />
+                            ) : (
+                                <Download className="size-4 xs:size-4.5" />
+                            )
+                        }
+                    </Button>
+                </div>
             </div>
         </Container>
     );
