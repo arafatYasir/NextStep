@@ -49,7 +49,7 @@ export function buildResumeHtml(r: ResumeData): string {
   return `<!doctype html><html><head><meta charset="utf-8">
 <style>
     ${getFontFaceCss()}
-    @page { size: A4; margin: 10mm; }
+    @page { size: A4; margin: 0.5in; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: ${PDF_FONT_SANS}; font-size: 12.5px; line-height: 1.5; font-weight: 400; color: #0F172A; }
 
