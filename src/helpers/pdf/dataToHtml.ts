@@ -156,13 +156,16 @@ export function buildLetterHtml(
 
   return `<!doctype html><html><head><meta charset="utf-8">
 <style>
-    @page { size: A4; margin: 10mm; }
+    ${getFontFaceCss()}
+    @page { size: A4; margin: 0.5in; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font: 12.5px/1.5 system-ui, -apple-system, "Segoe UI", Arial, sans-serif; line-height: 1.5; color: #0F172A; }
+    body { font-family: ${PDF_FONT_SANS}; font-size: 14px; line-height: 1.625; font-weight: 400; color: #0F172A; }
 
     /* ---- Letter Body ---- */
     .letter-body {
+        font-family: ${PDF_FONT_SANS};
         font-size: 14px;
+        font-weight: 400;
         color: #475569;
         line-height: 1.625;
     }
@@ -170,30 +173,39 @@ export function buildLetterHtml(
         margin-top: 16px;
     }
     .recipient-title {
+        font-family: ${PDF_FONT_SANS};
         color: #0F172A;
         font-weight: 500;
     }
     .greeting {
+        font-family: ${PDF_FONT_SANS};
         color: #0F172A;
         font-weight: 500;
     }
 
     /* ---- Signature ---- */
     .signature-block {
+        font-family: ${PDF_FONT_SANS};
         margin-top: 24px;
         padding-top: 16px;
         font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5;
     }
     .signature-block > * + * {
         margin-top: 2px;
     }
     .signature-closing {
+        font-family: ${PDF_FONT_SANS};
+        font-weight: 400;
         color: #475569;
     }
     .signature-name {
+        font-family: ${PDF_FONT_HEADING};
         color: #0F172A;
         font-weight: 600;
         font-size: 16px;
+        line-height: 1.5;
     }
 </style></head><body>
     <div class="letter-body">
