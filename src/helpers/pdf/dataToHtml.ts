@@ -1,4 +1,5 @@
 import type { CoverLetter, ResumeData } from "@/types/global";
+import { getFontFaceCss, PDF_FONT_HEADING, PDF_FONT_SANS } from "./fonts";
 
 const link = (url: unknown, text: string) =>
   typeof url === "string" && /^https?:\/\//i.test(url)
@@ -47,53 +48,54 @@ export function buildResumeHtml(r: ResumeData): string {
 
   return `<!doctype html><html><head><meta charset="utf-8">
 <style>
+    ${getFontFaceCss()}
     @page { size: A4; margin: 10mm; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font: 12.5px/1.5 system-ui, -apple-system, "Segoe UI", Arial, sans-serif; line-height: 1.5; color: #0F172A; }
+    body { font-family: ${PDF_FONT_SANS}; font-size: 12.5px; line-height: 1.5; font-weight: 400; color: #0F172A; }
 
     /* ---- Header ---- */
     header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid #D2D2D2; }
     header > * + * { margin-top: 4px; }
-    h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.025em; color: #0F172A; }
-    h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.025em; color: #4F46E5; margin-top: 4px; }
-    .contact { font-size: 13px; color: #475569; margin-top: 4px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    h1 { font-family: ${PDF_FONT_HEADING}; font-size: 30px; font-weight: 700; line-height: 1.2; letter-spacing: -0.025em; color: #0F172A; }
+    h2 { font-family: ${PDF_FONT_HEADING}; font-size: 18px; font-weight: 600; line-height: 1.55; letter-spacing: -0.025em; color: #4F46E5; margin-top: 4px; }
+    .contact { font-family: ${PDF_FONT_SANS}; font-size: 13px; font-weight: 400; line-height: 1.5; color: #475569; margin-top: 4px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
     .contact .dot { color: #94A3B8; }
-    .links { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; margin-top: 4px; }
+    .links { font-family: ${PDF_FONT_SANS}; font-size: 14px; font-weight: 400; line-height: 1.43; display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 4px; }
     a { color: #4F46E5; text-decoration: none; }
 
     /* ---- Sections ---- */
     section { margin-top: 12px; }
-    h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.025em; color: #0F172A; margin-bottom: 0; }
+    h3 { font-family: ${PDF_FONT_HEADING}; font-size: 16px; font-weight: 700; line-height: 1.5; letter-spacing: -0.025em; color: #0F172A; margin-bottom: 0; }
 
     /* ---- Summary ---- */
-    .summary { font-size: 14px; color: #475569; line-height: 1.625; }
+    .summary { font-family: ${PDF_FONT_SANS}; font-size: 14px; font-weight: 400; color: #475569; line-height: 1.625; }
 
     /* ---- Skills ---- */
     .skills-group > * + * { margin-top: 4px; }
-    .skill { font-size: 13px; line-height: 1.5; }
-    .skill-label { font-weight: 600; color: #0F172A; }
-    .skill-values { color: #475569; }
+    .skill { font-family: ${PDF_FONT_SANS}; font-size: 13px; line-height: 1.5; }
+    .skill-label { font-family: ${PDF_FONT_HEADING}; font-weight: 600; color: #0F172A; }
+    .skill-values { font-family: ${PDF_FONT_SANS}; font-weight: 400; color: #475569; }
 
     /* ---- Items (Experience / Projects / Education) ---- */
     .item-group > * + * { margin-top: 10px; }
     .bordered { padding-left: 16px; border-left: 1px solid rgba(79, 70, 229, 0.4); }
     .bordered > * + * { margin-top: 6px; }
     .row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .item-title { font-size: 14px; font-weight: 600; color: #0F172A; }
-    .company { font-size: 14px; color: #4F46E5; font-weight: 500; }
-    .muted { color: #64748B; font-size: 12px; white-space: nowrap; }
+    .item-title { font-family: ${PDF_FONT_HEADING}; font-size: 14px; font-weight: 600; line-height: 1.43; color: #0F172A; }
+    .company { font-family: ${PDF_FONT_SANS}; font-size: 14px; font-weight: 500; line-height: 1.43; color: #4F46E5; }
+    .muted { font-family: ${PDF_FONT_SANS}; font-size: 12px; font-weight: 400; line-height: 1.333; color: #64748B; white-space: nowrap; }
     ul { list-style-type: disc; list-style-position: inside; }
     ul > * + * { margin-top: 4px; }
-    li { font-size: 14px; color: #475569; }
+    li { font-family: ${PDF_FONT_SANS}; font-size: 14px; font-weight: 400; line-height: 1.5; color: #475569; }
 
     /* ---- Projects specifics ---- */
-    .view-link { font-size: 12px; color: #4F46E5; }
+    .view-link { font-family: ${PDF_FONT_SANS}; font-size: 12px; font-weight: 400; line-height: 1.333; color: #4F46E5; }
     .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tech-item { font-size: 12px; color: #4F46E5; font-weight: 500; }
+    .tech-item { font-family: ${PDF_FONT_SANS}; font-size: 12px; font-weight: 500; line-height: 1.333; color: #4F46E5; }
 
     /* ---- Education specifics ---- */
     .edu-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
-    .edu-institution { font-size: 13px; color: #475569; }
+    .edu-institution { font-family: ${PDF_FONT_SANS}; font-size: 13px; font-weight: 400; line-height: 1.5; color: #475569; }
   </style></head><body>
     <header>
       <h1>${p.fullName}</h1>

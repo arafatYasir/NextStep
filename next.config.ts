@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+const PDF_ASSETS = [
+  "./node_modules/@sparticuz/chromium/bin/**",
+  "./src/helpers/pdf/font/**",
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
@@ -9,9 +14,9 @@ const nextConfig: NextConfig = {
     "puppeteer-core",
   ],
   outputFileTracingIncludes: {
-    "/api/inngest": ["./node_modules/@sparticuz/chromium/bin/**"],
-    "/api/resumes/[resumeId]/download": ["./node_modules/@sparticuz/chromium/bin/**"],
-    "/api/cover-letters/[coverLetterId]/download": ["./node_modules/@sparticuz/chromium/bin/**"]
+    "/api/inngest": PDF_ASSETS,
+    "/api/resumes/[resumeId]/download": PDF_ASSETS,
+    "/api/cover-letters/[coverLetterId]/download": PDF_ASSETS
   },
 };
 
