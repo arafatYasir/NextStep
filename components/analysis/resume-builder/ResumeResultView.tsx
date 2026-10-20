@@ -13,10 +13,9 @@ import { ResumeData } from "@/types/global";
 
 interface Props {
     result: ResumeData;
-    isPrintMode?: boolean
 }
 
-const ResumeResultView = ({ result, isPrintMode = false }: Props) => {
+const ResumeResultView = ({ result }: Props) => {
     // States
     const [loading, setLoading] = useState(false);
 
@@ -55,13 +54,13 @@ const ResumeResultView = ({ result, isPrintMode = false }: Props) => {
     }
 
     return (
-        <Container removeDefault={isPrintMode}>
+        <Container>
             <div className={cn(
-                !isPrintMode && "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4"
+                "py-8 lg:py-12 flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-4"
             )}>
                 {/* ---- Resume ---- */}
                 <div className={cn("w-full space-y-3",
-                    !isPrintMode && "max-w-3xl bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500"
+                    "max-w-200 bg-card rounded-xl shadow-xl border border-[rgb(var(--border-default))] p-5 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500"
                 )}>
                     {/* ---- Header: Name + Title + Contact ---- */}
                     <div className="text-center space-y-1 pb-3 border-b border-[rgb(var(--border-default))]">
@@ -195,7 +194,7 @@ const ResumeResultView = ({ result, isPrintMode = false }: Props) => {
 
                 {/* ---- Download Button ---- */}
                 <div className={cn(
-                    isPrintMode ? "hidden" : "block lg:sticky top-0"
+                    "block lg:sticky top-0"
                 )}>
                     <Button
                         variant="outline"
